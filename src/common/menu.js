@@ -135,21 +135,21 @@ const menuData = [
     ],
   },
   {
-    name: '账户',
+    name: 'Account',
     icon: 'user',
     path: 'user',
     authority: 'guest',
     children: [
       {
-        name: '登录',
+        name: 'Sign In',
         path: 'login',
       },
       {
-        name: '注册',
+        name: 'Register',
         path: 'register',
       },
       {
-        name: '注册结果',
+        name: 'Registration Succeed',
         path: 'register-result',
       },
     ],
