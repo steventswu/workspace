@@ -8,6 +8,7 @@ import styles from './Login.less';
 @connect(({ login, loading }) => ({
   login,
   submitting: loading.effects['login/login'],
+  googleSubmitting: loading.effects['login/googleLogin'],
 }))
 export default class LoginPage extends Component {
   state = {
@@ -30,6 +31,17 @@ export default class LoginPage extends Component {
         },
       });
     }
+  };
+
+  handleGoogleLogin = values => {
+    const { type } = this.state;
+    this.props.dispatch({
+      type: 'login/googleLogin',
+      payload: {
+        ...values,
+        type,
+      },
+    });
   };
 
   changeAutoLogin = e => {
@@ -64,8 +76,8 @@ export default class LoginPage extends Component {
           </div>
           <Login.Submit loading={submitting}>Submit</Login.Submit>
           <div className={styles.other}>
-            <Icon className={styles.icon} type="facebook" />
-            <Icon className={styles.icon} type="google" />
+            <Icon className={styles.icon} type="facebook" onClick={this.handleGoogleLogin} />
+            <Icon className={styles.icon} type="google" onClick={this.handleGoogleLogin} />
             <Link className={styles.register} to="/user/register">
               Register
             </Link>

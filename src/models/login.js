@@ -1,5 +1,6 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin } from '../services/api';
+import { fakeAccountLogin, getJWTFromGoogleToken } from '../services/api';
+import Google from '../services/Auth/Google';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
 
@@ -42,6 +43,10 @@ export default {
         reloadAuthorized();
         yield put(routerRedux.push('/user/login'));
       }
+    },
+    *googleLogin({ payload }, { call }) {
+      const response1 = yield call(Google.getGoogleToken, payload);
+      const response2 = yield call(getJWTFromGoogleToken, payload);
     },
   },
 

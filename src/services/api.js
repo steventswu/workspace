@@ -77,3 +77,10 @@ export async function fakeRegister(params) {
 export async function queryNotices() {
   return request('/api/notices');
 }
+
+export async function getJWTFromGoogleToken(params) {
+  return request('/api/google_token', {
+    method: 'POST',
+    body: params,
+  });
+}
