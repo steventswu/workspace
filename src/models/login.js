@@ -46,7 +46,7 @@ export default {
     },
     *googleLogin({ payload }, { call }) {
       const response1 = yield call(Google.getGoogleToken, payload);
-      const response2 = yield call(getJWTFromGoogleToken, payload);
+      const response2 = yield call(getJWTFromGoogleToken, response1);
     },
   },
 

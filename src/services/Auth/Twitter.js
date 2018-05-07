@@ -1,4 +1,5 @@
 import Codebird from 'codebird';
+import QueryString from 'query-string';
 
 class Twitter {
   constructor() {
@@ -11,39 +12,49 @@ class Twitter {
   }
 
   async getTwitterRequestToken() {
-    this.cb.__call('oauth_requestToken', { oauth_callback: 'oob' }, (reply, rate, err) => {
-      if (err) {
-        console.log('error response or timeout exceeded' + err.error);
-      }
-      if (reply) {
-        // stores it
-        this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
-        this.oauth_token = reply.oauth_token;
-        this.oauth_token_secret = reply.oauth_token_secret;
-        // gets the authorize screen URL
-        this.cb.__call('oauth_authorize', {}, auth_url => {
-          window.codebird_auth = window.open(auth_url, 'tixguru', 'height=500,width=800');
-        });
-      }
-    });
-  }
-
-  getTwitterAccessToken(verifier) {
-    return new Promise((resolve, reject) => {
-      this.cb.__call('oauth_accessToken', { oauth_verifier: verifier }, (reply, rate, err) => {
+    this.cb.__call(
+      'oauth_requestToken',
+      { oauth_callback: 'http://localhost:3000/login' },
+      (reply, rate, err) => {
         if (err) {
           console.log('error response or timeout exceeded' + err.error);
         }
         if (reply) {
-          // store the authenticated token, which may be different from the request token (!)
+          localStorage.setItem('oauth_token', reply.oauth_token);
+          localStorage.setItem('oauth_token_secret', reply.oauth_token_secret);
           this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
-
-          resolve(reply);
+          this.cb.__call('oauth_authorize', {}, auth_url => {
+            window.location = auth_url;
+          });
         }
+      }
+    );
+  }
 
-        // if you need to persist the login after page reload,
-        // consider storing the token in a cookie or HTML5 local storage
-      });
+  getTwitterAccessToken(verifier) {
+    return new Promise((resolve, reject) => {
+      const parsed = QueryString.parse(window.location.search);
+
+      this.cb.setToken(
+        localStorage.getItem('oauth_token'),
+        localStorage.getItem('oauth_token_secret')
+      );
+
+      this.cb.__call(
+        'oauth_accessToken',
+        {
+          oauth_verifier: parsed.oauth_verifier,
+        },
+        (reply, rate, err) => {
+          if (err) {
+            console.log('error response or timeout exceeded' + err.error);
+          }
+          if (reply) {
+            this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+            resolve(reply);
+          }
+        }
+      );
     });
   }
 }
