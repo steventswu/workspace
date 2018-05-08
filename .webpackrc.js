@@ -2,9 +2,7 @@ const path = require('path');
 
 export default {
   entry: 'src/index.js',
-  extraBabelPlugins: [
-    ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
-  ],
+  extraBabelPlugins: [['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }]],
   env: {
     development: {
       extraBabelPlugins: ['dva-hmr'],
@@ -21,4 +19,11 @@ export default {
   disableDynamicImport: true,
   publicPath: '/',
   hash: true,
+  proxy: {
+    '/auth': {
+      target: 'http://35.229.194.27/api',
+      changeOrigin: true,
+      pathRewrite: { '^/auth': '' },
+    },
+  },
 };

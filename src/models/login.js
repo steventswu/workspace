@@ -1,15 +1,15 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin, getJWTFromGoogleToken } from '../services/api';
+import { fakeAccountLogin, getAuthInfo } from '../services/api';
 import Google from '../services/Auth/Google';
+import Facebook from '../services/Auth/Facebook';
+import Twitter from '../services/Auth/Twitter';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
 
 export default {
   namespace: 'login',
 
-  state: {
-    status: undefined,
-  },
+  state: {},
 
   effects: {
     *login({ payload }, { call, put }) {
@@ -44,19 +44,61 @@ export default {
         yield put(routerRedux.push('/user/login'));
       }
     },
-    *googleLogin({ payload }, { call }) {
-      const response1 = yield call(Google.getGoogleToken, payload);
-      const response2 = yield call(getJWTFromGoogleToken, response1);
+    *google(_, { call, put }) {
+      try {
+        const info = yield call(Google.getGoogleToken);
+        const result = yield call(getAuthInfo, 'google', info);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: result,
+        });
+        reloadAuthorized();
+        yield put(routerRedux.replace('/'));
+      } catch (error) {
+        console.warn(error);
+      }
+    },
+    *facebook(_, { call, put }) {
+      try {
+        const info = yield call(Facebook.getFBToken);
+        const result = yield call(getAuthInfo, 'facebook', info);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: result,
+        });
+        reloadAuthorized();
+        yield put(routerRedux.replace('/'));
+      } catch (e) {
+        console.warn(e);
+      }
+    },
+    *twitterRedirect(_, { call }) {
+      const authUrl = yield call(Twitter.getRequestToken, window.location.origin);
+      window.location = authUrl;
+    },
+    *twitter(_, { call, put }) {
+      try {
+        const info = yield call(Twitter.getAccessToken, window.location.search);
+        const result = yield call(getAuthInfo, 'twitter', info);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: result,
+        });
+        reloadAuthorized();
+        // force redirect the whole page to eliminate query strings
+        window.location.href = window.location.origin;
+      } catch (e) {
+        console.warn(e);
+      }
     },
   },
 
   reducers: {
-    changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+    changeLoginStatus(_, { payload }) {
+      setAuthority(payload.currentAuthority || 'user');
       return {
-        ...state,
-        status: payload.status,
-        type: payload.type,
+        memberId: payload.memberId,
+        jwt: payload.jwt,
       };
     },
   },

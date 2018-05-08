@@ -1,6 +1,6 @@
 class Facebook {
-  constructor(props) {
-    window.fbAsyncInit = function() {
+  constructor() {
+    window.fbAsyncInit = function fbAsyncInit() {
       window.FB.init({
         appId: 2098112697085130,
         cookie: false, // enable cookies to allow the server to access
@@ -8,7 +8,7 @@ class Facebook {
         version: 'v2.12', // use version 2.1
       });
     };
-    (function(d, s, id) {
+    (function fbAsyncInitSdk(d, s, id) {
       const fjs = d.getElementsByTagName(s)[0];
       const js = d.createElement(s);
       js.id = id;
@@ -17,8 +17,9 @@ class Facebook {
     })(document, 'script', 'facebook-jssdk');
   }
 
+  /* eslint-disable class-methods-use-this */
   getFBToken() {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       window.FB.login(
         response => {
           resolve({
@@ -30,6 +31,7 @@ class Facebook {
       );
     });
   }
+  /* eslint-enable class-methods-use-this */
 }
 
 export default new Facebook();

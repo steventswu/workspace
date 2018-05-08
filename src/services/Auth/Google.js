@@ -12,8 +12,9 @@ class Google {
     this.getGoogleToken = this.getGoogleToken.bind(this);
   }
 
+  /* eslint-disable class-methods-use-this */
   init() {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       window.gapi.load('auth2', () => {
         if (!window.gapi.auth2.getAuthInstance()) {
           window.gapi.auth2.init({
@@ -27,6 +28,7 @@ class Google {
       });
     });
   }
+  /* eslint-enable class-methods-use-this */
 
   async getGoogleToken() {
     await this.init();

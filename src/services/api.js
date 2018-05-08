@@ -78,8 +78,8 @@ export async function queryNotices() {
   return request('/api/notices');
 }
 
-export async function getJWTFromGoogleToken(params) {
-  return request('/api/google_token', {
+export async function getAuthInfo(type, params) {
+  return request(`/auth/${type}_token`, {
     method: 'POST',
     body: params,
   });
