@@ -1,5 +1,6 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
+import endpoint from '../utils/endpoint';
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');
@@ -79,14 +80,14 @@ export async function queryNotices() {
 }
 
 export async function postMember(params) {
-  return request(`/auth/members`, {
+  return request(`${endpoint}/members`, {
     method: 'POST',
     body: params,
   });
 }
 
 export async function getAuthInfo(type, params) {
-  return request(`/auth/${type}_token`, {
+  return request(`${endpoint}/${type}_token`, {
     method: 'POST',
     body: params,
   });
