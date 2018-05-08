@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { routerRedux, Link } from 'dva/router';
+import { Link } from 'dva/router';
 import { Form, Input, Button, Popover, Progress } from 'antd';
 import styles from './Register.less';
 
@@ -28,26 +28,7 @@ export default class Register extends Component {
     confirmDirty: false,
     visible: false,
     help: '',
-    prefix: '86',
   };
-
-  componentWillReceiveProps(nextProps) {
-    const account = this.props.form.getFieldValue('mail');
-    if (nextProps.register.status === 'ok') {
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/user/register-result',
-          state: {
-            account,
-          },
-        })
-      );
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
 
   getPasswordStatus = () => {
     const { form } = this.props;
@@ -67,10 +48,7 @@ export default class Register extends Component {
       if (!err) {
         this.props.dispatch({
           type: 'register/submit',
-          payload: {
-            ...values,
-            prefix: this.state.prefix,
-          },
+          payload: values,
         });
       }
     });
@@ -118,12 +96,6 @@ export default class Register extends Component {
     }
   };
 
-  changePrefix = value => {
-    this.setState({
-      prefix: value,
-    });
-  };
-
   renderPasswordProgress = () => {
     const { form } = this.props;
     const value = form.getFieldValue('password');
@@ -148,7 +120,7 @@ export default class Register extends Component {
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
-            {getFieldDecorator('mail', {
+            {getFieldDecorator('email', {
               rules: [
                 {
                   required: true,

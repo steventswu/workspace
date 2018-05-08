@@ -34,6 +34,8 @@ class Twitter {
         localStorage.getItem('oauth_token'),
         localStorage.getItem('oauth_token_secret')
       );
+      localStorage.removeItem('oauth_token');
+      localStorage.removeItem('oauth_token_secret');
 
       // eslint-disable-next-line no-underscore-dangle
       this.cb.__call(
@@ -44,7 +46,6 @@ class Twitter {
         (reply, rate, err) => {
           if (err) return reject(err.error);
           if (!reply) return reject();
-          this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
           resolve({
             accessToken: reply.oauth_token,
             accessTokenSecret: reply.oauth_token_secret,

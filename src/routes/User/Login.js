@@ -52,16 +52,15 @@ export default class LoginPage extends Component {
 
   render() {
     const { login, submitting } = this.props;
-    const { type } = this.state;
     return (
       <div className={styles.main}>
         <Spin spinning={Boolean(submitting)}>
-          <Login defaultActiveKey={type} onSubmit={this.handleSubmit}>
+          <Login onSubmit={this.handleSubmit}>
             {login.status === 'error' &&
               login.type === 'account' &&
               !login.submitting &&
               this.renderMessage('Account or password is incorrect（admin/888888）')}
-            <Login.UserName name="userName" placeholder="Email" />
+            <Login.UserName name="email" placeholder="Email" />
             <Login.Password name="password" placeholder="Password" />
             <div>
               <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>

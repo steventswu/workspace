@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin, getAuthInfo } from '../services/api';
+import { getAuthInfo } from '../services/api';
 import Google from '../services/Auth/Google';
 import Facebook from '../services/Auth/Facebook';
 import Twitter from '../services/Auth/Twitter';
@@ -9,20 +9,21 @@ import { reloadAuthorized } from '../utils/Authorized';
 export default {
   namespace: 'login',
 
-  state: {},
+  state: { status: false },
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(getAuthInfo, 'normal', {
+        email: payload.email,
+        password: btoa(payload.password),
+      });
       yield put({
         type: 'changeLoginStatus',
-        payload: response,
+        payload: { status: 'ok' },
+        meta: response,
       });
-      // Login successfully
-      if (response.status === 'ok') {
-        reloadAuthorized();
-        yield put(routerRedux.push('/'));
-      }
+      reloadAuthorized();
+      yield put(routerRedux.push('/'));
     },
     *logout(_, { put, select }) {
       try {
@@ -32,6 +33,7 @@ export default {
         // add the parameters in the url
         urlParams.searchParams.set('redirect', pathname);
         window.history.replaceState(null, 'login', urlParams.href);
+        localStorage.removeItem('tixguru:auth');
       } finally {
         yield put({
           type: 'changeLoginStatus',
@@ -50,12 +52,16 @@ export default {
         const result = yield call(getAuthInfo, 'google', info);
         yield put({
           type: 'changeLoginStatus',
-          payload: result,
+          payload: { status: 'ok' },
+          meta: result,
         });
         reloadAuthorized();
         yield put(routerRedux.replace('/'));
       } catch (error) {
-        console.warn(error);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'error' },
+        });
       }
     },
     *facebook(_, { call, put }) {
@@ -64,12 +70,16 @@ export default {
         const result = yield call(getAuthInfo, 'facebook', info);
         yield put({
           type: 'changeLoginStatus',
-          payload: result,
+          payload: { status: 'ok' },
+          meta: result,
         });
         reloadAuthorized();
         yield put(routerRedux.replace('/'));
       } catch (e) {
-        console.warn(e);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'error' },
+        });
       }
     },
     *twitterRedirect(_, { call }) {
@@ -82,24 +92,34 @@ export default {
         const result = yield call(getAuthInfo, 'twitter', info);
         yield put({
           type: 'changeLoginStatus',
-          payload: result,
+          payload: { status: 'ok' },
+          meta: result,
         });
         reloadAuthorized();
         // force redirect the whole page to eliminate query strings
         window.location.href = window.location.origin;
       } catch (e) {
-        console.warn(e);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'error' },
+        });
       }
     },
   },
 
   reducers: {
-    changeLoginStatus(_, { payload }) {
+    changeLoginStatus(_, { payload, meta }) {
       setAuthority(payload.currentAuthority || 'user');
-      return {
-        memberId: payload.memberId,
-        jwt: payload.jwt,
-      };
+      if (meta) {
+        localStorage.setItem(
+          'tixguru:auth',
+          JSON.stringify({
+            memberId: meta.memberId,
+            jwt: meta.jwt,
+          })
+        );
+      }
+      return { status: payload.status };
     },
   },
 };

@@ -78,6 +78,13 @@ export async function queryNotices() {
   return request('/api/notices');
 }
 
+export async function postMember(params) {
+  return request(`/auth/members`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
 export async function getAuthInfo(type, params) {
   return request(`/auth/${type}_token`, {
     method: 'POST',

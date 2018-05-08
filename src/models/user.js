@@ -17,11 +17,16 @@ export default {
       });
     },
     *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: response,
-      });
+      try {
+        const info = JSON.parse(localStorage.getItem('tixguru:auth'));
+        const response = yield call(queryCurrent, info);
+        yield put({
+          type: 'saveCurrentUser',
+          payload: response,
+        });
+      } catch (e) {
+        yield put({ type: 'login/logout' });
+      }
     },
   },
 
