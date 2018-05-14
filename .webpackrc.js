@@ -21,7 +21,7 @@ export default {
   hash: true,
   proxy: {
     '/auth': {
-      target: 'http://35.229.194.27/api',
+      target: 'http://i.tixguru.me/api',
       changeOrigin: true,
       pathRewrite: { '^/auth': '' },
     },

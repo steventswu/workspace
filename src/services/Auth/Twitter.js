@@ -5,8 +5,8 @@ class Twitter {
   constructor() {
     this.cb = new Codebird();
     this.cb.setConsumerKey(
-      'DvI1YZQMbuQLi2s9Yli6HLanx',
-      '93qjYncboLwTnI3ksaPIaElKeqjKP1dR1oc5sja0UHrHSen9BK'
+      'EksjWHFxP3kB7wyyI3Kb2xsF3',
+      'Y8jC5cmHo03GdaeWVq4Cot4jsUaqFy2HQbx0ICXYuXGfOeJ2FN'
     );
     this.getRequestToken = this.getRequestToken.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
@@ -16,7 +16,7 @@ class Twitter {
     return new Promise((resolve, reject) => {
       // eslint-disable-next-line no-underscore-dangle
       this.cb.__call('oauth_requestToken', { oauth_callback: callbackUrl }, (reply, rate, err) => {
-        if (err) return reject(err.error);
+        if (err || reply.error) return reject(err.error || reply.error);
         if (!reply) return reject();
         localStorage.setItem('oauth_token', reply.oauth_token);
         localStorage.setItem('oauth_token_secret', reply.oauth_token_secret);
