@@ -1,27 +1,29 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin } from '../services/api';
+import { getAuthInfo } from '../services/api';
+import Google from '../services/Auth/Google';
+import Facebook from '../services/Auth/Facebook';
+import Twitter from '../services/Auth/Twitter';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
 
 export default {
   namespace: 'login',
 
-  state: {
-    status: undefined,
-  },
+  state: { status: false },
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(getAuthInfo, 'normal', {
+        email: payload.email,
+        password: btoa(payload.password),
+      });
       yield put({
         type: 'changeLoginStatus',
-        payload: response,
+        payload: { status: 'ok' },
+        meta: response,
       });
-      // Login successfully
-      if (response.status === 'ok') {
-        reloadAuthorized();
-        yield put(routerRedux.push('/'));
-      }
+      reloadAuthorized();
+      yield put(routerRedux.push('/'));
     },
     *logout(_, { put, select }) {
       try {
@@ -31,6 +33,7 @@ export default {
         // add the parameters in the url
         urlParams.searchParams.set('redirect', pathname);
         window.history.replaceState(null, 'login', urlParams.href);
+        localStorage.removeItem('tixguru:auth');
       } finally {
         yield put({
           type: 'changeLoginStatus',
@@ -43,16 +46,80 @@ export default {
         yield put(routerRedux.push('/user/login'));
       }
     },
+    *google(_, { call, put }) {
+      try {
+        const info = yield call(Google.getGoogleToken);
+        const result = yield call(getAuthInfo, 'google', info);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'ok' },
+          meta: result,
+        });
+        reloadAuthorized();
+        yield put(routerRedux.replace('/'));
+      } catch (error) {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'error' },
+        });
+      }
+    },
+    *facebook(_, { call, put }) {
+      try {
+        const info = yield call(Facebook.getFBToken);
+        const result = yield call(getAuthInfo, 'facebook', info);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'ok' },
+          meta: result,
+        });
+        reloadAuthorized();
+        yield put(routerRedux.replace('/'));
+      } catch (e) {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'error' },
+        });
+      }
+    },
+    *twitterRedirect(_, { call }) {
+      const authUrl = yield call(Twitter.getRequestToken, window.location.origin);
+      window.location = authUrl;
+    },
+    *twitter(_, { call, put }) {
+      try {
+        const info = yield call(Twitter.getAccessToken, window.location.search);
+        const result = yield call(getAuthInfo, 'twitter', info);
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'ok' },
+          meta: result,
+        });
+        reloadAuthorized();
+        // force redirect the whole page to eliminate query strings
+        window.location.href = window.location.origin;
+      } catch (e) {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'error' },
+        });
+      }
+    },
   },
 
   reducers: {
-    changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
-      return {
-        ...state,
-        status: payload.status,
-        type: payload.type,
-      };
+    changeLoginStatus(_, { payload, meta }) {
+      setAuthority(payload.currentAuthority || 'user');
+      if (meta) {
+        localStorage.setItem(
+          'tixguru:auth',
+          JSON.stringify({
+            memberId: meta.memberId,
+            jwt: meta.jwt,
+          })
+        );
+      }
+      return { status: payload.status };
     },
   },
 };

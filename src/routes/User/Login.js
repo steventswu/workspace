@@ -1,43 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Checkbox, Alert, Icon } from 'antd';
+import { Checkbox, Alert, Icon, Spin } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
+const checkQueryString = qs => typeof qs === 'string' && qs.includes('oauth_token');
 
 @connect(({ login, loading }) => ({
   login,
-  submitting: loading.effects['login/login'],
+  submitting: loading.models.login,
 }))
 export default class LoginPage extends Component {
   state = {
-    type: 'account',
     autoLogin: true,
   };
 
-  onTabChange = type => {
-    this.setState({ type });
-  };
+  componentDidMount() {
+    if (checkQueryString(window.location.search)) {
+      this.props.dispatch({ type: 'login/twitter' });
+    }
+  }
 
   handleSubmit = (err, values) => {
-    const { type } = this.state;
-    if (!err) {
-      this.props.dispatch({
-        type: 'login/login',
-        payload: {
-          ...values,
-          type,
-        },
-      });
-    }
+    if (err) return;
+    this.props.dispatch({
+      type: 'login/login',
+      payload: values,
+    });
+  };
+
+  handleGoogleLogin = () => {
+    this.props.dispatch({ type: 'login/google' });
+  };
+
+  handleFacebookLogin = () => {
+    this.props.dispatch({ type: 'login/facebook' });
+  };
+
+  handleTwitterLogin = () => {
+    this.props.dispatch({ type: 'login/twitterRedirect' });
   };
 
   changeAutoLogin = e => {
-    this.setState({
-      autoLogin: e.target.checked,
-    });
+    this.setState({ autoLogin: e.target.checked });
   };
 
   renderMessage = content => {
@@ -46,45 +52,35 @@ export default class LoginPage extends Component {
 
   render() {
     const { login, submitting } = this.props;
-    const { type } = this.state;
     return (
       <div className={styles.main}>
-        <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
-          <Tab key="account" tab="账户密码登录">
+        <Spin spinning={Boolean(submitting)}>
+          <Login onSubmit={this.handleSubmit}>
             {login.status === 'error' &&
               login.type === 'account' &&
               !login.submitting &&
-              this.renderMessage('账户或密码错误（admin/888888）')}
-            <UserName name="userName" placeholder="admin/user" />
-            <Password name="password" placeholder="888888/123456" />
-          </Tab>
-          <Tab key="mobile" tab="手机号登录">
-            {login.status === 'error' &&
-              login.type === 'mobile' &&
-              !login.submitting &&
-              this.renderMessage('验证码错误')}
-            <Mobile name="mobile" />
-            <Captcha name="captcha" />
-          </Tab>
-          <div>
-            <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>
-              自动登录
-            </Checkbox>
-            <a style={{ float: 'right' }} href="">
-              忘记密码
-            </a>
-          </div>
-          <Submit loading={submitting}>登录</Submit>
-          <div className={styles.other}>
-            其他登录方式
-            <Icon className={styles.icon} type="alipay-circle" />
-            <Icon className={styles.icon} type="taobao-circle" />
-            <Icon className={styles.icon} type="weibo-circle" />
-            <Link className={styles.register} to="/user/register">
-              注册账户
-            </Link>
-          </div>
-        </Login>
+              this.renderMessage('Account or password is incorrect（admin/888888）')}
+            <Login.UserName name="email" placeholder="Email" />
+            <Login.Password name="password" placeholder="Password" />
+            <div>
+              <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>
+                Remember me
+              </Checkbox>
+              <a style={{ float: 'right' }} href="">
+                Forgot Password
+              </a>
+            </div>
+            <Login.Submit>Submit</Login.Submit>
+            <div className={styles.other}>
+              <Icon className={styles.icon} type="facebook" onClick={this.handleFacebookLogin} />
+              <Icon className={styles.icon} type="google" onClick={this.handleGoogleLogin} />
+              <Icon className={styles.icon} type="twitter" onClick={this.handleTwitterLogin} />
+              <Link className={styles.register} to="/user/register">
+                Register
+              </Link>
+            </div>
+          </Login>
+        </Spin>
       </div>
     );
   }
