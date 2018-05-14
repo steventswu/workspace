@@ -1,0 +1,27 @@
+# general files
+.git/
+node_modules/
+Dockerfile
+.DS_Store
+.gitignore
+.babelrc
+.editorconfig
+.eslintrc.js
+.ga
+.prettierignore
+.prettierrc
+.roadhogrc.mock.js
+.stylelintrc
+.travis.yml
+.webpackrc.js
+.appveyor.yml
+*.md
+LICENSE
+package.json
+env.*
+
+# project source
+src/
+tests/
+mock/
+public/
