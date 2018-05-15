@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>ONT</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="ONT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <g id="ont-copy" transform="translate(6.000000, 6.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                <path d="M10,20 C4.4771525,20 0,15.5228475 0,10 C0,4.4771525 4.4771525,0 10,0 C15.5228475,0 20,4.4771525 20,10 C20,15.5228475 15.5228475,20 10,20 Z M15.625,15.1358696 C15.625,13.5299344 15.625,11.7364562 15.625,9.75543481 C15.625,6.78390269 13.1625661,4.375 10.125,4.375 C8.60621694,4.375 7.23121694,4.97722567 6.23591271,5.95089286 L15.625,15.1358696 Z M4.375,4.86413044 L4.375,10.2445652 C4.375,13.2160973 6.83743387,15.625 9.875,15.625 C11.3937831,15.625 12.7687831,15.0227743 13.7640873,14.0491071 L4.375,4.86413044 Z" id="Shape"></path>
+            </g>
+            <circle id="Oval-Copy-31" stroke="#FFFFFF" cx="16" cy="16" r="15.5"></circle>
+        </g>
+    </g>
+</svg>
