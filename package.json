@@ -8,7 +8,10 @@
     "start": "cross-env ESLINT=none roadhog dev",
     "start:no-proxy": "cross-env NO_PROXY=true ESLINT=none roadhog dev",
     "build": "cross-env ESLINT=none roadhog build",
-    "postbuild": "docker build . --tag cap-perf && docker run -it -d -p 8000:80 cap-perf:latest",
+    "postbuild": "npm run docker-build",
+    "docker-build": "docker build . --tag cap-perf",
+    "docker-push": "docker push",
+    "docker-run": "npm run docker-build && docker run -it -p 8080:80 cap-perf:latest",
     "site": "roadhog-api-doc static && gh-pages -d dist",
     "analyze": "cross-env ANALYZE=true roadhog build",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",
@@ -19,8 +22,7 @@
     "test": "roadhog test",
     "test:component": "roadhog test ./src/components",
     "test:all": "node ./tests/run-tests.js",
-    "prettier": "prettier --write ./src/**/**/**/*",
-    "deploy": "docker build . --tag gcr.io/tg2018-ico/nginx-cap:$VERSION && docker push gcr.io/tg2018-ico/nginx-cap:$VERSION"
+    "prettier": "prettier --write ./src/**/**/**/*"
   },
   "dependencies": {
     "@antv/data-set": "^0.8.0",
