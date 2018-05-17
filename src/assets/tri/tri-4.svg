@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="11" viewBox="0 0 20 11">
+    <g fill="#FF001F" fill-rule="evenodd">
+        <circle cx="10" cy="1" r="1"/>
+        <circle cx="10" cy="4" r="1"/>
+        <circle cx="7" cy="4" r="1"/>
+        <circle cx="7" cy="7" r="1"/>
+        <circle cx="4" cy="7" r="1"/>
+        <circle cx="4" cy="10" r="1"/>
+        <circle cx="1" cy="10" r="1"/>
+        <circle cx="7" cy="10" r="1"/>
+        <circle cx="13" cy="4" r="1"/>
+        <circle cx="13" cy="7" r="1"/>
+        <circle cx="16" cy="7" r="1"/>
+        <circle cx="13" cy="10" r="1"/>
+        <circle cx="16" cy="10" r="1"/>
+        <circle cx="19" cy="10" r="1"/>
+        <circle cx="10" cy="7" r="1"/>
+        <circle cx="10" cy="10" r="1"/>
+    </g>
+</svg>
