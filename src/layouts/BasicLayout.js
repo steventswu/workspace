@@ -25,6 +25,11 @@ const { AuthorizedRoute, check } = Authorized;
  */
 const redirectData = [];
 const getRedirect = item => {
+  if (item && item.root) {
+    redirectData.push({
+      to: `${item.path}`,
+    });
+  }
   if (item && item.children) {
     if (item.children[0] && item.children[0].path) {
       redirectData.push({
@@ -221,9 +226,9 @@ class BasicLayout extends React.PureComponent {
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
             <Switch>
-              {redirectData.map(item => (
-                <Redirect key={item.from} exact from={item.from} to={item.to} />
-              ))}
+              {redirectData
+                .filter(item => location.pathname !== item.to)
+                .map(item => <Redirect key={item.to} exact from={item.from} to={item.to} />)}
               {getRoutes(match.path, routerData).map(item => (
                 <AuthorizedRoute
                   key={item.key}
@@ -234,7 +239,7 @@ class BasicLayout extends React.PureComponent {
                   redirectPath="/exception/403"
                 />
               ))}
-              <Redirect exact from="/" to={bashRedirect} />
+              <Redirect exact from="/app" to={bashRedirect} />
               <Route render={NotFound} />
             </Switch>
           </Content>

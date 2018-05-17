@@ -6,6 +6,9 @@ import Twitter from '../services/Auth/Twitter';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
 
+const redirectPath = '/app';
+export const sessionKey = 'tixguru:session';
+
 export default {
   namespace: 'login',
 
@@ -23,7 +26,7 @@ export default {
         meta: response,
       });
       reloadAuthorized();
-      yield put(routerRedux.push('/'));
+      yield put(routerRedux.push(redirectPath));
     },
     *logout(_, { put, select }) {
       try {
@@ -33,7 +36,7 @@ export default {
         // add the parameters in the url
         urlParams.searchParams.set('redirect', pathname);
         window.history.replaceState(null, 'login', urlParams.href);
-        localStorage.removeItem('tixguru:auth');
+        localStorage.removeItem(sessionKey);
       } finally {
         yield put({
           type: 'changeLoginStatus',
@@ -56,7 +59,7 @@ export default {
           meta: result,
         });
         reloadAuthorized();
-        yield put(routerRedux.replace('/'));
+        yield put(routerRedux.replace(redirectPath));
       } catch (error) {
         yield put({
           type: 'changeLoginStatus',
@@ -74,7 +77,7 @@ export default {
           meta: result,
         });
         reloadAuthorized();
-        yield put(routerRedux.replace('/'));
+        yield put(routerRedux.replace(redirectPath));
       } catch (e) {
         yield put({
           type: 'changeLoginStatus',
@@ -97,7 +100,7 @@ export default {
         });
         reloadAuthorized();
         // force redirect the whole page to eliminate query strings
-        window.location.href = window.location.origin;
+        window.location.href = [window.location.origin, redirectPath].join('');
       } catch (e) {
         yield put({
           type: 'changeLoginStatus',
@@ -112,7 +115,7 @@ export default {
       setAuthority(payload.currentAuthority || 'user');
       if (meta) {
         localStorage.setItem(
-          'tixguru:auth',
+          sessionKey,
           JSON.stringify({
             memberId: meta.memberId,
             jwt: meta.jwt,

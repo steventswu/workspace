@@ -1,4 +1,5 @@
 import { query as queryUsers, queryCurrent } from '../services/user';
+import { sessionKey } from './login';
 
 export default {
   namespace: 'user',
@@ -18,7 +19,7 @@ export default {
     },
     *fetchCurrent(_, { call, put }) {
       try {
-        const info = JSON.parse(localStorage.getItem('tixguru:auth'));
+        const info = JSON.parse(localStorage.getItem(sessionKey));
         const response = yield call(queryCurrent, info);
         yield put({
           type: 'saveCurrentUser',
