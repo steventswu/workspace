@@ -5,6 +5,7 @@ const menuData = [
     name: 'Performance',
     icon: 'area-chart',
     path: 'performance',
+    root: true,
   },
   // {
   //   name: 'Dashboard',
@@ -139,29 +140,29 @@ const menuData = [
   //     },
   //   ],
   // },
-  {
-    name: 'Account',
-    icon: 'user',
-    path: 'user',
-    authority: 'guest',
-    children: [
-      {
-        name: 'Sign In',
-        path: 'login',
-      },
-      {
-        name: 'Register',
-        path: 'register',
-      },
-      {
-        name: 'Registration Succeed',
-        path: 'register-result',
-      },
-    ],
-  },
+  // {
+  //   name: 'Account',
+  //   icon: 'user',
+  //   path: 'user',
+  //   authority: 'guest',
+  //   children: [
+  //     {
+  //       name: 'Sign In',
+  //       path: 'login',
+  //     },
+  //     {
+  //       name: 'Register',
+  //       path: 'register',
+  //     },
+  //     {
+  //       name: 'Registration Succeed',
+  //       path: 'register-result',
+  //     },
+  //   ],
+  // },
 ];
 
-function formatter(data, parentPath = '/', parentAuthority) {
+function formatter(data, parentPath = '/app/', parentAuthority) {
   return data.map(item => {
     let { path } = item;
     if (!isUrl(path)) {

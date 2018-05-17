@@ -69,10 +69,10 @@ function getFlatMenuData(menus) {
 
 export const getRouterData = app => {
   const routerConfig = {
-    '/': {
+    '/app': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
-    '/performance': {
+    '/app/performance': {
       component: dynamicWrapper(app, [], () => import('../routes/Performance/BasicPerformance')),
     },
     // '/dashboard/analysis': {
@@ -174,6 +174,9 @@ export const getRouterData = app => {
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
+    '/': {
+      component: dynamicWrapper(app, [], () => import('../routes/Home/Home')),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());

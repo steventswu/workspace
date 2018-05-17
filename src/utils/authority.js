@@ -1,8 +1,8 @@
 // use localStorage to store the authority info, which might be sent from server in actual project.
 export function getAuthority() {
-  return localStorage.getItem('tmp-authority');
+  return localStorage.getItem('tixguru:authority');
 }
 
 export function setAuthority(authority) {
-  return localStorage.setItem('tmp-authority', authority);
+  return localStorage.setItem('tixguru:authority', authority);
 }
