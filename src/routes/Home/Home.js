@@ -12,4 +12,8 @@ const Home = () => (
 );
 
 export default () =>
-  checkQueryString(window.location.search) ? <Redirect to="/user/login" /> : <Home />;
+  checkQueryString(window.location.search) ? (
+    <Redirect to={{ pathname: '/user/login', search: window.location.search }} />
+  ) : (
+    <Home />
+  );

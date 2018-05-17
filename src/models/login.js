@@ -100,12 +100,7 @@ export default {
         });
         reloadAuthorized();
         // force redirect the whole page to eliminate query strings
-        window.location.href = [
-          window.location.origin,
-          window.location.pathname,
-          '#',
-          redirectPath,
-        ].join('');
+        window.location.href = [window.location.origin, redirectPath].join('');
       } catch (e) {
         yield put({
           type: 'changeLoginStatus',
