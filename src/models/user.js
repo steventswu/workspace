@@ -1,4 +1,5 @@
-import { query as queryUsers, queryCurrent } from '../services/user';
+import { routerRedux } from 'dva/router';
+import { query as queryUsers, queryCurrent, verifyEmail } from '../services/user';
 import { sessionKey } from './login';
 
 export default {
@@ -27,6 +28,12 @@ export default {
         });
       } catch (e) {
         yield put({ type: 'login/logout' });
+      }
+    },
+    *verify({ payload }, { call, put }) {
+      const { error } = yield call(verifyEmail, payload);
+      if (error) {
+        yield put(routerRedux.replace('/user/login'));
       }
     },
   },

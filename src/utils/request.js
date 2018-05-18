@@ -76,21 +76,21 @@ export default function request(url, options) {
       const { dispatch } = store;
       const status = e.name;
       if (status === 401) {
-        dispatch({
+        return dispatch({
           type: 'login/logout',
         });
-        return;
       }
       if (status === 403) {
-        dispatch(routerRedux.push('/exception/403'));
-        return;
+        return dispatch(routerRedux.push('/exception/403'));
       }
       if (status <= 504 && status >= 500) {
-        dispatch(routerRedux.push('/exception/500'));
-        return;
+        return dispatch(routerRedux.push('/exception/500'));
       }
       if (status >= 404 && status < 422) {
-        dispatch(routerRedux.push('/exception/404'));
+        return dispatch(routerRedux.push('/exception/404'));
+      }
+      if (status === 400) {
+        return { error: true };
       }
     });
 }

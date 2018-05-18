@@ -11,3 +11,10 @@ export async function queryCurrent({ memberId, jwt }) {
     headers: { authorization: jwt },
   });
 }
+
+export async function verifyEmail(token) {
+  return request(`${endpoint}/email_verification`, {
+    method: 'POST',
+    body: { token },
+  });
+}
