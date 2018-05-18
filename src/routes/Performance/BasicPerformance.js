@@ -11,7 +11,7 @@ export default class BasicPerformance extends Component {
         <section className={styles.section}>
           <Title title="Net Asset Value" />
           <div>
-            <Row style={{ marginBottom: 2 }} gutter={4}>
+            <Row gutter={4}>
               <Col span={16} push={8}>
                 <Card style={{ width: '100%' }}>
                   <p>Card content</p>
@@ -29,17 +29,17 @@ export default class BasicPerformance extends Component {
                 </Card>
               </Col>
               <Col span={8} pull={16}>
-                <Card style={{ width: '100%', height: '33%' }}>
+                <Card style={{ width: '100%' }}>
                   <p>Card content</p>
                   <p>Card content</p>
                   <p>Card content</p>
                 </Card>
-                <Card style={{ width: '100%', height: '33%' }}>
+                <Card style={{ width: '100%' }}>
                   <p>Card content</p>
                   <p>Card content</p>
                   <p>Card content</p>
                 </Card>
-                <Card style={{ width: '100%', height: '33%' }}>
+                <Card style={{ width: '100%' }}>
                   <p>Card content</p>
                   <p>Card content</p>
                   <p>Card content</p>
@@ -47,6 +47,7 @@ export default class BasicPerformance extends Component {
               </Col>
             </Row>
           </div>
+          <Title title="Table of Holdings" />
         </section>
       </Fragment>
     );
