@@ -21,30 +21,6 @@ const { Content, Header, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
 
 /**
- * 根据菜单取得重定向地址.
- */
-const redirectData = [];
-const getRedirect = item => {
-  if (item && item.root) {
-    redirectData.push({
-      to: `${item.path}`,
-    });
-  }
-  if (item && item.children) {
-    if (item.children[0] && item.children[0].path) {
-      redirectData.push({
-        from: `${item.path}`,
-        to: `${item.children[0].path}`,
-      });
-      item.children.forEach(children => {
-        getRedirect(children);
-      });
-    }
-  }
-};
-getMenuData().forEach(getRedirect);
-
-/**
  * 获取面包屑映射
  * @param {Object} menuData 菜单配置
  * @param {Object} routerData 路由配置
@@ -226,9 +202,7 @@ class BasicLayout extends React.PureComponent {
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
             <Switch>
-              {redirectData
-                .filter(item => location.pathname !== item.to)
-                .map(item => <Redirect key={item.to} exact from={item.from} to={item.to} />)}
+              {location.pathname === '/app' && <Redirect exact to="/app/performance" />}
               {getRoutes(match.path, routerData).map(item => (
                 <AuthorizedRoute
                   key={item.key}

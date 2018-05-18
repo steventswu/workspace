@@ -25,7 +25,7 @@ export default {
         type: 'saveStepFormData',
         payload,
       });
-      yield put(routerRedux.push('/form/step-form/result'));
+      yield put(routerRedux.push('/app/token/3'));
     },
     *submitAdvancedForm({ payload }, { call }) {
       yield call(fakeSubmitForm, payload);

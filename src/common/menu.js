@@ -7,6 +7,11 @@ const menuData = [
     path: 'performance',
     root: true,
   },
+  {
+    name: 'Buy Token',
+    icon: 'shop',
+    path: 'token',
+  },
   // {
   //   name: 'Dashboard',
   //   icon: 'dashboard',
