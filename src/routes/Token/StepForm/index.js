@@ -29,9 +29,9 @@ export default class StepForm extends PureComponent {
       <Card bordered={false}>
         <Fragment>
           <Steps current={this.getCurrentStep()} className={styles.steps}>
-            <Step title="填写转账信息" />
-            <Step title="确认转账信息" />
-            <Step title="完成" />
+            <Step title="Accept Terms" />
+            <Step title="Enter Address" />
+            <Step title="Buy Tokens" />
           </Steps>
           <Switch>
             {getRoutes(match.path, routerData).map(item => (
