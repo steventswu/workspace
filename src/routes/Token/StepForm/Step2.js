@@ -8,10 +8,10 @@ const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
-    span: 8,
+    span: 5,
   },
   wrapperCol: {
-    span: 16,
+    span: 19,
   },
 };
 
@@ -24,7 +24,7 @@ class Step2 extends React.PureComponent {
       validateFields((err, values) => {
         if (!err) {
           dispatch({
-            type: 'form/saveStepFormData',
+            type: 'token/saveStepFormData',
             payload: values,
           });
           dispatch(routerRedux.push('/app/token/3'));
@@ -34,7 +34,7 @@ class Step2 extends React.PureComponent {
     return (
       <Fragment>
         <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
-          <Form.Item {...formItemLayout} label="Select CAP">
+          <Form.Item {...formItemLayout} label="CAP">
             {getFieldDecorator('cap', {
               initialValue: data.cap,
               rules: [{ required: true, message: '请选择 CAP' }],
@@ -46,7 +46,7 @@ class Step2 extends React.PureComponent {
               </Select>
             )}
           </Form.Item>
-          <Form.Item {...formItemLayout} label="Enter Your Wallet Address">
+          <Form.Item {...formItemLayout} label="Wallet Address">
             {getFieldDecorator('walletAddress', {
               initialValue: data.walletAddress,
               rules: [{ required: true, message: '请输入錢包地址' }],
@@ -84,6 +84,6 @@ class Step2 extends React.PureComponent {
   }
 }
 
-export default connect(({ form }) => ({
-  data: form.step,
+export default connect(({ token }) => ({
+  data: token.step,
 }))(Step2);

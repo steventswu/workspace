@@ -62,6 +62,6 @@ class Step3 extends React.PureComponent {
   }
 }
 
-export default connect(({ form }) => ({
-  data: form.step,
+export default connect(({ token }) => ({
+  data: token.step,
 }))(Step3);
