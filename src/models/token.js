@@ -39,7 +39,7 @@ export default {
       const transactionHash = yield call(Metamask.openMetamask, payload);
       yield put({
         type: 'saveStepFormData',
-        transactionResult: {
+        payload: {
           transactionHash,
         },
       });
@@ -47,12 +47,12 @@ export default {
   },
 
   reducers: {
-    saveStepFormData(state, { transactionResult }) {
+    saveStepFormData(state, { payload }) {
       return {
         ...state,
         step: {
           ...state.step,
-          ...transactionResult,
+          ...payload,
         },
       };
     },

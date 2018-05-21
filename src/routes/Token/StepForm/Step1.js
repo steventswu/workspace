@@ -52,7 +52,7 @@ class Step1 extends React.PureComponent {
               </Checkbox>
             </Row>
             <Button type="primary" onClick={onSubmit}>
-              下一步
+              Next
             </Button>
           </Form.Item>
         </Form>

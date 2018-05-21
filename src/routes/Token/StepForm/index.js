@@ -30,8 +30,8 @@ export default class StepForm extends PureComponent {
         <Fragment>
           <Steps current={this.getCurrentStep()} className={styles.steps}>
             <Step title="Accept Terms" />
-            <Step title="Enter Address" />
-            <Step title="Buy Tokens" />
+            <Step title="Place Orders" />
+            <Step title="Buy CAP Tokens" />
           </Steps>
           <Switch>
             {getRoutes(match.path, routerData).map(item => (

@@ -85,7 +85,7 @@ class Step2 extends React.PureComponent {
                 {
                   required: true,
                   pattern: /^(0x)?[0-9A-Za-z]{40}$/,
-                  message: '请输入正確錢包地址',
+                  message: 'Enter correct wallet address, please',
                 },
               ],
             })(
@@ -106,7 +106,7 @@ class Step2 extends React.PureComponent {
             label=""
           >
             <Button type="primary" onClick={onValidateForm}>
-              下一步
+              Next
             </Button>
           </Form.Item>
         </Form>
