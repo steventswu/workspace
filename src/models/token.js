@@ -1,16 +1,20 @@
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 import { fakeSubmitForm } from '../services/api';
+import Metamask from '../services/Metamask';
 
 export default {
   namespace: 'token',
 
   state: {
     step: {
-      cap: 'CAP',
+      cap: 'CAP01',
       receiverAccount: 'test@example.com',
       walletAddress: '',
       amount: '500',
+      check1: false,
+      check2: false,
+      check3: false,
     },
   },
 
@@ -31,15 +35,24 @@ export default {
       yield call(fakeSubmitForm, payload);
       message.success('提交成功');
     },
+    *openMetamask({ payload }, { call, put }) {
+      const transactionHash = yield call(Metamask.openMetamask, payload);
+      yield put({
+        type: 'saveStepFormData',
+        transactionResult: {
+          transactionHash,
+        },
+      });
+    },
   },
 
   reducers: {
-    saveStepFormData(state, { payload }) {
+    saveStepFormData(state, { transactionResult }) {
       return {
         ...state,
         step: {
           ...state.step,
-          ...payload,
+          ...transactionResult,
         },
       };
     },
