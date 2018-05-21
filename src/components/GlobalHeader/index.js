@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Layout, Menu, Icon, Dropdown, Button } from 'antd';
+import { Menu, Icon, Dropdown, Button } from 'antd';
 import { Link } from 'dva/router';
 import styles from './index.less';
 
@@ -17,7 +17,7 @@ export default class GlobalHeader extends PureComponent {
       </Menu>
     );
     return (
-      <Layout.Header>
+      <React.Fragment>
         <Link to="/">
           <img src={logo} style={{ marginLeft: 15 }} alt="logo" />
         </Link>
@@ -41,7 +41,7 @@ export default class GlobalHeader extends PureComponent {
             </Button>
           )}
         </div>
-      </Layout.Header>
+      </React.Fragment>
     );
   }
 }
