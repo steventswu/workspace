@@ -5417,6 +5417,22 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
+highcharts-react-official@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-1.1.0.tgz#ba421754c6c7a9c8e005054cf5d3156efce3ef5a"
+  dependencies:
+    create-react-class "^15.5.3"
+    highcharts "^6.0.1"
+    highstock-release "^6.0.1"
+
+highcharts@^6.0.1, highcharts@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.1.0.tgz#115a6ee10ad36a53d9913f1030c6d46da16c7cb5"
+
+highstock-release@^6.0.1:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/highstock-release/-/highstock-release-6.0.4.tgz#c6d982247d97310522cd74b6c2c1f4ae98633e09"
+
 history@^4.6.3, history@^4.7.2:
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/history/-/history-4.7.2.tgz#22b5c7f31633c5b8021c7f4a8a954ac139ee8d5b"
@@ -9755,7 +9771,7 @@ react-document-title@^2.0.3:
     prop-types "^15.5.6"
     react-side-effect "^1.0.2"
 
-react-dom@^16.2.0:
+react-dom@^16.2.0, react-dom@^16.3.2:
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
@@ -9873,7 +9889,7 @@ react-test-renderer@^16.0.0-0:
     prop-types "^15.6.0"
     react-is "^16.3.2"
 
-react@^16.2.0:
+react@^16.2.0, react@^16.3.2:
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
