@@ -9,9 +9,8 @@ export default {
   state: {
     step: {
       cap: 'CAP01',
-      receiverAccount: 'test@example.com',
       walletAddress: '',
-      amount: '500',
+      amount: 1,
       check1: false,
       check2: false,
       check3: false,
@@ -36,13 +35,17 @@ export default {
       message.success('提交成功');
     },
     *openMetamask({ payload }, { call, put }) {
-      const transactionHash = yield call(Metamask.openMetamask, payload);
-      yield put({
-        type: 'saveStepFormData',
-        payload: {
-          transactionHash,
-        },
-      });
+      try {
+        const transactionHash = yield call(Metamask.openMetamask, payload);
+        yield put({
+          type: 'saveStepFormData',
+          payload: {
+            transactionHash,
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 

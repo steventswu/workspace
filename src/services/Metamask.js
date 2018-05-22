@@ -12,19 +12,31 @@ class Metamask {
         address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
       },
       CAP02: {
-        address: '0x2222222222222222222222222222222222222222',
+        address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
       },
       CAP03: {
-        address: '0x3333333333333333333333333333333333333333',
+        address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
       },
     };
   }
+
+  getContractAddress = contractNumber => {
+    return this.contracts[contractNumber].address;
+  };
 
   checkNetwork = () => {
     return this.web3.version.network === '3';
   };
 
-  openMetamask = ({ fromAddress, contractNumber }) => {
+  openMetamask = ({ fromAddress, contractNumber, amount }) => {
+    if (
+      typeof fromAddress === 'undefined' ||
+      typeof contractNumber === 'undefined' ||
+      typeof amount === 'undefined'
+    ) {
+      return;
+    }
+
     if (typeof this.web3 === 'undefined' && !this.checkNetwork()) {
       return;
     }
@@ -33,9 +45,9 @@ class Metamask {
     const contract = new EthContract(eth);
     const myContract = contract(abi).at(this.contracts[contractNumber].address);
 
-    return myContract.buyTokens(this.contracts[contractNumber].address, {
-      from: fromAddress,
-      value: 1000000000000000000,
+    return myContract.buyTokens(this.web3.eth.defaultAccount, {
+      from: this.web3.eth.defaultAccount,
+      value: amount * 1000000000000000000,
     });
   };
 }

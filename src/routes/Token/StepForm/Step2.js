@@ -24,52 +24,54 @@ class Step2 extends React.PureComponent {
       validateFields((err, values) => {
         if (!err) {
           dispatch({
-            type: 'token/saveStepFormData',
-            payload: values,
-          });
-          dispatch({
             type: 'token/openMetamask',
             payload: {
-              fromAddress: user.currentUser.walletAddress,
+              fromAddress: values.walletAddress,
               contractNumber: values.cap,
+              amount: values.amount,
             },
           });
           dispatch({
             type: 'user/updateWalletAddress',
-            payload: { walletAddress: values.walletAddress },
+            payload: {
+              walletAddress: values.walletAddress,
+            },
           });
           dispatch(routerRedux.push('/app/token/3'));
         }
       });
     };
-
-    const onChangeCap = () => {
-      validateFields((err, values) => {
-        if (!err) {
-          dispatch({
-            type: 'token/saveStepFormData',
-            payload: values,
-          });
-        }
+    const onChangeCap = cap => {
+      dispatch({
+        type: 'token/saveStepFormData',
+        payload: {
+          cap,
+        },
       });
     };
-
-    const onChangeWalletAddress = () => {
-      validateFields((err, values) => {
-        dispatch({
-          type: 'user/saveWalletAddress',
-          payload: { walletAddress: values.walletAddress },
-        });
+    const onChangeAmount = amount => {
+      dispatch({
+        type: 'token/saveStepFormData',
+        payload: {
+          amount,
+        },
       });
     };
-
+    const onChangeWalletAddress = e => {
+      dispatch({
+        type: 'user/saveWalletAddress',
+        payload: {
+          walletAddress: e.target.value,
+        },
+      });
+    };
     return (
       <Fragment>
         <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
           <Form.Item {...formItemLayout} label="CAP">
             {getFieldDecorator('cap', {
               initialValue: data.cap,
-              rules: [{ required: true, message: '请选择 CAP' }],
+              rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
             })(
               <Select placeholder="CAP 01" onChange={onChangeCap}>
                 <Option value="CAP01">CAP01</Option>
@@ -78,12 +80,13 @@ class Step2 extends React.PureComponent {
               </Select>
             )}
           </Form.Item>
-          <Form.Item {...formItemLayout} label="Wallet Address">
+          <Form.Item {...formItemLayout} label="Your Wallet Address">
             {getFieldDecorator('walletAddress', {
               initialValue: user.currentUser.walletAddress,
               rules: [
                 {
                   required: true,
+                  type: 'string',
                   pattern: /^(0x)?[0-9A-Za-z]{40}$/,
                   message: 'Enter correct wallet address, please',
                 },
@@ -94,6 +97,17 @@ class Step2 extends React.PureComponent {
                 onChange={onChangeWalletAddress}
               />
             )}
+          </Form.Item>
+          <Form.Item {...formItemLayout} label="Amount">
+            {getFieldDecorator('amount', {
+              initialValue: data.amount,
+              rules: [
+                {
+                  required: true,
+                  message: 'Enter amount',
+                },
+              ],
+            })(<Input placeholder="EX:100000000000" onChange={onChangeAmount} />)}
           </Form.Item>
           <Form.Item
             wrapperCol={{
