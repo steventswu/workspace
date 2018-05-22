@@ -45,9 +45,11 @@ class Metamask {
     const contract = new EthContract(eth);
     const myContract = contract(abi).at(this.contracts[contractNumber].address);
 
-    return myContract.buyTokens(this.web3.eth.defaultAccount, {
-      from: this.web3.eth.defaultAccount,
+    return myContract.eth.sendTransaction({
+      from: web3.eth.defaultAccount,
+      to: this.contracts[contractNumber].address,
       value: amount * 1000000000000000000,
+      data: '0x',
     });
   };
 }
