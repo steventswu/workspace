@@ -1,5 +1,5 @@
 import request from '../utils/request';
-import endpoint from '../utils/endpoint';
+import endpoint, { perfEndpoint } from '../utils/endpoint';
 
 export async function queryCurrent({ memberId, jwt }) {
   return request(`${endpoint}/members/${memberId}`, {
@@ -25,5 +25,11 @@ export async function postEmailVerification(token) {
   return request(`${endpoint}/email_verification`, {
     method: 'POST',
     body: { token },
+  });
+}
+
+export async function queryPerformance() {
+  return request(`${perfEndpoint}/tg-cap.php?q=20`, {
+    method: 'GET',
   });
 }

@@ -27,5 +27,10 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^/auth': '' },
     },
+    '/perf': {
+      target: 'http://coinhub.capital/cob/api',
+      changeOrigin: true,
+      pathRewrite: { '^/perf': '' },
+    },
   },
 };
