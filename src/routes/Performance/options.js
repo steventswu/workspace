@@ -22,9 +22,7 @@ export const navChartOptions = {
       },
       gridLineWidth: 0,
       labels: {
-        formatter: () => {
-          return `${this.value / 1000}k`;
-        },
+        format: '{value}',
         style: {
           color: '#000',
         },
@@ -39,9 +37,7 @@ export const navChartOptions = {
       },
       gridLineWidth: 0,
       labels: {
-        formatter: () => {
-          return `${this.value / 1000}k`;
-        },
+        format: '{value}',
         style: {
           color: '#000',
         },
