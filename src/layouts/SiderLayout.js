@@ -1,9 +1,10 @@
 import React from 'react';
 import { Layout, Icon } from 'antd';
 import { connect } from 'dva';
-import { Route, Redirect, Switch } from 'dva/router';
+import { Route, Redirect, Switch, Link, routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import pathToRegexp from 'path-to-regexp';
+import classNames from 'classnames';
 
 import GlobalFooter from '../components/GlobalFooter';
 import GlobalHeader from '../components/GlobalHeader';
@@ -13,6 +14,7 @@ import { getRoutes } from '../utils/utils';
 import logo from '../assets/logo.svg';
 
 import styles from './SiderLayout.less';
+import layoutStyles from './common.less';
 
 const { Content, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
@@ -66,74 +68,51 @@ export default class SiderLayout extends React.PureComponent {
   };
 
   handleMenuClick = ({ key }) => {
+    if (key === 'profile') {
+      this.props.dispatch(routerRedux.push('/app/profile'));
+    }
     if (key === 'logout') {
-      this.props.dispatch({
-        type: 'login/logout',
-      });
+      this.props.dispatch({ type: 'login/logout' });
     }
   };
 
   render() {
+    const { currentUser: { email } = {} } = this.props;
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <Layout className={styles.layout}>
-          <Layout.Header>
+          <Layout.Header className={layoutStyles.container}>
             <GlobalHeader
               logo={logo}
               onMenuClick={this.handleMenuClick}
               currentUser={this.props.currentUser}
             />
           </Layout.Header>
-          <Content className={styles.content}>
-            <Layout style={{ background: '#fff', height: '100%' }}>
-              {/* <Sider width={200} style={{ background: '#fff' }}>
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['sub1']}
-                  style={{ height: '100%' }}
-                >
-                  <SubMenu
-                    key="sub1"
-                    title={
-                      <span>
-                        <Icon type="user" />subnav 1
-                      </span>
-                    }
-                  >
-                    <Menu.Item key="1">option1</Menu.Item>
-                    <Menu.Item key="2">option2</Menu.Item>
-                    <Menu.Item key="3">option3</Menu.Item>
-                    <Menu.Item key="4">option4</Menu.Item>
-                  </SubMenu>
-                  <SubMenu
-                    key="sub2"
-                    title={
-                      <span>
-                        <Icon type="laptop" />subnav 2
-                      </span>
-                    }
-                  >
-                    <Menu.Item key="5">option5</Menu.Item>
-                    <Menu.Item key="6">option6</Menu.Item>
-                    <Menu.Item key="7">option7</Menu.Item>
-                    <Menu.Item key="8">option8</Menu.Item>
-                  </SubMenu>
-                  <SubMenu
-                    key="sub3"
-                    title={
-                      <span>
-                        <Icon type="notification" />subnav 3
-                      </span>
-                    }
-                  >
-                    <Menu.Item key="9">option9</Menu.Item>
-                    <Menu.Item key="10">option10</Menu.Item>
-                    <Menu.Item key="11">option11</Menu.Item>
-                    <Menu.Item key="12">option12</Menu.Item>
-                  </SubMenu>
-                </Menu>
-              </Sider> */}
+          <Content className={classNames(styles.content, layoutStyles.container)}>
+            <Layout style={{ background: '#fff', minHeight: window.innerHeight - 100 }}>
+              <Layout.Sider width={300} className={styles.sider}>
+                <h1>User Profile</h1>
+                <div>
+                  First Name
+                  <p>Tix</p>
+                </div>
+                <div>
+                  Last Name
+                  <p>Guru</p>
+                </div>
+                <div>
+                  Email
+                  <p>{email}</p>
+                </div>
+                <h2>Verifications</h2>
+                <div className={styles.verification}>
+                  <Icon type="check-circle-o" />Email Verification
+                </div>
+                <div className={styles.verification}>
+                  <Icon type="exclamation-circle-o" />
+                  <Link to="/app">Wallet Verification</Link>
+                </div>
+              </Layout.Sider>
               <Content style={{ padding: '0 24px', minHeight: '100%' }}>
                 <Switch>
                   {location.pathname === '/app' && <Redirect exact to="/app/performance" />}
@@ -153,7 +132,7 @@ export default class SiderLayout extends React.PureComponent {
               </Content>
             </Layout>
           </Content>
-          <Footer style={{ padding: 0 }}>
+          <Footer className={layoutStyles.container} style={{ padding: 0 }}>
             <GlobalFooter
               copyright={
                 <React.Fragment>

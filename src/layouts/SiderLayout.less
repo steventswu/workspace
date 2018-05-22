@@ -1,9 +1,32 @@
+@import '~antd/lib/style/themes/default.less';
+
 .layout {
   min-width: 1200px;
-  min-height: 100%;
 }
 
 .content {
   padding: 10px 50px 0;
-  min-height: calc(100% - 100px);
+}
+
+.sider {
+  background: transparent;
+  padding: 25px;
+  border-right: 20px solid @layout-body-background;
+
+  p {
+    font-weight: 400;
+    font-size: 1.25rem;
+  }
+}
+
+.verification {
+  font-size: 1.25rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  :global {
+    .anticon {
+      margin-right: 7px;
+    }
+  }
 }

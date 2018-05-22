@@ -8,7 +8,7 @@ export default class GlobalHeader extends PureComponent {
     const { currentUser = {}, logo, onMenuClick, onLogin } = this.props;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item>
+        <Menu.Item key="profile">
           <Icon type="user" />Profile
         </Menu.Item>
         <Menu.Item key="logout">
