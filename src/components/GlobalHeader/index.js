@@ -28,9 +28,14 @@ export default class GlobalHeader extends PureComponent {
           <Link style={{ padding: '0 15px' }} to="/app/performance">
             Performance
           </Link>
-          <Link style={{ padding: '0 15px' }} to="/faq">
+          <a
+            style={{ padding: '0 15px' }}
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://medium.com/@pr_48521/cap-faq-3c0b5d0d0303"
+          >
             FAQ
-          </Link>
+          </a>
           {currentUser.email ? (
             <Dropdown overlay={menu}>
               <span className={styles.name}>{currentUser.email}</span>

@@ -27,6 +27,7 @@ export default {
           payload: response,
         });
       } catch (e) {
+        if (e instanceof TypeError) return;
         yield put({ type: 'login/logout' });
       }
     },

@@ -1,25 +1,70 @@
+.layout {
+  background: #fff;
+}
+
+.section {
+  padding: 0 15px;
+  margin-bottom: 25px;
+}
+
 .main {
   background: url('../../assets/homeBg.jpg');
   background-size: 100% 100%;
   height: 90vh;
   min-height: 800px;
+
+  .content {
+    position: relative;
+    display: flex;
+    padding: 10px 50px;
+  }
+
+  :global {
+    .ant-row-flex {
+      width: 100%;
+    }
+  }
+
+  h1 {
+    font-size: 10rem;
+    line-height: 10rem;
+    color: #4ea4fc;
+    letter-spacing: 10px;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: #182444;
+    font-weight: 300;
+  }
 }
 
-.content {
-  position: relative;
-  display: flex;
-  padding: 10px 50px;
+.mainInfo {
+  margin-left: 7rem;
+
+  .integer {
+    color: #449ffb;
+    font-size: 3rem;
+    letter-spacing: 5px;
+  }
+
+  .float {
+    vertical-align: super;
+    font-size: 1.5rem;
+  }
+
+  .status {
+    color: #60b702;
+    font-size: 1rem;
+  }
 }
 
-.section {
-  padding: 15px;
-  margin-bottom: 25px;
-}
-
-.container {
-  width: 1200px;
-  margin: 0 auto;
-  background: transparent;
+.aboutInfo {
+  h3 {
+    color: #449ffb;
+    font-size: 3rem;
+  }
 }
 
 .aboutLogo {
