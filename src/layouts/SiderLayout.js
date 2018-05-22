@@ -77,11 +77,13 @@ export default class SiderLayout extends React.PureComponent {
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <Layout className={styles.layout}>
-          <GlobalHeader
-            logo={logo}
-            onMenuClick={this.handleMenuClick}
-            currentUser={this.props.currentUser}
-          />
+          <Layout.Header>
+            <GlobalHeader
+              logo={logo}
+              onMenuClick={this.handleMenuClick}
+              currentUser={this.props.currentUser}
+            />
+          </Layout.Header>
           <Content className={styles.content}>
             <Layout style={{ background: '#fff', height: '100%' }}>
               {/* <Sider width={200} style={{ background: '#fff' }}>
