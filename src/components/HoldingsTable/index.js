@@ -1,102 +1,82 @@
 import React from 'react';
+import { connect } from 'dva';
 import { Table } from 'antd';
 
 const columns = [
   {
     title: 'Coin',
     dataIndex: 'coin',
-    render: text => (
-      <a href="#">
-        <img alt="Coin" src="/src/assets/transparent/btc.svg" style={{ paddingRight: 5 }} />
-        {text}
-      </a>
-    ),
+    key: 'coin',
+    render: coin => {
+      return (
+        <a href="#">
+          <img
+            alt="Coin"
+            src={`/src/assets/color/${coin.label}.svg`}
+            style={{ width: 25, paddingRight: 5 }}
+          />
+          <span>{coin.name}</span>
+        </a>
+      );
+    },
   },
   {
     title: 'Amount',
     dataIndex: 'amount',
+    key: 'amount',
   },
   {
     title: 'USD',
     dataIndex: 'usd',
+    key: 'usd',
   },
   {
     title: '%',
     dataIndex: 'percent',
+    key: 'percent',
   },
   {
     title: 'Market Cap(M)',
     dataIndex: 'marketcap',
+    key: 'marketcap',
   },
   {
     title: 'Price',
     dataIndex: 'price',
+    key: 'price',
   },
   {
     title: 'Volume(24h)',
-    dataIndex: 'volume',
+    dataIndex: 'value24h',
+    key: 'value24h',
   },
   {
     title: 'Circulating Supply',
-    dataIndex: 'circulating',
+    dataIndex: 'circulation',
+    key: 'circulation',
   },
   {
     title: 'Change(24h)',
-    dataIndex: 'change',
+    dataIndex: 'change24h',
+    key: 'change24h',
   },
 ];
 
-const data = [
-  {
-    key: '0',
-    coin: 'Bitcoin',
-    amount: '80.14',
-    usd: '$667,885.96',
-    percent: '15.00%',
-    marketcap: '$142,076,711,429',
-    price: '$8333.99',
-    volume: '4,993,060,000',
-    circulating: '17,047,862',
-    change: '-2.21%',
-  },
-  {
-    key: '1',
-    coin: 'Ethereum',
-    amount: '80.14',
-    usd: '$667,885.96',
-    percent: '15.00%',
-    marketcap: '$142,076,711,429',
-    price: '$8333.99',
-    volume: '4,993,060,000',
-    circulating: '17,047,862',
-    change: '-2.21%',
-  },
-  {
-    key: '2',
-    coin: 'Ripple',
-    amount: '80.14',
-    usd: '$667,885.96',
-    percent: '15.00%',
-    marketcap: '$142,076,711,429',
-    price: '$8333.99',
-    volume: '4,993,060,000',
-    circulating: '17,047,862',
-    change: '-2.21%',
-  },
-  {
-    key: '3',
-    coin: 'EOS',
-    amount: '80.14',
-    usd: '$667,885.96',
-    percent: '15.00%',
-    marketcap: '$142,076,711,429',
-    price: '$8333.99',
-    volume: '4,993,060,000',
-    circulating: '17,047,862',
-    change: '-2.21%',
-  },
-];
+@connect(({ performance }) => ({
+  performance,
+}))
+export default class HoldingsTable extends React.PureComponent {
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'performance/fetchPerformance',
+    });
+  }
 
-const HoldingsTable = () => <Table columns={columns} dataSource={data} pagination={false} />;
+  render() {
+    console.log(this.props.performance.symbol);
+    const { performance } = this.props;
+    const { symbol } = performance;
 
-export default HoldingsTable;
+    return <Table columns={columns} dataSource={symbol} pagination={false} />;
+  }
+}

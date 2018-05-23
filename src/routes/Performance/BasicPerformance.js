@@ -29,7 +29,6 @@ export default class BasicPerformance extends Component {
   }
 
   render() {
-    console.log(this.props.performance.info);
     const { performance } = this.props;
     const { info } = performance;
 
