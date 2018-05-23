@@ -2,28 +2,30 @@ import React from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Select } from 'antd';
 import { routerRedux } from 'dva/router';
+import Metamask from 'src/services/Metamask';
 import styles from './style.less';
 
 const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
-    span: 3,
+    span: 6,
   },
   wrapperCol: {
-    span: 18,
+    span: 12,
   },
 };
 
 @Form.create()
 @connect(({ user, token }) => ({
-  data: token.step,
+  data: token,
   user,
 }))
 export default class Step2 extends React.PureComponent {
   onValidateForm = () => {
     this.props.form.validateFields((err, values) => {
-      if (!err) {
+      if (err) return;
+      if (Metamask.isInstalled) {
         this.props.dispatch({
           type: 'token/openMetamask',
           payload: {
@@ -32,14 +34,14 @@ export default class Step2 extends React.PureComponent {
             amount: values.amount,
           },
         });
-        this.props.dispatch({
-          type: 'user/updateWalletAddress',
-          payload: {
-            walletAddress: values.walletAddress,
-          },
-        });
-        this.props.dispatch(routerRedux.push('/app/token/3'));
       }
+      this.props.dispatch({
+        type: 'user/updateWalletAddress',
+        payload: {
+          walletAddress: values.walletAddress,
+        },
+      });
+      this.props.dispatch(routerRedux.push('/app/token/3'));
     });
   };
 
@@ -48,6 +50,15 @@ export default class Step2 extends React.PureComponent {
       type: 'token/saveStepFormData',
       payload: {
         cap,
+      },
+    });
+  };
+
+  onChangeWalletAddress = e => {
+    this.props.dispatch({
+      type: 'user/saveWalletAddress',
+      payload: {
+        walletAddress: e.target.value,
       },
     });
   };
@@ -62,7 +73,7 @@ export default class Step2 extends React.PureComponent {
   };
 
   render() {
-    const { form: { getFieldDecorator }, data } = this.props;
+    const { form: { getFieldDecorator }, data, user } = this.props;
     return (
       <div className={styles.wrapper}>
         <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
@@ -78,24 +89,26 @@ export default class Step2 extends React.PureComponent {
               </Select>
             )}
           </Form.Item>
-          {/* <Form.Item {...formItemLayout} label="Your Wallet Address">
-            {getFieldDecorator('walletAddress', {
-              initialValue: user.currentUser.walletAddress,
-              rules: [
-                {
-                  required: true,
-                  type: 'string',
-                  pattern: /^(0x)?[0-9A-Za-z]{40}$/,
-                  message: 'Enter correct wallet address, please',
-                },
-              ],
-            })(
-              <Input
-                placeholder="EX:0xeccdbbcbf7e7c030f75311163ed96711e8fdbe0f"
-                onChange={onChangeWalletAddress}
-              />
-            )}
-          </Form.Item> */}
+          {Metamask.isDisabled && (
+            <Form.Item {...formItemLayout} label="Your Wallet Address">
+              {getFieldDecorator('walletAddress', {
+                initialValue: user.currentUser.walletAddress,
+                rules: [
+                  {
+                    required: true,
+                    type: 'string',
+                    pattern: /^(0x)?[0-9A-Za-z]{40}$/,
+                    message: 'Enter correct wallet address to continue',
+                  },
+                ],
+              })(
+                <Input
+                  placeholder="EX:0xeccdbbcbf7e7c030f75311163ed96711e8fdbe0f"
+                  onChange={this.onChangeWalletAddress}
+                />
+              )}
+            </Form.Item>
+          )}
           <Form.Item {...formItemLayout} label="Amount">
             {getFieldDecorator('amount', {
               initialValue: data.amount,

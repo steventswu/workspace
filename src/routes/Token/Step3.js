@@ -2,20 +2,18 @@ import React from 'react';
 import { Button } from 'antd';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import Matamask from 'src/services/Metamask';
+import Metamask from 'src/services/Metamask';
 import styles from './style.less';
 
 @connect()
 export default class Step3 extends React.PureComponent {
-  useMatamask = !!Matamask.web3;
-
   handleReturn = () => {
     this.props.dispatch(routerRedux.replace('/app/performance'));
   };
 
   render() {
     const Content = ({ children }) =>
-      this.useMatamask ? (
+      Metamask.isInstalled ? (
         <React.Fragment>
           <h1 style={{ marginTop: 50 }}>Continue your purchase on Metamask</h1>
           {children}

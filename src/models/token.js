@@ -1,51 +1,42 @@
-import { routerRedux } from 'dva/router';
 import { message } from 'antd';
-import { fakeSubmitForm } from '../services/api';
-import Metamask from '../services/Metamask';
+import { open } from '../services/Metamask';
 
 export default {
   namespace: 'token',
 
   state: {
-    step: {
-      cap: 'CAP01',
-      walletAddress: '',
-      amount: 1,
-      check1: false,
-      check2: false,
-      check3: false,
+    cap: 'CAP01',
+    walletAddress: '',
+    transactionHash: '',
+    amount: 1,
+    checked: {
+      1: false,
+      2: false,
+      3: false,
     },
   },
 
   effects: {
-    *submitRegularForm({ payload }, { call }) {
-      yield call(fakeSubmitForm, payload);
-      message.success('提交成功');
-    },
-    *submitStepForm({ payload }, { call, put }) {
-      yield call(fakeSubmitForm, payload);
+    *updateAcceptTerms({ payload }, { put }) {
       yield put({
         type: 'saveStepFormData',
         payload,
       });
-      yield put(routerRedux.push('/app/token/3'));
-    },
-    *submitAdvancedForm({ payload }, { call }) {
-      yield call(fakeSubmitForm, payload);
-      message.success('提交成功');
     },
     *openMetamask({ payload }, { call, put }) {
       try {
-        const transactionHash = yield call(Metamask.openMetamask, payload);
+        const transactionHash = yield call(open, payload);
         yield put({
-          type: 'saveStepFormData',
+          type: 'saveTransactionHash',
           payload: {
             transactionHash,
           },
         });
+        message.success('Transaction complete');
       } catch (err) {
         // ignore error
-        // console.error(err.message);
+        console.error(err.message);
+        message.error('You cancel or reject the transaction');
       }
     },
   },
@@ -54,10 +45,13 @@ export default {
     saveStepFormData(state, { payload }) {
       return {
         ...state,
-        step: {
-          ...state.step,
-          ...payload,
-        },
+        checked: payload,
+      };
+    },
+    saveTransactionHash(state, { payload }) {
+      return {
+        ...state,
+        transactionHash: payload.transactionHash,
       };
     },
   },

@@ -1,47 +1,46 @@
 import Eth from 'ethjs-query';
 // import abi from './abi.json';
 
-class Metamask {
-  constructor() {
-    this.web3 = window.web3;
-    this.contracts = {
-      CAP01: {
-        address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
-      },
-      CAP02: {
-        address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
-      },
-      CAP03: {
-        address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
-      },
-    };
-  }
+const { web3 } = window;
 
-  getContractAddress = contractNumber => {
-    return this.contracts[contractNumber].address;
-  };
+export const isInstalled = !!web3;
 
-  validateEnvironment = () => {
-    if (typeof this.web3 === 'undefined') throw Error('web3 is not defined');
-    if (this.web3.version.network !== '3') throw Error('web3 network version is not 3');
-  };
+export const isDisabled = !isInstalled;
 
-  openMetamask = async ({ contractNumber, amount }) => {
-    if (!contractNumber || !amount) return Promise.reject(Error('Invalid params'));
+const contracts = {
+  CAP01: {
+    address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
+  },
+  CAP02: {
+    address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
+  },
+  CAP03: {
+    address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
+  },
+};
 
-    this.validateEnvironment();
+const getContractAddress = contractNumber => contracts[contractNumber].address;
 
-    const eth = new Eth(this.web3.currentProvider);
+const validateEnvironment = () => {
+  if (typeof web3 === 'undefined') throw Error('web3 is not defined');
+  if (web3.version.network !== '3') throw Error('web3 network version is not 3');
+};
 
-    const [from] = await eth.accounts();
+export const open = async ({ contractNumber, amount }) => {
+  if (!contractNumber || !amount) return Promise.reject(Error('Invalid params'));
 
-    return eth.sendTransaction({
-      from,
-      to: this.getContractAddress(contractNumber),
-      value: amount * 1000000000000000000,
-      data: '0x',
-    });
-  };
-}
+  validateEnvironment();
 
-export default new Metamask();
+  const eth = new Eth(web3.currentProvider);
+
+  const [from] = await eth.accounts();
+
+  return eth.sendTransaction({
+    from,
+    to: getContractAddress(contractNumber),
+    value: amount * 1000000000000000000,
+    data: '0x',
+  });
+};
+
+export default { open, isInstalled, isDisabled };
