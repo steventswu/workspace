@@ -4,7 +4,6 @@ import { connect } from 'dva';
 import { Route, Redirect, Switch, Link, routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import pathToRegexp from 'path-to-regexp';
-import classNames from 'classnames';
 
 import GlobalFooter from '../components/GlobalFooter';
 import GlobalHeader from '../components/GlobalHeader';
@@ -14,7 +13,6 @@ import { getRoutes } from '../utils/utils';
 import logo from '../assets/logo.svg';
 
 import styles from './SiderLayout.less';
-import layoutStyles from './common.less';
 
 const { Content, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
@@ -81,14 +79,14 @@ export default class SiderLayout extends React.PureComponent {
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <Layout className={styles.layout}>
-          <Layout.Header className={layoutStyles.container}>
+          <Layout.Header>
             <GlobalHeader
               logo={logo}
               onMenuClick={this.handleMenuClick}
               currentUser={this.props.currentUser}
             />
           </Layout.Header>
-          <Content className={classNames(styles.content, layoutStyles.container)}>
+          <Content className={styles.content}>
             <Layout style={{ background: '#fff', minHeight: window.innerHeight - 100 }}>
               <Layout.Sider width={300} className={styles.sider}>
                 <h1>User Profile</h1>
@@ -132,7 +130,7 @@ export default class SiderLayout extends React.PureComponent {
               </Content>
             </Layout>
           </Content>
-          <Footer className={layoutStyles.container} style={{ padding: 0 }}>
+          <Footer style={{ padding: 0 }}>
             <GlobalFooter
               copyright={
                 <React.Fragment>

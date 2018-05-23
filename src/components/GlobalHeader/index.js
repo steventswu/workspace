@@ -28,6 +28,9 @@ export default class GlobalHeader extends PureComponent {
           <Link style={{ padding: '0 15px' }} to="/app/performance">
             Performance
           </Link>
+          <Link style={{ padding: '0 15px' }} to="/app/token">
+            Buy Token
+          </Link>
           <a
             style={{ padding: '0 15px' }}
             target="_blank"

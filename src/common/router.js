@@ -64,16 +64,16 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../routes/Performance/BasicPerformance')),
     },
     '/app/token': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/Token/StepForm')),
+      component: dynamicWrapper(app, ['user', 'token'], () => import('../routes/Token/StepForm')),
     },
     '/app/token/1': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/Token/StepForm/Step1')),
+      component: dynamicWrapper(app, ['token'], () => import('../routes/Token/StepForm/Step1')),
     },
     '/app/token/2': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/Token/StepForm/Step2')),
+      component: dynamicWrapper(app, ['token'], () => import('../routes/Token/StepForm/Step2')),
     },
     '/app/token/3': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/Token/StepForm/Step3')),
+      component: dynamicWrapper(app, ['token'], () => import('../routes/Token/StepForm/Step3')),
     },
     '/exception/403': {
       component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),

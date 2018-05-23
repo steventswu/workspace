@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { query as queryUsers, queryCurrent, verifyEmail } from '../services/user';
+import { patchMember, query as queryUsers, queryCurrent, verifyEmail } from '../services/user';
 import { sessionKey } from './login';
 
 export default {
@@ -37,6 +37,31 @@ export default {
         yield put(routerRedux.replace('/user/login'));
       }
     },
+    *updateWalletAddress({ payload }, { call, put }) {
+      try {
+        const info = JSON.parse(localStorage.getItem(sessionKey));
+        info.patchData = {
+          walletAddress: payload.walletAddress,
+        };
+        yield call(patchMember, info);
+        yield put({
+          type: 'saveCurrentUserWalletAddress',
+          payload,
+        });
+      } catch (e) {
+        yield put({ type: 'login/logout' });
+      }
+    },
+    *saveWalletAddress({ payload }, { put }) {
+      try {
+        yield put({
+          type: 'saveCurrentUserWalletAddress',
+          payload,
+        });
+      } catch (e) {
+        yield put({ type: 'login/logout' });
+      }
+    },
   },
 
   reducers: {
@@ -50,6 +75,14 @@ export default {
       return {
         ...state,
         currentUser: action.payload,
+      };
+    },
+    saveCurrentUserWalletAddress(state, action) {
+      const { currentUser } = state;
+      currentUser.walletAddress = action.payload.walletAddress;
+      return {
+        ...state,
+        currentUser: state.currentUser,
       };
     },
     changeNotifyCount(state, action) {

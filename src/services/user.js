@@ -12,6 +12,14 @@ export async function queryCurrent({ memberId, jwt }) {
   });
 }
 
+export async function patchMember({ patchData, memberId, jwt }) {
+  return request(`${endpoint}/members/${memberId}`, {
+    method: 'PATCH',
+    headers: { authorization: jwt },
+    body: patchData,
+  });
+}
+
 export async function verifyEmail(token) {
   return request(`${endpoint}/email_verification`, {
     method: 'POST',
