@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Icon } from 'antd';
 import { connect } from 'dva';
-import { Route, Redirect, Switch, Link, routerRedux } from 'dva/router';
+import { Route, Redirect, Switch, Link } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import pathToRegexp from 'path-to-regexp';
 
@@ -66,9 +66,6 @@ export default class SiderLayout extends React.PureComponent {
   };
 
   handleMenuClick = ({ key }) => {
-    if (key === 'profile') {
-      this.props.dispatch(routerRedux.push('/app/profile'));
-    }
     if (key === 'logout') {
       this.props.dispatch({ type: 'login/logout' });
     }
@@ -90,14 +87,14 @@ export default class SiderLayout extends React.PureComponent {
             <Layout style={{ background: '#fff', minHeight: window.innerHeight - 100 }}>
               <Layout.Sider width={300} className={styles.sider}>
                 <h1>User Profile</h1>
-                <div>
+                {/* <div>
                   First Name
                   <p>Tix</p>
                 </div>
                 <div>
                   Last Name
                   <p>Guru</p>
-                </div>
+                </div> */}
                 <div>
                   Email
                   <p>{email}</p>

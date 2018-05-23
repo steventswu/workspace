@@ -14,8 +14,8 @@ import styles from './HomePage.less';
 import layoutStyles from '../../layouts/common.less';
 import card from './card.json';
 
-@connect(({ user }) => ({
-  currentUser: user.currentUser,
+@connect(({ user, login }) => ({
+  currentUser: login.status ? user.currentUser : undefined,
 }))
 export default class HomePage extends React.Component {
   state = {

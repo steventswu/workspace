@@ -8,9 +8,9 @@ export default class GlobalHeader extends PureComponent {
     const { currentUser = {}, logo, onMenuClick, onLogin } = this.props;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item key="profile">
+        {/* <Menu.Item key="profile">
           <Icon type="user" />Profile
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="logout">
           <Icon type="logout" />Logout
         </Menu.Item>
@@ -41,7 +41,9 @@ export default class GlobalHeader extends PureComponent {
           </a>
           {currentUser.email ? (
             <Dropdown overlay={menu}>
-              <span className={styles.name}>{currentUser.email}</span>
+              <Button style={{ marginLeft: 8 }}>
+                {currentUser.email} <Icon type="down" />
+              </Button>
             </Dropdown>
           ) : (
             <Button type="primary" style={{ marginLeft: 8 }} onClick={onLogin}>
