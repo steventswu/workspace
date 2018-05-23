@@ -21,18 +21,15 @@ class Metamask {
     return this.contracts[contractNumber].address;
   };
 
-  checkNetwork = () => {
-    return this.web3.version.network === '3';
+  validateEnvironment = () => {
+    if (typeof this.web3 === 'undefined') throw Error('web3 is not defined');
+    if (this.web3.version.network !== '3') throw Error('web3 network version is not 3');
   };
 
   openMetamask = async ({ contractNumber, amount }) => {
-    if (typeof contractNumber === 'undefined' || typeof amount === 'undefined') {
-      return;
-    }
+    if (!contractNumber || !amount) return Promise.reject(Error('Invalid params'));
 
-    if (typeof this.web3 === 'undefined' && !this.checkNetwork()) {
-      return;
-    }
+    this.validateEnvironment();
 
     const eth = new Eth(this.web3.currentProvider);
 
@@ -40,7 +37,7 @@ class Metamask {
 
     return eth.sendTransaction({
       from,
-      to: this.contracts[contractNumber].address,
+      to: this.getContractAddress(contractNumber),
       value: amount * 1000000000000000000,
       data: '0x',
     });

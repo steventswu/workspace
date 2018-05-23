@@ -1,14 +1,14 @@
-import React, { PureComponent, Fragment } from 'react';
-import { Route, Redirect, Switch } from 'dva/router';
+import React from 'react';
+import { Route, Switch, Redirect } from 'dva/router';
 import { Card, Steps } from 'antd';
-import NotFound from '../../Exception/404';
-import { getRoutes } from '../../../utils/utils';
-import styles from '../style.less';
+import NotFound from 'src/routes/Exception/404';
+import { getRoutes } from 'src/utils/utils';
+import styles from './style.less';
 
 const { Step } = Steps;
 
-export default class StepForm extends PureComponent {
-  getCurrentStep() {
+export default class Token extends React.PureComponent {
+  getCurrentStep = () => {
     const { location } = this.props;
     const { pathname } = location;
     const pathList = pathname.split('/');
@@ -22,12 +22,13 @@ export default class StepForm extends PureComponent {
       default:
         return 0;
     }
-  }
+  };
+
   render() {
     const { match, routerData } = this.props;
     return (
-      <Card bordered={false}>
-        <Fragment>
+      <Card className={styles.container} bordered={false}>
+        <React.Fragment>
           <Steps current={this.getCurrentStep()} className={styles.steps}>
             <Step title="Accept Terms" />
             <Step title="Place Orders" />
@@ -45,7 +46,7 @@ export default class StepForm extends PureComponent {
             <Redirect exact from="/app/token" to="/app/token/1" />
             <Route render={NotFound} />
           </Switch>
-        </Fragment>
+        </React.Fragment>
       </Card>
     );
   }

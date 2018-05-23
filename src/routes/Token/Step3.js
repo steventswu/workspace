@@ -1,12 +1,26 @@
 import React from 'react';
+import { Button } from 'antd';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
+import Matamask from 'src/services/Metamask';
 import styles from './style.less';
 
-class Step3 extends React.PureComponent {
+@connect()
+export default class Step3 extends React.PureComponent {
+  useMatamask = !!Matamask.web3;
+
+  handleReturn = () => {
+    this.props.dispatch(routerRedux.replace('/app/performance'));
+  };
+
   render() {
-    // const { data } = this.props;
-    return (
-      <div className={styles.wrapper}>
+    const Content = ({ children }) =>
+      this.useMatamask ? (
+        <React.Fragment>
+          <h1 style={{ marginTop: 50 }}>Continue your purchase on Metamask</h1>
+          {children}
+        </React.Fragment>
+      ) : (
         <div className={styles.information}>
           <h1>Buy Your CAP</h1>
           <ul>
@@ -25,12 +39,17 @@ class Step3 extends React.PureComponent {
               Open in Etherscan
             </a>
           </p>
+          {children}
         </div>
+      );
+    return (
+      <div className={styles.wrapper}>
+        <Content>
+          <Button type="primary" style={{ marginTop: 50 }} onClick={this.handleReturn}>
+            Return
+          </Button>
+        </Content>
       </div>
     );
   }
 }
-
-export default connect(({ token }) => ({
-  data: token.step,
-}))(Step3);
