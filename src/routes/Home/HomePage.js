@@ -9,9 +9,9 @@ import PortfolioCard from 'components/PortfolioCard';
 import GlobalFooter from 'components/GlobalFooter';
 import aboutLogo from 'assets/aboutLogo.svg';
 import logo from 'assets/logo.svg';
+import layoutStyles from 'src/layouts/common.less';
 
 import styles from './HomePage.less';
-import layoutStyles from '../../layouts/common.less';
 import card from './card.json';
 
 @connect(({ user, login }) => ({

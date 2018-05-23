@@ -11,6 +11,7 @@ module.exports = {
   },
   rules: {
     'react/no-unescaped-entities': [0],
+    'react/sort-comp': [0],
     'generator-star-spacing': [0],
     'consistent-return': [0],
     'react/forbid-prop-types': [0],

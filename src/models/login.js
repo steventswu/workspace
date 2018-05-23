@@ -46,7 +46,7 @@ export default {
           },
         });
         reloadAuthorized();
-        yield put(routerRedux.push({ pathname: '/user/login' }));
+        yield put(routerRedux.push('/'));
       }
     },
     *google(_, { call, put }) {
