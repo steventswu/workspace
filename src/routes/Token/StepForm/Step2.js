@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Select } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -8,79 +8,77 @@ const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
-    span: 5,
+    span: 3,
   },
   wrapperCol: {
-    span: 19,
+    span: 18,
   },
 };
 
 @Form.create()
-class Step2 extends React.PureComponent {
+@connect(({ user, token }) => ({
+  data: token.step,
+  user,
+}))
+export default class Step2 extends React.PureComponent {
+  onValidateForm = () => {
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.props.dispatch({
+          type: 'token/openMetamask',
+          payload: {
+            fromAddress: values.walletAddress,
+            contractNumber: values.cap,
+            amount: values.amount,
+          },
+        });
+        this.props.dispatch({
+          type: 'user/updateWalletAddress',
+          payload: {
+            walletAddress: values.walletAddress,
+          },
+        });
+        this.props.dispatch(routerRedux.push('/app/token/3'));
+      }
+    });
+  };
+
+  onChangeCap = cap => {
+    this.props.dispatch({
+      type: 'token/saveStepFormData',
+      payload: {
+        cap,
+      },
+    });
+  };
+
+  onChangeAmount = amount => {
+    this.props.dispatch({
+      type: 'token/saveStepFormData',
+      payload: {
+        amount,
+      },
+    });
+  };
+
   render() {
-    const { form, dispatch, data, user } = this.props;
-    const { getFieldDecorator, validateFields } = form;
-    const onValidateForm = () => {
-      validateFields((err, values) => {
-        if (!err) {
-          dispatch({
-            type: 'token/openMetamask',
-            payload: {
-              fromAddress: values.walletAddress,
-              contractNumber: values.cap,
-              amount: values.amount,
-            },
-          });
-          dispatch({
-            type: 'user/updateWalletAddress',
-            payload: {
-              walletAddress: values.walletAddress,
-            },
-          });
-          dispatch(routerRedux.push('/app/token/3'));
-        }
-      });
-    };
-    const onChangeCap = cap => {
-      dispatch({
-        type: 'token/saveStepFormData',
-        payload: {
-          cap,
-        },
-      });
-    };
-    const onChangeAmount = amount => {
-      dispatch({
-        type: 'token/saveStepFormData',
-        payload: {
-          amount,
-        },
-      });
-    };
-    const onChangeWalletAddress = e => {
-      dispatch({
-        type: 'user/saveWalletAddress',
-        payload: {
-          walletAddress: e.target.value,
-        },
-      });
-    };
+    const { form: { getFieldDecorator }, data } = this.props;
     return (
-      <Fragment>
+      <div className={styles.wrapper}>
         <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
           <Form.Item {...formItemLayout} label="CAP">
             {getFieldDecorator('cap', {
               initialValue: data.cap,
               rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
             })(
-              <Select placeholder="CAP 01" onChange={onChangeCap}>
+              <Select placeholder="CAP 01" onChange={this.onChangeCap}>
                 <Option value="CAP01">CAP01</Option>
                 <Option value="CAP02">CAP02</Option>
                 <Option value="CAP03">CAP03</Option>
               </Select>
             )}
           </Form.Item>
-          <Form.Item {...formItemLayout} label="Your Wallet Address">
+          {/* <Form.Item {...formItemLayout} label="Your Wallet Address">
             {getFieldDecorator('walletAddress', {
               initialValue: user.currentUser.walletAddress,
               rules: [
@@ -97,7 +95,7 @@ class Step2 extends React.PureComponent {
                 onChange={onChangeWalletAddress}
               />
             )}
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item {...formItemLayout} label="Amount">
             {getFieldDecorator('amount', {
               initialValue: data.amount,
@@ -107,7 +105,7 @@ class Step2 extends React.PureComponent {
                   message: 'Enter amount',
                 },
               ],
-            })(<Input placeholder="EX:100000000000" onChange={onChangeAmount} />)}
+            })(<Input placeholder="EX:100000000000" onChange={this.onChangeAmount} />)}
           </Form.Item>
           <Form.Item
             wrapperCol={{
@@ -119,17 +117,12 @@ class Step2 extends React.PureComponent {
             }}
             label=""
           >
-            <Button type="primary" onClick={onValidateForm}>
+            <Button type="primary" onClick={this.onValidateForm}>
               Next
             </Button>
           </Form.Item>
         </Form>
-      </Fragment>
+      </div>
     );
   }
 }
-
-export default connect(({ user, token }) => ({
-  data: token.step,
-  user,
-}))(Step2);

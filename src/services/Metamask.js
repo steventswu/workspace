@@ -1,12 +1,9 @@
 import Eth from 'ethjs-query';
-import EthContract from 'ethjs-contract';
-import abi from './abi.json';
-
-const { web3 } = window;
+// import abi from './abi.json';
 
 class Metamask {
   constructor() {
-    this.web3 = web3;
+    this.web3 = window.web3;
     this.contracts = {
       CAP01: {
         address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
@@ -28,12 +25,8 @@ class Metamask {
     return this.web3.version.network === '3';
   };
 
-  openMetamask = ({ fromAddress, contractNumber, amount }) => {
-    if (
-      typeof fromAddress === 'undefined' ||
-      typeof contractNumber === 'undefined' ||
-      typeof amount === 'undefined'
-    ) {
+  openMetamask = async ({ contractNumber, amount }) => {
+    if (typeof contractNumber === 'undefined' || typeof amount === 'undefined') {
       return;
     }
 
@@ -42,11 +35,11 @@ class Metamask {
     }
 
     const eth = new Eth(this.web3.currentProvider);
-    const contract = new EthContract(eth);
-    const myContract = contract(abi).at(this.contracts[contractNumber].address);
 
-    return myContract.eth.sendTransaction({
-      from: web3.eth.defaultAccount,
+    const [from] = await eth.accounts();
+
+    return eth.sendTransaction({
+      from,
       to: this.contracts[contractNumber].address,
       value: amount * 1000000000000000000,
       data: '0x',

@@ -29,7 +29,7 @@ export default class GlobalHeader extends PureComponent {
             Performance
           </Link>
           <Link style={{ padding: '0 15px' }} to="/app/token">
-            Token
+            Buy Token
           </Link>
           <a
             style={{ padding: '0 15px' }}

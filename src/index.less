@@ -24,9 +24,15 @@ body {
   margin: 40px 0 !important;
 }
 
-// temp fix for https://github.com/ant-design/ant-design/commit/a1fafb5b727b62cb0be29ce6e9eca8f579d4f8b7
 :global {
+  // temp fix for https://github.com/ant-design/ant-design/commit/a1fafb5b727b62cb0be29ce6e9eca8f579d4f8b7
   .ant-spin-container {
     overflow: visible !important;
+  }
+
+  // add checkbox indent for long text
+  .ant-form-item label {
+    padding-left: 1.5em;
+    text-indent: -1.6em;
   }
 }

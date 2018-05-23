@@ -44,7 +44,8 @@ export default {
           },
         });
       } catch (err) {
-        console.log(err);
+        // ignore error
+        // console.error(err.message);
       }
     },
   },
