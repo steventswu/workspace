@@ -78,13 +78,13 @@ export default function request(url, options) {
     .catch(e => {
       const { dispatch } = store;
       const status = e.name;
-      if (status >= 401) {
+      if (status === 400) {
+        return { error: true };
+      }
+      if (status === 401 || status === 403) {
         return dispatch({
           type: 'login/logout',
         });
-      }
-      if (status === 400) {
-        return { error: true };
       }
     });
 }
