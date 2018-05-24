@@ -8,7 +8,7 @@ import styles from './style.less';
 @connect()
 export default class Step3 extends React.PureComponent {
   handleReturn = () => {
-    this.props.dispatch(routerRedux.replace('/performance'));
+    this.props.dispatch(routerRedux.replace('/profile'));
   };
 
   render() {
