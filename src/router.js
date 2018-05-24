@@ -24,7 +24,7 @@ function RouterConfig({ history, app }) {
           <Route path="/user" component={routerData['/user'].component} />
           <Route path="/performance" render={props => <BasicLayout {...props} />} />
           <AuthorizedRoute
-            path="/token"
+            path="/buy"
             render={props => <BasicLayout {...props} />}
             authority={['admin', 'user']}
             redirectPath="/user/login"
