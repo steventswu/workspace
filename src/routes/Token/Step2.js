@@ -41,7 +41,7 @@ export default class Step2 extends React.PureComponent {
           walletAddress: values.walletAddress,
         },
       });
-      this.props.dispatch(routerRedux.push('/app/token/3'));
+      this.props.dispatch(routerRedux.push('/token/3'));
     });
   };
 

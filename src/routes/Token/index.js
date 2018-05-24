@@ -43,7 +43,7 @@ export default class Token extends React.PureComponent {
                 exact={item.exact}
               />
             ))}
-            <Redirect exact from="/app/token" to="/app/token/1" />
+            <Redirect exact from="/token" to="/token/1" />
             <Route render={NotFound} />
           </Switch>
         </React.Fragment>

@@ -6,6 +6,7 @@ import dynamic from 'dva/dynamic';
 import { getRouterData } from './common/router';
 import Authorized from './utils/Authorized';
 import styles from './index.less';
+import Exception from './routes/Exception';
 
 const { ConnectedRouter } = routerRedux;
 const { AuthorizedRoute } = Authorized;
@@ -15,21 +16,29 @@ dynamic.setDefaultLoadingComponent(() => Loading);
 
 function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
-  const UserLayout = routerData['/user'].component;
-  const BasicLayout = routerData['/app'].component;
-  const HomePage = routerData['/'].component;
+  const BasicLayout = routerData['/'].component;
   return (
     <LocaleProvider locale={zhCN}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/user" component={UserLayout} />
+          <Route path="/user" component={routerData['/user'].component} />
+          <Route path="/performance" render={props => <BasicLayout {...props} />} />
           <AuthorizedRoute
-            path="/app"
+            path="/token"
             render={props => <BasicLayout {...props} />}
             authority={['admin', 'user']}
             redirectPath="/user/login"
           />
+          <AuthorizedRoute
+            path="/profile"
+            render={props => <BasicLayout {...props} />}
+            authority={['admin', 'user']}
+            redirectPath="/user/login"
+          />
+          <Route exact path="/exception/403" render={Exception.Unauthorized} />
+          <Route exact path="/exception/404" render={Exception.NotFound} />
+          <Route exact path="/exception/500" render={Exception.InternalError} />
+          <Route component={routerData['/home'].component} />
         </Switch>
       </ConnectedRouter>
     </LocaleProvider>

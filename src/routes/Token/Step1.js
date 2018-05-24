@@ -20,7 +20,7 @@ const formItemLayout = {
 }))
 export default class Step1 extends React.PureComponent {
   onSubmit = () => {
-    this.props.dispatch(routerRedux.push('/app/token/2'));
+    this.props.dispatch(routerRedux.push('/token/2'));
   };
 
   onClickCheck = field => e => {

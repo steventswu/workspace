@@ -25,10 +25,10 @@ export default class GlobalHeader extends PureComponent {
           <Link style={{ padding: '0 15px' }} to="/">
             Home
           </Link>
-          <Link style={{ padding: '0 15px' }} to="/app/performance">
+          <Link style={{ padding: '0 15px' }} to="/performance">
             Performance
           </Link>
-          <Link style={{ padding: '0 15px' }} to="/app/token">
+          <Link style={{ padding: '0 15px' }} to="/token">
             Buy Token
           </Link>
           <a

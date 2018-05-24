@@ -55,24 +55,24 @@ const dynamicWrapper = (app, models, component) => {
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(app, ['user', 'login'], () => import('../routes/Home')),
+      component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/AppLayout')),
     },
-    '/app': {
-      component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/SiderLayout')),
+    '/home': {
+      component: dynamicWrapper(app, [], () => import('../routes/Home/HomePage')),
     },
-    '/app/performance': {
+    '/performance': {
       component: dynamicWrapper(app, [], () => import('../routes/Performance/BasicPerformance')),
     },
-    '/app/token': {
+    '/token': {
       component: dynamicWrapper(app, ['user', 'token'], () => import('../routes/Token')),
     },
-    '/app/token/1': {
+    '/token/1': {
       component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step1')),
     },
-    '/app/token/2': {
+    '/token/2': {
       component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step2')),
     },
-    '/app/token/3': {
+    '/token/3': {
       component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step3')),
     },
     '/exception/403': {
