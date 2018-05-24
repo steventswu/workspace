@@ -19,12 +19,13 @@ const formItemLayout = {
 @Form.create()
 @connect(({ user, token }) => ({
   data: token,
-  user,
+  currentUser: user,
 }))
 export default class Step2 extends React.PureComponent {
   onValidateForm = () => {
     this.props.form.validateFields((err, values) => {
       if (err) return;
+      this.props.dispatch(routerRedux.push('/token/3'));
       if (Metamask.isInstalled) {
         this.props.dispatch({
           type: 'token/openMetamask',
@@ -34,14 +35,14 @@ export default class Step2 extends React.PureComponent {
             amount: values.amount,
           },
         });
+      } else {
+        this.props.dispatch({
+          type: 'user/updateWalletAddress',
+          payload: {
+            walletAddress: values.walletAddress,
+          },
+        });
       }
-      this.props.dispatch({
-        type: 'user/updateWalletAddress',
-        payload: {
-          walletAddress: values.walletAddress,
-        },
-      });
-      this.props.dispatch(routerRedux.push('/token/3'));
     });
   };
 
@@ -73,7 +74,7 @@ export default class Step2 extends React.PureComponent {
   };
 
   render() {
-    const { form: { getFieldDecorator }, data, user } = this.props;
+    const { form: { getFieldDecorator }, data, currentUser } = this.props;
     return (
       <div className={styles.wrapper}>
         <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
@@ -92,7 +93,7 @@ export default class Step2 extends React.PureComponent {
           {Metamask.isDisabled && (
             <Form.Item {...formItemLayout} label="Your Wallet Address">
               {getFieldDecorator('walletAddress', {
-                initialValue: user.currentUser.walletAddress,
+                initialValue: currentUser.walletAddress,
                 rules: [
                   {
                     required: true,

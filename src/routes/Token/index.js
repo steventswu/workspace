@@ -2,8 +2,10 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'dva/router';
 import { Card, Steps } from 'antd';
 import NotFound from 'src/routes/Exception/404';
-import { getRoutes } from 'src/utils/utils';
 import styles from './style.less';
+import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
 
 const { Step } = Steps;
 
@@ -25,7 +27,6 @@ export default class Token extends React.PureComponent {
   };
 
   render() {
-    const { match, routerData } = this.props;
     return (
       <Card className={styles.container} bordered={false}>
         <React.Fragment>
@@ -35,14 +36,9 @@ export default class Token extends React.PureComponent {
             <Step title="Buy CAP Tokens" />
           </Steps>
           <Switch>
-            {getRoutes(match.path, routerData).map(item => (
-              <Route
-                key={item.key}
-                path={item.path}
-                component={item.component}
-                exact={item.exact}
-              />
-            ))}
+            <Route exact path="/token/1" component={Step1} />
+            <Route exact path="/token/2" component={Step2} />
+            <Route exact path="/token/3" component={Step3} />
             <Redirect exact from="/token" to="/token/1" />
             <Route render={NotFound} />
           </Switch>

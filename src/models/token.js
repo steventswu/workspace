@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import { notification } from 'antd';
 import { open } from '../services/Metamask';
 
 export default {
@@ -32,11 +32,11 @@ export default {
             transactionHash,
           },
         });
-        message.success('Transaction complete');
+        notification.success({ message: 'Transaction complete' });
       } catch (err) {
         // ignore error
-        console.error(err.message);
-        message.error('You cancel or reject the transaction');
+        // console.error(err.message);
+        notification.error({ message: 'You cancel or reject the transaction' });
       }
     },
   },

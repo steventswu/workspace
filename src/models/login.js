@@ -28,14 +28,8 @@ export default {
       reloadAuthorized();
       yield put(routerRedux.push(redirectPath));
     },
-    *logout(_, { put, select }) {
+    *logout(_, { put }) {
       try {
-        // get location pathname
-        const urlParams = new URL(window.location.href);
-        const pathname = yield select(state => state.routing.location.pathname);
-        // add the parameters in the url
-        urlParams.searchParams.set('redirect', pathname);
-        window.history.replaceState(null, 'login', urlParams.href);
         localStorage.removeItem(sessionKey);
       } finally {
         yield put({
@@ -45,6 +39,7 @@ export default {
             currentAuthority: 'guest',
           },
         });
+        yield put({ type: 'user/destroy' });
         reloadAuthorized();
         yield put(routerRedux.push('/'));
       }

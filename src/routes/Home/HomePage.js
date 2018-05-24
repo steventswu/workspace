@@ -14,8 +14,8 @@ import layoutStyles from 'src/layouts/common.less';
 import styles from './HomePage.less';
 import card from './card.json';
 
-@connect(({ user, login }) => ({
-  currentUser: login.status ? user.currentUser : undefined,
+@connect(({ user }) => ({
+  currentUser: user,
 }))
 export default class HomePage extends React.Component {
   state = {
@@ -106,7 +106,10 @@ export default class HomePage extends React.Component {
               </Column>
             </Row>
           </section>
-          <section className={classNames(styles.section, layoutStyles.container)}>
+          <section
+            style={{ marginBottom: 100 }}
+            className={classNames(styles.section, layoutStyles.container)}
+          >
             <Row>
               <Column className={styles.portfolioColumn} span={8}>
                 <PortfolioCard
@@ -155,7 +158,6 @@ export default class HomePage extends React.Component {
               </Column>
             </Row>
           </section>
-          <section className={styles.section} />
           <Layout.Footer>
             <GlobalFooter
               copyright={

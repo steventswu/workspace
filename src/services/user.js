@@ -12,11 +12,11 @@ export async function queryCurrent({ memberId, jwt }) {
   });
 }
 
-export async function patchMember({ patchData, memberId, jwt }) {
+export async function patchMember(walletAddress, { memberId, jwt }) {
   return request(`${endpoint}/members/${memberId}`, {
     method: 'PATCH',
     headers: { authorization: jwt },
-    body: patchData,
+    body: { walletAddress },
   });
 }
 

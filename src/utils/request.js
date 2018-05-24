@@ -1,6 +1,5 @@
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
-import { routerRedux } from 'dva/router';
 import store from '../index';
 
 const codeMessage = {
@@ -79,19 +78,10 @@ export default function request(url, options) {
     .catch(e => {
       const { dispatch } = store;
       const status = e.name;
-      if (status === 401) {
+      if (status >= 401) {
         return dispatch({
           type: 'login/logout',
         });
-      }
-      if (status === 403) {
-        return dispatch(routerRedux.push('/exception/403'));
-      }
-      if (status <= 504 && status >= 500) {
-        return dispatch(routerRedux.push('/exception/500'));
-      }
-      if (status >= 404 && status < 422) {
-        return dispatch(routerRedux.push('/exception/404'));
       }
       if (status === 400) {
         return { error: true };

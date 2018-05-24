@@ -1,29 +1,19 @@
 import { routerRedux } from 'dva/router';
-import { patchMember, query as queryUsers, queryCurrent, verifyEmail } from '../services/user';
+import { patchMember, queryCurrent, verifyEmail } from '../services/user';
 import { sessionKey } from './login';
 
 export default {
   namespace: 'user',
 
-  state: {
-    list: [],
-    currentUser: {},
-  },
+  state: {},
 
   effects: {
-    *fetch(_, { call, put }) {
-      const response = yield call(queryUsers);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-    },
     *fetchCurrent(_, { call, put }) {
       try {
         const info = JSON.parse(localStorage.getItem(sessionKey));
         const response = yield call(queryCurrent, info);
         yield put({
-          type: 'saveCurrentUser',
+          type: 'save',
           payload: response,
         });
       } catch (e) {
@@ -40,22 +30,9 @@ export default {
     *updateWalletAddress({ payload }, { call, put }) {
       try {
         const info = JSON.parse(localStorage.getItem(sessionKey));
-        info.patchData = {
-          walletAddress: payload.walletAddress,
-        };
-        yield call(patchMember, info);
+        yield call(patchMember, payload.walletAddress, info);
         yield put({
-          type: 'saveCurrentUserWalletAddress',
-          payload,
-        });
-      } catch (e) {
-        yield put({ type: 'login/logout' });
-      }
-    },
-    *saveWalletAddress({ payload }, { put }) {
-      try {
-        yield put({
-          type: 'saveCurrentUserWalletAddress',
+          type: 'saveWalletAddress',
           payload,
         });
       } catch (e) {
@@ -66,33 +43,16 @@ export default {
 
   reducers: {
     save(state, action) {
+      return action.payload;
+    },
+    saveWalletAddress(state, action) {
       return {
         ...state,
-        list: action.payload,
+        walletAddress: action.payload.walletAddress,
       };
     },
-    saveCurrentUser(state, action) {
-      return {
-        ...state,
-        currentUser: action.payload,
-      };
-    },
-    saveCurrentUserWalletAddress(state, action) {
-      const { currentUser } = state;
-      currentUser.walletAddress = action.payload.walletAddress;
-      return {
-        ...state,
-        currentUser: state.currentUser,
-      };
-    },
-    changeNotifyCount(state, action) {
-      return {
-        ...state,
-        currentUser: {
-          ...state.currentUser,
-          notifyCount: action.payload,
-        },
-      };
+    destroy() {
+      return {};
     },
   },
 };

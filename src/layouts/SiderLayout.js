@@ -18,7 +18,7 @@ const { Content, Footer } = Layout;
 const { AuthorizedRoute } = Authorized;
 
 @connect(({ user }) => ({
-  currentUser: user.currentUser,
+  currentUser: user,
 }))
 export default class SiderLayout extends React.PureComponent {
   componentDidMount() {
