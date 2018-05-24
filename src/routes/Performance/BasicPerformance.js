@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
+import numeral from 'numeral';
 import { connect } from 'dva';
 import { Row, Col, Tooltip, Icon } from 'antd';
 import Highcharts from 'highcharts';
@@ -21,10 +22,13 @@ const Dollar = ({ children }) => (
 @connect(({ performance }) => ({
   performance,
 }))
-export default class BasicPerformance extends Component {
+export default class BasicPerformance extends PureComponent {
   componentDidMount() {
     this.props.dispatch({
       type: 'performance/fetchPerformance',
+      // payload: {
+      //   type: 'cap01'
+      // }
     });
   }
 
@@ -99,7 +103,7 @@ export default class BasicPerformance extends Component {
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
-                total={() => <Dollar>{info['cap-supply']}</Dollar>}
+                total={numeral(info['cap-supply']).format('0,0.[0000]')}
                 contentHeight={150}
                 style={{ marginBottom: 24 }}
               />
