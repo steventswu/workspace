@@ -61,7 +61,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../routes/Home/HomePage')),
     },
     '/performance': {
-      component: dynamicWrapper(app, [], () => import('../routes/Performance/BasicPerformance')),
+      component: dynamicWrapper(app, ['performance'], () => import('../routes/Performance/BasicPerformance')),
     },
     '/buy': {
       component: dynamicWrapper(app, ['user', 'token'], () => import('../routes/Token')),

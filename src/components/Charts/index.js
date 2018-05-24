@@ -14,9 +14,11 @@ import TagCloud from './TagCloud';
 import TimelineChart from './TimelineChart';
 
 const yuan = val => `¥ ${numeral(val).format('0,0')}`;
+const dollar = val => `$ ${numeral(val).format('0,0.[0000]')}`;
 
 const Charts = {
   yuan,
+  dollar,
   Bar,
   Pie,
   Gauge,
@@ -34,6 +36,7 @@ const Charts = {
 export {
   Charts as default,
   yuan,
+  dollar,
   Bar,
   Pie,
   Gauge,
