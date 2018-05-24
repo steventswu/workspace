@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { patchMember, queryCurrent, verifyEmail } from '../services/user';
+import * as userService from 'src/services/user';
 import { sessionKey } from './login';
 
 export default {
@@ -11,31 +11,37 @@ export default {
     *fetchCurrent(_, { call, put }) {
       try {
         const info = JSON.parse(localStorage.getItem(sessionKey));
-        const response = yield call(queryCurrent, info);
-        yield put({
-          type: 'save',
-          payload: response,
-        });
+        const response = yield call(userService.queryCurrent, info);
+        yield put({ type: 'save', payload: response });
       } catch (e) {
         if (e instanceof TypeError) return;
         yield put({ type: 'login/logout' });
       }
     },
-    *verify({ payload }, { call, put }) {
-      const { error } = yield call(verifyEmail, payload);
+    *verifyEmail({ payload }, { call, put }) {
+      const { error } = yield call(userService.postEmailVerification, payload);
       if (error) {
         yield put(routerRedux.replace('/user/login'));
       }
     },
-    *updateWalletAddress({ payload }, { call, put }) {
+    *updateWalletAddress(_, { call, put, select }) {
       try {
         const info = JSON.parse(localStorage.getItem(sessionKey));
-        yield call(patchMember, payload.walletAddress, info);
-        yield put({
-          type: 'saveWalletAddress',
-          payload,
-        });
+        const walletAddress = yield select(state => state.token.walletAddress);
+        const data = { walletAddress, type: userService.POST_MEMBER_TYPE.WALLET_ADDRESS };
+        yield call(userService.postMember, data, info);
+        yield put({ type: 'saveWalletAddress', payload: { walletAddress } });
       } catch (e) {
+        yield put({ type: 'login/logout' });
+      }
+    },
+    *updateBuyTermsLog(_, { call, put, select }) {
+      try {
+        const info = JSON.parse(localStorage.getItem(sessionKey));
+        const walletAddress = yield select(state => state.token.walletAddress);
+        const data = { walletAddress, type: userService.POST_MEMBER_TYPE.BUY_TERMS_LOG };
+        yield call(userService.postMember, data, info);
+      } catch (error) {
         yield put({ type: 'login/logout' });
       }
     },
@@ -43,12 +49,18 @@ export default {
 
   reducers: {
     save(state, action) {
-      return action.payload;
+      return {
+        ...state,
+        ...action.payload,
+      };
     },
     saveWalletAddress(state, action) {
       return {
         ...state,
-        walletAddress: action.payload.walletAddress,
+        walletAddressMap: {
+          ...state.walletAddressMap,
+          [action.payload.walletAddress]: action.payload,
+        },
       };
     },
     destroy() {

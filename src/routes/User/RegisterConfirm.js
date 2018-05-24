@@ -16,11 +16,11 @@ const actions = (
 );
 
 @connect(({ loading }) => ({
-  loading: loading.effects['user.verify'],
+  loading: loading.effects['user.verifyEmail'],
 }))
 export default class RegisterConfirm extends React.Component {
   componentDidMount() {
-    this.props.dispatch({ type: 'user/verify', payload: window.location.search.slice(7) });
+    this.props.dispatch({ type: 'user/verifyEmail', payload: window.location.search.slice(7) });
   }
 
   render() {

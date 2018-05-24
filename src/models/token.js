@@ -1,58 +1,66 @@
 import { notification } from 'antd';
-import { open } from '../services/Metamask';
+import { routerRedux } from 'dva/router';
+import { STEP } from 'src/routes/Token/routes';
+import Metamask from 'src/services/Metamask';
+
+const initialState = {
+  cap: 'CAP01',
+  walletAddress: '',
+  transactionHash: '',
+  amount: 1,
+  checked: {
+    1: false,
+    2: false,
+    3: false,
+  },
+};
 
 export default {
   namespace: 'token',
 
-  state: {
-    cap: 'CAP01',
-    walletAddress: '',
-    transactionHash: '',
-    amount: 1,
-    checked: {
-      1: false,
-      2: false,
-      3: false,
-    },
-  },
+  state: initialState,
 
   effects: {
-    *updateAcceptTerms({ payload }, { put }) {
-      yield put({
-        type: 'saveStepFormData',
-        payload,
-      });
-    },
-    *openMetamask({ payload }, { call, put }) {
-      try {
-        const transactionHash = yield call(open, payload);
-        yield put({
-          type: 'saveTransactionHash',
-          payload: {
-            transactionHash,
-          },
-        });
-        notification.success({ message: 'Transaction complete' });
-      } catch (err) {
-        // ignore error
-        // console.error(err.message);
-        notification.error({ message: 'You cancel or reject the transaction' });
+    *submitOrder({ payload }, { call, put }) {
+      yield put(routerRedux.replace(STEP[3]));
+
+      yield put({ type: 'saveFormData', payload });
+
+      if (Metamask.isInstalled) {
+        try {
+          const { result, walletAddress } = yield call(Metamask.open, payload);
+          yield put({
+            type: 'saveTransactionResult',
+            payload: {
+              transactionHash: result,
+              walletAddress,
+            },
+          });
+          notification.success({ message: 'Transaction complete' });
+        } catch (error) {
+          // ignore error
+          // console.error(error.message);
+          return notification.error({ message: 'You cancel or reject the transaction' });
+        }
       }
+
+      yield put({ type: 'user/updateWalletAddress' });
+      yield put({ type: 'user/updateBuyTermsLog' });
     },
   },
 
   reducers: {
-    saveStepFormData(state, { payload }) {
-      return {
-        ...state,
-        checked: payload,
-      };
+    saveFormData(state, action) {
+      return { ...state, ...action.payload };
     },
-    saveTransactionHash(state, { payload }) {
-      return {
-        ...state,
-        transactionHash: payload.transactionHash,
-      };
+    saveBuyTermData(state, { payload }) {
+      return { ...state, checked: payload };
+    },
+    saveTransactionResult(state, { payload }) {
+      return { ...state, ...payload };
+    },
+    destroy() {
+      return initialState;
     },
   },
 };

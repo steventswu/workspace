@@ -1,10 +1,6 @@
 import request from '../utils/request';
 import endpoint from '../utils/endpoint';
 
-export async function query() {
-  return request('/api/users');
-}
-
 export async function queryCurrent({ memberId, jwt }) {
   return request(`${endpoint}/members/${memberId}`, {
     method: 'GET',
@@ -12,15 +8,20 @@ export async function queryCurrent({ memberId, jwt }) {
   });
 }
 
-export async function patchMember(walletAddress, { memberId, jwt }) {
-  return request(`${endpoint}/members/${memberId}`, {
-    method: 'PATCH',
+export const POST_MEMBER_TYPE = {
+  WALLET_ADDRESS: 'wallet_address',
+  BUY_TERMS_LOG: 'buy_terms_log',
+};
+
+export async function postMember({ walletAddress, type }, { memberId, jwt }) {
+  return request(`${endpoint}/members/${memberId}/${type}`, {
+    method: 'POST',
     headers: { authorization: jwt },
     body: { walletAddress },
   });
 }
 
-export async function verifyEmail(token) {
+export async function postEmailVerification(token) {
   return request(`${endpoint}/email_verification`, {
     method: 'POST',
     body: { token },

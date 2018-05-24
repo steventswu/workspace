@@ -6,6 +6,7 @@ import styles from './style.less';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import { STEP, ROOT } from './routes';
 
 const { Step } = Steps;
 
@@ -33,13 +34,13 @@ export default class Token extends React.PureComponent {
           <Steps current={this.getCurrentStep()} className={styles.steps}>
             <Step title="Accept Terms" />
             <Step title="Place Orders" />
-            <Step title="Buy CAP Tokens" />
+            <Step title="Buy CAP" />
           </Steps>
           <Switch>
-            <Route exact path="/token/1" component={Step1} />
-            <Route exact path="/token/2" component={Step2} />
-            <Route exact path="/token/3" component={Step3} />
-            <Redirect exact from="/token" to="/token/1" />
+            <Route exact path={STEP[1]} component={Step1} />
+            <Route exact path={STEP[2]} component={Step2} />
+            <Route exact path={STEP[3]} component={Step3} />
+            <Redirect exact from={ROOT} to={STEP[1]} />
             <Route render={NotFound} />
           </Switch>
         </React.Fragment>

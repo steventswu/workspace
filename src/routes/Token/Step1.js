@@ -4,6 +4,7 @@ import { Form, Button, Checkbox, Row } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
 import Contract from './Contract';
+import { STEP } from './routes';
 
 const formItemLayout = {
   labelCol: {
@@ -20,13 +21,13 @@ const formItemLayout = {
 }))
 export default class Step1 extends React.PureComponent {
   onSubmit = () => {
-    this.props.dispatch(routerRedux.push('/token/2'));
+    this.props.dispatch(routerRedux.replace(STEP[2]));
   };
 
   onClickCheck = field => e => {
     const { dispatch, checked } = this.props;
     dispatch({
-      type: 'token/updateAcceptTerms',
+      type: 'token/saveBuyTermData',
       payload: {
         ...checked,
         [field]: e.target.checked,

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Select } from 'antd';
-import { routerRedux } from 'dva/router';
 import Metamask from 'src/services/Metamask';
 import styles from './style.less';
 
@@ -22,54 +21,13 @@ const formItemLayout = {
   currentUser: user,
 }))
 export default class Step2 extends React.PureComponent {
-  onValidateForm = () => {
+  handleFormSubmit = () => {
     this.props.form.validateFields((err, values) => {
       if (err) return;
-      this.props.dispatch(routerRedux.push('/token/3'));
-      if (Metamask.isInstalled) {
-        this.props.dispatch({
-          type: 'token/openMetamask',
-          payload: {
-            fromAddress: values.walletAddress,
-            contractNumber: values.cap,
-            amount: values.amount,
-          },
-        });
-      } else {
-        this.props.dispatch({
-          type: 'user/updateWalletAddress',
-          payload: {
-            walletAddress: values.walletAddress,
-          },
-        });
-      }
-    });
-  };
-
-  onChangeCap = cap => {
-    this.props.dispatch({
-      type: 'token/saveStepFormData',
-      payload: {
-        cap,
-      },
-    });
-  };
-
-  onChangeWalletAddress = e => {
-    this.props.dispatch({
-      type: 'user/saveWalletAddress',
-      payload: {
-        walletAddress: e.target.value,
-      },
-    });
-  };
-
-  onChangeAmount = amount => {
-    this.props.dispatch({
-      type: 'token/saveStepFormData',
-      payload: {
-        amount,
-      },
+      this.props.dispatch({
+        type: 'token/submitOrder',
+        payload: values,
+      });
     });
   };
 
@@ -83,7 +41,7 @@ export default class Step2 extends React.PureComponent {
               initialValue: data.cap,
               rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
             })(
-              <Select placeholder="CAP 01" onChange={this.onChangeCap}>
+              <Select placeholder="CAP 01">
                 <Option value="CAP01">CAP01</Option>
                 <Option value="CAP02">CAP02</Option>
                 <Option value="CAP03">CAP03</Option>
@@ -102,12 +60,7 @@ export default class Step2 extends React.PureComponent {
                     message: 'Enter correct wallet address to continue',
                   },
                 ],
-              })(
-                <Input
-                  placeholder="EX:0xeccdbbcbf7e7c030f75311163ed96711e8fdbe0f"
-                  onChange={this.onChangeWalletAddress}
-                />
-              )}
+              })(<Input placeholder="EX:0xeccdbbcbf7e7c030f75311163ed96711e8fdbe0f" />)}
             </Form.Item>
           )}
           <Form.Item {...formItemLayout} label="Amount">
@@ -119,7 +72,7 @@ export default class Step2 extends React.PureComponent {
                   message: 'Enter amount',
                 },
               ],
-            })(<Input placeholder="EX:100000000000" onChange={this.onChangeAmount} />)}
+            })(<Input placeholder="EX:100000000000" />)}
           </Form.Item>
           <Form.Item
             wrapperCol={{
@@ -131,7 +84,7 @@ export default class Step2 extends React.PureComponent {
             }}
             label=""
           >
-            <Button type="primary" onClick={this.onValidateForm}>
+            <Button type="primary" onClick={this.handleFormSubmit}>
               Next
             </Button>
           </Form.Item>
