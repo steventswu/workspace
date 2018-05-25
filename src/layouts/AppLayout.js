@@ -49,6 +49,7 @@ export default class AppLayout extends React.PureComponent {
 
   render() {
     // const { currentUser: { email } = {} } = this.props;
+    const matchRoute = this.props.routerData[this.props.match.path];
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <Layout className={styles.layout}>
@@ -78,11 +79,13 @@ export default class AppLayout extends React.PureComponent {
               </Layout.Sider> */}
               <Content style={{ padding: '0 24px', minHeight: '100%' }}>
                 <Switch>
-                  <Route
-                    path={this.props.match.path}
-                    component={this.props.routerData[this.props.match.path].component}
-                    exact={this.props.match.isExact}
-                  />
+                  {matchRoute && (
+                    <Route
+                      path={this.props.match.path}
+                      component={matchRoute.component}
+                      exact={this.props.match.isExact}
+                    />
+                  )}
                   <Route render={NotFound} />
                 </Switch>
               </Content>

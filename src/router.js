@@ -1,5 +1,5 @@
 import React from 'react';
-import { routerRedux, Route, Switch } from 'dva/router';
+import { routerRedux, Route, Switch, Redirect } from 'dva/router';
 import { LocaleProvider, Spin } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
@@ -16,29 +16,30 @@ dynamic.setDefaultLoadingComponent(() => Loading);
 
 function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
-  const BasicLayout = routerData['/'].component;
+  const AppLayout = routerData['/'].component;
   return (
     <LocaleProvider locale={zhCN}>
       <ConnectedRouter history={history}>
         <Switch>
           <Route path="/user" component={routerData['/user'].component} />
-          <Route path="/performance" render={props => <BasicLayout {...props} />} />
+          <Route path="/performance" render={props => <AppLayout {...props} />} />
           <AuthorizedRoute
             path="/buy"
-            render={props => <BasicLayout {...props} />}
+            render={props => <AppLayout {...props} />}
             authority={['admin', 'user']}
             redirectPath="/user/login"
           />
           <AuthorizedRoute
             path="/profile"
-            render={props => <BasicLayout {...props} />}
+            render={props => <AppLayout {...props} />}
             authority={['admin', 'user']}
             redirectPath="/user/login"
           />
           <Route exact path="/exception/403" render={Exception.Unauthorized} />
           <Route exact path="/exception/404" render={Exception.NotFound} />
           <Route exact path="/exception/500" render={Exception.InternalError} />
-          <Route component={routerData['/home'].component} />
+          <Route path="/home" component={routerData['/home'].component} />
+          <Redirect to="/home" />
         </Switch>
       </ConnectedRouter>
     </LocaleProvider>
