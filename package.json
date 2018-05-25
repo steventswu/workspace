@@ -4,6 +4,8 @@
   "description": "Portfolio Performance of Tixguru CAP fund market",
   "private": true,
   "scripts": {
+    "postversion": "npm run deploy",
+    "deploy": "npm run build && ./deploy.sh",
     "precommit": "npm run lint-staged",
     "start": "cross-env ESLINT=none roadhog dev",
     "start:no-proxy": "cross-env NO_PROXY=true ESLINT=none roadhog dev",
