@@ -1,8 +1,15 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table, Modal } from 'antd';
+import { dollar } from 'components/Charts';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
+
+const Dollar = ({ children }) => (
+  <span
+    dangerouslySetInnerHTML={{ __html: dollar(children) }}
+  /> /* eslint-disable-line react/no-danger */
+);
 
 const columns = [
   {
@@ -31,6 +38,9 @@ const columns = [
     title: 'USD',
     dataIndex: 'usd',
     key: 'usd',
+    render: usd => {
+      return <Dollar>{usd}</Dollar>;
+    },
   },
   {
     title: '%',
@@ -41,16 +51,25 @@ const columns = [
     title: 'Market Cap(M)',
     dataIndex: 'marketcap',
     key: 'marketcap',
+    render: usd => {
+      return <Dollar>{usd}</Dollar>;
+    },
   },
   {
     title: 'Price',
     dataIndex: 'price',
     key: 'price',
+    render: usd => {
+      return <Dollar>{usd}</Dollar>;
+    },
   },
   {
     title: 'Volume(24h)',
     dataIndex: 'value24h',
     key: 'value24h',
+    render: usd => {
+      return <Dollar>{usd}</Dollar>;
+    },
   },
   {
     title: 'Circulating Supply',
@@ -61,6 +80,9 @@ const columns = [
     title: 'Change(24h)',
     dataIndex: 'change24h',
     key: 'change24h',
+    render: usd => {
+      return `${usd}%`;
+    },
   },
 ];
 
