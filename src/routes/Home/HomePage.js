@@ -34,7 +34,7 @@ export default class HomePage extends React.Component {
 
   handleMenuClick = ({ key }) => {
     if (key === 'profile') {
-      this.props.dispatch(routerRedux.push('/app/profile'));
+      this.props.dispatch(routerRedux.push('/profile'));
     }
     if (key === 'logout') {
       this.props.dispatch({ type: 'login/logout' });
@@ -47,7 +47,7 @@ export default class HomePage extends React.Component {
   };
 
   handleClick = id => () => {
-    this.props.dispatch(routerRedux.push({ pathname: '/app/performance', state: { id } }));
+    this.props.dispatch(routerRedux.push({ pathname: '/performance', state: { id } }));
   };
 
   render() {
