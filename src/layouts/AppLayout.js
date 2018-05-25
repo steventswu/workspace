@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Icon } from 'antd';
 import { connect } from 'dva';
-import { Route, Switch } from 'dva/router';
+import { Route, Switch, routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import pathToRegexp from 'path-to-regexp';
 
@@ -10,7 +10,7 @@ import GlobalHeader from '../components/GlobalHeader';
 import NotFound from '../routes/Exception/404';
 import logo from '../assets/logo.svg';
 
-import styles from './SiderLayout.less';
+import styles from './AppLayout.less';
 
 const { Content, Footer } = Layout;
 
@@ -41,60 +41,49 @@ export default class AppLayout extends React.PureComponent {
     return title;
   }
 
-  handleMenuClick = ({ key }) => {
-    if (key === 'logout') {
-      this.props.dispatch({ type: 'login/logout' });
-    }
+  handleCLick = () => {
+    this.props.dispatch(routerRedux.push(this.props.currentUser ? '/profile' : '/user/login'));
   };
 
   render() {
-    // const { currentUser: { email } = {} } = this.props;
     const matchRoute = this.props.routerData[this.props.match.path];
+    const Component = matchRoute.component;
+    const height = window.innerHeight - 100;
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <Layout className={styles.layout}>
           <Layout.Header>
             <GlobalHeader
               logo={logo}
-              onMenuClick={this.handleMenuClick}
+              onClick={this.handleCLick}
               currentUser={this.props.currentUser}
             />
           </Layout.Header>
-          <Content className={styles.content}>
-            <Layout style={{ background: '#fff', minHeight: window.innerHeight - 100 }}>
-              {/* <Layout.Sider width={300} className={styles.sider}>
-                <h1>User Profile</h1>
-                <div>
-                  Email
-                  <p>{email}</p>
-                </div>
-                <h2>Verifications</h2>
-                <div className={styles.verification}>
-                  <Icon type="check-circle-o" />Email Verification
-                </div>
-                <div className={styles.verification}>
-                  <Icon type="exclamation-circle-o" />
-                  <Link to="/app">Wallet Verification</Link>
-                </div>
-              </Layout.Sider> */}
-              <Content style={{ padding: '0 24px', minHeight: '100%' }}>
-                <Switch>
-                  {matchRoute && (
-                    <Route
-                      path={this.props.match.path}
-                      component={matchRoute.component}
-                      exact={this.props.match.isExact}
-                    />
-                  )}
-                  <Route render={NotFound} />
-                </Switch>
-              </Content>
-            </Layout>
+          <Content className={styles.content} style={{ padding: '0 24px', minHeight: height }}>
+            <Switch>
+              {matchRoute && (
+                <Route
+                  path={this.props.match.path}
+                  render={props => <Component {...props} height={height} />}
+                  exact={this.props.match.isExact}
+                />
+              )}
+              <Route render={NotFound} />
+            </Switch>
           </Content>
           <Footer style={{ padding: 0 }}>
             <GlobalFooter
               copyright={
                 <React.Fragment>
+                  <div style={{ padding: 15 }}>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://medium.com/@pr_48521/cap-faq-3c0b5d0d0303"
+                    >
+                      FAQ
+                    </a>
+                  </div>
                   Copyright <Icon type="copyright" /> 2018 Tixguru
                 </React.Fragment>
               }

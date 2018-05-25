@@ -32,13 +32,8 @@ export default class HomePage extends React.Component {
     this.props.dispatch(routerRedux.push('/user/login'));
   };
 
-  handleMenuClick = ({ key }) => {
-    if (key === 'profile') {
-      this.props.dispatch(routerRedux.push('/profile'));
-    }
-    if (key === 'logout') {
-      this.props.dispatch({ type: 'login/logout' });
-    }
+  handleHeaderClick = () => {
+    this.props.dispatch(routerRedux.push(this.props.currentUser ? '/profile' : '/user/login'));
   };
 
   handleSelect = selected => {
@@ -65,8 +60,7 @@ export default class HomePage extends React.Component {
                 <GlobalHeader
                   logo={logo}
                   currentUser={this.props.currentUser}
-                  onLogin={this.handleLogin}
-                  onMenuClick={this.handleMenuClick}
+                  onClick={this.handleHeaderClick}
                 />
               </Layout.Header>
               <Layout.Content className={styles.content}>

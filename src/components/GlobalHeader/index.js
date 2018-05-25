@@ -1,21 +1,10 @@
-import React, { PureComponent } from 'react';
-import { Menu, Icon, Dropdown, Button } from 'antd';
+import React from 'react';
+import { Button } from 'antd';
 import { Link } from 'dva/router';
-import styles from './index.less';
 
-export default class GlobalHeader extends PureComponent {
+export default class GlobalHeader extends React.PureComponent {
   render() {
-    const { currentUser = {}, logo, onMenuClick, onLogin } = this.props;
-    const menu = (
-      <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        {/* <Menu.Item key="profile">
-          <Icon type="user" />Profile
-        </Menu.Item> */}
-        <Menu.Item key="logout">
-          <Icon type="logout" />Logout
-        </Menu.Item>
-      </Menu>
-    );
+    const { currentUser, logo, onClick } = this.props;
     return (
       <React.Fragment>
         <Link to="/">
@@ -31,25 +20,9 @@ export default class GlobalHeader extends PureComponent {
           <Link style={{ padding: '0 15px' }} to="/buy">
             Buy CAP
           </Link>
-          <a
-            style={{ padding: '0 15px' }}
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://medium.com/@pr_48521/cap-faq-3c0b5d0d0303"
-          >
-            FAQ
-          </a>
-          {currentUser.email ? (
-            <Dropdown overlay={menu}>
-              <Button style={{ marginLeft: 8 }}>
-                {currentUser.email} <Icon type="down" />
-              </Button>
-            </Dropdown>
-          ) : (
-            <Button type="primary" style={{ marginLeft: 8 }} onClick={onLogin}>
-              Login
-            </Button>
-          )}
+          <Button type="primary" style={{ marginLeft: 8, marginRight: 15 }} onClick={onClick}>
+            {currentUser.email ? 'Profile' : 'Login'}
+          </Button>
         </div>
       </React.Fragment>
     );
