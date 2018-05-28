@@ -6,7 +6,7 @@ import Twitter from '../services/Auth/Twitter';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
 
-const redirectPath = '/app';
+const redirectPath = '/';
 export const sessionKey = 'tixguru:session';
 
 export default {
@@ -41,7 +41,7 @@ export default {
         });
         yield put({ type: 'user/destroy' });
         reloadAuthorized();
-        yield put(routerRedux.push('/'));
+        yield put(routerRedux.push(redirectPath));
       }
     },
     *google(_, { call, put }) {
@@ -84,9 +84,9 @@ export default {
       const authUrl = yield call(Twitter.getRequestToken, window.location.origin);
       window.location = authUrl;
     },
-    *twitter(_, { call, put }) {
+    *twitter({ payload }, { call, put }) {
       try {
-        const info = yield call(Twitter.getAccessToken, window.location.search);
+        const info = yield call(Twitter.getAccessToken, payload);
         const result = yield call(getAuthInfo, 'twitter', info);
         yield put({
           type: 'changeLoginStatus',
