@@ -65,25 +65,31 @@ export const getRouterData = app => {
         import('../routes/Performance/BasicPerformance')
       ),
       name: 'Performance',
+      isPublic: true,
     },
     '/buy': {
       component: dynamicWrapper(app, ['user', 'token'], () => import('../routes/Token')),
+      isProtected: true,
     },
     '/buy/1': {
       component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step1')),
       name: 'Accept Terms',
+      isProtected: true,
     },
     '/buy/2': {
       component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step2')),
       name: 'Place Order',
+      isProtected: true,
     },
     '/buy/3': {
       component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step3')),
       name: 'Buy CAP',
+      isProtected: true,
     },
     '/profile': {
       component: dynamicWrapper(app, ['user'], () => import('../routes/Profile/UserProfile')),
       name: 'Profile',
+      isProtected: true,
     },
     '/exception/403': {
       component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),
