@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 import numeral from 'numeral';
 import { connect } from 'dva';
 import { Row, Col, Tooltip, Icon } from 'antd';
-import Highcharts from 'highcharts';
 import HighchartsReact from 'react-highcharts/';
 import { ChartCard, dollar } from 'components/Charts';
 import NumberInfo from 'components/NumberInfo';
@@ -129,7 +128,7 @@ export default class BasicPerformance extends PureComponent {
             </Col>
             <Col xl={16} style={{ marginBottom: 24 }}>
               <ChartCard style={{ width: '100%' }}>
-                <HighchartsReact highcharts={Highcharts} config={navChartOptions} isPureConfig />
+                <HighchartsReact config={navChartOptions} isPureConfig />
                 <NavTable />
               </ChartCard>
             </Col>

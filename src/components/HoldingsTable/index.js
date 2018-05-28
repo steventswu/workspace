@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table, Modal } from 'antd';
 import { dollar } from 'components/Charts';
-import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'react-highcharts/ReactHighstock';
+
+let chartReflow = undefined;
 
 const Dollar = ({ children }) => (
   <span
@@ -85,7 +86,7 @@ const columns = [
   },
 ];
 
-export default class HoldingsTable extends React.Component {
+export default class HoldingsTable extends React.PureComponent {
   state = { visible: false };
   showModal = record => {
     this.setState({
@@ -103,6 +104,12 @@ export default class HoldingsTable extends React.Component {
       visible: false,
     });
   };
+  componentDidUpdate() {
+    const chart = this.refs.chart ? this.refs.chart.getChart() : {};
+    chartReflow = chartReflow || chart.reflow;
+    chart.reflow = () => {};
+    setTimeout(() => (chart.reflow = chartReflow));
+  }
 
   render() {
     const { performance } = this.props;
@@ -141,9 +148,7 @@ export default class HoldingsTable extends React.Component {
           width="80%"
         >
           <HighchartsReact
-            highcharts={Highcharts}
-            constructorType="stockChart"
-            isPureConfig
+            ref="chart"
             config={{
               chart: {
                 zoomType: 'x',
