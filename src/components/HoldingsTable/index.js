@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'dva';
 import { Table, Modal } from 'antd';
 import { dollar } from 'components/Charts';
 import Highcharts from 'highcharts/highstock';
-import HighchartsReact from 'highcharts-react-official';
+import HighchartsReact from 'react-highcharts/ReactHighstock';
 
 const Dollar = ({ children }) => (
   <span
@@ -86,27 +85,13 @@ const columns = [
   },
 ];
 
-@connect(({ performance }) => ({
-  performance,
-}))
 export default class HoldingsTable extends React.Component {
   state = { visible: false };
-  componentDidMount() {
-    this.props.dispatch({
-      type: 'performance/fetchPerformance',
-    });
-  }
   showModal = record => {
     this.setState({
       visible: true,
     });
-    this.props.dispatch({
-      type: 'performance/fetchCoinData',
-      payload: {
-        startDate: '2017-01-01',
-        symbol: record.coin.name.toLowerCase(),
-      },
-    });
+    this.props.onRowClick(record);
   };
   handleOk = () => {
     this.setState({
@@ -158,7 +143,8 @@ export default class HoldingsTable extends React.Component {
           <HighchartsReact
             highcharts={Highcharts}
             constructorType="stockChart"
-            options={{
+            isPureConfig
+            config={{
               chart: {
                 zoomType: 'x',
                 height: 600,

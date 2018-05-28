@@ -3,14 +3,13 @@ import numeral from 'numeral';
 import { connect } from 'dva';
 import { Row, Col, Tooltip, Icon } from 'antd';
 import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import HighchartsReact from 'react-highcharts/';
 import { ChartCard, dollar } from 'components/Charts';
 import NumberInfo from 'components/NumberInfo';
 import Title from 'components/Title';
 import Subtitle from 'components/Subtitle';
 import NavTable from 'components/NavTable';
 import HoldingsTable from 'components/HoldingsTable';
-import styles from './BasicPerformance.less';
 import { navChartOptions } from './options';
 
 const Dollar = ({ children }) => (
@@ -31,6 +30,16 @@ export default class BasicPerformance extends PureComponent {
       // }
     });
   }
+
+  handleRowClick = record => {
+    this.props.dispatch({
+      type: 'performance/fetchCoinData',
+      payload: {
+        startDate: '2017-01-01',
+        symbol: record.coin.name.toLowerCase(),
+      },
+    });
+  };
 
   render() {
     const { performance } = this.props;
@@ -120,11 +129,7 @@ export default class BasicPerformance extends PureComponent {
             </Col>
             <Col xl={16} style={{ marginBottom: 24 }}>
               <ChartCard style={{ width: '100%' }}>
-                <HighchartsReact
-                  className={styles.navContainer}
-                  highcharts={Highcharts}
-                  options={navChartOptions}
-                />
+                <HighchartsReact highcharts={Highcharts} config={navChartOptions} isPureConfig />
                 <NavTable />
               </ChartCard>
             </Col>
@@ -137,7 +142,7 @@ export default class BasicPerformance extends PureComponent {
           </Row>
           <Row gutter={24}>
             <Col style={{ marginBottom: 24 }}>
-              <HoldingsTable />
+              <HoldingsTable performance={performance} onRowClick={this.handleRowClick} />
             </Col>
           </Row>
         </section>
