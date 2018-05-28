@@ -3,8 +3,6 @@ import { Table, Modal } from 'antd';
 import { dollar } from 'components/Charts';
 import HighchartsReact from 'react-highcharts/ReactHighstock';
 
-let chartReflow = undefined;
-
 const Dollar = ({ children }) => (
   <span
     dangerouslySetInnerHTML={{ __html: dollar(children) }}
@@ -106,9 +104,7 @@ export default class HoldingsTable extends React.PureComponent {
   };
   componentDidUpdate() {
     const chart = this.refs.chart ? this.refs.chart.getChart() : {};
-    chartReflow = chartReflow || chart.reflow;
     chart.reflow = () => {};
-    setTimeout(() => (chart.reflow = chartReflow));
   }
 
   render() {
