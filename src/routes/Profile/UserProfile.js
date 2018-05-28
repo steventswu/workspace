@@ -3,7 +3,7 @@ import { Layout, Icon, Button, Table } from 'antd';
 import { connect } from 'dva';
 
 import styles from './UserProfile.less';
-import fakeDataSource from './UserProfile.json';
+import fake from './UserProfile.json';
 
 @connect(({ user }) => ({ currentUser: user }))
 export default class UserProfile extends React.Component {
@@ -32,7 +32,7 @@ export default class UserProfile extends React.Component {
         </Layout.Sider>
         <Layout.Content className={styles.content}>
           <h1>Transaction History</h1>
-          <Table columns={columns} dataSource={fakeDataSource} />
+          <Table columns={columns} dataSource={fake.data} />
         </Layout.Content>
       </Layout>
     );
