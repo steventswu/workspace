@@ -24,16 +24,15 @@ export default {
     *submitOrder({ payload }, { call, put }) {
       yield put(routerRedux.replace(STEP[3]));
 
-      yield put({ type: 'saveFormData', payload });
-
       if (Metamask.isInstalled) {
         try {
           const { result, walletAddress } = yield call(Metamask.open, payload);
           yield put({
-            type: 'saveTransactionResult',
+            type: 'saveFormData',
             payload: {
-              transactionHash: result,
+              ...payload,
               walletAddress,
+              transactionHash: result,
             },
           });
           notification.success({ message: 'Transaction complete' });
@@ -44,8 +43,8 @@ export default {
         }
       }
 
-      yield put({ type: 'user/updateWalletAddress' });
-      yield put({ type: 'user/updateBuyTermsLog' });
+      yield put({ type: 'saveFormData', payload });
+      yield put({ type: 'user/updateInfo' });
     },
   },
 
@@ -55,9 +54,6 @@ export default {
     },
     saveBuyTermData(state, { payload }) {
       return { ...state, checked: payload };
-    },
-    saveTransactionResult(state, { payload }) {
-      return { ...state, ...payload };
     },
     destroy() {
       return initialState;

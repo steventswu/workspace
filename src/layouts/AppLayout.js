@@ -1,13 +1,13 @@
 import React from 'react';
 import { Layout, Icon } from 'antd';
 import { connect } from 'dva';
-import { Route, Switch, routerRedux } from 'dva/router';
+import { Route, Switch, Redirect, routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import pathToRegexp from 'path-to-regexp';
 
+import Authorized from '../utils/Authorized';
 import GlobalFooter from '../components/GlobalFooter';
 import GlobalHeader from '../components/GlobalHeader';
-import NotFound from '../routes/Exception/404';
 import logo from '../assets/logo.svg';
 
 import styles from './AppLayout.less';
@@ -46,8 +46,8 @@ export default class AppLayout extends React.PureComponent {
   };
 
   render() {
-    const matchRoute = this.props.routerData[this.props.match.path];
-    const Component = matchRoute.component;
+    const { isPublic, isProtected, component: Component } =
+      this.props.routerData[this.props.match.url] || {};
     const height = window.innerHeight - 100;
     return (
       <DocumentTitle title={this.getPageTitle()}>
@@ -61,14 +61,21 @@ export default class AppLayout extends React.PureComponent {
           </Layout.Header>
           <Content className={styles.content} style={{ padding: '0 24px', minHeight: height }}>
             <Switch>
-              {matchRoute && (
+              {isPublic && (
                 <Route
                   path={this.props.match.path}
                   render={props => <Component {...props} height={height} />}
-                  exact={this.props.match.isExact}
                 />
               )}
-              <Route render={NotFound} />
+              {isProtected && (
+                <Authorized.AuthorizedRoute
+                  path={this.props.match.path}
+                  render={props => <Component {...props} height={height} />}
+                  authority={['admin', 'user']}
+                  redirectPath="/user/login"
+                />
+              )}
+              <Redirect to="/exception/404" />
             </Switch>
           </Content>
           <Footer style={{ padding: 0 }}>

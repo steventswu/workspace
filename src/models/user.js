@@ -24,24 +24,22 @@ export default {
         yield put(routerRedux.replace('/user/login'));
       }
     },
-    *updateWalletAddress(_, { call, put, select }) {
+    *updateInfo(_, { call, put, select }) {
       try {
         const info = JSON.parse(localStorage.getItem(sessionKey));
         const walletAddress = yield select(state => state.token.walletAddress);
-        const data = { walletAddress, type: userService.POST_MEMBER_TYPE.WALLET_ADDRESS };
-        yield call(userService.postMember, data, info);
+        yield call(
+          userService.postMember,
+          { walletAddress, type: userService.POST_MEMBER_TYPE.WALLET_ADDRESS },
+          info
+        );
         yield put({ type: 'saveWalletAddress', payload: { walletAddress } });
+        yield call(
+          userService.postMember,
+          { walletAddress, type: userService.POST_MEMBER_TYPE.BUY_TERMS_LOG },
+          info
+        );
       } catch (e) {
-        yield put({ type: 'login/logout' });
-      }
-    },
-    *updateBuyTermsLog(_, { call, put, select }) {
-      try {
-        const info = JSON.parse(localStorage.getItem(sessionKey));
-        const walletAddress = yield select(state => state.token.walletAddress);
-        const data = { walletAddress, type: userService.POST_MEMBER_TYPE.BUY_TERMS_LOG };
-        yield call(userService.postMember, data, info);
-      } catch (error) {
         yield put({ type: 'login/logout' });
       }
     },
