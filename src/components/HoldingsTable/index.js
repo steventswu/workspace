@@ -21,7 +21,7 @@ const columns = [
         <div>
           <img
             alt="Coin"
-            src={`/src/assets/color/${coin.label.toLowerCase()}.svg`}
+            src={`/color/${coin.label.toLowerCase()}.svg`}
             style={{ width: 25, paddingRight: 5 }}
           />
           <span>{coin.name}</span>
