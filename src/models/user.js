@@ -11,10 +11,10 @@ export default {
     *fetchCurrent(_, { call, put }) {
       try {
         const info = JSON.parse(localStorage.getItem(sessionKey));
+        if (!info) return;
         const response = yield call(userService.queryCurrent, info);
         yield put({ type: 'save', payload: response });
       } catch (e) {
-        if (e instanceof TypeError) return;
         yield put({ type: 'login/logout' });
       }
     },
