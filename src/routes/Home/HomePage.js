@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Row, Col as Column, Button, Icon } from 'antd';
 import classNames from 'classnames';
 import DocumentTitle from 'react-document-title';
+import qs from 'qs';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import GlobalHeader from 'components/GlobalHeader';
@@ -23,6 +24,15 @@ export default class HomePage extends React.Component {
   };
 
   componentDidMount() {
+    // twitter login redirect
+    if (this.props.location.search.includes('oauth_verifier')) {
+      return this.props.dispatch(
+        routerRedux.replace({
+          pathname: '/user/login',
+          state: qs.parse(this.props.location.search, { ignoreQueryPrefix: true }),
+        })
+      );
+    }
     this.props.dispatch({
       type: 'user/fetchCurrent',
     });

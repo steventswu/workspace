@@ -5,8 +5,6 @@ import { Checkbox, Alert, Icon, Spin } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 
-const checkQueryString = qs => typeof qs === 'string' && qs.includes('oauth_token');
-
 @connect(({ login, loading }) => ({
   login,
   submitting: loading.models.login,
@@ -17,8 +15,8 @@ export default class LoginPage extends Component {
   };
 
   componentDidMount() {
-    if (checkQueryString(window.location.search)) {
-      this.props.dispatch({ type: 'login/twitter' });
+    if (this.props.location.state && this.props.location.state.oauth_verifier) {
+      this.props.dispatch({ type: 'login/twitter', payload: this.props.location.state });
     }
   }
 

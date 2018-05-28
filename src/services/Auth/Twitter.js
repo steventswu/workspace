@@ -1,5 +1,4 @@
 import Codebird from 'codebird';
-import { parse } from 'qs';
 
 class Twitter {
   constructor() {
@@ -27,9 +26,8 @@ class Twitter {
     });
   }
 
-  getAccessToken(qs) {
+  getAccessToken({ oauth_verifier: verifier }) {
     return new Promise((resolve, reject) => {
-      const parsed = parse(qs);
       this.cb.setToken(
         localStorage.getItem('oauth_token'),
         localStorage.getItem('oauth_token_secret')
@@ -41,7 +39,7 @@ class Twitter {
       this.cb.__call(
         'oauth_accessToken',
         {
-          oauth_verifier: parsed.oauth_verifier,
+          oauth_verifier: verifier,
         },
         (reply, rate, err) => {
           if (err) return reject(err.error);
