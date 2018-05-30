@@ -1,20 +1,14 @@
-class Google {
-  constructor() {
+const init = () => {
+  return new Promise(resolve => {
     ((d, s, id) => {
       const gs = d.getElementsByTagName(s)[0];
       const js = d.createElement(s);
       js.id = id;
-      js.src = 'https://apis.google.com/js/platform.js';
+      js.src = 'https://apis.google.com/js/platform.js?onload=onLoadCallback';
       gs.parentNode.insertBefore(js, gs);
     })(document, 'script', 'google-platform');
 
-    this.init = this.init.bind(this);
-    this.getGoogleToken = this.getGoogleToken.bind(this);
-  }
-
-  /* eslint-disable class-methods-use-this */
-  init() {
-    return new Promise(resolve => {
+    window.onLoadCallback = () => {
       window.gapi.load('auth2', () => {
         if (!window.gapi.auth2.getAuthInstance()) {
           window.gapi.auth2.init({
@@ -26,23 +20,36 @@ class Google {
         }
         resolve();
       });
-    });
-  }
-  /* eslint-enable class-methods-use-this */
-
-  async getGoogleToken() {
-    await this.init();
-    const auth2 = window.gapi.auth2.getAuthInstance();
-    const options = {
-      prompt: 'select_account',
-      scope: 'profile email',
     };
-    const response = await auth2.signIn(options);
-    const accessToken = response.Zi.access_token;
-    const googleId = response.El;
+  });
+};
 
-    return { accessToken, googleId };
-  }
-}
+const signIn = async () => {
+  await init();
+  const authInstance = window.gapi.auth2.getAuthInstance();
+  return authInstance.signIn({
+    prompt: 'select_account',
+    scope: 'profile email',
+    ux_mode: 'redirect',
+  });
+};
 
-export default new Google();
+const getAccessToken = () =>
+  new Promise(async resolve => {
+    await init();
+
+    const authInstance = window.gapi.auth2.getAuthInstance();
+
+    const timer = setInterval(() => {
+      if (authInstance.isSignedIn.get()) {
+        const user = authInstance.currentUser.get();
+        resolve({
+          accessToken: user.getAuthResponse().access_token,
+          googleId: user.getId(),
+        });
+        clearInterval(timer);
+      }
+    }, 1000);
+  });
+
+export default { signIn, getAccessToken };

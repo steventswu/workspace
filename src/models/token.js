@@ -39,7 +39,13 @@ export default {
         } catch (error) {
           // ignore error
           // console.error(error.message);
-          return notification.error({ message: 'You cancel or reject the transaction' });
+          const info = {
+            message: 'You cancel or reject the transaction',
+          };
+          if (process.env.NODE_ENV !== 'production') {
+            info.description = error.message;
+          }
+          return notification.error(info);
         }
       }
 

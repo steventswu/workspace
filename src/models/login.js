@@ -44,9 +44,12 @@ export default {
         yield put(routerRedux.push(redirectPath));
       }
     },
+    *googleRedirect(_, { call }) {
+      yield call(Google.signIn);
+    },
     *google(_, { call, put }) {
       try {
-        const info = yield call(Google.getGoogleToken);
+        const info = yield call(Google.getAccessToken);
         const result = yield call(getAuthInfo, 'google', info);
         yield put({
           type: 'changeLoginStatus',
@@ -58,7 +61,7 @@ export default {
       } catch (error) {
         yield put({
           type: 'changeLoginStatus',
-          payload: { status: 'error' },
+          payload: { status: 'error', error: error.message },
         });
       }
     },
@@ -81,7 +84,7 @@ export default {
       }
     },
     *twitterRedirect(_, { call }) {
-      const authUrl = yield call(Twitter.getRequestToken, window.location.origin);
+      const authUrl = yield call(Twitter.getRequestToken, window.location.href);
       window.location = authUrl;
     },
     *twitter({ payload }, { call, put }) {
