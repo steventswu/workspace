@@ -21,7 +21,7 @@ const contracts = {
 
 const validateEnvironment = () => {
   if (typeof web3 === 'undefined') throw Error('web3 is not defined');
-  if (web3.version.network !== '3') throw Error('web3 network version is not 3');
+  // if (web3.version.network !== '3') throw Error('web3 network version is not 3');
 };
 
 export const open = ({ cap, amount }) => {

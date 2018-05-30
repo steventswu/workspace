@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
+import qs from 'qs';
+
 import { Checkbox, Alert, Icon, Spin } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
@@ -15,8 +17,14 @@ export default class LoginPage extends Component {
   };
 
   componentDidMount() {
-    if (this.props.location.state && this.props.location.state.oauth_verifier) {
-      this.props.dispatch({ type: 'login/twitter', payload: this.props.location.state });
+    if (this.props.location.search && this.props.location.search.includes('oauth_verifier')) {
+      this.props.dispatch({
+        type: 'login/twitter',
+        payload: qs.parse(this.props.location.search, { ignoreQueryPrefix: true }),
+      });
+    }
+    if (this.props.location.hash && this.props.location.hash.includes('#id_token')) {
+      this.props.dispatch({ type: 'login/google' });
     }
   }
 
@@ -29,7 +37,7 @@ export default class LoginPage extends Component {
   };
 
   handleGoogleLogin = () => {
-    this.props.dispatch({ type: 'login/google' });
+    this.props.dispatch({ type: 'login/googleRedirect' });
   };
 
   handleFacebookLogin = () => {
