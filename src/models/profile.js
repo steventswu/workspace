@@ -12,6 +12,7 @@ export default {
   effects: {
     *fetch(_, { call, put }) {
       const response = yield call(queryProfile);
+      if (response.error) return;
       yield put({
         type: 'show',
         payload: formatAll(response),
