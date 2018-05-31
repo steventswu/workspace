@@ -116,7 +116,7 @@ export default class HomePage extends React.Component {
                   className={classNames(styles.action, { [styles.hidden]: !isSelected[0] })}
                   // type="primary"
                   size="large"
-                  onClick={this.handleClick(card.data[0])}
+                  // onClick={this.handleClick(card.data[0])}
                 >
                   Coming Soon
                 </Button>
@@ -147,7 +147,7 @@ export default class HomePage extends React.Component {
                   className={classNames(styles.action, { [styles.hidden]: !isSelected[2] })}
                   // type="primary"
                   size="large"
-                  onClick={this.handleClick(card.data[2])}
+                  // onClick={this.handleClick(card.data[2])}
                 >
                   Coming Soon
                 </Button>
