@@ -53,21 +53,25 @@ export default class UserProfile extends React.Component {
             dataSource={portfolioList}
             loading={loading}
             pagination={false}
+            scroll={{ x: 1000 }}
+            footer={() => (
+              <div className={styles.summary}>
+                <Card title="Initial Capital" bordered={false} style={{ width: 202 }}>
+                  <span>{portfolioSummary.amount}</span>
+                </Card>
+                <Card title="Total Equity (ETH)" bordered={false} style={{ width: 200 }}>
+                  <span>{portfolioSummary.eth}</span>
+                </Card>
+                <Card title="Total Equity (USD)" bordered={false} style={{ width: 200 }}>
+                  <span>{portfolioSummary.usd}</span>
+                </Card>
+                <Card title="ROI" bordered={false} style={{ width: 100 }}>
+                  <span>{portfolioSummary.roi}</span>
+                </Card>
+              </div>
+            )}
           />
-          <div className={styles.summary}>
-            <Card title="Initial Capital" bordered={false}>
-              <span>{portfolioSummary.amount}</span>
-            </Card>
-            <Card title="Total Equity (ETH)" bordered={false}>
-              <span>{portfolioSummary.eth}</span>
-            </Card>
-            <Card title="Total Equity (USD)" bordered={false}>
-              <span>{portfolioSummary.usd}</span>
-            </Card>
-            <Card title="ROI" bordered={false}>
-              <span>{portfolioSummary.roi}</span>
-            </Card>
-          </div>
+
           <h1>Transaction History</h1>
           <Table
             columns={column.transaction.map(columnMapper)}
