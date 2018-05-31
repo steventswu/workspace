@@ -5,7 +5,8 @@
       "key": "asbljwerisdfj",
       "symbol": "CAPP-13BTC",
       "status": "Pending",
-      "amount": "20 CAP"
+      "amount": "20 CAP",
+      "url": "https://ropsten.etherscan.io/address/0xe0de6bbc6589160e8539230eead301f8481bc1b2"
     },
     {
       "type": "OUT",
@@ -48,6 +49,29 @@
       "symbol": "CAPP-13BTC",
       "status": "2018-05-30 22:37:49 CST",
       "amount": "1200 CAP"
+    }
+  ],
+  "column": [
+    {
+      "title": "Buy/Sell",
+      "dataIndex": "type",
+      "width": 120
+    },
+    {
+      "title": "Symbol",
+      "dataIndex": "symbol"
+    },
+    {
+      "title": "Status",
+      "dataIndex": "status"
+    },
+    {
+      "title": "Amount",
+      "dataIndex": "amount"
+    },
+    {
+      "title": "",
+      "key": "actions"
     }
   ]
 }

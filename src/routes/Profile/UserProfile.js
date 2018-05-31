@@ -3,7 +3,7 @@ import { Layout, Icon, Button, Table } from 'antd';
 import { connect } from 'dva';
 
 import styles from './UserProfile.less';
-import fake from './UserProfile.json';
+import source from './UserProfile.json';
 
 @connect(({ user }) => ({ currentUser: user }))
 export default class UserProfile extends React.Component {
@@ -32,38 +32,23 @@ export default class UserProfile extends React.Component {
         </Layout.Sider>
         <Layout.Content className={styles.content}>
           <h1>Transaction History</h1>
-          <Table columns={columns} dataSource={fake.data} />
+          <Table columns={source.column.map(columnMapper)} dataSource={source.data} />
         </Layout.Content>
       </Layout>
     );
   }
 }
 
-const columns = [
-  {
-    title: 'Buy/Sell',
-    dataIndex: 'type',
-    width: 120,
-  },
-  {
-    title: 'Symbol',
-    dataIndex: 'symbol',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-  },
-  {
-    title: '',
-    key: 'actions',
-    render: () => (
-      <span>
-        <a href="#">View in Etherscan</a>
-      </span>
-    ),
-  },
-];
+const columnMapper = c =>
+  c.key === 'actions'
+    ? {
+        ...c,
+        render: (_, record) => (
+          <span>
+            <a href={record.url || '#'} target="_blank">
+              View in Etherscan
+            </a>
+          </span>
+        ),
+      }
+    : c;
