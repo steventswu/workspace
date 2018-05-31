@@ -2,8 +2,6 @@ import '@babel/polyfill';
 import 'url-polyfill';
 import dva from 'dva';
 
-// import createHistory from 'history/createHashHistory';
-// user BrowserHistory
 import createHistory from 'history/createBrowserHistory';
 import createLoading from 'dva-loading';
 import './index.less';
@@ -17,7 +15,7 @@ const app = dva({
 app.use(createLoading());
 
 // 3. Register global model
-app.model(require('./models/global').default);
+// app.model(require('./models/global').default);
 
 // 4. Router
 app.router(require('./router').default);

@@ -1,28 +1,20 @@
-import { queryBasicProfile, queryAdvancedProfile } from '../services/api';
+import { queryProfile } from 'src/services/api';
+import { formatAll } from './profile.helper';
 
 export default {
   namespace: 'profile',
 
   state: {
-    basicGoods: [],
-    advancedOperation1: [],
-    advancedOperation2: [],
-    advancedOperation3: [],
+    transactions: [],
+    portfolio: [],
   },
 
   effects: {
-    *fetchBasic(_, { call, put }) {
-      const response = yield call(queryBasicProfile);
+    *fetch(_, { call, put }) {
+      const response = yield call(queryProfile);
       yield put({
         type: 'show',
-        payload: response,
-      });
-    },
-    *fetchAdvanced(_, { call, put }) {
-      const response = yield call(queryAdvancedProfile);
-      yield put({
-        type: 'show',
-        payload: response,
+        payload: formatAll(response),
       });
     },
   },

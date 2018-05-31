@@ -1,4 +1,4 @@
-import { queryPerformance, queryCoinData } from '../services/user';
+import { queryPerformance, queryCoinData } from 'src/services/api';
 
 export default {
   namespace: 'performance',
