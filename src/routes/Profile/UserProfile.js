@@ -1,20 +1,36 @@
 import React from 'react';
-import { Layout, Icon, Button, Table } from 'antd';
+import { Layout, Icon, Button, Table, Card } from 'antd';
 import { connect } from 'dva';
 
 import styles from './UserProfile.less';
-import fake from './UserProfile.json';
+import column from './UserProfile.json';
 
-@connect(({ user }) => ({ currentUser: user }))
+@connect(({ user, profile, loading }) => ({
+  currentUser: user,
+  profile,
+  loading: loading.effects['profile/fetch'],
+}))
 export default class UserProfile extends React.Component {
+  componentDidMount() {
+    this.props.dispatch({ type: 'profile/fetch' });
+  }
+
   handleLogout = () => {
     this.props.dispatch({ type: 'login/logout' });
   };
 
   render() {
-    const { currentUser: { email, isEmailVerified }, height } = this.props;
+    const {
+      currentUser: { email, isEmailVerified },
+      profile: {
+        transactions,
+        portfolio: { list: portfolioList, summary: portfolioSummary = {} } = {},
+      },
+      height,
+      loading,
+    } = this.props;
     return (
-      <Layout style={{ background: 'transparent', height }}>
+      <Layout style={{ background: 'transparent', minHeight: height }}>
         <Layout.Sider width={300} className={styles.sider}>
           <h1>User Profile</h1>
           <div>
@@ -31,39 +47,53 @@ export default class UserProfile extends React.Component {
           </div>
         </Layout.Sider>
         <Layout.Content className={styles.content}>
+          <h1>Portfolio</h1>
+          <Table
+            columns={column.portfolio}
+            dataSource={portfolioList}
+            loading={loading}
+            pagination={false}
+            scroll={{ x: 1000 }}
+            footer={() => (
+              <div className={styles.summary}>
+                <Card title="Initial Capital" bordered={false} style={{ width: 202 }}>
+                  <span>{portfolioSummary.amount}</span>
+                </Card>
+                <Card title="Total Equity (ETH)" bordered={false} style={{ width: 200 }}>
+                  <span>{portfolioSummary.eth}</span>
+                </Card>
+                <Card title="Total Equity (USD)" bordered={false} style={{ width: 200 }}>
+                  <span>{portfolioSummary.usd}</span>
+                </Card>
+                <Card title="ROI" bordered={false} style={{ width: 100 }}>
+                  <span>{portfolioSummary.roi}</span>
+                </Card>
+              </div>
+            )}
+          />
+
           <h1>Transaction History</h1>
-          <Table columns={columns} dataSource={fake.data} />
+          <Table
+            columns={column.transaction.map(columnMapper)}
+            dataSource={transactions}
+            loading={loading}
+          />
         </Layout.Content>
       </Layout>
     );
   }
 }
 
-const columns = [
-  {
-    title: 'Buy/Sell',
-    dataIndex: 'type',
-    width: 120,
-  },
-  {
-    title: 'Symbol',
-    dataIndex: 'symbol',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-  },
-  {
-    title: '',
-    key: 'actions',
-    render: () => (
-      <span>
-        <a href="#">View in Etherscan</a>
-      </span>
-    ),
-  },
-];
+const columnMapper = c =>
+  c.key === 'actions'
+    ? {
+        ...c,
+        render: (_, record) => (
+          <span>
+            <a href={record.url || '#'} target="_blank">
+              View in Etherscan
+            </a>
+          </span>
+        ),
+      }
+    : c;

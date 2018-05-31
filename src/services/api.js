@@ -1,6 +1,14 @@
 import request from '../utils/request';
 import endpoint, { perfEndpoint } from '../utils/endpoint';
 
+export const sessionKey = 'tixguru:session';
+
+const getSession = () => {
+  const session = JSON.parse(localStorage.getItem(sessionKey));
+  if (!session) throw Error('No session data');
+  return session;
+};
+
 export async function queryCurrent({ memberId, jwt }) {
   return request(`${endpoint}/members/${memberId}`, {
     method: 'GET',
@@ -51,5 +59,13 @@ export async function getAuthInfo(type, params) {
   return request(`${endpoint}/${type}_token`, {
     method: 'POST',
     body: params,
+  });
+}
+
+export async function queryProfile() {
+  const { memberId, jwt } = getSession();
+  return request(`${endpoint}/members/${memberId}/profile`, {
+    method: 'GET',
+    headers: { authorization: jwt },
   });
 }

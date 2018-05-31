@@ -1,6 +1,5 @@
 import { routerRedux } from 'dva/router';
 import * as api from 'src/services/api';
-import { sessionKey } from './login';
 
 export default {
   namespace: 'user',
@@ -10,7 +9,7 @@ export default {
   effects: {
     *fetchCurrent(_, { call, put }) {
       try {
-        const info = JSON.parse(localStorage.getItem(sessionKey));
+        const info = JSON.parse(localStorage.getItem(api.sessionKey));
         if (!info) return;
         const response = yield call(api.queryCurrent, info);
         yield put({ type: 'save', payload: response });
@@ -26,7 +25,7 @@ export default {
     },
     *updateInfo(_, { call, put, select }) {
       try {
-        const info = JSON.parse(localStorage.getItem(sessionKey));
+        const info = JSON.parse(localStorage.getItem(api.sessionKey));
         const walletAddress = yield select(state => state.token.walletAddress);
         yield call(
           api.postMember,

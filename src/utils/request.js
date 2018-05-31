@@ -79,7 +79,7 @@ export default function request(url, options) {
     .catch(e => {
       const { dispatch } = store;
       const status = e.name;
-      if (status === 400) {
+      if (status === 400 || status >= 500) {
         return { error: true };
       }
       if (status === 401 || status === 403) {

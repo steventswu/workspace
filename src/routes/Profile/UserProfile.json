@@ -1,53 +1,54 @@
 {
-  "data": [
+  "portfolio": [
     {
-      "type": "IN",
-      "key": "asbljwerisdfj",
-      "symbol": "CAPP-13BTC",
-      "status": "Pending",
-      "amount": "20 CAP"
+      "title": "CAP Name",
+      "dataIndex": "label"
     },
     {
-      "type": "OUT",
-      "key": "baysodfiqw",
-      "symbol": "CAPP-13BTC",
-      "status": "Failed",
-      "amount": "100 CAP"
+      "title": "Amount",
+      "dataIndex": "amount"
     },
     {
-      "type": "IN",
-      "key": "basdfkwqwe",
-      "symbol": "CAPP-13BTC",
-      "status": "Pending",
-      "amount": "50 CAP"
+      "title": "NAV",
+      "dataIndex": "nav",
+      "width": 202
     },
     {
-      "type": "IN",
-      "key": "ab125z123l",
-      "symbol": "CAPP-13BTC",
-      "status": "Pending",
-      "amount": "500 CAP"
+      "title": "ETH",
+      "dataIndex": "eth",
+      "width": 200
     },
     {
-      "type": "OUT",
-      "key": "ab1k23maasd",
-      "symbol": "CAPP-13BTC",
-      "status": "2018-05-22 18:08:52 CST",
-      "amount": "120 CAP"
+      "title": "USD",
+      "dataIndex": "usd",
+      "width": 200
     },
     {
-      "type": "IN",
-      "key": "sv123kjkasd",
-      "symbol": "CAPP-13BTC",
-      "status": "2018-05-26 10:00:22 CST",
-      "amount": "20000 CAP"
+      "title": "ROI",
+      "dataIndex": "roi",
+      "width": 100
+    }
+  ],
+  "transaction": [
+    {
+      "title": "Buy/Sell",
+      "dataIndex": "type"
     },
     {
-      "type": "IN",
-      "key": "av123jkasdjasd",
-      "symbol": "CAPP-13BTC",
-      "status": "2018-05-30 22:37:49 CST",
-      "amount": "1200 CAP"
+      "title": "CAP Name",
+      "dataIndex": "label"
+    },
+    {
+      "title": "Status/Time",
+      "dataIndex": "status"
+    },
+    {
+      "title": "Amount",
+      "dataIndex": "amount"
+    },
+    {
+      "title": "",
+      "key": "actions"
     }
   ]
 }

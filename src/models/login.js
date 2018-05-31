@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { getAuthInfo } from 'src/services/api';
+import { getAuthInfo, sessionKey } from 'src/services/api';
 import Google from 'src/services/Google';
 import Facebook from 'src/services/Facebook';
 import Twitter from 'src/services/Twitter';
@@ -7,7 +7,6 @@ import { setAuthority } from 'src/utils/authority';
 import { reloadAuthorized } from 'src/utils/Authorized';
 
 const redirectPath = '/';
-export const sessionKey = 'tixguru:session';
 
 export default {
   namespace: 'login',
