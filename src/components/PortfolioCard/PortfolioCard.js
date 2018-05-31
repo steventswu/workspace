@@ -5,16 +5,14 @@ import classNames from 'classnames';
 import styles from './PortfolioCard.less';
 import PortfolioItem from './PortfolioItem';
 
-export default function PortfolioCard({ data = {}, selected, onSelect }) {
+export default function PortfolioCard({ data = {}, selected, onSelect, inactive }) {
+  const cardStyle = inactive
+    ? styles.cardInactive
+    : classNames(styles.card, { [styles.cardSelected]: selected });
   return (
-    <Card
-      className={classNames(styles.card, { [styles.cardSelected]: selected })}
-      hoverable
-      title={data.title}
-      onClick={() => onSelect(data.id)}
-    >
+    <Card className={cardStyle} hoverable title={data.title} onClick={() => onSelect(data.id)}>
       <div className={styles.subtitle}>
-        <h3>{data.type}</h3>
+        <h3 className={styles.type}>{data.type}</h3>
         <hr />
         <h3>{data.description}</h3>
       </div>
