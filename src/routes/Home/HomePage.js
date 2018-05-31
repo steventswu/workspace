@@ -110,14 +110,15 @@ export default class HomePage extends React.Component {
                   data={card.data[0]}
                   selected={isSelected[0]}
                   onSelect={this.handleSelect}
+                  inactive
                 />
                 <Button
                   className={classNames(styles.action, { [styles.hidden]: !isSelected[0] })}
-                  type="primary"
+                  // type="primary"
                   size="large"
                   onClick={this.handleClick(card.data[0])}
                 >
-                  More Details
+                  Coming Soon
                 </Button>
               </Column>
               <Column className={styles.portfolioColumn} span={8}>
@@ -140,14 +141,15 @@ export default class HomePage extends React.Component {
                   data={card.data[2]}
                   selected={isSelected[2]}
                   onSelect={this.handleSelect}
+                  inactive
                 />
                 <Button
                   className={classNames(styles.action, { [styles.hidden]: !isSelected[2] })}
-                  type="primary"
+                  // type="primary"
                   size="large"
                   onClick={this.handleClick(card.data[2])}
                 >
-                  More Details
+                  Coming Soon
                 </Button>
               </Column>
             </Row>

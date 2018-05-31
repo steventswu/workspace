@@ -1,21 +1,64 @@
 @import '~antd/lib/style/themes/default.less';
 
-.card {
+.cardStyle() {
   width: 360px;
+  border-width: 2px;
 
   :global {
+    .ant-card-head {
+      border-bottom: 0;
+    }
+
     .ant-card-head-title {
+      font-size: 1.5rem;
       text-align: center;
     }
   }
+
+  .subtitle {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .type {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+  }
+
+  hr {
+    border: 0;
+    height: 2px;
+    background: @border-color-base;
+  }
 }
 
-.cardSelected {
+.card {
+  .cardStyle();
   border-color: @primary-color;
-  box-shadow: 0 10px 20px 0 rgba(68, 159, 251, 0.45);
 
   &:hover {
     border-color: @primary-color;
+    background: url('../../assets/infoCardBg.jpg');
+  }
+
+  :global(.ant-card-head-title) {
+    color: @primary-color;
+  }
+
+  hr {
+    background: @primary-color;
+  }
+}
+
+.cardInactive {
+  .cardStyle();
+}
+
+.cardSelected {
+  box-shadow: 0 10px 20px 0 rgba(68, 159, 251, 0.45);
+  background: url('../../assets/infoCardBg.jpg');
+
+  &:hover {
     box-shadow: 0 10px 20px 0 rgba(68, 159, 251, 0.45);
   }
 
@@ -26,20 +69,5 @@
     .ant-card-head {
       background: @primary-color;
     }
-  }
-
-  hr {
-    background: @primary-color !important;
-  }
-}
-
-.subtitle {
-  margin-bottom: 20px;
-  text-align: center;
-
-  hr {
-    border: 0;
-    height: 1px;
-    background: @border-color-base;
   }
 }
