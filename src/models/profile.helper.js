@@ -22,7 +22,7 @@ export const format = (item, i) => ({
   type: item.transactionType.toUpperCase(),
   label: item.contractName,
   status: formatStatus(item),
-  amount: item.amount,
+  amount: item.amount.toFixed(6),
   url: `https://ropsten.etherscan.io/tx/${item.transactionHash}`,
 });
 

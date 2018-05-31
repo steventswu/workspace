@@ -2,13 +2,11 @@
   "portfolio": [
     {
       "title": "CAP Name",
-      "dataIndex": "label",
-      "width": 200
+      "dataIndex": "label"
     },
     {
       "title": "Amount",
-      "dataIndex": "amount",
-      "width": 200
+      "dataIndex": "amount"
     },
     {
       "title": "NAV",
@@ -30,13 +28,11 @@
   "transaction": [
     {
       "title": "Buy/Sell",
-      "dataIndex": "type",
-      "width": 100
+      "dataIndex": "type"
     },
     {
       "title": "CAP Name",
-      "dataIndex": "label",
-      "width": 200
+      "dataIndex": "label"
     },
     {
       "title": "Status/Time",
@@ -44,8 +40,7 @@
     },
     {
       "title": "Amount",
-      "dataIndex": "amount",
-      "width": 200
+      "dataIndex": "amount"
     },
     {
       "title": "",

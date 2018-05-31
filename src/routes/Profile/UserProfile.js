@@ -27,7 +27,7 @@ export default class UserProfile extends React.Component {
       loading,
     } = this.props;
     return (
-      <Layout style={{ background: 'transparent', height }}>
+      <Layout style={{ background: 'transparent', minHeight: height }}>
         <Layout.Sider width={300} className={styles.sider}>
           <h1>User Profile</h1>
           <div>
