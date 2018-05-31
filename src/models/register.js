@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { postMember } from '../services/api';
+import { createMember } from 'src/services/api';
 
 export default {
   namespace: 'register',
@@ -10,7 +10,7 @@ export default {
 
   effects: {
     *submit({ payload }, { call, put }) {
-      yield call(postMember, {
+      yield call(createMember, {
         email: payload.email,
         password: btoa(payload.password),
       });

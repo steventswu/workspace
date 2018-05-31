@@ -1,10 +1,10 @@
 import { routerRedux } from 'dva/router';
-import { getAuthInfo } from '../services/api';
-import Google from '../services/Auth/Google';
-import Facebook from '../services/Auth/Facebook';
-import Twitter from '../services/Auth/Twitter';
-import { setAuthority } from '../utils/authority';
-import { reloadAuthorized } from '../utils/Authorized';
+import { getAuthInfo } from 'src/services/api';
+import Google from 'src/services/Google';
+import Facebook from 'src/services/Facebook';
+import Twitter from 'src/services/Twitter';
+import { setAuthority } from 'src/utils/authority';
+import { reloadAuthorized } from 'src/utils/Authorized';
 
 const redirectPath = '/';
 export const sessionKey = 'tixguru:session';

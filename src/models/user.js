@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import * as userService from 'src/services/user';
+import * as api from 'src/services/api';
 import { sessionKey } from './login';
 
 export default {
@@ -12,14 +12,14 @@ export default {
       try {
         const info = JSON.parse(localStorage.getItem(sessionKey));
         if (!info) return;
-        const response = yield call(userService.queryCurrent, info);
+        const response = yield call(api.queryCurrent, info);
         yield put({ type: 'save', payload: response });
       } catch (e) {
         yield put({ type: 'login/logout' });
       }
     },
     *verifyEmail({ payload }, { call, put }) {
-      const { error } = yield call(userService.postEmailVerification, payload);
+      const { error } = yield call(api.postEmailVerification, payload);
       if (error) {
         yield put(routerRedux.replace('/user/login'));
       }
@@ -29,14 +29,14 @@ export default {
         const info = JSON.parse(localStorage.getItem(sessionKey));
         const walletAddress = yield select(state => state.token.walletAddress);
         yield call(
-          userService.postMember,
-          { walletAddress, type: userService.POST_MEMBER_TYPE.WALLET_ADDRESS },
+          api.postMember,
+          { walletAddress, type: api.POST_MEMBER_TYPE.WALLET_ADDRESS },
           info
         );
         yield put({ type: 'saveWalletAddress', payload: { walletAddress } });
         yield call(
-          userService.postMember,
-          { walletAddress, type: userService.POST_MEMBER_TYPE.BUY_TERMS_LOG },
+          api.postMember,
+          { walletAddress, type: api.POST_MEMBER_TYPE.BUY_TERMS_LOG },
           info
         );
       } catch (e) {

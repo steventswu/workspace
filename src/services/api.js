@@ -1,85 +1,46 @@
-import { stringify } from 'qs';
 import request from '../utils/request';
-import endpoint from '../utils/endpoint';
+import endpoint, { perfEndpoint } from '../utils/endpoint';
 
-export async function queryProjectNotice() {
-  return request('/api/project/notice');
-}
-
-export async function queryActivities() {
-  return request('/api/activities');
-}
-
-export async function queryRule(params) {
-  return request(`/api/rule?${stringify(params)}`);
-}
-
-export async function removeRule(params) {
-  return request('/api/rule', {
-    method: 'POST',
-    body: {
-      ...params,
-      method: 'delete',
-    },
+export async function queryCurrent({ memberId, jwt }) {
+  return request(`${endpoint}/members/${memberId}`, {
+    method: 'GET',
+    headers: { authorization: jwt },
   });
 }
 
-export async function addRule(params) {
-  return request('/api/rule', {
+export const POST_MEMBER_TYPE = {
+  WALLET_ADDRESS: 'wallet_address',
+  BUY_TERMS_LOG: 'buy_terms_log',
+};
+
+export async function postMember({ walletAddress, type }, { memberId, jwt }) {
+  return request(`${endpoint}/members/${memberId}/${type}`, {
     method: 'POST',
-    body: {
-      ...params,
-      method: 'post',
-    },
+    headers: { authorization: jwt },
+    body: { walletAddress },
   });
 }
 
-export async function fakeSubmitForm(params) {
-  return request('/api/forms', {
+export async function postEmailVerification(token) {
+  return request(`${endpoint}/email_verification`, {
     method: 'POST',
-    body: params,
+    body: { token },
   });
 }
 
-export async function fakeChartData() {
-  return request('/api/fake_chart_data');
-}
-
-export async function queryTags() {
-  return request('/api/tags');
-}
-
-export async function queryBasicProfile() {
-  return request('/api/profile/basic');
-}
-
-export async function queryAdvancedProfile() {
-  return request('/api/profile/advanced');
-}
-
-export async function queryFakeList(params) {
-  return request(`/api/fake_list?${stringify(params)}`);
-}
-
-export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
-    method: 'POST',
-    body: params,
+export async function queryPerformance() {
+  return request(`${perfEndpoint}/tg-cap.php?q=20`, {
+    method: 'GET',
   });
 }
 
-export async function fakeRegister(params) {
-  return request('/api/register', {
-    method: 'POST',
-    body: params,
+export async function queryCoinData({ startDate, symbol }) {
+  return request(`${perfEndpoint}/tg-tv-tech.php?start=${startDate}&symbol=${symbol}`, {
+    method: 'GET',
   });
 }
 
-export async function queryNotices() {
-  return request('/api/notices');
-}
-
-export async function postMember(params) {
+export async function createMember(params) {
   return request(`${endpoint}/members`, {
     method: 'POST',
     body: params,
