@@ -17,16 +17,23 @@ const formatTime = timestamp => {
 const formatStatus = item =>
   item.transactionStatus === 'success' ? formatTime(item.timestamp * 1000) : item.transactionStatus;
 
-export const format = (item, i) => ({
+export const formatTransaction = (item, i) => ({
   key: item.transactionHash + i,
   type: item.transactionType.toUpperCase(),
   label: item.contractName,
   status: formatStatus(item),
-  amount: item.amount.toFixed(6),
+  amount: item.amount,
   url: `https://ropsten.etherscan.io/tx/${item.transactionHash}`,
 });
 
 export const formatAll = response => ({
-  portfolio: [],
-  transactions: response.transactions.map(format),
+  portfolio: {
+    summary: response.portfolio.summary,
+    list: Object.keys(response.portfolio.contracts).map(label => ({
+      key: label,
+      label,
+      ...response.portfolio.contracts[label],
+    })),
+  },
+  transactions: response.transactions.map(formatTransaction),
 });

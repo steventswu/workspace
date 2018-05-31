@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Icon, Button, Table } from 'antd';
+import { Layout, Icon, Button, Table, Card } from 'antd';
 import { connect } from 'dva';
 
 import styles from './UserProfile.less';
@@ -22,7 +22,10 @@ export default class UserProfile extends React.Component {
   render() {
     const {
       currentUser: { email, isEmailVerified },
-      profile: { transactions, portfolio },
+      profile: {
+        transactions,
+        portfolio: { list: portfolioList, summary: portfolioSummary = {} } = {},
+      },
       height,
       loading,
     } = this.props;
@@ -46,11 +49,25 @@ export default class UserProfile extends React.Component {
         <Layout.Content className={styles.content}>
           <h1>Portfolio</h1>
           <Table
-            style={{ marginBottom: 50 }}
             columns={column.portfolio}
-            dataSource={portfolio}
+            dataSource={portfolioList}
             loading={loading}
+            pagination={false}
           />
+          <div className={styles.summary}>
+            <Card title="Initial Capital" bordered={false}>
+              <span>{portfolioSummary.amount}</span>
+            </Card>
+            <Card title="Total Equity (ETH)" bordered={false}>
+              <span>{portfolioSummary.eth}</span>
+            </Card>
+            <Card title="Total Equity (USD)" bordered={false}>
+              <span>{portfolioSummary.usd}</span>
+            </Card>
+            <Card title="ROI" bordered={false}>
+              <span>{portfolioSummary.roi}</span>
+            </Card>
+          </div>
           <h1>Transaction History</h1>
           <Table
             columns={column.transaction.map(columnMapper)}

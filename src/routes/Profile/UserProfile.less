@@ -20,9 +20,28 @@
   margin-top: 5px;
   margin-bottom: 5px;
 
-  :global {
-    .anticon {
-      margin-right: 7px;
-    }
+  :global(.anticon) {
+    margin-right: 7px;
+  }
+}
+
+.summary {
+  margin: 20px 0 50px;
+
+  display: flex;
+  justify-content: flex-start;
+
+  :global(.ant-card-head) {
+    padding-left: @padding-md;
+    padding-right: @padding-md;
+    background: @background-color-light;
+  }
+
+  :global(.ant-card-head-title) {
+    font-size: @font-size-base;
+  }
+
+  :global(.ant-card-body) {
+    padding: @padding-md;
   }
 }
