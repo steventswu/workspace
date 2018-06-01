@@ -17,6 +17,7 @@ import styles from './BasicPerformance.less';
 
 const Dollar = ({ children }) => (
   <span
+    className={styles.nav}
     dangerouslySetInnerHTML={{ __html: dollar(children) }}
   /> /* eslint-disable-line react/no-danger */
 );
@@ -65,68 +66,6 @@ export default class BasicPerformance extends PureComponent {
 
     return (
       <Fragment>
-        {/* <section>
-          <Row gutter={24}>
-            <Col xl={8} style={{ marginTop: 24, marginBottom: 24 }}>
-              <ChartCard
-                title={idx(symbol[0], _ => _.coin.name)}
-                avatar={
-                  <img
-                    alt="indicator"
-                    style={{ verticalAlign: 'middle', width: 58, height: 58 }}
-                    src={`/color/btc.svg`}
-                  />
-                }
-                total={() => <Dollar>{idx(symbol[0], _ => _.price)}</Dollar>}
-                contentHeight={300}
-              >
-                <Row type="flex" justify="space-between" style={{ marginBottom: 15 }}>
-                  <span>
-                    1hr
-                    <Trend
-                      flag={idx(symbol[0], _ => _.change1h) < 0 ? "down" : "up"}
-                      className={idx(symbol[0], _ => _.change1h) < 0 ? styles.trendDown : styles.trendUp}
-                      >
-                      {`${idx(symbol[0], _ => _.change1h)}%`}
-                    </Trend>
-                  </span>
-                  <span>
-                    24hr
-                    <Trend
-                      flag={idx(symbol[0], _ => _.change24h) < 0 ? "down" : "up"}
-                      className={idx(symbol[0], _ => _.change24h) < 0 ? styles.trendDown : styles.trendUp}
-                      >
-                      {`${idx(symbol[0], _ => _.change24h)}%`}
-                    </Trend>
-                  </span>
-                  <span>
-                    1w
-                    <Trend
-                      flag={idx(symbol[0], _ => _.change1w) < 0 ? "down" : "up"}
-                      className={idx(symbol[0], _ => _.change1w) < 0 ? styles.trendDown : styles.trendUp}
-                      >
-                      {`${idx(symbol[0], _ => _.change1w)}%`}
-                    </Trend>
-                  </span>
-                </Row>
-                <Row type="flex" justify="space-between">
-                  <span>IN CIRCULATION</span>
-                  <span>{numeral(idx(symbol[0], _ => _.circulation)).format('0,0.[0000]')}</span>
-                </Row>
-                <Row type="flex" justify="space-between">
-                  <span>MARKET CAP</span>
-                  <span><Dollar>{idx(symbol[0], _ => _.marketcap)}</Dollar></span>
-                </Row>
-                <MiniArea
-                  line
-                  animate
-                  height={200}
-                  data={priceusd}
-                />
-              </ChartCard>
-            </Col>
-          </Row>
-        </section> */}
         <section>
           <Title title="Net Asset Value" />
           <Row gutter={24}>
@@ -281,7 +220,11 @@ export default class BasicPerformance extends PureComponent {
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
-                total={numeral(info['cap-supply']).format('0,0.[0000]')}
+                total={
+                  <span className={styles.nav}>
+                    {numeral(info['cap-supply']).format('0,0.[0000]')}
+                  </span>
+                }
                 contentHeight={150}
                 style={{ marginBottom: 24 }}
               />
