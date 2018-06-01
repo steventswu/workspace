@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Select } from 'antd';
 import Metamask from 'src/services/Metamask';
+import { CONTRACTS, CONTRACT } from 'src/utils/contract';
 import styles from './style.less';
 
 const { Option } = Select;
@@ -38,13 +39,15 @@ export default class Step2 extends React.PureComponent {
         <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
           <Form.Item {...formItemLayout} label="CAP">
             {getFieldDecorator('cap', {
-              initialValue: data.cap,
+              initialValue: CONTRACT[data.cap].key,
               rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
             })(
-              <Select placeholder="CAP 01">
-                <Option value="CAP01">CAP01</Option>
-                <Option value="CAP02">CAP02</Option>
-                <Option value="CAP03">CAP03</Option>
+              <Select placeholder="Select CAP">
+                {CONTRACTS.map(value => (
+                  <Option key={value.key} value={value.key}>
+                    {CONTRACT[value.key].label}
+                  </Option>
+                ))}
               </Select>
             )}
           </Form.Item>

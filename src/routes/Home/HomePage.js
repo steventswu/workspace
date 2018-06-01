@@ -10,9 +10,9 @@ import GlobalFooter from 'components/GlobalFooter';
 import aboutLogo from 'assets/aboutLogo.svg';
 import logo from 'assets/logo.svg';
 import layoutStyles from 'src/layouts/common.less';
+import { DATA } from 'src/utils/contract';
 
 import styles from './HomePage.less';
-import card from './card.json';
 
 @connect(({ user }) => ({
   currentUser: user,
@@ -47,9 +47,9 @@ export default class HomePage extends React.Component {
 
   render() {
     const isSelected = [
-      this.state.selected === card.data[0].id,
-      this.state.selected === card.data[1].id,
-      this.state.selected === card.data[2].id,
+      this.state.selected === DATA[0].key,
+      this.state.selected === DATA[1].key,
+      this.state.selected === DATA[2].key,
     ];
     return (
       <DocumentTitle title="Tixguru">
@@ -107,7 +107,7 @@ export default class HomePage extends React.Component {
             <Row>
               <Column className={styles.portfolioColumn} span={8}>
                 <PortfolioCard
-                  data={card.data[0]}
+                  data={DATA[0]}
                   selected={isSelected[0]}
                   onSelect={this.handleSelect}
                   inactive
@@ -116,14 +116,14 @@ export default class HomePage extends React.Component {
                   className={classNames(styles.action, { [styles.hidden]: !isSelected[0] })}
                   // type="primary"
                   size="large"
-                  // onClick={this.handleClick(card.data[0])}
+                  // onClick={this.handleClick(DATA[0])}
                 >
                   Coming Soon
                 </Button>
               </Column>
               <Column className={styles.portfolioColumn} span={8}>
                 <PortfolioCard
-                  data={card.data[1]}
+                  data={DATA[1]}
                   selected={isSelected[1]}
                   onSelect={this.handleSelect}
                 />
@@ -131,14 +131,14 @@ export default class HomePage extends React.Component {
                   className={classNames(styles.action, { [styles.hidden]: !isSelected[1] })}
                   type="primary"
                   size="large"
-                  onClick={this.handleClick(card.data[1])}
+                  onClick={this.handleClick(DATA[1])}
                 >
                   More Details
                 </Button>
               </Column>
               <Column className={styles.portfolioColumn} span={8}>
                 <PortfolioCard
-                  data={card.data[2]}
+                  data={DATA[2]}
                   selected={isSelected[2]}
                   onSelect={this.handleSelect}
                   inactive
@@ -147,7 +147,7 @@ export default class HomePage extends React.Component {
                   className={classNames(styles.action, { [styles.hidden]: !isSelected[2] })}
                   // type="primary"
                   size="large"
-                  // onClick={this.handleClick(card.data[2])}
+                  // onClick={this.handleClick(DATA[2])}
                 >
                   Coming Soon
                 </Button>
