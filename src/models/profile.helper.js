@@ -1,3 +1,5 @@
+import { getEtherscanLink, LINK_TYPE, CONTRACT } from 'src/utils/contract';
+
 const formatTime = timestamp => {
   const d = new Date(timestamp);
   let offset = -(d.getTimezoneOffset() / 60);
@@ -20,20 +22,30 @@ const formatStatus = item =>
 export const formatTransaction = (item, i) => ({
   key: item.transactionHash + i,
   type: item.transactionType.toUpperCase(),
-  label: item.contractName,
+  label: CONTRACT[item.contractName].label,
   status: formatStatus(item),
   amount: item.amount,
-  url: `https://ropsten.etherscan.io/tx/${item.transactionHash}`,
+  url: getEtherscanLink(item.transactionHash, LINK_TYPE.transaction),
 });
 
 export const formatAll = response => ({
   portfolio: {
-    summary: response.portfolio.summary,
+    summary: {
+      ...response.portfolio.summary,
+      usd: `$ ${response.portfolio.summary.usd}`,
+      roi: `${response.portfolio.summary.roi} %`,
+    },
     list: Object.keys(response.portfolio.contracts).map(label => ({
       key: label,
-      label,
-      ...response.portfolio.contracts[label],
+      label: CONTRACT[label].label,
+      amount: response.portfolio.contracts[label].amount,
+      nav: response.portfolio.contracts[label].nav,
+      eth: response.portfolio.contracts[label].eth,
+      usd: `$ ${response.portfolio.contracts[label].usd}`,
+      roi: `${response.portfolio.contracts[label].roi} %`,
     })),
   },
-  transactions: response.transactions.map(formatTransaction),
+  transactions: response.transactions.sort(sortByTimestamp).map(formatTransaction),
 });
+
+const sortByTimestamp = (a, b) => b.timestamp - a.timestamp;

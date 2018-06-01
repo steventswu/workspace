@@ -1,6 +1,6 @@
 {
-  "CAPM01": {
-    "key": "CAPM01",
+  "capm150quant": {
+    "key": "capm150quant",
     "title": "CAPM-150Quant",
     "type": "Managed Fund",
     "description": "Top 150 Quant",
@@ -92,8 +92,8 @@
       }
     ]
   },
-  "CAPP01": {
-    "key": "CAPP01",
+  "capp13btc": {
+    "key": "capp13btc",
     "title": "CAPP-13BTC",
     "type": "Passive Fund",
     "description": "Top 13 index",
@@ -185,8 +185,8 @@
       }
     ]
   },
-  "CAPI01": {
-    "key": "CAPI01",
+  "capibtc2": {
+    "key": "capibtc2",
     "title": "CAPI-BTC2",
     "type": "Passive Fund",
     "description": "Inverse BTC",

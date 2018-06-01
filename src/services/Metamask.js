@@ -25,7 +25,7 @@ export const open = ({ cap, amount }) => {
   return eth
     .sendTransaction({
       from: walletAddress,
-      to: CONTRACT[cap],
+      to: CONTRACT[cap].address,
       value: amount * 1000000000000000000,
       data: '0x',
     })

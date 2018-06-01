@@ -26,9 +26,9 @@ export default {
     *updateInfo(_, { call, put, select }) {
       try {
         const walletAddress = yield select(state => state.token.walletAddress);
-        yield call(api.updateMember, { walletAddress, type: api.POST_MEMBER_TYPE.WALLET_ADDRESS });
+        yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.WALLET_ADDRESS, { walletAddress });
         yield put({ type: 'saveWalletAddress', payload: { walletAddress } });
-        yield call(api.updateMember, { walletAddress, type: api.POST_MEMBER_TYPE.BUY_TERMS_LOG });
+        yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.BUY_TERMS_LOG, { walletAddress });
       } catch (e) {
         yield put({ type: 'login/logout' });
       }

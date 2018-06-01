@@ -16,17 +16,18 @@ export async function queryCurrent({ memberId, jwt }) {
   });
 }
 
-export const POST_MEMBER_TYPE = {
+export const UPDATE_MEMBER_TYPE = {
   WALLET_ADDRESS: 'wallet_address',
   BUY_TERMS_LOG: 'buy_terms_log',
+  TRANSACTION: 'transactions',
 };
 
-export async function updateMember({ walletAddress, type }) {
+export async function updateMember(type, params) {
   const { memberId, jwt } = getSession();
   return request(`${endpoint}/members/${memberId}/${type}`, {
     method: 'POST',
     headers: { authorization: jwt },
-    body: { walletAddress },
+    body: params,
   });
 }
 
