@@ -1,8 +1,8 @@
 import info from './contractInfo.json';
 
-export const CAPP01 = 'CAPP01';
-export const CAPM01 = 'CAPM01';
-export const CAPI01 = 'CAPI01';
+export const CAPP01 = 'capp13btc';
+export const CAPM01 = 'capm150quant';
+export const CAPI01 = 'capibtc2';
 
 export const CONTRACT = {
   [CAPP01]: {
