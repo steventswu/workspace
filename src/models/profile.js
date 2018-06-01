@@ -6,7 +6,7 @@ export default {
 
   state: {
     transactions: [],
-    portfolio: [],
+    portfolio: {},
   },
 
   effects: {

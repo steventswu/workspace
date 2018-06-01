@@ -1,23 +1,12 @@
 import Eth from 'ethjs-query';
 // import abi from './abi.json';
+import { CONTRACT } from 'src/utils/contract';
 
 const { web3 } = window;
 
 export const isInstalled = !!web3;
 
 export const isDisabled = !isInstalled;
-
-const contracts = {
-  CAP01: {
-    address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
-  },
-  CAP02: {
-    address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
-  },
-  CAP03: {
-    address: '0x9497a25f80910ed51b0764a4222e765c2137226e',
-  },
-};
 
 const validateEnvironment = () => {
   if (typeof web3 === 'undefined') throw Error('web3 is not defined');
@@ -36,7 +25,7 @@ export const open = ({ cap, amount }) => {
   return eth
     .sendTransaction({
       from: walletAddress,
-      to: contracts[cap].address,
+      to: CONTRACT[cap],
       value: amount * 1000000000000000000,
       data: '0x',
     })

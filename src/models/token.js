@@ -2,9 +2,10 @@ import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import { STEP } from 'src/routes/Token/routes';
 import Metamask from 'src/services/Metamask';
+import { CAPP01, CONTRACT } from 'src/utils/contract';
 
 const initialState = {
-  cap: 'CAP01',
+  cap: CONTRACT[CAPP01].key,
   walletAddress: '',
   transactionHash: '',
   amount: 1,

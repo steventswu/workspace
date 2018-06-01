@@ -10,7 +10,7 @@ export default function PortfolioCard({ data = {}, selected, onSelect, inactive 
     ? styles.cardInactive
     : classNames(styles.card, { [styles.cardSelected]: selected });
   return (
-    <Card className={cardStyle} hoverable title={data.title} onClick={() => onSelect(data.id)}>
+    <Card className={cardStyle} hoverable title={data.title} onClick={() => onSelect(data.key)}>
       <div className={styles.subtitle}>
         <h3 className={styles.type}>{data.type}</h3>
         <hr />
