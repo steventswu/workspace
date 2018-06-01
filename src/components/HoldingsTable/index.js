@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Modal } from 'antd';
 import { dollar } from 'components/Charts';
+import numeral from 'numeral';
 import HighchartsReact from 'react-highcharts/ReactHighstock';
 
 const Dollar = ({ children }) => (
@@ -13,7 +14,6 @@ const columns = [
   {
     title: 'Coin',
     dataIndex: 'coin',
-    key: 'coin',
     render: coin => {
       return (
         <div>
@@ -30,12 +30,10 @@ const columns = [
   {
     title: 'Amount',
     dataIndex: 'amount',
-    key: 'amount',
   },
   {
     title: 'USD',
     dataIndex: 'usd',
-    key: 'usd',
     render: usd => {
       return <Dollar>{usd}</Dollar>;
     },
@@ -43,12 +41,10 @@ const columns = [
   {
     title: '%',
     dataIndex: 'percent',
-    key: 'percent',
   },
   {
     title: 'Market Cap(M)',
     dataIndex: 'marketcap',
-    key: 'marketcap',
     render: usd => {
       return <Dollar>{usd}</Dollar>;
     },
@@ -56,7 +52,6 @@ const columns = [
   {
     title: 'Price',
     dataIndex: 'price',
-    key: 'price',
     render: usd => {
       return <Dollar>{usd}</Dollar>;
     },
@@ -64,7 +59,6 @@ const columns = [
   {
     title: 'Volume(24h)',
     dataIndex: 'value24h',
-    key: 'value24h',
     render: usd => {
       return <Dollar>{usd}</Dollar>;
     },
@@ -72,12 +66,13 @@ const columns = [
   {
     title: 'Circulating Supply',
     dataIndex: 'circulation',
-    key: 'circulation',
+    render: value => {
+      return numeral(value).format('0,0.[0000]');
+    },
   },
   {
     title: 'Change(24h)',
     dataIndex: 'change24h',
-    key: 'change24h',
     render: usd => {
       return `${usd}%`;
     },
@@ -103,7 +98,7 @@ export default class HoldingsTable extends React.PureComponent {
     });
   };
   componentDidUpdate() {
-    const chart = this.refs.chart ? this.refs.chart.getChart() : {};
+    const chart = this.chart ? this.chart.getChart() : {};
     chart.reflow = () => {};
   }
 
@@ -125,6 +120,7 @@ export default class HoldingsTable extends React.PureComponent {
     return (
       <div>
         <Table
+          rowKey={record => record.coin.name}
           onRow={record => ({
             // 点击行
             onClick: () => this.showModal(record),
@@ -144,7 +140,9 @@ export default class HoldingsTable extends React.PureComponent {
           width="80%"
         >
           <HighchartsReact
-            ref="chart"
+            ref={c => {
+              this.chart = c;
+            }}
             config={{
               chart: {
                 zoomType: 'x',

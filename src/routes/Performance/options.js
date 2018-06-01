@@ -2,6 +2,7 @@
 export const navChartOptions = {
   chart: {
     type: 'areaspline',
+    height: '280',
   },
   title: null,
   xAxis: {
@@ -65,7 +66,8 @@ export const navChartOptions = {
     layout: 'horizontal',
     verticalAlign: 'top',
     align: 'left',
-    x: 50,
+    x: 60,
+    y: -10,
     floating: true,
     itemStyle: {
       color: '#000',
