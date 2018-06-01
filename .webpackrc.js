@@ -33,4 +33,9 @@ export default {
       pathRewrite: { '^/perf': '' },
     },
   },
+  define: {
+    'process.env.TWITTER_SECRET': process.env.TWITTER_SECRET,
+    'process.env.CAPP01': process.env.CAPP01,
+    'process.env.ETHERSCAN_HOST': process.env.ETHERSCAN_HOST,
+  },
 };
