@@ -3,10 +3,7 @@ import Codebird from 'codebird';
 class Twitter {
   constructor() {
     this.cb = new Codebird();
-    this.cb.setConsumerKey(
-      'EksjWHFxP3kB7wyyI3Kb2xsF3',
-      'Y8jC5cmHo03GdaeWVq4Cot4jsUaqFy2HQbx0ICXYuXGfOeJ2FN'
-    );
+    this.cb.setConsumerKey('EksjWHFxP3kB7wyyI3Kb2xsF3', process.env.TWITTER_SECRET);
     this.getRequestToken = this.getRequestToken.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
   }
