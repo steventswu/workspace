@@ -1,5 +1,5 @@
-import request from '../utils/request';
-import endpoint, { perfEndpoint } from '../utils/endpoint';
+import request from 'src/utils/request';
+import endpoint, { perfEndpoint } from 'src/utils/endpoint';
 
 export const sessionKey = 'tixguru:session';
 
@@ -21,7 +21,8 @@ export const POST_MEMBER_TYPE = {
   BUY_TERMS_LOG: 'buy_terms_log',
 };
 
-export async function postMember({ walletAddress, type }, { memberId, jwt }) {
+export async function updateMember({ walletAddress, type }) {
+  const { memberId, jwt } = getSession();
   return request(`${endpoint}/members/${memberId}/${type}`, {
     method: 'POST',
     headers: { authorization: jwt },

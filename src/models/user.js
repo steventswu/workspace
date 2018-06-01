@@ -25,19 +25,10 @@ export default {
     },
     *updateInfo(_, { call, put, select }) {
       try {
-        const info = JSON.parse(localStorage.getItem(api.sessionKey));
         const walletAddress = yield select(state => state.token.walletAddress);
-        yield call(
-          api.postMember,
-          { walletAddress, type: api.POST_MEMBER_TYPE.WALLET_ADDRESS },
-          info
-        );
+        yield call(api.updateMember, { walletAddress, type: api.POST_MEMBER_TYPE.WALLET_ADDRESS });
         yield put({ type: 'saveWalletAddress', payload: { walletAddress } });
-        yield call(
-          api.postMember,
-          { walletAddress, type: api.POST_MEMBER_TYPE.BUY_TERMS_LOG },
-          info
-        );
+        yield call(api.updateMember, { walletAddress, type: api.POST_MEMBER_TYPE.BUY_TERMS_LOG });
       } catch (e) {
         yield put({ type: 'login/logout' });
       }
