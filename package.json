@@ -38,6 +38,7 @@
     "ethjs-contract": "^0.2.3",
     "ethjs-query": "^0.3.8",
     "highcharts": "^6.1.0",
+    "idx": "^2.3.0",
     "less": "2.7.2",
     "lodash": "^4.17.4",
     "lodash-decorators": "^4.4.1",

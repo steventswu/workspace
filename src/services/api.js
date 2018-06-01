@@ -37,7 +37,7 @@ export async function postEmailVerification(token) {
 }
 
 export async function queryPerformance() {
-  return request(`${perfEndpoint}/tg-cap.php?q=20`, {
+  return request(`${perfEndpoint}/tg-cap.php?q=13`, {
     method: 'GET',
   });
 }
