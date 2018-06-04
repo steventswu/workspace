@@ -1,4 +1,9 @@
+import numeral from 'numeral';
 import { getEtherscanLink, LINK_TYPE, CONTRACT } from 'src/utils/contract';
+
+const formatCurrency = currency => numeral(currency).format('$ 0,0.0[0000]');
+const formatAmount = amount => numeral(amount).format('0,0[.]0[0000]');
+const formatPercentage = percentage => numeral(percentage / 100).format('0 %');
 
 const formatTime = timestamp => {
   const d = new Date(timestamp);
@@ -16,36 +21,45 @@ const formatTime = timestamp => {
   return `${d.toLocaleString('en', { hour12: false })} UTC${offset}00`;
 };
 
-const formatStatus = item =>
-  item.transactionStatus === 'success' ? formatTime(item.timestamp * 1000) : item.transactionStatus;
+const statusMapper = {
+  success: 'Success',
+  fail: 'Failure',
+  pending: 'Pending',
+};
 
 export const formatTransaction = (item, i) => ({
   key: item.transactionHash + i,
   type: item.transactionType.toUpperCase(),
   label: CONTRACT[item.contractName].label,
-  status: formatStatus(item),
-  amount: item.amount,
+  status: statusMapper[item.transactionStatus],
+  time: item.timestamp ? formatTime(item.timestamp * 1000) : '---',
+  amount: formatAmount(item.amount),
   url: getEtherscanLink(item.transactionHash, LINK_TYPE.transaction),
 });
 
 export const formatAll = response => ({
   portfolio: {
     summary: {
-      ...response.portfolio.summary,
-      usd: `$ ${response.portfolio.summary.usd}`,
-      roi: `${response.portfolio.summary.roi} %`,
+      amount: formatAmount(response.portfolio.summary.amount),
+      eth: formatAmount(response.portfolio.summary.eth),
+      usd: formatCurrency(response.portfolio.summary.usd),
+      roi: formatPercentage(response.portfolio.summary.roi),
     },
-    list: Object.keys(response.portfolio.contracts).map(label => ({
+    contracts: Object.keys(response.portfolio.contracts).map(label => ({
       key: label,
       label: CONTRACT[label].label,
-      amount: response.portfolio.contracts[label].amount,
-      nav: response.portfolio.contracts[label].nav,
-      eth: response.portfolio.contracts[label].eth,
-      usd: `$ ${response.portfolio.contracts[label].usd}`,
-      roi: `${response.portfolio.contracts[label].roi} %`,
+      amount: formatAmount(response.portfolio.contracts[label].amount),
+      nav: formatAmount(response.portfolio.contracts[label].nav),
+      eth: formatAmount(response.portfolio.contracts[label].eth),
+      usd: formatCurrency(response.portfolio.contracts[label].usd),
+      roi: formatPercentage(response.portfolio.contracts[label].roi),
     })),
   },
   transactions: response.transactions.sort(sortByTimestamp).map(formatTransaction),
 });
 
-const sortByTimestamp = (a, b) => b.timestamp - a.timestamp;
+const sortByTimestamp = function sortByTimestamp(a, b) {
+  if (a.timestamp === 0) return -1;
+  if (b.timestamp === 0) return 1;
+  return b.timestamp - a.timestamp;
+};
