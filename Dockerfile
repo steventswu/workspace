@@ -7,4 +7,6 @@ COPY config/nginx.conf /etc/nginx/
 COPY config/proxy.conf /etc/nginx/conf.d/
 COPY config/proxy_ssl.conf /etc/nginx/conf.d/
 
+CMD bash config.sh
+
 COPY dist/ /var/www/
