@@ -18,6 +18,7 @@ export default {
         email: payload.email,
         password: btoa(payload.password),
       });
+      if (response.error) return;
       yield put({
         type: 'changeLoginStatus',
         payload: { status: 'ok' },
