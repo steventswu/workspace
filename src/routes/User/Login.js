@@ -26,6 +26,12 @@ export default class LoginPage extends Component {
     if (this.props.location.hash && this.props.location.hash.includes('#id_token')) {
       this.props.dispatch({ type: 'login/google' });
     }
+    if (this.props.location.hash && this.props.location.hash.includes('#access_token')) {
+      this.props.dispatch({
+        type: 'login/facebook',
+        payload: qs.parse(this.props.location.hash.replace('#', '')),
+      });
+    }
   }
 
   handleSubmit = (err, values) => {
@@ -41,7 +47,10 @@ export default class LoginPage extends Component {
   };
 
   handleFacebookLogin = () => {
-    this.props.dispatch({ type: 'login/facebook' });
+    // this.props.dispatch({ type: 'login/facebook' });
+    const facebookAppID = 2098112697085130;
+    const redirectUri = encodeURIComponent(window.location.href);
+    window.location = `https://www.facebook.com/v3.0/dialog/oauth?response_type=token&scope=email&client_id=${facebookAppID}&redirect_uri=${redirectUri}`;
   };
 
   handleTwitterLogin = () => {

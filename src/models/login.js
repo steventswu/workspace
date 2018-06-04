@@ -1,7 +1,6 @@
 import { routerRedux } from 'dva/router';
-import { getAuthInfo, sessionKey } from 'src/services/api';
+import { getAuthInfo, sessionKey, validateFacebookToken } from 'src/services/api';
 import Google from 'src/services/Google';
-import Facebook from 'src/services/Facebook';
 import Twitter from 'src/services/Twitter';
 import { setAuthority } from 'src/utils/authority';
 import { reloadAuthorized } from 'src/utils/Authorized';
@@ -64,9 +63,9 @@ export default {
         });
       }
     },
-    *facebook(_, { call, put }) {
+    *facebook({ payload }, { call, put }) {
       try {
-        const info = yield call(Facebook.getFBToken);
+        const info = yield call(validateFacebookToken, payload.access_token);
         const result = yield call(getAuthInfo, 'facebook', info);
         yield put({
           type: 'changeLoginStatus',
