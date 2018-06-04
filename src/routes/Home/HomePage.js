@@ -52,7 +52,7 @@ export default class HomePage extends React.Component {
       this.state.selected === DATA[2].key,
     ];
     return (
-      <DocumentTitle title="Tixguru">
+      <DocumentTitle title="CAP">
         <Layout className={styles.layout}>
           <section className={classNames(styles.section, styles.main)}>
             <Layout className={layoutStyles.container}>
@@ -158,7 +158,7 @@ export default class HomePage extends React.Component {
             <GlobalFooter
               copyright={
                 <React.Fragment>
-                  Copyright <Icon type="copyright" /> 2018 Tixguru
+                  Copyright <Icon type="copyright" /> 2018 TIXGURU
                 </React.Fragment>
               }
             />

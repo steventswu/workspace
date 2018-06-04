@@ -27,7 +27,7 @@ export default class AppLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Tixguru';
+    let title = 'CAP';
     let currRouterData = null;
     // match params path
     Object.keys(routerData).forEach(key => {
@@ -36,7 +36,7 @@ export default class AppLayout extends React.PureComponent {
       }
     });
     if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Tixguru`;
+      title = `${currRouterData.name} - CAP`;
     }
     return title;
   }
@@ -91,7 +91,7 @@ export default class AppLayout extends React.PureComponent {
                       FAQ
                     </a>
                   </div>
-                  Copyright <Icon type="copyright" /> 2018 Tixguru
+                  Copyright <Icon type="copyright" /> 2018 TIXGURU
                 </React.Fragment>
               }
             />
