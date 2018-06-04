@@ -22,10 +22,7 @@ export default class UserProfile extends React.Component {
   render() {
     const {
       currentUser: { email, isEmailVerified },
-      profile: {
-        transactions,
-        portfolio: { list: portfolioList, summary: portfolioSummary = {} } = {},
-      },
+      profile: { transactions, portfolio: { contracts, summary = {} } = {} },
       height,
       loading,
     } = this.props;
@@ -50,23 +47,23 @@ export default class UserProfile extends React.Component {
           <h1>Portfolio</h1>
           <Table
             columns={column.portfolio}
-            dataSource={portfolioList}
+            dataSource={contracts}
             loading={loading}
             pagination={false}
             scroll={{ x: 1000 }}
             footer={() => (
               <div className={styles.summary}>
                 <Card title="Initial Capital" bordered={false} style={{ width: 202 }}>
-                  <span>{portfolioSummary.amount}</span>
+                  <span>{summary.amount}</span>
                 </Card>
                 <Card title="Total Equity (ETH)" bordered={false} style={{ width: 200 }}>
-                  <span>{portfolioSummary.eth}</span>
+                  <span>{summary.eth}</span>
                 </Card>
                 <Card title="Total Equity (USD)" bordered={false} style={{ width: 200 }}>
-                  <span>{portfolioSummary.usd}</span>
+                  <span>{summary.usd}</span>
                 </Card>
                 <Card title="ROI" bordered={false} style={{ width: 100 }}>
-                  <span>{portfolioSummary.roi}</span>
+                  <span>{summary.roi}</span>
                 </Card>
               </div>
             )}

@@ -9,7 +9,7 @@ import { getRoutes } from '../utils/utils';
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2018 Tixguru
+    Copyright <Icon type="copyright" /> 2018 TIXGURU
   </Fragment>
 );
 
@@ -17,9 +17,9 @@ class UserLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Tixguru';
+    let title = 'CAP';
     if (routerData[pathname] && routerData[pathname].name) {
-      title = `${routerData[pathname].name} - Tixguru`;
+      title = `${routerData[pathname].name} - CAP`;
     }
     return title;
   }

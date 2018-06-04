@@ -39,8 +39,12 @@
       "dataIndex": "label"
     },
     {
-      "title": "Status/Time",
+      "title": "Status",
       "dataIndex": "status"
+    },
+    {
+      "title": "Time",
+      "dataIndex": "time"
     },
     {
       "title": "Amount",

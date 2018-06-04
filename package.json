@@ -1,7 +1,7 @@
 {
   "name": "cap-performance",
   "version": "0.3.1",
-  "description": "Portfolio Performance of Tixguru CAP fund market",
+  "description": "Portfolio Performance of TIXGURU CAP fund market",
   "private": true,
   "scripts": {
     "postversion": "npm run deploy",

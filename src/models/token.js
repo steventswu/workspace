@@ -41,7 +41,8 @@ export default {
             message: 'You cancel or reject the transaction',
           };
           if (process.env.NODE_ENV !== 'production') {
-            info.description = error.message;
+            const [, description] = error.message.match(/'({.*})'/);
+            info.description = JSON.parse(description).value.message;
           }
           return notification.error(info);
         }
