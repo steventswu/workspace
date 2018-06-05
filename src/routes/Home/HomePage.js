@@ -94,8 +94,12 @@ export default class HomePage extends React.Component {
               <Column className={styles.aboutInfo} span={12}>
                 <h3>About</h3>
                 <p>
-                  量化分析連續漲跌偵測 大跌幅買避險部位 淺力幣 突破偵測套利搬磚 頭部底部確認
-                  量化濾網進出場機制 獲利上調設定 trailing stop
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis libero,
+                  feugiat sit amet vestibulum eget, tempor nec velit. Mauris molestie volutpat
+                  suscipit. Nulla pulvinar vulputate nulla, eget ornare diam pellentesque eget.
+                  Aenean vehicula sollicitudin tempus. Sed eu scelerisque justo, nec ultricies elit.
+                  Curabitur et vestibulum nulla, sit amet fermentum sem. Nullam eu nibh accumsan,
+                  condimentum nisi ut, fringilla orci.
                 </p>
               </Column>
             </Row>
