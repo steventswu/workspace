@@ -9,8 +9,6 @@
     "precommit": "npm run lint-staged",
     "start": "sh -ac '. .env.development; cross-env ESLINT=none roadhog dev'",
     "start:no-proxy": "cross-env NO_PROXY=true ESLINT=none roadhog dev",
-    "deploy:staging": "sh -ac '. .env.staging; ./deploy.sh'",
-    "deploy:prod": "sh -ac '. .env.staging; ./deploy.sh'",
     "build": "sh -ac '. .env.staging; cross-env ESLINT=none roadhog build'",
     "build:prod": "sh -ac '. .env.production; cross-env ESLINT=none roadhog build'",
     "site": "roadhog-api-doc static && gh-pages -d dist",
