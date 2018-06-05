@@ -22,15 +22,14 @@ export default {
   publicPath: '/',
   hash: true,
   proxy: {
-    '/auth': {
-      target: 'http://i.tixguru.me/api',
+    '/api': {
+      target: 'http://i.tixguru.me',
       changeOrigin: true,
-      pathRewrite: { '^/auth': '' },
     },
-    '/perf': {
+    '/data': {
       target: 'http://coinhub.capital/cob/api',
       changeOrigin: true,
-      pathRewrite: { '^/perf': '' },
+      pathRewrite: { '^/data': '' },
     },
   },
   define: {
