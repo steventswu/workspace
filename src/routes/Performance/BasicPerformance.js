@@ -81,7 +81,11 @@ export default class BasicPerformance extends PureComponent {
                 contentHeight={168}
                 style={{ marginBottom: 24 }}
               >
-                <Row type="flex" justify="space-between">
+                <Row
+                  type="flex"
+                  justify="space-between"
+                  style={{ flexWrap: 'nowrap', overflow: 'scroll' }}
+                >
                   <Col>
                     <NumberInfo
                       title={<span>Historical</span>}
