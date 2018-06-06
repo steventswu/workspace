@@ -44,6 +44,12 @@ export async function queryPerformance() {
   });
 }
 
+export async function queryAnalysisData() {
+  return request(`${endpoint.data}/tg30.php`, {
+    method: 'GET',
+  });
+}
+
 export async function queryCoinData({ startDate, symbol }) {
   return request(`${endpoint.data}/tg-tv-tech.php?start=${startDate}&symbol=${symbol}`, {
     method: 'GET',

@@ -33,13 +33,9 @@ export default class BasicPerformance extends PureComponent {
       //   type: 'cap01'
       // }
     });
-    // this.props.dispatch({
-    //   type: 'performance/fetchCoinData',
-    //   payload: {
-    //     startDate: '2017-01-01',
-    //     symbol: 'bitcoin',
-    //   },
-    // });
+    this.props.dispatch({
+      type: 'performance/fetchAnalysisData',
+    });
   }
 
   handleRowClick = record => {
@@ -246,7 +242,7 @@ export default class BasicPerformance extends PureComponent {
             <Col xl={16} style={{ marginBottom: 24 }}>
               <ChartCard style={{ width: '100%' }}>
                 <HighchartsReact config={navChartOptions} isPureConfig />
-                <NavTable />
+                <NavTable performance={performance} />
               </ChartCard>
             </Col>
           </Row>

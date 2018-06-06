@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
+import idx from 'idx';
 
 const columns = [
   {
@@ -9,8 +10,8 @@ const columns = [
   },
   {
     title: 'R2',
-    dataIndex: 'age',
-    key: 'age',
+    dataIndex: 'r2',
+    key: 'r2',
   },
   {
     title: 'Beta',
@@ -34,47 +35,51 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: '1',
-    name: 'Bitcoin',
-    age: <span style={{ color: '#1890ff' }}>0.64102</span>,
-    beta: <span style={{ color: '#1890ff' }}>0.82</span>,
-    alpha: <span style={{ color: '#1890ff' }}>0.84</span>,
-    sharpe: 'Sharpe ratio (annualized)',
-    volatilty: 'Monthly Volatility',
-  },
-  {
-    key: '2',
-    name: 'Euro',
-    age: <span style={{ color: '#1890ff' }}>0.00001</span>,
-    beta: <span style={{ color: '#1890ff' }}>-.0.03</span>,
-    alpha: <span style={{ color: '#1890ff' }}>4.18</span>,
-    sharpe: <span style={{ color: '#1890ff' }}>0.87</span>,
-    volatilty: <span style={{ color: '#1890ff' }}>0</span>,
-  },
-  {
-    key: '3',
-    name: 'GLD',
-    age: <span style={{ color: '#1890ff' }}>32</span>,
-    beta: <span style={{ color: '#1890ff' }}>0.34</span>,
-    alpha: <span style={{ color: '#1890ff' }}>4.13</span>,
-    sharpe: 'Bitcoin Sharepe',
-    volatilty: 'Bitcoin Volatility',
-  },
-  {
-    key: '4',
-    name: 'SPY',
-    age: <span style={{ color: '#1890ff' }}>32</span>,
-    beta: <span style={{ color: '#1890ff' }}>0.25</span>,
-    alpha: <span style={{ color: '#1890ff' }}>4.04</span>,
-    sharpe: <span style={{ color: '#1890ff' }}>0.8</span>,
-    volatilty: <span style={{ color: '#1890ff' }}>0</span>,
-  },
-];
+export default class NavTable extends React.PureComponent {
+  render() {
+    const { performance } = this.props;
+    const { analysis } = performance;
 
-const NavTable = () => (
-  <Table columns={columns} dataSource={data} pagination={false} size="small" />
-);
-
-export default NavTable;
+    const data = [
+      {
+        key: '1',
+        name: <span>{idx(analysis[0], _ => _.label)}</span>,
+        r2: <span style={{ color: '#1890ff' }}>{idx(analysis[0], _ => _.r2)}</span>,
+        beta: <span style={{ color: '#1890ff' }}>{idx(analysis[0], _ => _.beta)}</span>,
+        alpha: <span style={{ color: '#1890ff' }}>{idx(analysis[0], _ => _.alpha)}</span>,
+        sharpe: 'Sharpe ratio (annualized)',
+        volatilty: 'Monthly Volatility',
+      },
+      {
+        key: '2',
+        name: <span>{idx(analysis[1], _ => _.label)}</span>,
+        r2: <span style={{ color: '#1890ff' }}>{idx(analysis[1], _ => _.r2)}</span>,
+        beta: <span style={{ color: '#1890ff' }}>{idx(analysis[1], _ => _.beta)}</span>,
+        alpha: <span style={{ color: '#1890ff' }}>{idx(analysis[1], _ => _.alpha)}</span>,
+        sharpe: <span style={{ color: '#1890ff' }}>{idx(analysis[4], _ => _.sharperatio)}</span>,
+        volatilty: (
+          <span style={{ color: '#1890ff' }}>{idx(analysis[4], _ => _.monthlyvolatility)}</span>
+        ),
+      },
+      {
+        key: '3',
+        name: <span>{idx(analysis[2], _ => _.label)}</span>,
+        r2: <span style={{ color: '#1890ff' }}>{idx(analysis[2], _ => _.r2)}</span>,
+        beta: <span style={{ color: '#1890ff' }}>{idx(analysis[2], _ => _.beta)}</span>,
+        alpha: <span style={{ color: '#1890ff' }}>{idx(analysis[2], _ => _.alpha)}</span>,
+        sharpe: 'Bitcoin Sharepe',
+        volatilty: 'Bitcoin Volatility',
+      },
+      {
+        key: '4',
+        name: <span>{idx(analysis[3], _ => _.label)}</span>,
+        r2: <span style={{ color: '#1890ff' }}>{idx(analysis[3], _ => _.r2)}</span>,
+        beta: <span style={{ color: '#1890ff' }}>{idx(analysis[3], _ => _.beta)}</span>,
+        alpha: <span style={{ color: '#1890ff' }}>{idx(analysis[3], _ => _.alpha)}</span>,
+        sharpe: <span style={{ color: '#1890ff' }}>{analysis[4].bitcoinsharpe}</span>,
+        volatilty: <span style={{ color: '#1890ff' }}>{analysis[4].yearlyvolatility}</span>,
+      },
+    ];
+    return <Table columns={columns} dataSource={data} pagination={false} size="small" />;
+  }
+}
