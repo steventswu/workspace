@@ -76,8 +76,10 @@ export default class NavTable extends React.PureComponent {
         r2: <span style={{ color: '#1890ff' }}>{idx(analysis[3], _ => _.r2)}</span>,
         beta: <span style={{ color: '#1890ff' }}>{idx(analysis[3], _ => _.beta)}</span>,
         alpha: <span style={{ color: '#1890ff' }}>{idx(analysis[3], _ => _.alpha)}</span>,
-        sharpe: <span style={{ color: '#1890ff' }}>{analysis[4].bitcoinsharpe}</span>,
-        volatilty: <span style={{ color: '#1890ff' }}>{analysis[4].yearlyvolatility}</span>,
+        sharpe: <span style={{ color: '#1890ff' }}>{idx(analysis[4], _ => _.bitcoinsharpe)}</span>,
+        volatilty: (
+          <span style={{ color: '#1890ff' }}>{idx(analysis[4], _ => _.yearlyvolatility)}</span>
+        ),
       },
     ];
     return <Table columns={columns} dataSource={data} pagination={false} size="small" />;
