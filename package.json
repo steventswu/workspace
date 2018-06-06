@@ -6,7 +6,7 @@
   "scripts": {
     "postversion": "npm run staging",
     "staging": "sh -ac '. .env.staging; npm run build; ./deploy.sh'",
-    "production": "sh -ac '. .env.production; npm run build'",
+    "production": "sh -ac '. .env.production; npm run build; ./deploy.sh'",
     "precommit": "npm run lint-staged",
     "start": "sh -ac '. .env.development; cross-env ESLINT=none roadhog dev'",
     "start:no-proxy": "cross-env NO_PROXY=true ESLINT=none roadhog dev",
