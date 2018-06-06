@@ -1,12 +1,12 @@
 import React from 'react';
-import { Layout, Icon } from 'antd';
+import { Layout } from 'antd';
 import { connect } from 'dva';
 import { Route, Switch, Redirect, routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import pathToRegexp from 'path-to-regexp';
 
 import Authorized from '../utils/Authorized';
-import GlobalFooter from '../components/GlobalFooter';
+import AppFooter from '../components/AppFooter';
 import GlobalHeader from '../components/GlobalHeader';
 import logo from '../assets/logo.svg';
 
@@ -79,22 +79,7 @@ export default class AppLayout extends React.PureComponent {
             </Switch>
           </Content>
           <Footer style={{ padding: 0 }}>
-            <GlobalFooter
-              copyright={
-                <React.Fragment>
-                  <div style={{ padding: 15 }}>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://medium.com/@pr_48521/cap-faq-3c0b5d0d0303"
-                    >
-                      FAQ
-                    </a>
-                  </div>
-                  Copyright <Icon type="copyright" /> 2018 TIXGURU
-                </React.Fragment>
-              }
-            />
+            <AppFooter />
           </Footer>
         </Layout>
       </DocumentTitle>

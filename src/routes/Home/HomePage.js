@@ -1,14 +1,14 @@
 import React from 'react';
-import { Layout, Row, Col as Column, Button, Icon } from 'antd';
+import { Layout, Row, Col as Column, Button } from 'antd';
 import classNames from 'classnames';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import GlobalHeader from 'components/GlobalHeader';
-import PortfolioCard from 'components/PortfolioCard';
-import GlobalFooter from 'components/GlobalFooter';
-import aboutLogo from 'assets/aboutLogo.svg';
-import logo from 'assets/logo.svg';
+import GlobalHeader from 'src/components/GlobalHeader';
+import PortfolioCard from 'src/components/PortfolioCard';
+import AppFooter from 'src/components/AppFooter';
+import aboutLogo from 'src/assets/aboutLogo.svg';
+import logo from 'src/assets/logo.svg';
 import layoutStyles from 'src/layouts/common.less';
 import { DATA } from 'src/utils/contract';
 
@@ -159,13 +159,7 @@ export default class HomePage extends React.Component {
             </Row>
           </section>
           <Layout.Footer>
-            <GlobalFooter
-              copyright={
-                <React.Fragment>
-                  Copyright <Icon type="copyright" /> 2018 TIXGURU
-                </React.Fragment>
-              }
-            />
+            <AppFooter />
           </Layout.Footer>
         </Layout>
       </DocumentTitle>
