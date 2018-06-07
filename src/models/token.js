@@ -23,10 +23,12 @@ export default {
 
   effects: {
     *submitOrder({ payload }, { call, put }) {
-      yield put(routerRedux.replace(STEP[3]));
-
       if (Metamask.isInstalled) {
         try {
+          yield call(Metamask.init);
+          yield call(Metamask.validate);
+          yield put(routerRedux.replace(STEP[3]));
+
           const { result } = yield call(Metamask.open, payload);
           notification.success({ message: 'Transaction complete' });
           yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
@@ -36,10 +38,12 @@ export default {
             transactionHash: result,
           });
         } catch (error) {
-          // ignore error
-          const info = {
-            message: 'You cancel or reject the transaction',
-          };
+          if (error instanceof TypeError) {
+            return notification.error({ message: error.message });
+          }
+
+          const info = { message: 'You cancel or reject the transaction' };
+
           if (process.env.NODE_ENV !== 'production') {
             const [, description] = error.message.match(/'({.*})'/);
             info.description = JSON.parse(description).value.message;
@@ -47,6 +51,7 @@ export default {
           return notification.error(info);
         }
       }
+      yield put(routerRedux.replace(STEP[3]));
 
       yield put({ type: 'saveFormData', payload });
       yield put({ type: 'user/updateInfo' });

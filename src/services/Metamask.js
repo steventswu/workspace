@@ -4,21 +4,24 @@ import { CONTRACT } from 'src/utils/contract';
 
 const { web3 } = window;
 
-export const isInstalled = !!web3;
+const isInstalled = !!web3;
 
-export const isDisabled = !isInstalled;
+const isDisabled = !isInstalled;
 
-const validateEnvironment = () => {
-  if (typeof web3 === 'undefined') throw Error('web3 is not defined');
-  // if (web3.version.network !== '3') throw Error('web3 network version is not 3');
+let eth;
+
+const init = () => {
+  eth = new Eth(web3.currentProvider);
 };
 
-export const open = ({ cap, amount }) => {
-  if (!cap || !amount) return Promise.reject(Error('Invalid params'));
+const validate = async () => {
+  const version = await eth.net_version();
+  console.log('version', version);
+  if (version !== process.env.NETWORK_ID) throw TypeError('Invalid Network');
+};
 
-  validateEnvironment();
-
-  const eth = new Eth(web3.currentProvider);
+const open = async ({ cap, amount }) => {
+  if (!cap || !amount) throw TypeError('Invalid params');
 
   const walletAddress = web3.eth.defaultAccount;
 
@@ -32,4 +35,4 @@ export const open = ({ cap, amount }) => {
     .then(result => ({ result, walletAddress }));
 };
 
-export default { open, isInstalled, isDisabled };
+export default { init, validate, open, isInstalled, isDisabled };
