@@ -1,17 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link, Redirect, Switch, Route } from 'dva/router';
 import DocumentTitle from 'react-document-title';
-import { Icon } from 'antd';
-import GlobalFooter from '../components/GlobalFooter';
+import AppFooter from '../components/AppFooter';
 import styles from './UserLayout.less';
 import logo from '../assets/logo.svg';
 import { getRoutes } from '../utils/utils';
-
-const copyright = (
-  <Fragment>
-    Copyright <Icon type="copyright" /> 2018 TIXGURU
-  </Fragment>
-);
 
 class UserLayout extends React.PureComponent {
   getPageTitle() {
@@ -48,7 +41,7 @@ class UserLayout extends React.PureComponent {
               <Redirect exact from="/user" to="/user/login" />
             </Switch>
           </div>
-          <GlobalFooter copyright={copyright} />
+          <AppFooter />
         </div>
       </DocumentTitle>
     );
