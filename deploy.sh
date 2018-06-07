@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION_INFO=$(git describe master --tags)
+VERSION_INFO=$(git describe --tags)
 VERSION=$(echo $VERSION_INFO | sed -e 's/^v//')
 
 docker build . --build-arg ENV=$ENV --tag gcr.io/$PROJECT/nginx-cap:$VERSION
