@@ -29,7 +29,7 @@ export default {
           yield call(Metamask.validate);
           yield put(routerRedux.replace(STEP[3]));
 
-          const { result } = yield call(Metamask.open, payload);
+          const { result, walletAddress } = yield call(Metamask.open, payload);
           notification.success({ message: 'Transaction complete' });
           yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
             contractName: CONTRACT[payload.cap].key,
@@ -37,6 +37,9 @@ export default {
             transactionType: 'buy',
             transactionHash: result,
           });
+          yield put({ type: 'user/updateInfo', payload: { walletAddress } });
+          yield put(routerRedux.replace(STEP[3]));
+          return;
         } catch (error) {
           if (error instanceof TypeError) {
             return notification.error({ message: error.message });
@@ -54,7 +57,7 @@ export default {
       yield put(routerRedux.replace(STEP[3]));
 
       yield put({ type: 'saveFormData', payload });
-      yield put({ type: 'user/updateInfo' });
+      yield put({ type: 'user/updateInfo', payload });
     },
   },
 
