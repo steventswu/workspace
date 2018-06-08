@@ -26,7 +26,7 @@ export default class Step2 extends React.PureComponent {
     this.props.form.validateFields((err, values) => {
       if (err) return;
       this.props.dispatch({
-        type: 'token/submitOrder',
+        type: Metamask.isInstalled ? 'token/submitMetamaskOrder' : 'token/submitNormalOrder',
         payload: values,
       });
     });
