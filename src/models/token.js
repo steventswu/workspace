@@ -38,7 +38,6 @@ export default {
             transactionHash: result,
           });
           yield put({ type: 'user/updateInfo', payload: { walletAddress } });
-          yield put(routerRedux.replace(STEP[3]));
           return;
         } catch (error) {
           if (error instanceof TypeError) {
