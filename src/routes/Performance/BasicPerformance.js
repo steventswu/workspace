@@ -3,7 +3,7 @@ import numeral from 'numeral';
 import { connect } from 'dva';
 import { Row, Col, Tooltip, Icon } from 'antd';
 import HighchartsReact from 'react-highcharts/';
-import { ChartCard, dollar } from 'components/Charts';
+import { ChartCard } from 'components/Charts';
 // import Trend from 'components/Trend';
 import NumberInfo from 'components/NumberInfo';
 import Title from 'components/Title';
@@ -14,14 +14,6 @@ import { navChartOptions } from './options';
 // import idx from 'idx';
 // import moment from 'moment';
 import styles from './BasicPerformance.less';
-
-const Dollar = ({ children }) => (
-  <span
-    className={styles.nav}
-    dangerouslySetInnerHTML={{ __html: dollar(children) }}
-  /> /* eslint-disable-line react/no-danger */
-);
-
 @connect(({ performance }) => ({
   performance,
 }))
@@ -69,11 +61,11 @@ export default class BasicPerformance extends PureComponent {
               <ChartCard
                 title="NAV"
                 action={
-                  <Tooltip title="net asset value">
+                  <Tooltip title="ETH">
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
-                total={() => <Dollar>{info.nav}</Dollar>}
+                total={<span className={styles.nav}>{numeral(info.nav).format('0,0.[0000]')}</span>}
                 contentHeight={168}
                 style={{ marginBottom: 24 }}
               >
@@ -231,11 +223,13 @@ export default class BasicPerformance extends PureComponent {
               <ChartCard
                 title="Fund Size"
                 action={
-                  <Tooltip title="USD">
+                  <Tooltip title="ETH">
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
-                total={() => <Dollar>{info.fundsize}</Dollar>}
+                total={
+                  <span className={styles.nav}>{numeral(info.fundsize).format('0,0.[0000]')}</span>
+                }
                 contentHeight={150}
               />
             </Col>
