@@ -16,7 +16,6 @@ const init = () => {
 
 const validate = async () => {
   const version = await eth.net_version();
-  console.log('version', version);
   if (version !== process.env.NETWORK_ID) throw TypeError('Invalid Network');
 };
 
