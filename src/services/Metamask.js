@@ -28,7 +28,8 @@ const open = async ({ cap, amount }) => {
     .sendTransaction({
       from: walletAddress,
       to: CONTRACT[cap].address,
-      value: amount * 1000000000000000000,
+      value: web3.toWei(amount),
+      gas: 150000,
       data: '0x',
     })
     .then(result => ({ result, walletAddress }));
