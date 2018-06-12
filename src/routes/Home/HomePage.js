@@ -92,15 +92,25 @@ export default class HomePage extends React.Component {
                 <img className={styles.aboutLogo} src={aboutLogo} alt="" />
               </Column>
               <Column className={styles.aboutInfo} span={12}>
-                <h3>About</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis libero,
-                  feugiat sit amet vestibulum eget, tempor nec velit. Mauris molestie volutpat
-                  suscipit. Nulla pulvinar vulputate nulla, eget ornare diam pellentesque eget.
-                  Aenean vehicula sollicitudin tempus. Sed eu scelerisque justo, nec ultricies elit.
-                  Curabitur et vestibulum nulla, sit amet fermentum sem. Nullam eu nibh accumsan,
-                  condimentum nisi ut, fringilla orci.
-                </p>
+                <h3>About CAP Service</h3>
+                <ul>
+                  <li>
+                    Suitable for user who are first time getting to know Digital Asset. Buying CAP
+                    can effectively avoid the risk with wide fluctuations.
+                  </li>
+                  <li>
+                    Selecting the cryptocurrencies which perform excellent in the market every two
+                    weeks to find the most optimal risk-reward ratio.
+                  </li>
+                  <li>
+                    The platform will update the currency basket from portfolio automatically and
+                    use quantitative algorithms to filter out the underperformed cyptocurrencies.
+                  </li>
+                  <li>
+                    Adding trailing Stop-loss system can effectively reduce the risk and lock in the
+                    profit.
+                  </li>
+                </ul>
               </Column>
             </Row>
           </section>
