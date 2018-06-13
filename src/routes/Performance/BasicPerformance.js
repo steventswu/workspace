@@ -47,6 +47,13 @@ export default class BasicPerformance extends PureComponent {
     const { performance } = this.props;
     const { info } = performance;
 
+    // Set Options for Highstock
+    HighchartsReact.Highcharts.setOptions({
+      lang: {
+        thousandsSep: ',',
+      },
+    });
+
     // const priceusd = [];
     // for (let i = 0; i < performance.coin.length; i += 1) {
     //   priceusd.push({

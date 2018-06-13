@@ -108,4 +108,7 @@ export const navChartOptions = performance => ({
   exporting: {
     enabled: false,
   },
+  time: {
+    useUTC: false,
+  },
 });

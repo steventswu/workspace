@@ -117,6 +117,13 @@ export default class HoldingsTable extends React.PureComponent {
       volumeusd.push(coin[i].volumeusd);
     }
 
+    // Set Options for Highstock
+    HighchartsReact.Highcharts.setOptions({
+      lang: {
+        thousandsSep: ',',
+      },
+    });
+
     return (
       <div>
         <Table
@@ -253,6 +260,9 @@ export default class HoldingsTable extends React.PureComponent {
                   yAxis: 3,
                 },
               ],
+              time: {
+                useUTC: false,
+              },
             }}
           />
         </Modal>
