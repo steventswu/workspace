@@ -26,6 +26,9 @@ export default class BasicPerformance extends PureComponent {
       // }
     });
     this.props.dispatch({
+      type: 'performance/fetchNavChartData',
+    });
+    this.props.dispatch({
       type: 'performance/fetchAnalysisData',
     });
   }
@@ -235,7 +238,11 @@ export default class BasicPerformance extends PureComponent {
             </Col>
             <Col xl={16} style={{ marginBottom: 24 }}>
               <ChartCard style={{ width: '100%' }}>
-                <HighchartsReact config={navChartOptions} isPureConfig />
+                <HighchartsReact
+                  performance={performance}
+                  config={navChartOptions(performance)}
+                  isPureConfig
+                />
                 <NavTable performance={performance} />
               </ChartCard>
             </Col>
