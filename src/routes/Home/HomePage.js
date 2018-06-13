@@ -127,9 +127,10 @@ export default class HomePage extends React.Component {
                   inactive
                 />
                 <Button
-                  className={classNames(styles.action, { [styles.hidden]: !isSelected[0] })}
+                  className={classNames(styles.action)}
                   // type="primary"
                   size="large"
+                  disabled
                   // onClick={this.handleClick(DATA[0])}
                 >
                   Coming Soon
@@ -142,7 +143,7 @@ export default class HomePage extends React.Component {
                   onSelect={this.handleSelect}
                 />
                 <Button
-                  className={classNames(styles.action, { [styles.hidden]: !isSelected[1] })}
+                  className={classNames(styles.action)}
                   type="primary"
                   size="large"
                   onClick={this.handleClick(DATA[1])}
@@ -158,9 +159,10 @@ export default class HomePage extends React.Component {
                   inactive
                 />
                 <Button
-                  className={classNames(styles.action, { [styles.hidden]: !isSelected[2] })}
+                  className={classNames(styles.action)}
                   // type="primary"
                   size="large"
+                  disabled
                   // onClick={this.handleClick(DATA[2])}
                 >
                   Coming Soon
