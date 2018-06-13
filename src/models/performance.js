@@ -1,4 +1,9 @@
-import { queryPerformance, queryAnalysisData, queryCoinData } from 'src/services/api';
+import {
+  queryPerformance,
+  queryNavChartData,
+  queryAnalysisData,
+  queryCoinData,
+} from 'src/services/api';
 
 export default {
   namespace: 'performance',
@@ -6,6 +11,8 @@ export default {
   state: {
     info: {},
     symbol: [],
+    totalFundValue: [],
+    netAssetValue: [],
     analysis: [],
     coin: {},
     // cap2: {
@@ -21,6 +28,17 @@ export default {
         yield put({
           type: 'savePerformance',
           payload: response,
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    *fetchNavChartData(_, { call, put }) {
+      try {
+        const navChartData = yield call(queryNavChartData);
+        yield put({
+          type: 'saveNavChartData',
+          payload: navChartData,
         });
       } catch (e) {
         console.log(e);
@@ -73,6 +91,13 @@ export default {
         ...state,
         info: action.payload.info,
         symbol: action.payload.symbol,
+      };
+    },
+    saveNavChartData(state, action) {
+      return {
+        ...state,
+        totalFundValue: action.payload.totalFundValue,
+        netAssetValue: action.payload.netAssetValue,
       };
     },
     saveAnalysisData(state, action) {
