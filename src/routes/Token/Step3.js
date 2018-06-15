@@ -50,7 +50,7 @@ export default class Step3 extends React.PureComponent {
         <Content>
           <p>Note: It takes 15-20 minutes of transaction time to process your purchase.</p>
           <Button type="primary" style={{ marginTop: 50 }} onClick={this.handleReturn}>
-            Return
+            Open Profile
           </Button>
         </Content>
       </div>
