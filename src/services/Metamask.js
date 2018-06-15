@@ -17,6 +17,8 @@ const init = () => {
 const validate = async () => {
   const version = await eth.net_version();
   if (version !== process.env.NETWORK_ID) throw TypeError('Invalid Network');
+  const [account] = await eth.accounts();
+  if (!account) throw TypeError('Unlock your wallet and try again');
 };
 
 const open = async ({ cap, amount }) => {
@@ -34,5 +36,7 @@ const open = async ({ cap, amount }) => {
     })
     .then(result => ({ result, walletAddress }));
 };
+
+window.Eth = Eth;
 
 export default { init, validate, open, isInstalled, isDisabled };
