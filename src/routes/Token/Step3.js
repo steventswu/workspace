@@ -28,7 +28,7 @@ export default class Step3 extends React.PureComponent {
           <h1>Buy Your CAP</h1>
           <ul>
             <li>Do not send from exchange wallets.</li>
-            <li>Set gas limit to 100,000.</li>
+            <li>Set gas limit to 150,000.</li>
             <li>Send ETH to following Contract Address.</li>
           </ul>
           <h2>Contract Address</h2>
