@@ -69,12 +69,12 @@ export default class HomePage extends React.Component {
                     <h1>CAP</h1>
                     <div className={styles.mainInfo}>
                       <h2>The First Smart Index Fund</h2>
-                      <div>
+                      {/* <div>
                         <span className={styles.integer}>
                           217<span className={styles.float}>.43</span>
                         </span>
                         <div className={styles.status}>&#9650; 0.30%</div>
-                      </div>
+                      </div> */}
                     </div>
                   </Column>
                 </Row>
