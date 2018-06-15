@@ -50,7 +50,7 @@ export default class Step1 extends React.PureComponent {
             </Row>
             <Row>
               <Checkbox id="check2" onChange={this.onClickCheck(2)} checked={checked[2]}>
-                I have read and agree to Section 5 of the Terms & Conditions
+                I have read and agree to Section 6 of the Terms & Conditions
               </Checkbox>
             </Row>
             <Row>
