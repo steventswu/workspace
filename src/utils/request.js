@@ -20,7 +20,7 @@ const codeMessage = {
   504: 'Gateway Timeout',
 };
 function checkStatus(response) {
-  if (response.status === 409) return response;
+  if (response.status === 409 || response.status === 422) return response;
   if (response.status >= 200 && response.status < 300) return response;
 
   const errorText = codeMessage[response.status] || response.statusText;
@@ -79,13 +79,11 @@ export default function request(url, options) {
     .catch(e => {
       const { dispatch } = store;
       const status = e.name;
-      if (status === 400 || status === 404 || status >= 500) {
-        return { error: true };
-      }
       if (status === 401 || status === 403) {
-        return dispatch({
+        dispatch({
           type: 'login/logout',
         });
       }
+      return { error: true };
     });
 }
