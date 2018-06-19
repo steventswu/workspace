@@ -1,6 +1,4 @@
 // Create HighchartsReact
-import numeral from 'numeral';
-
 export const navChartOptions = performance => ({
   chart: {
     type: 'areaspline',
@@ -30,9 +28,9 @@ export const navChartOptions = performance => ({
       },
       gridLineWidth: 0,
       labels: {
-        // eslint-disable-next-line object-shorthand
+        // eslint-disable-next-line object-shorthand, func-names
         formatter: function() {
-          return numeral(this.axis.defaultLabelFormatter.call(this)).format('0,0.[0000]');
+          return `$${this.axis.defaultLabelFormatter.call(this)}`;
         },
       },
     },
@@ -45,9 +43,9 @@ export const navChartOptions = performance => ({
       },
       gridLineWidth: 0,
       labels: {
-        // eslint-disable-next-line object-shorthand
+        // eslint-disable-next-line object-shorthand, func-names
         formatter: function() {
-          return numeral(this.axis.defaultLabelFormatter.call(this)).format('0,0.[0000]');
+          return `${this.axis.defaultLabelFormatter.call(this)}`;
         },
       },
       opposite: true,
@@ -80,8 +78,6 @@ export const navChartOptions = performance => ({
     },
   },
   tooltip: {
-    valuePrefix: '$',
-    valueSuffix: ' USD',
     shared: true,
     split: false,
     crosshairs: [true],
@@ -92,7 +88,11 @@ export const navChartOptions = performance => ({
       data: performance.totalFundValue,
       color: {
         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-        stops: [[0, '#5EE0FE'], [1, '#085790']],
+        stops: [[0, '#085790'], [1, '#085790']],
+      },
+      tooltip: {
+        valuePrefix: '$',
+        valueSuffix: ' USD',
       },
     },
     {
@@ -101,7 +101,10 @@ export const navChartOptions = performance => ({
       data: performance.netAssetValue,
       color: {
         linearGradient: { x1: 1, y1: 1, x2: 0, y2: 1 },
-        stops: [[0, '#AD2256'], [1, 'rgb(255, 27, 27)']],
+        stops: [[0, '#AD2256'], [1, '#AD2256']],
+      },
+      tooltip: {
+        valueSuffix: ' ETH',
       },
     },
   ],

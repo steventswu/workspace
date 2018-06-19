@@ -6,8 +6,9 @@ import HighchartsReact from 'react-highcharts/ReactHighstock';
 
 const Dollar = ({ children }) => (
   <span
+    // eslint-disable-next-line react/no-danger
     dangerouslySetInnerHTML={{ __html: dollar(children) }}
-  /> /* eslint-disable-line react/no-danger */
+  />
 );
 
 const columns = [
@@ -168,7 +169,7 @@ export default class HoldingsTable extends React.PureComponent {
                   },
                   gridLineWidth: 0,
                   labels: {
-                    // eslint-disable-next-line object-shorthand
+                    // eslint-disable-next-line object-shorthand, func-names
                     formatter: function() {
                       return `$${this.axis.defaultLabelFormatter.call(this)}`;
                     },
@@ -183,7 +184,7 @@ export default class HoldingsTable extends React.PureComponent {
                   },
                   gridLineWidth: 0,
                   labels: {
-                    // eslint-disable-next-line object-shorthand
+                    // eslint-disable-next-line object-shorthand, func-names
                     formatter: function() {
                       return `$${this.axis.defaultLabelFormatter.call(this)}`;
                     },
@@ -197,7 +198,7 @@ export default class HoldingsTable extends React.PureComponent {
                   },
                   gridLineWidth: 0,
                   labels: {
-                    // eslint-disable-next-line object-shorthand
+                    // eslint-disable-next-line object-shorthand, func-names
                     formatter: function() {
                       return `${this.value} BTC`;
                     },
@@ -211,7 +212,7 @@ export default class HoldingsTable extends React.PureComponent {
                   },
                   gridLineWidth: 0,
                   labels: {
-                    // eslint-disable-next-line object-shorthand
+                    // eslint-disable-next-line object-shorthand, func-names
                     formatter: function() {
                       return `$${this.axis.defaultLabelFormatter.call(this)}`;
                     },
