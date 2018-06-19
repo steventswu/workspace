@@ -5,15 +5,17 @@ import Metamask from 'src/services/Metamask';
 import { CAPP01, CONTRACT } from 'src/utils/contract';
 import { updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
 
+const initialCheckedState = {
+  1: false,
+  2: false,
+  3: false,
+};
+
 const initialState = {
   cap: CONTRACT[CAPP01].key,
   walletAddress: '',
   amount: 1,
-  checked: {
-    1: false,
-    2: false,
-    3: false,
-  },
+  checked: initialCheckedState,
 };
 
 export default {
@@ -66,6 +68,9 @@ export default {
     },
     saveBuyTermData(state, { payload }) {
       return { ...state, checked: payload };
+    },
+    resetBuyTerm(state) {
+      return { ...state, checked: initialCheckedState };
     },
     destroy() {
       return initialState;
