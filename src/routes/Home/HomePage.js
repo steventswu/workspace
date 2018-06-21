@@ -68,7 +68,7 @@ export default class HomePage extends React.Component {
                   <Column offset={1}>
                     <h1>CAP</h1>
                     <div className={styles.mainInfo}>
-                      <h2>The First Smart Index Fund</h2>
+                      <h2>The First Crypto Index Fund</h2>
                       {/* <div>
                         <span className={styles.integer}>
                           217<span className={styles.float}>.43</span>
