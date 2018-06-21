@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Icon, Button, Table, Card } from 'antd';
+import { Layout, Icon, Button, Table, Card, Divider } from 'antd';
 import { connect } from 'dva';
 
 import styles from './UserProfile.less';
@@ -34,14 +34,23 @@ export default class UserProfile extends React.Component {
             Email
             <p>{email}</p>
           </div>
-          <Button style={{ marginBottom: 20 }} onClick={this.handleLogout}>
-            Logout
-          </Button>
+          <Button onClick={this.handleLogout}>Logout</Button>
+          <Divider />
           <h2>Verifications</h2>
           <div className={styles.verification}>
             <Icon type={isEmailVerified ? 'check-circle-o' : 'exclamation-circle-o'} />
             Email Verification
           </div>
+          <Divider />
+          <Button style={{ marginBottom: 20 }} onClick={this.handleIdentityVerification}>
+            Identity Verification
+          </Button>
+          <Button style={{ marginBottom: 20 }} onClick={this.handleWalletVerification}>
+            Wallet Verification
+          </Button>
+          <Button style={{ marginBottom: 20 }} onClick={this.handleRedeem}>
+            Redeem
+          </Button>
         </Layout.Sider>
         <Layout.Content className={styles.content}>
           <h1>Portfolio</h1>
