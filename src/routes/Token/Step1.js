@@ -22,14 +22,14 @@ const formItemLayout = {
 export default class Step1 extends React.PureComponent {
   onSubmit = () => {
     this.props.dispatch(routerRedux.replace(STEP[2]));
+    this.props.dispatch({ type: 'token/resetBuyTerm' });
   };
 
   onClickCheck = field => e => {
-    const { dispatch, checked } = this.props;
-    dispatch({
+    this.props.dispatch({
       type: 'token/saveBuyTermData',
       payload: {
-        ...checked,
+        ...this.props.checked,
         [field]: e.target.checked,
       },
     });
@@ -50,13 +50,14 @@ export default class Step1 extends React.PureComponent {
             </Row>
             <Row>
               <Checkbox id="check2" onChange={this.onClickCheck(2)} checked={checked[2]}>
-                I have read and agree to Section 5 of the Terms & Conditions
+                I have read and agree to Section 4 of the Terms & Conditions
               </Checkbox>
             </Row>
             <Row>
               <Checkbox id="check3" onChange={this.onClickCheck(3)} checked={checked[3]}>
                 I am NOT from a country in which ICO or transaction of tokens might be prohibited by
-                laws, including but not limit to China and the United States.
+                laws, including but not limit to China, Japan, Korea, Hong Kong, Singapore, Taiwan,
+                and the United States.
               </Checkbox>
             </Row>
             <Button type="primary" onClick={this.onSubmit} disabled={buttonDisabled}>

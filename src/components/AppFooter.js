@@ -18,7 +18,7 @@ export default function AppFooter() {
               style={style}
               target="_blank"
               rel="noopener noreferrer"
-              href="https://storage.googleapis.com/tixguru/tixguru_terms.pdf"
+              href="https://storage.googleapis.com/tixguru/terms.pdf"
             >
               Legal / Terms / Privacy
             </a>

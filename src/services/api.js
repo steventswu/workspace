@@ -44,6 +44,12 @@ export async function queryPerformance() {
   });
 }
 
+export async function queryNavChartData() {
+  return request(`${endpoint.data}/nav-capp13btc.php`, {
+    method: 'GET',
+  });
+}
+
 export async function queryAnalysisData() {
   return request(`${endpoint.data}/tg30.php`, {
     method: 'GET',

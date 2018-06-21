@@ -23,9 +23,8 @@ export default {
         yield put(routerRedux.replace('/user/login'));
       }
     },
-    *updateInfo(_, { call, put, select }) {
+    *updateInfo({ payload: { walletAddress } }, { call, put }) {
       try {
-        const walletAddress = yield select(state => state.token.walletAddress);
         yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.WALLET_ADDRESS, { walletAddress });
         yield put({ type: 'saveWalletAddress', payload: { walletAddress } });
         yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.BUY_TERMS_LOG, { walletAddress });

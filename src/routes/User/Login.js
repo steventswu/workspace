@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import qs from 'qs';
-
+import isWebView from 'is-webview';
 import { Checkbox, Alert, Icon, Spin } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
@@ -15,6 +15,8 @@ export default class LoginPage extends Component {
   state = {
     autoLogin: true,
   };
+
+  isBrowser = !isWebView(window.navigator.userAgent);
 
   componentDidMount() {
     if (this.props.location.search && this.props.location.search.includes('oauth_verifier')) {
@@ -88,7 +90,9 @@ export default class LoginPage extends Component {
             <Login.Submit>Submit</Login.Submit>
             <div className={styles.other}>
               <Icon className={styles.icon} type="facebook" onClick={this.handleFacebookLogin} />
-              <Icon className={styles.icon} type="google" onClick={this.handleGoogleLogin} />
+              {this.isBrowser && (
+                <Icon className={styles.icon} type="google" onClick={this.handleGoogleLogin} />
+              )}
               <Icon className={styles.icon} type="twitter" onClick={this.handleTwitterLogin} />
               <Link className={styles.register} to="/user/register">
                 Register

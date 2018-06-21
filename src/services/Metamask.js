@@ -1,5 +1,4 @@
 import Eth from 'ethjs-query';
-// import abi from './abi.json';
 import { CONTRACT } from 'src/utils/contract';
 
 const { web3 } = window;
@@ -16,23 +15,28 @@ const init = () => {
 
 const validate = async () => {
   const version = await eth.net_version();
-  console.log('version', version);
   if (version !== process.env.NETWORK_ID) throw TypeError('Invalid Network');
+  const [account] = await eth.accounts();
+  if (!account) throw TypeError('Unlock your wallet and try again');
 };
+
+const WEI = 1000000000000000000;
 
 const open = async ({ cap, amount }) => {
   if (!cap || !amount) throw TypeError('Invalid params');
 
-  const walletAddress = web3.eth.defaultAccount;
+  const [walletAddress] = await eth.accounts();
 
-  return eth
-    .sendTransaction({
-      from: walletAddress,
-      to: CONTRACT[cap].address,
-      value: amount * 1000000000000000000,
-      data: '0x',
-    })
-    .then(result => ({ result, walletAddress }));
+  const result = await eth.sendTransaction({
+    from: walletAddress,
+    to: CONTRACT[cap].address,
+    value: amount * WEI,
+    gas: 150000,
+    data: '0x',
+  });
+  return { result, walletAddress };
 };
+
+window.Eth = Eth;
 
 export default { init, validate, open, isInstalled, isDisabled };

@@ -28,7 +28,7 @@ export default class Step3 extends React.PureComponent {
           <h1>Buy Your CAP</h1>
           <ul>
             <li>Do not send from exchange wallets.</li>
-            <li>Set gas limit to 100,000.</li>
+            <li>Set gas limit to 150,000.</li>
             <li>Send ETH to following Contract Address.</li>
           </ul>
           <h2>Contract Address</h2>
@@ -50,7 +50,7 @@ export default class Step3 extends React.PureComponent {
         <Content>
           <p>Note: It takes 15-20 minutes of transaction time to process your purchase.</p>
           <Button type="primary" style={{ marginTop: 50 }} onClick={this.handleReturn}>
-            Return
+            Open Profile
           </Button>
         </Content>
       </div>
