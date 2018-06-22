@@ -47,7 +47,7 @@ export default class AppLayout extends React.PureComponent {
 
   render() {
     const { isPublic, isProtected, component: Component } =
-      this.props.routerData[this.props.location.pathname] || {};
+      this.props.routerData[this.props.match.url] || {};
     const height = window.innerHeight - 100;
     return (
       <DocumentTitle title={this.getPageTitle()}>
