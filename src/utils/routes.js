@@ -94,6 +94,11 @@ export const getRouterData = app => ({
     name: 'Profile',
     isProtected: true,
   },
+  '/profile/wallet': {
+    component: dynamicWrapper(app, [], () => import('../routes/Profile/Wallet')),
+    name: 'Wallet Verification',
+    isProtected: true,
+  },
   '/profile/redeem': {
     component: dynamicWrapper(app, [], () => import('../routes/Profile/Redeem')),
     name: 'Redeem',

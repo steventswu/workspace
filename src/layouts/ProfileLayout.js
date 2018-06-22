@@ -8,6 +8,7 @@ import styles from './ProfileLayout.less';
 export const ROUTE = {
   ROOT: '/profile',
   HOME: '/profile/home',
+  WALLET_VERIFICATION: '/profile/wallet',
   REDEEM: '/profile/redeem',
 };
 
@@ -17,6 +18,10 @@ export const ROUTE = {
 export default class ProfileLayout extends React.Component {
   handleLogout = () => {
     this.props.dispatch({ type: 'login/logout' });
+  };
+
+  handleWalletVerification = () => {
+    this.props.dispatch(routerRedux.push(ROUTE.WALLET_VERIFICATION));
   };
 
   handleRedeem = () => {
