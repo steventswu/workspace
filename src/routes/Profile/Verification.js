@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Input, Upload, Button, Icon, message } from 'antd';
 import { connect } from 'dva';
-import ProfileLayout from 'src/layouts/ProfileLayout';
 import styles from './Verification.less';
 
 const formItemLayout = {
@@ -12,7 +11,7 @@ const formItemLayout = {
 
 const props = {
   name: 'file',
-  action: '//jsonplaceholder.typicode.com/posts/',
+  action: '//jsonplaceholder.typicode.com/posts/', // Will have to change to our API in the future
   headers: {
     authorization: 'authorization-text',
   },
@@ -36,10 +35,9 @@ export default class Verificatoin extends React.Component {
   }
 
   render() {
-    const { height } = this.props;
     const { form: { getFieldDecorator } } = this.props;
     return (
-      <ProfileLayout height={height}>
+      <React.Fragment>
         <h1>Identity Verification</h1>
         <Form layout="vertical" className={styles.form} hideRequiredMark>
           <Form.Item {...formItemLayout} label="Nationality">
@@ -81,7 +79,7 @@ export default class Verificatoin extends React.Component {
             <Button type="primary">Verify</Button>
           </Form.Item>
         </Form>
-      </ProfileLayout>
+      </React.Fragment>
     );
   }
 }

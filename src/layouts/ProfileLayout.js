@@ -10,6 +10,7 @@ export const ROUTE = {
   HOME: '/profile/home',
   WALLET_VERIFICATION: '/profile/wallet',
   REDEEM: '/profile/redeem',
+  VERIFICATION: '/profile/verification',
 };
 
 @connect(({ user }) => ({
@@ -29,7 +30,7 @@ export default class ProfileLayout extends React.Component {
   };
 
   handleIdentityVerification = () => {
-    this.props.dispatch(routerRedux.push('/profile/verification'));
+    this.props.dispatch(routerRedux.push(ROUTE.VERIFICATION));
   };
 
   render() {
