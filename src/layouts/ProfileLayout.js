@@ -28,6 +28,10 @@ export default class ProfileLayout extends React.Component {
     this.props.dispatch(routerRedux.push(ROUTE.REDEEM));
   };
 
+  handleIdentityVerification = () => {
+    this.props.dispatch(routerRedux.push('/profile/verification'));
+  };
+
   render() {
     const { currentUser: { email }, height } = this.props;
     const { component } = this.props.routerData[this.props.location.pathname] || {};

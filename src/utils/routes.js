@@ -104,6 +104,13 @@ export const getRouterData = app => ({
     name: 'Redeem',
     isProtected: true,
   },
+  '/profile/verification': {
+    component: dynamicWrapper(app, ['user', 'profile'], () =>
+      import('../routes/Profile/Verification')
+    ),
+    name: 'Identity Verification',
+    isProtected: true,
+  },
   '/exception/403': {
     component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),
   },
