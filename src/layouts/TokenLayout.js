@@ -2,15 +2,18 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'dva/router';
 import { Card, Steps } from 'antd';
 import NotFound from 'src/routes/Exception/404';
-import styles from './style.less';
-import Step1 from './Step1';
-import Step2 from './Step2';
-import Step3 from './Step3';
-import { STEP, ROOT } from './routes';
+import styles from './TokenLayout.less';
 
 const { Step } = Steps;
 
-export default class Token extends React.PureComponent {
+export const ROUTE = {
+  ROOT: '/buy',
+  STEP1: '/buy/1',
+  STEP2: '/buy/2',
+  STEP3: '/buy/3',
+};
+
+export default class TokenLayout extends React.PureComponent {
   getCurrentStep = () => {
     const { location } = this.props;
     const { pathname } = location;
@@ -28,20 +31,20 @@ export default class Token extends React.PureComponent {
   };
 
   render() {
+    const { component } = this.props.routerData[this.props.location.pathname] || {};
     return (
       <Card className={styles.container} bordered={false}>
         <React.Fragment>
-          <Steps current={this.getCurrentStep()} className={styles.steps}>
-            <Step title="Accept Terms" />
-            <Step title="Place Orders" />
-            <Step title="Buy CAP" />
-          </Steps>
+          {component && (
+            <Steps current={this.getCurrentStep()} className={styles.steps}>
+              <Step title="Accept Terms" />
+              <Step title="Place Orders" />
+              <Step title="Buy CAP" />
+            </Steps>
+          )}
           <Switch>
-            <Route exact path={STEP[1]} component={Step1} />
-            <Route exact path={STEP[2]} component={Step2} />
-            <Route exact path={STEP[3]} component={Step3} />
-            <Redirect exact from={ROOT} to={STEP[1]} />
-            <Route render={NotFound} />
+            <Redirect exact from={ROUTE.ROOT} to={ROUTE.STEP1} />
+            {component ? <Route component={component} /> : <Route render={NotFound} />}
           </Switch>
         </React.Fragment>
       </Card>

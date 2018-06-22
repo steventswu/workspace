@@ -67,7 +67,7 @@ export const getRouterData = app => ({
     isPublic: true,
   },
   '/buy': {
-    component: dynamicWrapper(app, ['user', 'token'], () => import('../routes/Token')),
+    component: dynamicWrapper(app, [], () => import('../layouts/TokenLayout')),
     isProtected: true,
   },
   '/buy/1': {
@@ -86,10 +86,17 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile': {
-    component: dynamicWrapper(app, ['user', 'profile'], () =>
-      import('../routes/Profile/UserProfile')
-    ),
+    component: dynamicWrapper(app, ['user'], () => import('../layouts/ProfileLayout')),
+    isProtected: true,
+  },
+  '/profile/home': {
+    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/UserProfile')),
     name: 'Profile',
+    isProtected: true,
+  },
+  '/profile/redeem': {
+    component: dynamicWrapper(app, [], () => import('../routes/Profile/Redeem')),
+    name: 'Redeem',
     isProtected: true,
   },
   '/exception/403': {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table, Card } from 'antd';
 import { connect } from 'dva';
-import ProfileLayout from 'src/layouts/ProfileLayout';
 import styles from './UserProfile.less';
 import column from './UserProfile.json';
 
@@ -18,10 +17,9 @@ export default class UserProfile extends React.Component {
     const {
       profile: { transactions, portfolio: { contracts, summary = {} } = {} },
       loading,
-      height,
     } = this.props;
     return (
-      <ProfileLayout height={height}>
+      <React.Fragment>
         <h1>Portfolio</h1>
         <Table
           columns={column.portfolio}
@@ -52,7 +50,7 @@ export default class UserProfile extends React.Component {
           dataSource={transactions}
           loading={loading}
         />
-      </ProfileLayout>
+      </React.Fragment>
     );
   }
 }

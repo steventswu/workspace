@@ -1,9 +1,15 @@
 import React from 'react';
 import { Layout, Icon, Button, Divider } from 'antd';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
+import { routerRedux, Switch, Route, Redirect } from 'dva/router';
 
 import styles from './ProfileLayout.less';
+
+export const ROUTE = {
+  ROOT: '/profile',
+  HOME: '/profile/home',
+  REDEEM: '/profile/redeem',
+};
 
 @connect(({ user }) => ({
   currentUser: user,
@@ -14,11 +20,12 @@ export default class ProfileLayout extends React.Component {
   };
 
   handleRedeem = () => {
-    this.props.dispatch(routerRedux.push('/profile/redeem'));
+    this.props.dispatch(routerRedux.push(ROUTE.REDEEM));
   };
 
   render() {
     const { currentUser: { email, isEmailVerified }, height } = this.props;
+    const { component } = this.props.routerData[this.props.location.pathname] || {};
     return (
       <Layout style={{ background: 'transparent', minHeight: height }}>
         <Layout.Sider width={300} className={styles.sider}>
@@ -45,7 +52,12 @@ export default class ProfileLayout extends React.Component {
             Redeem
           </Button>
         </Layout.Sider>
-        <Layout.Content className={styles.content}>{this.props.children}</Layout.Content>
+        <Layout.Content className={styles.content}>
+          <Switch>
+            <Redirect exact from={ROUTE.ROOT} to={ROUTE.HOME} />
+            {component ? <Route component={component} /> : <Redirect to="/exception/404" />}
+          </Switch>
+        </Layout.Content>
       </Layout>
     );
   }
