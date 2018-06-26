@@ -44,7 +44,11 @@ export default enhancer(
           dataSource={walletList}
           renderItem={item => (
             <List.Item className={styles.listItem}>
-              {item} <Icon type="check-circle-o" />
+              {item}
+              <span>
+                <Icon type="check-circle-o" style={{ marginRight: 5 }} />
+                Verified
+              </span>
             </List.Item>
           )}
         />
