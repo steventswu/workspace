@@ -7,10 +7,14 @@ import numeral from 'numeral';
 
 import styles from './Redeem.less';
 
-const enhancer = compose(Form.create(), connect());
+const mapStateToProps = ({ profile }) => ({
+  walletList: profile.walletList,
+});
+
+const enhancer = compose(Form.create(), connect(mapStateToProps));
 
 export default enhancer(
-  ({ form: { getFieldValue, getFieldDecorator, validateFields }, dispatch }) => (
+  ({ walletList, form: { getFieldValue, getFieldDecorator, validateFields }, dispatch }) => (
     <React.Fragment>
       <h1>Redeem Application</h1>
       <Form layout="vertical" hideRequiredMark className={styles.form}>
@@ -38,7 +42,7 @@ export default enhancer(
             ],
           })(
             <Select placeholder="Select Wallet">
-              {['xxx', 'ooo'].map(value => (
+              {walletList.map(value => (
                 <Select.Option key={value} value={value}>
                   {value}
                 </Select.Option>
