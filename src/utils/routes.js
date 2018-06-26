@@ -54,10 +54,10 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => ({
   '/': {
-    component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/AppLayout')),
+    component: dynamicWrapper(app, ['user'], () => import('../layouts/AppLayout')),
   },
   '/home': {
-    component: dynamicWrapper(app, [], () => import('../routes/Home/HomePage')),
+    component: dynamicWrapper(app, ['user'], () => import('../routes/Home/HomePage')),
   },
   '/performance': {
     component: dynamicWrapper(app, ['performance'], () =>
@@ -95,12 +95,12 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile/wallet': {
-    component: dynamicWrapper(app, [], () => import('../routes/Profile/Wallet')),
+    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Wallet')),
     name: 'Wallet Verification',
     isProtected: true,
   },
   '/profile/redeem': {
-    component: dynamicWrapper(app, [], () => import('../routes/Profile/Redeem')),
+    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Redeem')),
     name: 'Redeem',
     isProtected: true,
   },

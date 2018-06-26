@@ -14,8 +14,9 @@ import { DATA } from 'src/utils/contract';
 
 import styles from './HomePage.less';
 
-@connect(({ user }) => ({
+@connect(({ user, loading }) => ({
   currentUser: user,
+  isLoading: loading.models.user,
 }))
 export default class HomePage extends React.Component {
   state = {
@@ -61,6 +62,7 @@ export default class HomePage extends React.Component {
                   logo={logo}
                   currentUser={this.props.currentUser}
                   onClick={this.handleHeaderClick}
+                  isLoading={this.props.isLoading}
                 />
               </Layout.Header>
               <Layout.Content className={styles.content}>
