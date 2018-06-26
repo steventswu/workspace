@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import Metamask from 'src/services/Metamask';
+import Web3 from 'src/services/Web3';
 import { CONTRACT, getEtherscanLink } from 'src/utils/contract';
 import styles from './style.less';
 
@@ -18,9 +18,9 @@ export default class Step3 extends React.PureComponent {
 
   render() {
     const Content = ({ children }) =>
-      Metamask.isInstalled ? (
+      Web3.isInstalled ? (
         <React.Fragment>
-          <h1 style={{ marginTop: 50 }}>Continue your purchase on Metamask</h1>
+          <h1 style={{ marginTop: 50 }}>Continue your purchase on DApp Browser</h1>
           {children}
         </React.Fragment>
       ) : (

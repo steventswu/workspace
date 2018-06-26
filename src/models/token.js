@@ -1,7 +1,7 @@
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import { STEP } from 'src/routes/Token/routes';
-import Metamask from 'src/services/Metamask';
+import Web3 from 'src/services/Web3';
 import { CAPP01, CONTRACT } from 'src/utils/contract';
 import { updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
 
@@ -30,13 +30,14 @@ export default {
       yield put({ type: 'saveFormData', payload });
       yield put({ type: 'user/updateInfo', payload });
     },
-    *submitMetamaskOrder({ payload }, { call, put }) {
+    *submitWeb3Order({ payload }, { call, put }) {
       try {
-        yield call(Metamask.init);
-        yield call(Metamask.validate);
+        yield call(Web3.init);
+        yield call(Web3.validate);
+        const walletAddress = yield call(Web3.getAccount);
         yield put(routerRedux.replace(STEP[3]));
 
-        const { result, walletAddress } = yield call(Metamask.open, payload);
+        const result = yield call(Web3.open, { ...payload, account: walletAddress });
         notification.success({ message: 'Transaction complete' });
         yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
           contractName: CONTRACT[payload.cap].key,
