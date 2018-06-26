@@ -14,7 +14,7 @@ export default enhancer(
     <React.Fragment>
       <h1>Redeem Application</h1>
       <Form layout="vertical" hideRequiredMark className={styles.form}>
-        <Form.Item label="CAP">
+        <Form.Item wrapperCol={{ span: 10 }} label="CAP">
           {getFieldDecorator('cap', {
             rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
           })(
@@ -27,7 +27,7 @@ export default enhancer(
             </Select>
           )}
         </Form.Item>
-        <Form.Item label="Wallet Address">
+        <Form.Item wrapperCol={{ span: 10 }} label="Wallet Address">
           {getFieldDecorator('walletAddress', {
             rules: [
               {
@@ -48,6 +48,7 @@ export default enhancer(
         </Form.Item>
         <Form.Item
           label="Amount"
+          wrapperCol={{ span: 10 }}
           extra={
             getFieldValue('amount') &&
             `You will get ${numeral(getFieldValue('amount') * (1 - 0.03)).format('0.000')} ETH`
@@ -62,7 +63,7 @@ export default enhancer(
             ],
           })(<InputNumber min={0.1} step={0.1} />)}
         </Form.Item>
-        <Form.Item label="">
+        <Form.Item label="" wrapperCol={{ span: 10 }}>
           <Button
             type="primary"
             onClick={() =>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Select } from 'antd';
-import Metamask from 'src/services/Metamask';
+import Web3 from 'src/services/Web3';
 import { CONTRACTS, CONTRACT } from 'src/utils/contract';
 import styles from './style.less';
 
@@ -26,7 +26,7 @@ export default class Step2 extends React.PureComponent {
     this.props.form.validateFields((err, values) => {
       if (err) return;
       this.props.dispatch({
-        type: Metamask.isInstalled ? 'token/submitMetamaskOrder' : 'token/submitNormalOrder',
+        type: Web3.isInstalled ? 'token/submitWeb3Order' : 'token/submitNormalOrder',
         payload: values,
       });
     });
@@ -51,7 +51,7 @@ export default class Step2 extends React.PureComponent {
               </Select>
             )}
           </Form.Item>
-          {Metamask.isDisabled && (
+          {Web3.isDisabled && (
             <Form.Item {...formItemLayout} label="Your Wallet Address">
               {getFieldDecorator('walletAddress', {
                 initialValue: currentUser.walletAddress,
