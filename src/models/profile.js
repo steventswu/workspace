@@ -22,11 +22,17 @@ export default {
         payload: formatAll(response),
       });
     },
-    *validateWallet({ payload }, { call, put }) {
+    *validateWallet({ payload }, { call, put, select }) {
       try {
         yield call(Web3.init);
         yield call(Web3.validate);
         const account = yield call(Web3.getAccount);
+
+        const walletList = yield select(state => state.profile.walletList);
+
+        if (walletList.includes(payload.walletAddress)) {
+          return notification.error({ message: 'This address is already added' });
+        }
 
         if (account === payload.walletAddress) {
           yield put({
