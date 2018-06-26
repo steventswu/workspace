@@ -86,7 +86,7 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile': {
-    component: dynamicWrapper(app, ['user'], () => import('../layouts/ProfileLayout')),
+    component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/ProfileLayout')),
     isProtected: true,
   },
   '/profile/home': {
