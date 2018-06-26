@@ -24,9 +24,9 @@ export default class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    this.props.dispatch({
-      type: 'user/fetchCurrent',
-    });
+    if (!this.props.currentUser.email) {
+      this.props.dispatch({ type: 'user/fetchCurrent' });
+    }
   }
 
   handleLogin = () => {
