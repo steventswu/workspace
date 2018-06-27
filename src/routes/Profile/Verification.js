@@ -16,6 +16,7 @@ const props = {
   headers: {
     Authorization: 'Bearer ',
   },
+  accept: 'image/jpg,image/jpeg,image/png',
   onChange(info) {
     if (info.file.status !== 'uploading') {
       console.log(info.file);
