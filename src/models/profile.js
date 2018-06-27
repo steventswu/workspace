@@ -1,7 +1,7 @@
 import { notification } from 'antd';
 
 import Web3 from 'src/services/Web3';
-import { queryProfile } from 'src/services/api';
+import { queryProfile, updateIdentity } from 'src/services/api';
 import { formatAll } from './profile.helper';
 
 export default {
@@ -11,6 +11,7 @@ export default {
     transactions: [],
     portfolio: {},
     walletList: [],
+    identity: {},
   },
 
   effects: {
@@ -48,6 +49,14 @@ export default {
         }
       }
     },
+    *validateIdentify(_, { call, put }) {
+      const identity = yield call(updateIdentity);
+      if (identity.error) return;
+      yield put({
+        type: 'saveIdentity',
+        payload: { identity },
+      });
+    },
   },
 
   reducers: {
@@ -61,6 +70,12 @@ export default {
       return {
         ...state,
         walletList: [payload.account, ...state.walletList],
+      };
+    },
+    saveIdentity(state, { payload }) {
+      return {
+        ...state,
+        ...payload,
       };
     },
   },
