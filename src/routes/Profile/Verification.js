@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Upload, Button, Icon, message } from 'antd';
 import { connect } from 'dva';
+
 import styles from './Verification.less';
 
 const formItemLayout = {
@@ -11,7 +12,7 @@ const formItemLayout = {
 
 const props = {
   name: 'file',
-  action: '//jsonplaceholder.typicode.com/posts/', // Will have to change to our API in the future
+  action: '//cap-stage.tixguru.co/api/v2/identity-verification', // Will have to change to our API in the future
   headers: {
     Authorization: 'Bearer ',
   },
@@ -34,9 +35,6 @@ const props = {
 }))
 export default class Verificatoin extends React.Component {
   state = { locked: false };
-  componentDidMount() {
-    this.props.dispatch({ type: 'profile/fetch' });
-  }
   handleFormSubmit = () => {
     this.props.form.validateFields((err, values) => {
       if (err) {
@@ -45,10 +43,7 @@ export default class Verificatoin extends React.Component {
         console.log(values);
         this.setState({ locked: true });
         message.info(`Your ID verifaction information has been submitted for verfication.`);
-        this.props.dispatch({
-          type: 'verification',
-          payload: values,
-        });
+        this.props.dispatch({ type: 'profile/validateIdentify', payload: values });
       }
     });
   };
@@ -65,7 +60,7 @@ export default class Verificatoin extends React.Component {
             })(<Input placeholder="Enter nationality" disabled={this.state.locked} />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="Passport Number">
-            {getFieldDecorator('passport', {
+            {getFieldDecorator('passportNumber', {
               rules: [
                 {
                   required: true,
@@ -85,8 +80,12 @@ export default class Verificatoin extends React.Component {
               rules: [{ required: true, type: 'string', message: 'Enter last name' }],
             })(<Input placeholder="Enter last name" disabled={this.state.locked} />)}
           </Form.Item>
-          <Form.Item {...formItemLayout} label="Passport Photo">
-            {getFieldDecorator('photo', {
+          <Form.Item
+            {...formItemLayout}
+            label="Passport Photo"
+            extra="Please make sure all document details are clearly readable. Document number and name are clearly visible"
+          >
+            {getFieldDecorator('passportImage', {
               rules: [{ required: true, message: 'Upload passport photo' }],
             })(
               <Upload {...props}>
