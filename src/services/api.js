@@ -85,10 +85,8 @@ export async function queryProfile() {
 }
 
 export async function updateIdentity(params) {
-  const { jwt } = getSession();
   return request(`${endpoint.api}/v2/identity-verification`, {
     method: 'POST',
-    headers: { authorization: jwt },
     body: params,
   });
 }

@@ -10,47 +10,68 @@ const formItemLayout = {
   },
 };
 
-const props = {
-  name: 'file',
-  action: '//cap-stage.tixguru.co/api/v2/identity-verification', // Will have to change to our API in the future
-  headers: {
-    Authorization: 'Bearer ',
-  },
-  accept: 'image/jpg,image/jpeg,image/png',
-  onChange(info) {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file);
-    }
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-
 @Form.create()
-@connect(({ profile, loading }) => ({
+@connect(({ user, profile }) => ({
+  user,
   profile,
-  loading: loading.effects['profile/fetch'],
 }))
 export default class Verificatoin extends React.Component {
-  state = { locked: false };
+  state = {
+    fileList: [],
+    locked: false,
+  };
   handleFormSubmit = () => {
+    const { fileList } = this.state;
+    const formData = new FormData();
     this.props.form.validateFields((err, values) => {
       if (err) {
         return err;
       } else {
-        console.log(values);
+        const formValues = Object.assign({}, { memberId: this.props.user.id }, values);
+        console.log(formValues);
         this.setState({ locked: true });
+        fileList.forEach(file => {
+          formData.append('files[]', file);
+        });
         message.info(`Your ID verifaction information has been submitted for verfication.`);
-        this.props.dispatch({ type: 'profile/validateIdentify', payload: values });
+        this.props.dispatch({ type: 'profile/validateIdentify', payload: formValues });
       }
     });
   };
 
   render() {
     const { form: { getFieldDecorator } } = this.props;
+    const props = {
+      name: 'Passport Image',
+      headers: { Authorization: 'Bearer ' },
+      // accept: 'image/jpg,image/jpeg,image/png',
+      onRemove: file => {
+        // Will have to change to our API in the future
+        this.setState(({ fileList }) => {
+          const index = fileList.indexOf(file);
+          const newFileList = fileList.slice();
+          newFileList.splice(index, 1);
+          return { fileList: newFileList };
+        });
+      },
+      beforeUpload: file => {
+        this.setState(({ fileList }) => ({
+          fileList: [...fileList, file],
+        }));
+        return false;
+      },
+      fileList: this.state.fileList,
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file);
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },
+    };
     return (
       <React.Fragment>
         <h1>Identity Verification</h1>
@@ -91,7 +112,7 @@ export default class Verificatoin extends React.Component {
             })(
               <Upload {...props}>
                 <Button>
-                  <Icon type="upload" /> Click to Upload
+                  <Icon type="upload" /> Select File
                 </Button>
               </Upload>
             )}
