@@ -49,8 +49,8 @@ export default {
         }
       }
     },
-    *validateIdentify(_, { call, put }) {
-      const identity = yield call(updateIdentity);
+    *validateIdentify({ payload: formValues }, { call, put }) {
+      const identity = yield call(updateIdentity, formValues);
       if (identity.error) return;
       yield put({
         type: 'saveIdentity',
