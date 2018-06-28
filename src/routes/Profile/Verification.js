@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Upload, Button, Icon, message } from 'antd';
 import { connect } from 'dva';
+import * as R from 'ramda';
 
 import styles from './Verification.less';
 
@@ -27,7 +28,12 @@ export default class Verificatoin extends React.Component {
       if (err) {
         return err;
       } else {
-        const formValues = Object.assign({}, { memberId: this.props.user.id }, values);
+        const passFile = values.passportImage.file;
+        const formValues = R.merge(values, {
+          memberId: this.props.user.id,
+          passportImage: passFile,
+        });
+        console.log(values);
         console.log(formValues);
         this.setState({ locked: true });
         fileList.forEach(file => {
