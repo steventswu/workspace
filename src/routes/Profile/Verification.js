@@ -22,25 +22,26 @@ export default class Verificatoin extends React.Component {
     locked: false,
   };
   handleFormSubmit = () => {
-    const { fileList } = this.state;
-    const formData = new FormData();
     this.props.form.validateFields((err, values) => {
       if (err) {
         return err;
       } else {
+        const formData = new FormData();
         const passFile = values.passportImage.file;
         const formValues = R.merge(values, {
           memberId: this.props.user.id,
           passportImage: passFile,
         });
-        console.log(values);
-        console.log(formValues);
-        this.setState({ locked: true });
-        fileList.forEach(file => {
-          formData.append('files[]', file);
+        Object.keys(values).forEach(key => {
+          if (values[key].file) {
+            return formData.append(key, values[key].file);
+          }
+          formData.append(key, values[key]);
         });
+        formData.append('memberId', this.props.user.id);
+        this.setState({ locked: true });
         message.info(`Your ID verifaction information has been submitted for verfication.`);
-        this.props.dispatch({ type: 'profile/validateIdentify', payload: formValues });
+        this.props.dispatch({ type: 'profile/validateIdentify', payload: formData, formValues });
       }
     });
   };
@@ -48,9 +49,7 @@ export default class Verificatoin extends React.Component {
   render() {
     const { form: { getFieldDecorator } } = this.props;
     const props = {
-      name: 'Passport Image',
-      headers: { Authorization: 'Bearer ' },
-      // accept: 'image/jpg,image/jpeg,image/png',
+      accept: 'image/jpg,image/jpeg,image/png',
       onRemove: file => {
         // Will have to change to our API in the future
         this.setState(({ fileList }) => {
@@ -67,16 +66,6 @@ export default class Verificatoin extends React.Component {
         return false;
       },
       fileList: this.state.fileList,
-      onChange(info) {
-        if (info.file.status !== 'uploading') {
-          console.log(info.file);
-        }
-        if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      },
     };
     return (
       <React.Fragment>

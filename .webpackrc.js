@@ -23,7 +23,7 @@ export default {
   hash: true,
   proxy: {
     '/api': {
-      target: 'http://i-stage.tixguru.co',
+      target: 'http://cap-stage.tixguru.co',
       changeOrigin: true,
     },
     '/data': {

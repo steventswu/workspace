@@ -84,10 +84,12 @@ export async function queryProfile() {
   });
 }
 
-export async function updateIdentity(params) {
+export async function updateIdentity(formData) {
+  const { jwt } = getSession();
   return request(`${endpoint.api}/v2/identity-verification`, {
     method: 'POST',
-    body: params,
+    body: formData,
+    headers: { authorization: jwt },
   });
 }
 

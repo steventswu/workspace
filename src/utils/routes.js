@@ -105,7 +105,7 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile/verification': {
-    component: dynamicWrapper(app, [], () => import('../routes/Profile/Verification')),
+    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Verification')),
     name: 'Identity Verification',
     isProtected: true,
   },
