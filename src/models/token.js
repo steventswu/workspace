@@ -37,7 +37,7 @@ export default {
         const walletAddress = yield call(Web3.getAccount);
         yield put(routerRedux.replace(STEP[3]));
 
-        const result = yield call(Web3.open, { ...payload, account: walletAddress });
+        const result = yield call(Web3.buy, { ...payload, account: walletAddress });
         notification.success({ message: 'Transaction complete' });
         yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
           contractName: CONTRACT[payload.cap].key,

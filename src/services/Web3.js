@@ -26,19 +26,22 @@ const getAccount = async () => {
   return account;
 };
 
-const open = async ({ cap, amount, account }) => {
-  if (!cap || !amount) throw TypeError('Invalid params');
+const code = {
+  buy: '0x',
+  redeem: '',
+};
 
-  const result = await eth.sendTransaction({
+const sendTransaction = (type, { cap, amount, account }) =>
+  eth.sendTransaction({
     from: account,
     to: CONTRACT[cap].address,
     value: amount * WEI,
     gas: 150000,
-    data: '0x',
+    data: code[type],
   });
-  return result;
-};
 
-window.Eth = Eth;
+const buy = params => sendTransaction('buy', params);
 
-export default { init, validate, open, isInstalled, isDisabled, getAccount };
+const redeem = params => sendTransaction('redeem', params);
+
+export default { init, validate, buy, redeem, isInstalled, isDisabled, getAccount };
