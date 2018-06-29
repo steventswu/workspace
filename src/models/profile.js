@@ -27,19 +27,19 @@ export default {
         yield call(Web3.init);
         yield call(Web3.validate);
         const account = yield call(Web3.getAccount);
+        const accountSelected = payload.walletAddress.toLowerCase();
 
         const walletList = yield select(state => state.profile.walletList);
 
-        if (walletList.includes(payload.walletAddress)) {
+        if (walletList.includes(accountSelected)) {
           return notification.error({ message: 'This address is already added' });
         }
 
-        if (account === payload.walletAddress) {
-          yield put({
+        if (account === accountSelected) {
+          return yield put({
             type: 'saveWallet',
             payload: { account },
           });
-          return;
         }
         notification.error({ message: 'Wallet address does not match' });
       } catch (error) {

@@ -23,7 +23,7 @@ const WEI = 1000000000000000000;
 const getAccount = async () => {
   const [account] = await eth.accounts();
   if (!account) throw TypeError('Unlock your wallet and try again');
-  return account;
+  return account.toLowerCase();
 };
 
 const code = {
