@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Input, Upload, Button, Icon, message } from 'antd';
+import { Form, Input, Upload, Button, Icon, Select, message } from 'antd';
+import { COUNTRY } from 'src/utils/country';
 import { connect } from 'dva';
-import * as R from 'ramda';
 
 import styles from './Verification.less';
 
@@ -28,10 +28,11 @@ export default class Verificatoin extends React.Component {
       } else {
         const formData = new FormData();
         const passFile = values.passportImage.file;
-        const formValues = R.merge(values, {
+        const formValues = {
+          ...values,
           memberId: this.props.user.id,
           passportImage: passFile,
-        });
+        };
         Object.keys(values).forEach(key => {
           if (values[key].file) {
             return formData.append(key, values[key].file);
@@ -42,6 +43,7 @@ export default class Verificatoin extends React.Component {
         this.setState({ locked: true });
         message.info(`Your ID verifaction information has been submitted for verfication.`);
         this.props.dispatch({ type: 'profile/validateIdentify', payload: formData, formValues });
+        // this.props.dispatch(routerRedux.replace('/profile'));
       }
     });
   };
@@ -73,8 +75,23 @@ export default class Verificatoin extends React.Component {
         <Form layout="vertical" className={styles.form} hideRequiredMark>
           <Form.Item {...formItemLayout} label="Nationality">
             {getFieldDecorator('nationality', {
-              rules: [{ required: true, type: 'string', message: 'Enter nationality' }],
-            })(<Input placeholder="Enter nationality" disabled={this.state.locked} />)}
+              rules: [{ required: true, type: 'string', message: 'Choose Nationality' }],
+            })(
+              <Select
+                showSearch
+                placeholder="Select Country"
+                filterOption={(input, option) =>
+                  option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+                disabled={this.state.locked}
+              >
+                {COUNTRY.map(value => (
+                  <Select.Option key={value.country} value={value.country}>
+                    {value.country}
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
           </Form.Item>
           <Form.Item {...formItemLayout} label="Passport Number">
             {getFieldDecorator('passportNumber', {
@@ -97,23 +114,19 @@ export default class Verificatoin extends React.Component {
               rules: [{ required: true, type: 'string', message: 'Enter last name' }],
             })(<Input placeholder="Enter last name" disabled={this.state.locked} />)}
           </Form.Item>
-          <Form.Item
-            {...formItemLayout}
-            label="Passport Photo"
-            extra="Please make sure all document details are clearly readable. Document number and name are clearly visible"
-          >
+          <Form.Item {...formItemLayout} label="Passport Photo" extra="Supports JPEG, JPG, and PNG">
             {getFieldDecorator('passportImage', {
               rules: [{ required: true, message: 'Upload passport photo' }],
             })(
               <Upload {...props}>
                 <Button>
-                  <Icon type="upload" /> Select File
+                  <Icon type="upload" /> Select File (25MB)
                 </Button>
               </Upload>
             )}
           </Form.Item>
           <Form.Item {...formItemLayout}>
-            <Button type="primary" onClick={this.handleFormSubmit}>
+            <Button type="primary" onClick={this.handleFormSubmit} disabled={this.state.locked}>
               Verify
             </Button>
           </Form.Item>
