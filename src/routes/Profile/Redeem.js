@@ -32,7 +32,7 @@ export default enhancer(
           )}
         </Form.Item>
         <Form.Item wrapperCol={{ span: 10 }} label="Wallet Address">
-          {getFieldDecorator('walletAddress', {
+          {getFieldDecorator('address', {
             rules: [
               {
                 required: true,
@@ -73,7 +73,7 @@ export default enhancer(
             onClick={() =>
               validateFields((err, values) => {
                 if (err) return;
-                dispatch({ type: 'redeem', payload: values });
+                dispatch({ type: 'profile/redeem', payload: values });
               })
             }
           >

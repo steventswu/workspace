@@ -1,7 +1,8 @@
 import { notification } from 'antd';
 
 import Web3 from 'src/services/Web3';
-import { queryProfile, updateIdentity } from 'src/services/api';
+import { queryProfile, updateIdentity, updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
+import { CONTRACT } from 'src/utils/contract';
 import { formatAll } from './profile.helper';
 
 export default {
@@ -57,8 +58,24 @@ export default {
         payload,
       });
     },
-  },
+    *redeem({ payload }, { call }) {
+      try {
+        yield call(Web3.init);
+        yield call(Web3.validate);
 
+        const txHash = yield call(Web3.redeem, payload);
+        yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
+          contractName: CONTRACT[payload.cap].key,
+          contractAddress: CONTRACT[payload.cap].address,
+          transactionType: 'sell',
+          transactionHash: txHash,
+        });
+        notification.info({ message: 'Transaction Success', description: txHash });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
   reducers: {
     show(state, { payload }) {
       return {
