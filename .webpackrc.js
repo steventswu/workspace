@@ -37,5 +37,6 @@ export default {
     'process.env.CAPP01': process.env.CAPP01,
     'process.env.ETHERSCAN_HOST': process.env.ETHERSCAN_HOST,
     'process.env.NETWORK_ID': process.env.NETWORK_ID,
+    'process.env.GA': process.env.GA,
   },
 };
