@@ -1,7 +1,13 @@
 import { notification } from 'antd';
 
 import Web3 from 'src/services/Web3';
-import { queryProfile, updateIdentity, updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
+import {
+  queryProfile,
+  updateIdentity,
+  updateMember,
+  UPDATE_MEMBER_TYPE,
+  postWhitelist,
+} from 'src/services/api';
 import { CONTRACT } from 'src/utils/contract';
 import { formatAll } from './profile.helper';
 
@@ -25,25 +31,32 @@ export default {
       });
     },
     *validateWallet({ payload }, { call, put, select }) {
+      yield call(Web3.init);
+      yield call(Web3.validate);
+      const account = yield call(Web3.getAccount);
+      const accountSelected = payload.walletAddress.toLowerCase();
+
+      const walletList = yield select(state => state.profile.walletList);
+
+      if (walletList.includes(accountSelected)) {
+        return notification.error({ message: 'This address is already added' });
+      }
+
+      if (account === accountSelected) {
+        return yield put({
+          type: 'saveWallet',
+          payload: { account },
+        });
+      }
+      notification.error({ message: 'Wallet address does not match' });
+    },
+    *submitWalletValidation({ payload }, { call, put }) {
       try {
-        yield call(Web3.init);
-        yield call(Web3.validate);
-        const account = yield call(Web3.getAccount);
-        const accountSelected = payload.walletAddress.toLowerCase();
-
-        const walletList = yield select(state => state.profile.walletList);
-
-        if (walletList.includes(accountSelected)) {
-          return notification.error({ message: 'This address is already added' });
-        }
-
-        if (account === accountSelected) {
-          return yield put({
-            type: 'saveWallet',
-            payload: { account },
-          });
-        }
-        notification.error({ message: 'Wallet address does not match' });
+        yield put({
+          type: 'validateWallet',
+          payload,
+        });
+        yield call(postWhitelist, payload.walletAddress.toLowerCase());
       } catch (error) {
         if (error instanceof TypeError) {
           return notification.error({ message: error.message });

@@ -31,7 +31,7 @@ export default enhancer(
               onClick={() =>
                 validateFields((err, values) => {
                   if (err) return;
-                  dispatch({ type: 'profile/validateWallet', payload: values });
+                  dispatch({ type: 'profile/submitWalletValidation', payload: values });
                   resetFields();
                 })
               }
@@ -46,8 +46,8 @@ export default enhancer(
             <List.Item className={styles.listItem}>
               {item}
               <span>
-                <Icon type="check-circle-o" style={{ marginRight: 5 }} />
-                Verified
+                <Icon type="clock-circle-o" style={{ marginRight: 5 }} />
+                Pending
               </span>
             </List.Item>
           )}
