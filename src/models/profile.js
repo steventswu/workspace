@@ -11,6 +11,7 @@ export default {
     transactions: [],
     portfolio: {},
     walletList: [],
+    identity: {},
   },
 
   effects: {
@@ -49,7 +50,7 @@ export default {
       }
     },
     *validateIdentify({ payload }, { call, put }) {
-      const identity = yield call(updateIdentity, payload);
+      const identity = yield call(updateIdentity, payload.formData);
       if (identity.error) return;
       yield put({
         type: 'saveIdentity',
@@ -71,10 +72,10 @@ export default {
         walletList: [payload.account, ...state.walletList],
       };
     },
-    saveIdentity(state, action) {
+    saveIdentity(state, { payload }) {
       return {
         ...state,
-        ...action.payload,
+        identity: payload.formValues,
       };
     },
   },

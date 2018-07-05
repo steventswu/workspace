@@ -47,7 +47,10 @@ export default class Verificatoin extends React.Component {
         });
 
         message.info(`Your ID verifaction information has been submitted for verfication.`);
-        this.props.dispatch({ type: 'profile/validateIdentify', payload: formData, formValues });
+        this.props.dispatch({
+          type: 'profile/validateIdentify',
+          payload: { formData, formValues },
+        });
         //   this.props.dispatch(routerRedux.replace('/profile'));
       }
     });
