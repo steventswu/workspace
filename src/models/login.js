@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { getAuthInfo, sessionKey, validateFacebookToken } from 'src/services/api';
+import { getAuthInfo, sessionKey, identityKey, validateFacebookToken } from 'src/services/api';
 import Google from 'src/services/Google';
 import Twitter from 'src/services/Twitter';
 import { setAuthority } from 'src/utils/authority';
@@ -30,6 +30,7 @@ export default {
     *logout(_, { put }) {
       try {
         localStorage.removeItem(sessionKey);
+        localStorage.removeItem(identityKey);
       } finally {
         yield put({
           type: 'changeLoginStatus',
