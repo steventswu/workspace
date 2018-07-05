@@ -23,7 +23,8 @@
     "test": "roadhog test",
     "test:component": "roadhog test ./src/components",
     "test:all": "node ./tests/run-tests.js",
-    "prettier": "prettier --write ./src/**/**/**/*"
+    "prettier": "prettier --write ./src/**/**/**/*",
+    "dev": "umi dev"
   },
   "dependencies": {
     "@antv/data-set": "^0.8.0",
@@ -64,6 +65,7 @@
     "react-highcharts": "^16.0.2",
     "react-i18next": "^7.8.1",
     "rollbar": "^2.3.4",
+    "umi": "^1.3.13",
     "url-polyfill": "^1.0.10",
     "web3": "^1.0.0-beta.34",
     "xhr2": "^0.1.4",
