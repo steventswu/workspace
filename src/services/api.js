@@ -2,11 +2,18 @@ import request from 'src/utils/request';
 import endpoint from 'src/utils/endpoint';
 
 export const sessionKey = 'tixguru:session';
+export const identityKey = 'tixguru:identity';
 
 const getSession = () => {
   const session = JSON.parse(localStorage.getItem(sessionKey));
   if (!session) throw Error('No session data');
   return session;
+};
+
+export const getIdentity = () => {
+  const identity = JSON.parse(localStorage.getItem(identityKey)) || {};
+  if (!identity) throw Error('No identity data');
+  return identity;
 };
 
 export async function queryCurrent({ memberId, jwt }) {
@@ -86,7 +93,7 @@ export async function queryProfile() {
 
 export async function updateIdentity(formData) {
   const { jwt } = getSession();
-  return request(`${endpoint.api}/v2/identity-verification`, {
+  return request(`${endpoint.api}/v2/members/identity-verification`, {
     method: 'POST',
     body: formData,
     headers: { authorization: jwt },
