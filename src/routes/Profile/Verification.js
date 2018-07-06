@@ -20,7 +20,7 @@ const formItemLayout = {
 export default class Verificatoin extends React.Component {
   state = {
     fileList: [],
-    // locked: Boolean(localStorage.getItem(identityKey)),
+    locked: Boolean(localStorage.getItem(identityKey)),
   };
   handleFormSubmit = () => {
     this.props.form.validateFields((err, values) => {
