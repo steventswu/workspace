@@ -84,8 +84,8 @@ export async function getAuthInfo(type, params) {
 }
 
 export async function queryProfile() {
-  const { memberId, jwt } = getSession();
-  return request(`${endpoint.api}/members/${memberId}/profile`, {
+  const { jwt } = getSession();
+  return request(`${endpoint.api}/v2/members/profile`, {
     method: 'GET',
     headers: { authorization: jwt },
   });
