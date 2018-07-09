@@ -3,7 +3,6 @@ import { Form, Select, InputNumber, Button } from 'antd';
 import { compose } from 'redux';
 import { connect } from 'dva';
 import { CONTRACTS, CONTRACT } from 'src/utils/contract';
-import numeral from 'numeral';
 import { getVerifiedWalletList } from 'src/selectors/profile';
 
 import styles from './Redeem.less';
@@ -16,12 +15,7 @@ const mapStateToProps = ({ user, loading }) => ({
 const enhancer = compose(Form.create(), connect(mapStateToProps));
 
 const Redeem = enhancer(
-  ({
-    walletList,
-    shouldLocked,
-    form: { getFieldValue, getFieldDecorator, validateFields },
-    dispatch,
-  }) => (
+  ({ walletList, shouldLocked, form: { getFieldDecorator, validateFields }, dispatch }) => (
     <React.Fragment>
       <h1>Redeem Application</h1>
       <Form layout="vertical" hideRequiredMark className={styles.form}>
@@ -57,14 +51,7 @@ const Redeem = enhancer(
             </Select>
           )}
         </Form.Item>
-        <Form.Item
-          label="Amount"
-          wrapperCol={{ span: 10 }}
-          extra={
-            getFieldValue('amount') &&
-            `You will get ${numeral(getFieldValue('amount') * (1 - 0.03)).format('0.000')} ETH`
-          }
-        >
+        <Form.Item label="Amount" wrapperCol={{ span: 10 }}>
           {getFieldDecorator('amount', {
             rules: [
               {
