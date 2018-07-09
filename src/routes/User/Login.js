@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import qs from 'qs';
 import isWebView from 'is-webview';
-import { Checkbox, Alert, Icon, Spin } from 'antd';
+import { Alert, Icon, Spin } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 
@@ -12,10 +12,6 @@ import styles from './Login.less';
   submitting: loading.models.login,
 }))
 export default class LoginPage extends Component {
-  state = {
-    autoLogin: true,
-  };
-
   isBrowser = !isWebView(window.navigator.userAgent);
 
   componentDidMount() {
@@ -59,10 +55,6 @@ export default class LoginPage extends Component {
     this.props.dispatch({ type: 'login/twitterRedirect' });
   };
 
-  changeAutoLogin = e => {
-    this.setState({ autoLogin: e.target.checked });
-  };
-
   renderMessage = content => {
     return <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />;
   };
@@ -76,17 +68,9 @@ export default class LoginPage extends Component {
             {login.status === 'error' &&
               login.type === 'account' &&
               !login.submitting &&
-              this.renderMessage('Account or password is incorrect（admin/888888）')}
+              this.renderMessage('Account or password is incorrect')}
             <Login.UserName name="email" placeholder="Email" />
             <Login.Password name="password" placeholder="Password" />
-            <div>
-              <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>
-                Remember me
-              </Checkbox>
-              <a style={{ float: 'right' }} href="">
-                Forgot Password
-              </a>
-            </div>
             <Login.Submit>Submit</Login.Submit>
             <div className={styles.other}>
               <Icon className={styles.icon} type="facebook" onClick={this.handleFacebookLogin} />
