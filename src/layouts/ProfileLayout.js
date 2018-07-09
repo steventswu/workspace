@@ -54,12 +54,14 @@ export default class ProfileLayout extends React.Component {
           </div> */}
           <Divider />
           <Button style={{ marginBottom: 20 }} onClick={this.handleIdentityVerification}>
-            <Icon
-              style={{
-                color: isIdentityVerified === 'verified' ? '#52c41a' : 'rgba(0, 0, 0, 0.65)',
-              }}
-              type={isIdentityVerified === 'verified' ? 'check-circle-o' : 'exclamation-circle-o'}
-            />
+            {isIdentityVerified === 'verified' && (
+              <Icon
+                style={{
+                  color: '#52c41a',
+                }}
+                type="check-circle-o"
+              />
+            )}
             Identity Verification
           </Button>
           <Button style={{ marginBottom: 20 }} onClick={this.handleWalletVerification}>
