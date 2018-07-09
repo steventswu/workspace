@@ -17,7 +17,7 @@ export const ROUTE = {
 
 @connect(({ user }) => ({
   currentUser: user,
-  isWhitelist: isWhitelist(user.walletAddressMap),
+  shouldWhitelist: !isWhitelist(user.walletAddressMap),
 }))
 export default class ProfileLayout extends React.Component {
   handleLogout = () => {
@@ -38,9 +38,9 @@ export default class ProfileLayout extends React.Component {
   };
 
   render() {
-    const { currentUser: { email, isIdentityVerified }, height } = this.props;
+    const { currentUser: { email, isIdentityVerified }, height, shouldWhitelist } = this.props;
     const { component } = this.props.routerData[this.props.location.pathname] || {};
-    const isVerified = isIdentityVerified === VERIFIED;
+    const shouldVerified = isIdentityVerified !== VERIFIED;
     return (
       <Layout style={{ background: 'transparent', minHeight: height }}>
         <Layout.Sider width={300} className={styles.sider}>
@@ -58,7 +58,7 @@ export default class ProfileLayout extends React.Component {
           </div> */}
           <Divider />
           <Button style={{ marginBottom: 20 }} onClick={this.handleIdentityVerification}>
-            {isIdentityVerified === 'verified' && (
+            {!shouldVerified && (
               <Icon
                 style={{
                   color: '#52c41a',
@@ -69,14 +69,14 @@ export default class ProfileLayout extends React.Component {
             Identity Verification
           </Button>
           <Button
-            disabled={!isVerified}
+            disabled={shouldVerified}
             style={{ marginBottom: 20 }}
             onClick={this.handleWalletVerification}
           >
             Wallet Verification
           </Button>
           <Button
-            disabled={!isVerified || !isWhitelist}
+            disabled={shouldVerified || shouldWhitelist}
             style={{ marginBottom: 20 }}
             onClick={this.handleRedeem}
           >
