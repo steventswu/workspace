@@ -30,11 +30,18 @@ const Wallet = enhancer(
           <Form.Item style={{ flex: 1, marginRight: 10 }}>
             {getFieldDecorator('walletAddress', {
               rules: [{ required: true, type: 'string', message: 'Enter Wallet Address' }],
-            })(<Input type="text" placeholder="Enter Wallet Address" />)}
+            })(
+              <Input
+                type="text"
+                placeholder="Enter Wallet Address"
+                disabled={walletList.length >= 3}
+              />
+            )}
           </Form.Item>
           <Form.Item>
             <Button
               type="primary"
+              disabled={walletList.length >= 3}
               onClick={() =>
                 validateFields((err, values) => {
                   if (err) return;
