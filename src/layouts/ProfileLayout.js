@@ -31,6 +31,7 @@ export default class ProfileLayout extends React.Component {
 
   handleIdentityVerification = () => {
     this.props.dispatch(routerRedux.push(ROUTE.VERIFICATION));
+    this.props.dispatch({ type: 'user/fetchCurrent' });
   };
 
   render() {
