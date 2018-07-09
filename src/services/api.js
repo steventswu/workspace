@@ -110,7 +110,7 @@ export async function validateFacebookToken(accessToken) {
 
 export async function postWhitelist(address) {
   const { jwt } = getSession();
-  return request(`${endpoint.api}/v2/whitelist/add`, {
+  return request(`${endpoint.api}/v2/members/whitelist/add`, {
     method: 'POST',
     body: { address },
     headers: { authorization: jwt },

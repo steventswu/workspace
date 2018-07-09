@@ -1,5 +1,6 @@
 import { routerRedux } from 'dva/router';
 import * as api from 'src/services/api';
+import { UNVERIFIED } from 'src/utils/status';
 
 export default {
   namespace: 'user',
@@ -26,7 +27,10 @@ export default {
     *updateInfo({ payload: { walletAddress } }, { call, put }) {
       try {
         yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.WALLET_ADDRESS, { walletAddress });
-        yield put({ type: 'saveWalletAddress', payload: { walletAddress } });
+        yield put({
+          type: 'saveWalletAddress',
+          payload: { walletAddress, isVerified: UNVERIFIED },
+        });
         yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.BUY_TERMS_LOG, { walletAddress });
       } catch (e) {
         yield put({ type: 'login/logout' });

@@ -2,17 +2,24 @@ import React from 'react';
 import { Form, Input, Button, List, Icon } from 'antd';
 import { compose } from 'redux';
 import { connect } from 'dva';
+import * as profile from 'src/selectors/profile';
 
 import styles from './Wallet.less';
 
-const mapStateToProps = ({ profile }) => ({
-  walletList: profile.walletList,
+const mapStateToProps = ({ user, loading }) => ({
+  isLoading: loading.effects['user/fetchCurrent'],
+  walletList: profile.getWalletList(user.walletAddressMap),
 });
 
 const enhancer = compose(Form.create(), connect(mapStateToProps));
 
-export default enhancer(
-  ({ walletList, form: { getFieldDecorator, validateFields, resetFields }, dispatch }) => (
+const Wallet = enhancer(
+  ({
+    walletList,
+    isLoading,
+    form: { getFieldDecorator, validateFields, resetFields },
+    dispatch,
+  }) => (
     <React.Fragment>
       <h1>Wallet Verification</h1>
       <p>
@@ -31,7 +38,7 @@ export default enhancer(
               onClick={() =>
                 validateFields((err, values) => {
                   if (err) return;
-                  dispatch({ type: 'profile/submitWalletValidation', payload: values });
+                  dispatch({ type: 'profile/validateWallet', payload: values });
                   resetFields();
                 })
               }
@@ -44,15 +51,24 @@ export default enhancer(
           dataSource={walletList}
           renderItem={item => (
             <List.Item className={styles.listItem}>
-              {item}
-              <span>
-                <Icon type="clock-circle-o" style={{ marginRight: 5 }} />
-                Pending
-              </span>
+              {item.walletAddress}
+              <Button
+                style={{ width: 120 }}
+                type="dashed"
+                onClick={() => dispatch({ type: 'user/fetchCurrent' })}
+              >
+                <Icon type={profile.getIconType(item.isVerified)} style={{ marginRight: 5 }} />
+                {profile.getButtonStatus(item.isVerified)}
+              </Button>
             </List.Item>
           )}
+          loading={isLoading}
         />
       </div>
     </React.Fragment>
   )
 );
+
+Wallet.displayName = 'Wallet';
+
+export default Wallet;
