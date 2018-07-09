@@ -56,7 +56,6 @@ export default class Verificatoin extends React.Component {
   };
   handleSubmittedState = () => {
     if (this.props.user.isIdentityVerified === 'unverified') {
-      console.log('hi');
       const { form: { getFieldDecorator } } = this.props;
       const props = {
         accept: 'image/jpg,image/jpeg,image/png',
