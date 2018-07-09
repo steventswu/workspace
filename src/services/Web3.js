@@ -1,5 +1,6 @@
-import Eth from 'ethjs-query';
+import Eth from 'ethjs';
 import { CONTRACT } from 'src/utils/contract';
+import tokenAbi from './abi.json';
 
 const isInstalled = !!window.web3;
 
@@ -18,30 +19,24 @@ const validate = async () => {
   if (version !== process.env.NETWORK_ID) throw TypeError('Invalid Network');
 };
 
-const WEI = 1000000000000000000;
-
 const getAccount = async () => {
   const [account] = await eth.accounts();
   if (!account) throw TypeError('Unlock your wallet and try again');
   return account.toLowerCase();
 };
 
-const code = {
-  buy: '0x',
-  redeem: '',
-};
-
-const sendTransaction = (type, { cap, amount, account }) =>
+const buy = ({ cap, amount, account }) =>
   eth.sendTransaction({
     from: account,
     to: CONTRACT[cap].address,
-    value: amount * WEI,
+    value: Eth.toWei(amount, 'ether'),
     gas: 150000,
-    data: code[type],
+    data: '0x',
   });
 
-const buy = params => sendTransaction('buy', params);
-
-const redeem = params => sendTransaction('redeem', params);
+const redeem = ({ cap, amount, address }) => {
+  const token = eth.contract(tokenAbi).at(CONTRACT[cap].address);
+  return token.requestRedeem(Eth.toWei(amount, 'ether'), { from: address, gas: 4606350 });
+};
 
 export default { init, validate, buy, redeem, isInstalled, isDisabled, getAccount };

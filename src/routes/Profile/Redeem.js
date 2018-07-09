@@ -4,17 +4,24 @@ import { compose } from 'redux';
 import { connect } from 'dva';
 import { CONTRACTS, CONTRACT } from 'src/utils/contract';
 import numeral from 'numeral';
+import { getVerifiedWalletList } from 'src/selectors/profile';
 
 import styles from './Redeem.less';
 
-const mapStateToProps = ({ profile }) => ({
-  walletList: profile.walletList,
+const mapStateToProps = ({ user, loading }) => ({
+  walletList: getVerifiedWalletList(user.walletAddressMap),
+  shouldLocked: loading.effects['profile/redeem'],
 });
 
 const enhancer = compose(Form.create(), connect(mapStateToProps));
 
-export default enhancer(
-  ({ walletList, form: { getFieldValue, getFieldDecorator, validateFields }, dispatch }) => (
+const Redeem = enhancer(
+  ({
+    walletList,
+    shouldLocked,
+    form: { getFieldValue, getFieldDecorator, validateFields },
+    dispatch,
+  }) => (
     <React.Fragment>
       <h1>Redeem Application</h1>
       <Form layout="vertical" hideRequiredMark className={styles.form}>
@@ -22,7 +29,7 @@ export default enhancer(
           {getFieldDecorator('cap', {
             rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
           })(
-            <Select placeholder="Select CAP">
+            <Select disabled={shouldLocked} placeholder="Select CAP">
               {CONTRACTS.map(value => (
                 <Select.Option key={value.key} value={value.key}>
                   {CONTRACT[value.key].label}
@@ -32,7 +39,7 @@ export default enhancer(
           )}
         </Form.Item>
         <Form.Item wrapperCol={{ span: 10 }} label="Wallet Address">
-          {getFieldDecorator('walletAddress', {
+          {getFieldDecorator('address', {
             rules: [
               {
                 required: true,
@@ -41,7 +48,7 @@ export default enhancer(
               },
             ],
           })(
-            <Select placeholder="Select Wallet">
+            <Select disabled={shouldLocked} placeholder="Select Wallet">
               {walletList.map(value => (
                 <Select.Option key={value} value={value}>
                   {value}
@@ -65,15 +72,16 @@ export default enhancer(
                 message: 'Enter amount',
               },
             ],
-          })(<InputNumber min={0.1} step={0.1} />)}
+          })(<InputNumber disabled={shouldLocked} min={0.1} step={0.1} />)}
         </Form.Item>
         <Form.Item label="" wrapperCol={{ span: 10 }}>
           <Button
             type="primary"
+            loading={shouldLocked}
             onClick={() =>
               validateFields((err, values) => {
                 if (err) return;
-                dispatch({ type: 'redeem', payload: values });
+                dispatch({ type: 'profile/redeem', payload: values });
               })
             }
           >
@@ -84,3 +92,7 @@ export default enhancer(
     </React.Fragment>
   )
 );
+
+Redeem.displayName = 'Redeem';
+
+export default Redeem;
