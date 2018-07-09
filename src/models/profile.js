@@ -82,6 +82,11 @@ export default {
       try {
         yield call(Web3.init);
         yield call(Web3.validate);
+        const account = yield call(Web3.getAccount);
+
+        if (account.toLowerCase() !== payload.address.toLowerCase()) {
+          throw new TypeError('Wallet address does not match');
+        }
 
         const txHash = yield call(Web3.redeem, payload);
         yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
