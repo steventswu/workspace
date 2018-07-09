@@ -3,7 +3,9 @@ import { Layout, Button, Divider, Icon } from 'antd';
 import { connect } from 'dva';
 import { routerRedux, Switch, Route, Redirect } from 'dva/router';
 
+import { VERIFIED } from 'src/utils/status';
 import styles from './ProfileLayout.less';
+import { isWhitelist } from '../selectors/profile';
 
 export const ROUTE = {
   ROOT: '/profile',
@@ -15,6 +17,7 @@ export const ROUTE = {
 
 @connect(({ user }) => ({
   currentUser: user,
+  isWhitelist: isWhitelist(user.walletAddressMap),
 }))
 export default class ProfileLayout extends React.Component {
   handleLogout = () => {
@@ -37,6 +40,7 @@ export default class ProfileLayout extends React.Component {
   render() {
     const { currentUser: { email, isIdentityVerified }, height } = this.props;
     const { component } = this.props.routerData[this.props.location.pathname] || {};
+    const isVerified = isIdentityVerified === VERIFIED;
     return (
       <Layout style={{ background: 'transparent', minHeight: height }}>
         <Layout.Sider width={300} className={styles.sider}>
@@ -64,10 +68,18 @@ export default class ProfileLayout extends React.Component {
             )}
             Identity Verification
           </Button>
-          <Button style={{ marginBottom: 20 }} onClick={this.handleWalletVerification}>
+          <Button
+            disabled={!isVerified}
+            style={{ marginBottom: 20 }}
+            onClick={this.handleWalletVerification}
+          >
             Wallet Verification
           </Button>
-          <Button style={{ marginBottom: 20 }} onClick={this.handleRedeem}>
+          <Button
+            disabled={!isVerified || !isWhitelist}
+            style={{ marginBottom: 20 }}
+            onClick={this.handleRedeem}
+          >
             Redeem
           </Button>
         </Layout.Sider>
