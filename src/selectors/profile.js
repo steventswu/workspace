@@ -19,3 +19,8 @@ export const getButtonStatus = status => {
   if (status === PENDING) return 'Pending';
   if (status === VERIFIED) return 'Verified';
 };
+
+export const isWhitelist = walletAddressMap =>
+  walletAddressMap
+    ? Object.values(walletAddressMap).filter(w => w.isVerified === VERIFIED).length > 0
+    : false;

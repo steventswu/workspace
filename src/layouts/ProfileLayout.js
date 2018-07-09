@@ -3,7 +3,9 @@ import { Layout, Button, Divider, Icon } from 'antd';
 import { connect } from 'dva';
 import { routerRedux, Switch, Route, Redirect } from 'dva/router';
 
+import { VERIFIED } from 'src/utils/status';
 import styles from './ProfileLayout.less';
+import { isWhitelist } from '../selectors/profile';
 
 export const ROUTE = {
   ROOT: '/profile',
@@ -15,6 +17,7 @@ export const ROUTE = {
 
 @connect(({ user }) => ({
   currentUser: user,
+  shouldWhitelist: !isWhitelist(user.walletAddressMap),
 }))
 export default class ProfileLayout extends React.Component {
   handleLogout = () => {
@@ -35,8 +38,9 @@ export default class ProfileLayout extends React.Component {
   };
 
   render() {
-    const { currentUser: { email, isIdentityVerified }, height } = this.props;
+    const { currentUser: { email, isIdentityVerified }, height, shouldWhitelist } = this.props;
     const { component } = this.props.routerData[this.props.location.pathname] || {};
+    const shouldVerified = isIdentityVerified !== VERIFIED;
     return (
       <Layout style={{ background: 'transparent', minHeight: height }}>
         <Layout.Sider width={300} className={styles.sider}>
@@ -54,7 +58,7 @@ export default class ProfileLayout extends React.Component {
           </div> */}
           <Divider />
           <Button style={{ marginBottom: 20 }} onClick={this.handleIdentityVerification}>
-            {isIdentityVerified === 'verified' && (
+            {!shouldVerified && (
               <Icon
                 style={{
                   color: '#52c41a',
@@ -64,10 +68,18 @@ export default class ProfileLayout extends React.Component {
             )}
             Identity Verification
           </Button>
-          <Button style={{ marginBottom: 20 }} onClick={this.handleWalletVerification}>
+          <Button
+            disabled={shouldVerified}
+            style={{ marginBottom: 20 }}
+            onClick={this.handleWalletVerification}
+          >
             Wallet Verification
           </Button>
-          <Button style={{ marginBottom: 20 }} onClick={this.handleRedeem}>
+          <Button
+            disabled={shouldVerified || shouldWhitelist}
+            style={{ marginBottom: 20 }}
+            onClick={this.handleRedeem}
+          >
             Redeem
           </Button>
         </Layout.Sider>
