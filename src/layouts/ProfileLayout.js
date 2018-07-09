@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Button, Divider } from 'antd';
+import { Layout, Button, Divider, Icon } from 'antd';
 import { connect } from 'dva';
 import { routerRedux, Switch, Route, Redirect } from 'dva/router';
 
@@ -35,7 +35,7 @@ export default class ProfileLayout extends React.Component {
   };
 
   render() {
-    const { currentUser: { email }, height } = this.props;
+    const { currentUser: { email, isIdentityVerified }, height } = this.props;
     const { component } = this.props.routerData[this.props.location.pathname] || {};
     return (
       <Layout style={{ background: 'transparent', minHeight: height }}>
@@ -54,6 +54,12 @@ export default class ProfileLayout extends React.Component {
           </div> */}
           <Divider />
           <Button style={{ marginBottom: 20 }} onClick={this.handleIdentityVerification}>
+            <Icon
+              style={{
+                color: isIdentityVerified === 'verified' ? '#52c41a' : 'rgba(0, 0, 0, 0.65)',
+              }}
+              type={isIdentityVerified === 'verified' ? 'check-circle-o' : 'exclamation-circle-o'}
+            />
             Identity Verification
           </Button>
           <Button style={{ marginBottom: 20 }} onClick={this.handleWalletVerification}>
