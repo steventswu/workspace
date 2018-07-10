@@ -11,6 +11,7 @@ import {
 import { CONTRACT } from 'src/utils/contract';
 import { PENDING } from 'src/utils/status';
 import { formatErrorMessage } from 'src/utils/error';
+import { getWalletList } from 'src/selectors/profile';
 import { routerRedux } from 'dva/router';
 import { formatAll } from './profile.helper';
 
@@ -40,7 +41,7 @@ export default {
         const accountSelected = payload.walletAddress.toLowerCase();
 
         const walletList = yield select(state =>
-          Object.values(state.user.walletAddressMap).map(w => w.walletAddress)
+          getWalletList(state.user.walletAddressMap).map(w => w.walletAddress)
         );
 
         if (walletList.includes(accountSelected)) {
