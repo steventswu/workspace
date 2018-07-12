@@ -26,12 +26,16 @@ export default {
 
   effects: {
     *fetch(_, { call, put }) {
-      const response = yield call(queryProfile);
-      if (response.error) return;
-      yield put({
-        type: 'show',
-        payload: formatAll(response),
-      });
+      try {
+        const response = yield call(queryProfile);
+        if (response.error) return;
+        yield put({
+          type: 'show',
+          payload: formatAll(response),
+        });
+      } catch (error) {
+        yield put(routerRedux.replace('/'));
+      }
     },
     *validateWallet({ payload }, { call, put, select }) {
       try {

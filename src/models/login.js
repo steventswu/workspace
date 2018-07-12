@@ -1,11 +1,23 @@
 import { routerRedux } from 'dva/router';
-import { getAuthInfo, sessionKey, identityKey, validateFacebookToken } from 'src/services/api';
+import {
+  getAuthInfo,
+  sessionKey,
+  identityKey,
+  validateFacebookToken,
+  validateEmailPermission,
+} from 'src/services/api';
 import Google from 'src/services/Google';
 import Twitter from 'src/services/Twitter';
 import { setAuthority } from 'src/utils/authority';
 import { reloadAuthorized } from 'src/utils/Authorized';
 
 const redirectPath = '/';
+
+const loginHandler = data => {
+  setAuthority('user');
+  localStorage.setItem(sessionKey, JSON.stringify(data));
+  reloadAuthorized();
+};
 
 export default {
   namespace: 'login',
@@ -18,13 +30,17 @@ export default {
         email: payload.email,
         password: btoa(payload.password),
       });
-      if (response.error) return;
+      if (response.error) {
+        return yield put({
+          type: 'changeLoginStatus',
+          payload: { status: 'error', message: 'Account or password is incorrect' },
+        });
+      }
       yield put({
         type: 'changeLoginStatus',
         payload: { status: 'ok' },
-        meta: response,
       });
-      reloadAuthorized();
+      loginHandler(response);
       yield put(routerRedux.push(redirectPath));
     },
     *logout(_, { put }) {
@@ -34,12 +50,10 @@ export default {
       } finally {
         yield put({
           type: 'changeLoginStatus',
-          payload: {
-            status: false,
-            currentAuthority: 'guest',
-          },
+          payload: { status: false },
         });
         yield put({ type: 'user/destroy' });
+        setAuthority('guest');
         reloadAuthorized();
         yield put(routerRedux.push(redirectPath));
       }
@@ -54,9 +68,8 @@ export default {
         yield put({
           type: 'changeLoginStatus',
           payload: { status: 'ok' },
-          meta: result,
         });
-        reloadAuthorized();
+        loginHandler(result);
         yield put(routerRedux.replace(redirectPath));
       } catch (error) {
         yield put({
@@ -67,19 +80,19 @@ export default {
     },
     *facebook({ payload }, { call, put }) {
       try {
+        yield call(validateEmailPermission, payload.access_token);
         const info = yield call(validateFacebookToken, payload.access_token);
         const result = yield call(getAuthInfo, 'facebook', info);
         yield put({
           type: 'changeLoginStatus',
           payload: { status: 'ok' },
-          meta: result,
         });
-        reloadAuthorized();
+        loginHandler(result);
         yield put(routerRedux.replace(redirectPath));
       } catch (e) {
         yield put({
           type: 'changeLoginStatus',
-          payload: { status: 'error' },
+          payload: { status: 'fbError', message: e.message },
         });
       }
     },
@@ -94,9 +107,8 @@ export default {
         yield put({
           type: 'changeLoginStatus',
           payload: { status: 'ok' },
-          meta: result,
         });
-        reloadAuthorized();
+        loginHandler(result);
         // force redirect the whole page to eliminate query strings
         window.location.href = [window.location.origin, redirectPath].join('');
       } catch (e) {
@@ -109,18 +121,8 @@ export default {
   },
 
   reducers: {
-    changeLoginStatus(_, { payload, meta }) {
-      setAuthority(payload.currentAuthority || 'user');
-      if (meta) {
-        localStorage.setItem(
-          sessionKey,
-          JSON.stringify({
-            memberId: meta.memberId,
-            jwt: meta.jwt,
-          })
-        );
-      }
-      return { status: payload.status };
+    changeLoginStatus(_, { payload }) {
+      return payload;
     },
   },
 };

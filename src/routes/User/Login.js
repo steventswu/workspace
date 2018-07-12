@@ -7,6 +7,8 @@ import { Alert, Icon, Spin } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 
+const facebookAppID = 2098112697085130;
+
 @connect(({ login, loading }) => ({
   login,
   submitting: loading.models.login,
@@ -45,10 +47,13 @@ export default class LoginPage extends Component {
   };
 
   handleFacebookLogin = () => {
-    // this.props.dispatch({ type: 'login/facebook' });
-    const facebookAppID = 2098112697085130;
-    const redirectUri = encodeURIComponent(window.location.href);
+    const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
     window.location = `https://www.facebook.com/v3.0/dialog/oauth?response_type=token&scope=email&client_id=${facebookAppID}&redirect_uri=${redirectUri}`;
+  };
+
+  handleFacebookEmailRequest = () => {
+    const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
+    window.location = `https://www.facebook.com/v3.0/dialog/oauth?response_type=token&scope=email&client_id=${facebookAppID}&redirect_uri=${redirectUri}&auth_type=rerequest&scope=email`;
   };
 
   handleTwitterLogin = () => {
@@ -65,15 +70,22 @@ export default class LoginPage extends Component {
       <div className={styles.main}>
         <Spin spinning={Boolean(submitting)}>
           <Login onSubmit={this.handleSubmit}>
-            {login.status === 'error' &&
-              login.type === 'account' &&
-              !login.submitting &&
-              this.renderMessage('Account or password is incorrect')}
+            {login.status &&
+              login.status !== 'ok' &&
+              this.renderMessage(login.message || 'Oops! Something went wrong.')}
             <Login.UserName name="email" placeholder="Email" />
             <Login.Password name="password" placeholder="Password" />
             <Login.Submit>Submit</Login.Submit>
             <div className={styles.other}>
-              <Icon className={styles.icon} type="facebook" onClick={this.handleFacebookLogin} />
+              <Icon
+                className={styles.icon}
+                type="facebook"
+                onClick={
+                  login.status === 'fbError'
+                    ? this.handleFacebookEmailRequest
+                    : this.handleFacebookLogin
+                }
+              />
               {this.isBrowser && (
                 <Icon className={styles.icon} type="google" onClick={this.handleGoogleLogin} />
               )}

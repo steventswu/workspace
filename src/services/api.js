@@ -108,6 +108,15 @@ export async function validateFacebookToken(accessToken) {
     .then(json => ({ ...json.data, accessToken }));
 }
 
+export async function validateEmailPermission(accessToken) {
+  const { data } = await fetch(
+    `https://graph.facebook.com/me/permissions?access_token=${accessToken}`
+  ).then(res => res.json());
+  const emailPermission = data.find(i => i.permission === 'email');
+  if (emailPermission.status === 'declined')
+    throw Error('You must provide email permission with Facebook login.');
+}
+
 export async function postWhitelist(address) {
   const { jwt } = getSession();
   return request(`${endpoint.api}/v2/members/whitelist/add`, {
