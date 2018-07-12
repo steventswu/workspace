@@ -6,11 +6,6 @@ import styles from './RegisterResult.less';
 
 const actions = (
   <div className={styles.actions}>
-    <a href="">
-      <Button size="large" type="primary">
-        View in mailbox
-      </Button>
-    </a>
     <Link to="/">
       <Button size="large">Return</Button>
     </Link>
@@ -22,11 +17,13 @@ export default ({ location }) => (
     className={styles.registerResult}
     type="success"
     title={
-      <div className={styles.title}>
-        你的账户：{location.state ? location.state.email : 'AntDesign@example.com'} 注册成功
-      </div>
+      location.state && (
+        <div className={styles.title}>
+          Account: {location.state.email} is successfully registered!
+        </div>
+      )
     }
-    description="激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。"
+    description="You will shortly receive a confirmation email that you need to complete the activation process."
     actions={actions}
     style={{ marginTop: 56 }}
   />
