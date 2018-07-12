@@ -1,5 +1,4 @@
 import fetch from 'dva/fetch';
-import { notification } from 'antd';
 import store from '../index';
 
 const codeMessage = {
@@ -24,10 +23,7 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) return response;
 
   const errorText = codeMessage[response.status] || response.statusText;
-  notification.error({
-    message: `Response Error ${response.status}`,
-    description: errorText,
-  });
+  console.error(response.status, errorText, response);
 
   const error = new Error(errorText);
   error.name = response.status;
@@ -79,11 +75,11 @@ export default function request(url, options) {
     .catch(e => {
       const { dispatch } = store;
       const status = e.name;
-      if (status === 401 || status === 403) {
+      if (status === 403) {
         dispatch({
           type: 'login/logout',
         });
       }
-      return { error: true };
+      return { error: true, status };
     });
 }

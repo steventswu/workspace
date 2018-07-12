@@ -12,6 +12,12 @@ import redirect from 'src/utils/redirect';
 
 const redirectPath = () => redirect.get() || '/';
 
+const errorMessage = {
+  400: 'Incorrect password.',
+  401: 'Email is not verified. Please check your inbox.',
+  404: 'Incorrect email account.',
+};
+
 export default {
   namespace: 'login',
 
@@ -39,7 +45,10 @@ export default {
       if (response.error) {
         return yield put({
           type: 'changeLoginStatus',
-          payload: { status: 'error', message: 'Account or password is incorrect' },
+          payload: {
+            status: 'error',
+            message: errorMessage[response.status],
+          },
         });
       }
       yield put({ type: 'redirect', payload: response });

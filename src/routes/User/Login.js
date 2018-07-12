@@ -61,7 +61,7 @@ export default class LoginPage extends Component {
   };
 
   renderMessage = content => {
-    return <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />;
+    return <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon closable />;
   };
 
   render() {
