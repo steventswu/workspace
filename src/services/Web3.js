@@ -9,6 +9,9 @@ const isDisabled = !isInstalled;
 let eth;
 
 const init = () => {
+  if (isDisabled) {
+    throw TypeError('Not a valid DApp browser');
+  }
   if (!eth) {
     eth = new Eth(window.web3.currentProvider);
   }
