@@ -1,23 +1,16 @@
 import { routerRedux } from 'dva/router';
 import {
   getAuthInfo,
-  sessionKey,
   identityKey,
   validateFacebookToken,
   validateEmailPermission,
 } from 'src/services/api';
 import Google from 'src/services/Google';
 import Twitter from 'src/services/Twitter';
-import { setAuthority } from 'src/utils/authority';
-import { reloadAuthorized } from 'src/utils/Authorized';
+import session from 'src/utils/session';
+import redirect from 'src/utils/redirect';
 
-const redirectPath = '/';
-
-const loginHandler = data => {
-  setAuthority('user');
-  localStorage.setItem(sessionKey, JSON.stringify(data));
-  reloadAuthorized();
-};
+const redirectPath = () => redirect.get() || '/';
 
 export default {
   namespace: 'login',
@@ -25,6 +18,19 @@ export default {
   state: { status: false },
 
   effects: {
+    *redirect({ payload, force }, { put }) {
+      yield put({
+        type: 'changeLoginStatus',
+        payload: { status: 'ok' },
+      });
+      session.set(payload);
+      const path = redirectPath();
+      if (force) {
+        window.location.href = [window.location.origin, path].join('');
+        return;
+      }
+      yield put(routerRedux.replace(path));
+    },
     *login({ payload }, { call, put }) {
       const response = yield call(getAuthInfo, 'normal', {
         email: payload.email,
@@ -36,16 +42,11 @@ export default {
           payload: { status: 'error', message: 'Account or password is incorrect' },
         });
       }
-      yield put({
-        type: 'changeLoginStatus',
-        payload: { status: 'ok' },
-      });
-      loginHandler(response);
-      yield put(routerRedux.push(redirectPath));
+      yield put({ type: 'redirect', payload: response });
     },
     *logout(_, { put }) {
       try {
-        localStorage.removeItem(sessionKey);
+        session.destroy();
         localStorage.removeItem(identityKey);
       } finally {
         yield put({
@@ -53,9 +54,7 @@ export default {
           payload: { status: false },
         });
         yield put({ type: 'user/destroy' });
-        setAuthority('guest');
-        reloadAuthorized();
-        yield put(routerRedux.push(redirectPath));
+        yield put(routerRedux.replace('/'));
       }
     },
     *googleRedirect(_, { call }) {
@@ -65,12 +64,7 @@ export default {
       try {
         const info = yield call(Google.getAccessToken);
         const result = yield call(getAuthInfo, 'google', info);
-        yield put({
-          type: 'changeLoginStatus',
-          payload: { status: 'ok' },
-        });
-        loginHandler(result);
-        yield put(routerRedux.replace(redirectPath));
+        yield put({ type: 'redirect', payload: result });
       } catch (error) {
         yield put({
           type: 'changeLoginStatus',
@@ -83,12 +77,7 @@ export default {
         yield call(validateEmailPermission, payload.access_token);
         const info = yield call(validateFacebookToken, payload.access_token);
         const result = yield call(getAuthInfo, 'facebook', info);
-        yield put({
-          type: 'changeLoginStatus',
-          payload: { status: 'ok' },
-        });
-        loginHandler(result);
-        yield put(routerRedux.replace(redirectPath));
+        yield put({ type: 'redirect', payload: result });
       } catch (e) {
         yield put({
           type: 'changeLoginStatus',
@@ -104,13 +93,7 @@ export default {
       try {
         const info = yield call(Twitter.getAccessToken, payload);
         const result = yield call(getAuthInfo, 'twitter', info);
-        yield put({
-          type: 'changeLoginStatus',
-          payload: { status: 'ok' },
-        });
-        loginHandler(result);
-        // force redirect the whole page to eliminate query strings
-        window.location.href = [window.location.origin, redirectPath].join('');
+        yield put({ type: 'redirect', payload: result, force: true });
       } catch (e) {
         yield put({
           type: 'changeLoginStatus',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { Link } from 'dva/router';
 
-export default function GlobalHeader({ currentUser = {}, logo, onClick, isLoading }) {
+export default function GlobalHeader({ currentUser, logo, onClick, isLoading }) {
   return (
     <React.Fragment>
       <Link to="/">
@@ -24,7 +24,7 @@ export default function GlobalHeader({ currentUser = {}, logo, onClick, isLoadin
           onClick={onClick}
           loading={isLoading}
         >
-          {isLoading ? '' : currentUser.email ? 'Profile' : 'Login'}
+          {isLoading ? '' : currentUser ? 'Profile' : 'Login'}
         </Button>
       </div>
     </React.Fragment>

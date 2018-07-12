@@ -10,12 +10,10 @@ export default {
   effects: {
     *fetchCurrent(_, { call, put }) {
       try {
-        const info = JSON.parse(localStorage.getItem(api.sessionKey));
-        if (!info) return;
-        const response = yield call(api.queryCurrent, info);
+        const response = yield call(api.queryCurrent);
         yield put({ type: 'save', payload: response });
       } catch (e) {
-        yield put({ type: 'login/logout' });
+        console.warn(e.message);
       }
     },
     *verifyEmail({ payload }, { call, put }) {

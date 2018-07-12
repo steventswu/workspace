@@ -1,14 +1,8 @@
 import request from 'src/utils/request';
 import endpoint from 'src/utils/endpoint';
+import session from 'src/utils/session';
 
-export const sessionKey = 'tixguru:session';
 export const identityKey = 'tixguru:identity';
-
-const getSession = () => {
-  const session = JSON.parse(localStorage.getItem(sessionKey));
-  if (!session) throw Error('No session data');
-  return session;
-};
 
 export const getIdentity = () => {
   const identity = JSON.parse(localStorage.getItem(identityKey)) || {};
@@ -16,7 +10,8 @@ export const getIdentity = () => {
   return identity;
 };
 
-export async function queryCurrent({ memberId, jwt }) {
+export async function queryCurrent() {
+  const { memberId, jwt } = session.get();
   return request(`${endpoint.api}/members/${memberId}`, {
     method: 'GET',
     headers: { authorization: jwt },
@@ -30,7 +25,7 @@ export const UPDATE_MEMBER_TYPE = {
 };
 
 export async function updateMember(type, params) {
-  const { memberId, jwt } = getSession();
+  const { memberId, jwt } = session.get();
   return request(`${endpoint.api}/members/${memberId}/${type}`, {
     method: 'POST',
     headers: { authorization: jwt },
@@ -84,7 +79,7 @@ export async function getAuthInfo(type, params) {
 }
 
 export async function queryProfile() {
-  const { jwt } = getSession();
+  const { jwt } = session.get();
   return request(`${endpoint.api}/v2/members/profile`, {
     method: 'GET',
     headers: { authorization: jwt },
@@ -92,7 +87,7 @@ export async function queryProfile() {
 }
 
 export async function updateIdentity(formData) {
-  const { jwt } = getSession();
+  const { jwt } = session.get();
   return request(`${endpoint.api}/v2/members/identity-verification`, {
     method: 'POST',
     body: formData,
@@ -118,7 +113,7 @@ export async function validateEmailPermission(accessToken) {
 }
 
 export async function postWhitelist(address) {
-  const { jwt } = getSession();
+  const { jwt } = session.get();
   return request(`${endpoint.api}/v2/members/whitelist/add`, {
     method: 'POST',
     body: { address },

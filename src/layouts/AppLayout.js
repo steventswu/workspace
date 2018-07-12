@@ -4,8 +4,9 @@ import { connect } from 'dva';
 import { Route, Switch, Redirect, routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import pathToRegexp from 'path-to-regexp';
+import redirect from 'src/utils/redirect';
+import session from 'src/utils/session';
 
-import Authorized from '../utils/Authorized';
 import AppFooter from '../components/AppFooter';
 import GlobalHeader from '../components/GlobalHeader';
 import logo from '../assets/logo.svg';
@@ -15,13 +16,18 @@ import styles from './AppLayout.less';
 const { Content, Footer } = Layout;
 
 @connect(({ user }) => ({
-  currentUser: user,
+  currentUser: user.email,
 }))
 export default class AppLayout extends React.PureComponent {
   componentDidMount() {
-    if (!this.props.currentUser.email) {
+    if (!this.props.currentUser) {
       this.props.dispatch({ type: 'user/fetchCurrent' });
     }
+    redirect.set(this.props.match.url);
+  }
+
+  componentDidUpdate() {
+    redirect.set(this.props.match.url);
   }
 
   getPageTitle() {
@@ -49,6 +55,7 @@ export default class AppLayout extends React.PureComponent {
     const { isPublic, isProtected, component: Component } =
       this.props.routerData[this.props.match.url] || {};
     const height = window.innerHeight - 100;
+    const isAuthenticated = isProtected && session.exist();
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <Layout className={styles.layout}>
@@ -67,13 +74,13 @@ export default class AppLayout extends React.PureComponent {
                   render={props => <Component {...props} height={height} />}
                 />
               )}
-              {isProtected && (
-                <Authorized.AuthorizedRoute
+              {isAuthenticated ? (
+                <Route
                   path={this.props.match.path}
                   render={props => <Component {...props} height={height} />}
-                  authority={['admin', 'user']}
-                  redirectPath="/user/login"
                 />
+              ) : (
+                <Redirect to="user/login" />
               )}
               <Redirect to="/exception/404" />
             </Switch>

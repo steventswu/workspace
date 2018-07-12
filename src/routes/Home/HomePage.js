@@ -14,7 +14,7 @@ import { DATA } from 'src/utils/contract';
 import styles from './HomePage.less';
 
 @connect(({ user, loading }) => ({
-  currentUser: user,
+  currentUser: user.email,
   isLoading: loading.models.user,
 }))
 export default class HomePage extends React.Component {
@@ -23,7 +23,7 @@ export default class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    if (!this.props.currentUser.email) {
+    if (!this.props.currentUser) {
       this.props.dispatch({ type: 'user/fetchCurrent' });
     }
   }
