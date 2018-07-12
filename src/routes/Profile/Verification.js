@@ -20,7 +20,7 @@ const formItemLayout = {
 export default class Verificatoin extends React.Component {
   state = {
     fileList: [],
-    // locked: Boolean(localStorage.getItem(identityKey)),
+    locked: false,
   };
   handleFormSubmit = () => {
     this.props.form.validateFields((err, values) => {
@@ -42,9 +42,7 @@ export default class Verificatoin extends React.Component {
         });
         localStorage.setItem(identityKey, JSON.stringify(values));
         formData.append('memberId', this.props.user.id);
-        this.setState({
-          locked: true,
-        });
+        this.setState({ locked: true });
         message.info(`Your ID verifaction information has been submitted for verfication.`);
         this.props.dispatch({
           type: 'profile/validateIdentify',
@@ -72,6 +70,10 @@ export default class Verificatoin extends React.Component {
           this.setState(({ fileList }) => ({
             fileList: [...fileList, file],
           }));
+          this.setState(({ fileList }) => {
+            const newFileList = fileList.slice(-1);
+            return { fileList: newFileList };
+          });
           return false;
         },
         fileList: this.state.fileList,
@@ -177,7 +179,6 @@ export default class Verificatoin extends React.Component {
     } else if (this.props.user.isIdentityVerified === 'pending') {
       return (
         <h2 className={styles.pending}>
-          <Icon type="loading" />
           We have received your application. The process might take 3 - 5 working days. The
           confirmation mail will be sent upon the successful completion.
         </h2>
