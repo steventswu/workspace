@@ -66,13 +66,12 @@ export default class LoginPage extends Component {
 
   render() {
     const { login, submitting } = this.props;
+    const showErrorMessage = login.status && login.status !== 'ok' && !submitting;
     return (
       <div className={styles.main}>
         <Spin spinning={Boolean(submitting)}>
           <Login onSubmit={this.handleSubmit}>
-            {login.status &&
-              login.status !== 'ok' &&
-              this.renderMessage(login.message || 'Oops! Something went wrong.')}
+            {showErrorMessage && this.renderMessage(login.message || 'Oops! Something went wrong.')}
             <Login.UserName name="email" placeholder="Email" />
             <Login.Password name="password" placeholder="Password" />
             <Login.Submit>Submit</Login.Submit>
