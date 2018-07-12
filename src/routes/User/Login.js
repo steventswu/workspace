@@ -89,7 +89,7 @@ export default class LoginPage extends Component {
               {this.isBrowser && (
                 <Icon className={styles.icon} type="google" onClick={this.handleGoogleLogin} />
               )}
-              <Icon className={styles.icon} type="twitter" onClick={this.handleTwitterLogin} />
+              {/* <Icon className={styles.icon} type="twitter" onClick={this.handleTwitterLogin} /> */}
               <Link className={styles.register} to="/user/register">
                 Register
               </Link>
