@@ -18,6 +18,29 @@ const passwordProgressMap = {
   poor: 'exception',
 };
 
+const emailValidator = {
+  validate: [
+    {
+      trigger: ['onChange', 'onBlur'],
+      rules: [
+        {
+          required: true,
+          message: 'Enter your email address',
+        },
+      ],
+    },
+    {
+      trigger: 'onBlur',
+      rules: [
+        {
+          type: 'email',
+          message: 'Your email address is incorrect',
+        },
+      ],
+    },
+  ],
+};
+
 @connect(({ register, loading }) => ({
   register,
   submitting: loading.effects['register/submit'],
@@ -26,8 +49,8 @@ const passwordProgressMap = {
 export default class Register extends Component {
   state = {
     confirmDirty: false,
-    visible: false,
-    help: '',
+    popoverVisible: false,
+    passwordHelp: '',
   };
 
   getPasswordStatus = () => {
@@ -71,29 +94,31 @@ export default class Register extends Component {
   checkPassword = (rule, value, callback) => {
     if (!value) {
       this.setState({
-        help: 'Enter the password',
-        visible: !!value,
+        passwordHelp: 'Enter the password',
+        popoverVisible: !!value,
       });
-      callback('error');
-    } else {
-      this.setState({
-        help: '',
-      });
-      if (!this.state.visible) {
-        this.setState({
-          visible: !!value,
-        });
-      }
-      if (value.length < 6) {
-        callback('error');
-      } else {
-        const { form } = this.props;
-        if (value && this.state.confirmDirty) {
-          form.validateFields(['confirm'], { force: true });
-        }
-        callback();
-      }
+      return callback('error');
     }
+
+    this.setState({ passwordHelp: '' });
+    if (!this.state.popoverVisible) {
+      this.setState({ popoverVisible: !!value });
+    }
+
+    if (value.includes(' ')) {
+      this.setState({ passwordHelp: 'Do not contain whitespace in password' });
+      return callback('error');
+    }
+
+    if (value.length < 6) {
+      return callback('error');
+    }
+
+    const { form } = this.props;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
   };
 
   renderPasswordProgress = () => {
@@ -120,20 +145,9 @@ export default class Register extends Component {
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Enter your email address',
-                },
-                {
-                  type: 'email',
-                  message: 'Your email address is incorrect',
-                },
-              ],
-            })(<Input size="large" placeholder="Email" />)}
+            {getFieldDecorator('email', emailValidator)(<Input size="large" placeholder="Email" />)}
           </FormItem>
-          <FormItem help={this.state.help}>
+          <FormItem help={this.state.passwordHelp}>
             <Popover
               content={
                 <div style={{ padding: '4px 0' }}>
@@ -144,7 +158,7 @@ export default class Register extends Component {
               }
               overlayStyle={{ width: 240 }}
               placement="right"
-              visible={this.state.visible}
+              visible={this.state.popoverVisible}
             >
               {getFieldDecorator('password', {
                 rules: [

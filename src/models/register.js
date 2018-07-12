@@ -15,7 +15,7 @@ export default {
         password: btoa(payload.password),
       });
       yield put({
-        type: 'registerHandle',
+        type: 'checkRegisterStatus',
         payload: { status: 'ok' },
       });
       yield put(
@@ -25,7 +25,7 @@ export default {
   },
 
   reducers: {
-    registerHandle(_, { payload }) {
+    checkRegisterStatus(_, { payload }) {
       return {
         status: payload.status,
       };
