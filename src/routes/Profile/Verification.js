@@ -84,7 +84,14 @@ export default class Verificatoin extends React.Component {
             <Form.Item {...formItemLayout} label="Nationality">
               {getFieldDecorator('nationality', {
                 initialValue: nationality,
-                rules: [{ required: true, type: 'string', message: 'Choose Nationality' }],
+                rules: [
+                  {
+                    required: true,
+                    type: 'string',
+                    message: 'Choose Nationality',
+                    whitespace: true,
+                  },
+                ],
               })(
                 <Select
                   showSearch
@@ -110,26 +117,37 @@ export default class Verificatoin extends React.Component {
                     required: true,
                     type: 'string',
                     message: 'Enter passport number',
+                    whitespace: true,
                   },
                 ],
-              })(
-                <Input
-                  placeholder="Enter passport number"
-                  disabled={this.state.locked}
-                  // onKeyUp={localStorage.setItem('passportNumber', this.props.form.getFieldValue('passportNumber'))}
-                />
-              )}
+              })(<Input placeholder="Enter passport number" disabled={this.state.locked} />)
+              // onKeyUp={localStorage.setItem('passportNumber', this.props.form.getFieldValue('passportNumber'))}
+              }
             </Form.Item>
             <Form.Item {...formItemLayout} label="First Name">
               {getFieldDecorator('firstName', {
                 initialValue: firstName,
-                rules: [{ required: true, type: 'string', message: 'Enter first name' }],
+                rules: [
+                  {
+                    required: true,
+                    type: 'string',
+                    message: 'Enter first name',
+                    whitespace: true,
+                  },
+                ],
               })(<Input placeholder="Enter first name" disabled={this.state.locked} />)}
             </Form.Item>
             <Form.Item {...formItemLayout} label="Last Name">
               {getFieldDecorator('lastName', {
                 initialValue: lastName,
-                rules: [{ required: true, type: 'string', message: 'Enter last name' }],
+                rules: [
+                  {
+                    required: true,
+                    type: 'string',
+                    message: 'Enter last name',
+                    whitespace: true,
+                  },
+                ],
               })(<Input placeholder="Enter last name" disabled={this.state.locked} />)}
             </Form.Item>
             <Form.Item
