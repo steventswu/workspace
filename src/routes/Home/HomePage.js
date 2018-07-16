@@ -10,9 +10,11 @@ import aboutLogo from 'src/assets/aboutLogo.svg';
 import logo from 'src/assets/logo.svg';
 import layoutStyles from 'src/layouts/common.less';
 import { DATA } from 'src/utils/contract';
+import { translate } from 'react-i18next';
 
 import styles from './HomePage.less';
 
+@translate('home')
 @connect(({ user, loading }) => ({
   currentUser: user.email,
   isLoading: loading.models.user,
@@ -51,6 +53,7 @@ export default class HomePage extends React.Component {
       this.state.selected === DATA[1].key,
       this.state.selected === DATA[2].key,
     ];
+    const { t } = this.props;
     return (
       <Layout className={styles.layout}>
         <section className={classNames(styles.section, styles.main)}>
@@ -66,9 +69,9 @@ export default class HomePage extends React.Component {
             <Layout.Content className={styles.content}>
               <Row type="flex" justify="start" align="middle">
                 <Column offset={1}>
-                  <h1>CAP</h1>
+                  <h1>{t('title')}</h1>
                   <div className={styles.mainInfo}>
-                    <h2>The First Crypto Index Fund</h2>
+                    <h2>{t('subtitle')}</h2>
                     {/* <div>
                       <span className={styles.integer}>
                         217<span className={styles.float}>.43</span>
@@ -92,24 +95,12 @@ export default class HomePage extends React.Component {
               <img className={styles.aboutLogo} src={aboutLogo} alt="" />
             </Column>
             <Column className={styles.aboutInfo} span={12}>
-              <h3>About CAP Service</h3>
+              <h3>{t('about')}</h3>
               <ul>
-                <li>
-                  Suitable for user who are first time getting to know Digital Asset. Buying CAP can
-                  effectively avoid the risk with wide fluctuations.
-                </li>
-                <li>
-                  Selecting the cryptocurrencies which perform excellent in the market every two
-                  weeks to find the most optimal risk-reward ratio.
-                </li>
-                <li>
-                  The platform will update the currency basket from portfolio automatically and use
-                  quantitative algorithms to filter out the underperformed cyptocurrencies.
-                </li>
-                <li>
-                  Adding trailing Stop-loss system can effectively reduce the risk and lock in the
-                  profit.
-                </li>
+                {t('about_content', { returnObjects: true }).map((content, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <li key={i}>{content}</li>
+                ))}
               </ul>
             </Column>
           </Row>
@@ -133,7 +124,7 @@ export default class HomePage extends React.Component {
                 disabled
                 // onClick={this.handleClick(DATA[0])}
               >
-                Coming Soon
+                {t('coming_soon')}
               </Button>
             </Column>
             <Column className={styles.portfolioColumn} span={8}>
@@ -144,7 +135,7 @@ export default class HomePage extends React.Component {
                 size="large"
                 onClick={this.handleClick(DATA[1])}
               >
-                More Details
+                {t('more_details')}
               </Button>
             </Column>
             <Column className={styles.portfolioColumn} span={8}>
@@ -161,7 +152,7 @@ export default class HomePage extends React.Component {
                 disabled
                 // onClick={this.handleClick(DATA[2])}
               >
-                Coming Soon
+                {t('coming_soon')}
               </Button>
             </Column>
           </Row>

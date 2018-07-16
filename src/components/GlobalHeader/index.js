@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from 'antd';
 import { Link } from 'dva/router';
+import { translate } from 'react-i18next';
 
-export default function GlobalHeader({ currentUser, logo, onClick, isLoading }) {
+export default translate('header')(({ currentUser, logo, onClick, isLoading, t }) => {
   return (
     <React.Fragment>
       <Link to="/">
@@ -10,13 +11,13 @@ export default function GlobalHeader({ currentUser, logo, onClick, isLoading }) 
       </Link>
       <div style={{ float: 'right' }}>
         <Link style={{ padding: '0 15px' }} to="/">
-          Home
+          {t('home')}
         </Link>
         <Link style={{ padding: '0 15px' }} to="/performance">
-          Performance
+          {t('performance')}
         </Link>
         <Link style={{ padding: '0 15px' }} to="/buy">
-          Buy CAP
+          {t('buy_cap')}
         </Link>
         <Button
           type="primary"
@@ -24,9 +25,9 @@ export default function GlobalHeader({ currentUser, logo, onClick, isLoading }) 
           onClick={onClick}
           loading={isLoading}
         >
-          {isLoading ? '' : currentUser ? 'Profile' : 'Login'}
+          {isLoading ? '' : t(currentUser ? 'profile' : 'login')}
         </Button>
       </div>
     </React.Fragment>
   );
-}
+});
