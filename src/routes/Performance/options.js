@@ -1,3 +1,5 @@
+import i18n from 'src/i18n';
+
 // Create HighchartsReact
 export const navChartOptions = performance => ({
   chart: {
@@ -21,7 +23,7 @@ export const navChartOptions = performance => ({
   yAxis: [
     {
       title: {
-        text: 'Total Fund Value',
+        text: i18n.t('performance:total_fund_value'),
         style: {
           color: '#000',
         },
@@ -36,7 +38,7 @@ export const navChartOptions = performance => ({
     },
     {
       title: {
-        text: 'Net Asset Value',
+        text: i18n.t('performance:net_asset_value'),
         style: {
           color: '#000',
         },
@@ -84,7 +86,7 @@ export const navChartOptions = performance => ({
   },
   series: [
     {
-      name: 'Total Fund Value',
+      name: i18n.t('performance:total_fund_value'),
       data: performance.totalFundValue,
       color: {
         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
@@ -96,7 +98,7 @@ export const navChartOptions = performance => ({
       },
     },
     {
-      name: 'Net Asset Value',
+      name: i18n.t('performance:net_asset_value'),
       yAxis: 1,
       data: performance.netAssetValue,
       color: {

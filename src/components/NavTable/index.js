@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import idx from 'idx';
+import i18n from 'src/i18n';
 
 const columns = [
   {
@@ -9,7 +10,7 @@ const columns = [
     key: 'name',
   },
   {
-    title: 'R2',
+    title: i18n.t('performance:r2'),
     dataIndex: 'r2',
     key: 'r2',
   },

@@ -3,6 +3,7 @@ import { Table, Modal } from 'antd';
 import { dollar } from 'components/Charts';
 import numeral from 'numeral';
 import HighchartsReact from 'react-highcharts/ReactHighstock';
+import { translate } from 'react-i18next';
 
 const Dollar = ({ children }) => (
   <span
@@ -10,76 +11,7 @@ const Dollar = ({ children }) => (
     dangerouslySetInnerHTML={{ __html: dollar(children) }}
   />
 );
-
-const columns = [
-  {
-    title: 'Coin',
-    dataIndex: 'coin',
-    render: coin => {
-      return (
-        <div>
-          <img
-            alt="Coin"
-            src={`/color/${coin.label.toLowerCase()}.svg`}
-            style={{ width: 25, paddingRight: 5 }}
-          />
-          <span>{coin.name}</span>
-        </div>
-      );
-    },
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-  },
-  {
-    title: 'USD',
-    dataIndex: 'usd',
-    render: usd => {
-      return <Dollar>{usd}</Dollar>;
-    },
-  },
-  {
-    title: '%',
-    dataIndex: 'percent',
-  },
-  {
-    title: 'Market Cap(M)',
-    dataIndex: 'marketcap',
-    render: usd => {
-      return <Dollar>{usd}</Dollar>;
-    },
-  },
-  {
-    title: 'Price',
-    dataIndex: 'price',
-    render: usd => {
-      return <Dollar>{usd}</Dollar>;
-    },
-  },
-  {
-    title: 'Volume(24h)',
-    dataIndex: 'value24h',
-    render: usd => {
-      return <Dollar>{usd}</Dollar>;
-    },
-  },
-  {
-    title: 'Circulating Supply',
-    dataIndex: 'circulation',
-    render: value => {
-      return numeral(value).format('0,0.[0000]');
-    },
-  },
-  {
-    title: 'Change(24h)',
-    dataIndex: 'change24h',
-    render: usd => {
-      return `${usd}%`;
-    },
-  },
-];
-
+@translate('performance')
 export default class HoldingsTable extends React.PureComponent {
   state = { visible: false };
   showModal = record => {
@@ -105,17 +37,17 @@ export default class HoldingsTable extends React.PureComponent {
 
   render() {
     const { performance } = this.props;
-    const { symbol, coin } = performance;
+    const { symbol } = performance;
 
     const marketcap = [];
     const pricebtc = [];
     const priceusd = [];
     const volumeusd = [];
-    for (let i = 0; i < coin.length; i += 1) {
-      marketcap.push(coin[i].marketcap);
-      pricebtc.push(coin[i].pricebtc);
-      priceusd.push(coin[i].priceusd);
-      volumeusd.push(coin[i].volumeusd);
+    for (let i = 0; i < this.props.performance.coin.length; i += 1) {
+      marketcap.push(this.props.performance.coin[i].marketcap);
+      pricebtc.push(this.props.performance.coin[i].pricebtc);
+      priceusd.push(this.props.performance.coin[i].priceusd);
+      volumeusd.push(this.props.performance.coin[i].volumeusd);
     }
 
     // Set Options for Highstock
@@ -124,7 +56,7 @@ export default class HoldingsTable extends React.PureComponent {
         thousandsSep: ',',
       },
     });
-
+    const { t } = this.props;
     return (
       <div>
         <Table
@@ -133,7 +65,74 @@ export default class HoldingsTable extends React.PureComponent {
             // 点击行
             onClick: () => this.showModal(record),
           })}
-          columns={columns}
+          columns={[
+            {
+              title: t('coin'),
+              dataIndex: 'coin',
+              render: coin => {
+                return (
+                  <div>
+                    <img
+                      alt="Coin"
+                      src={`/color/${coin.label.toLowerCase()}.svg`}
+                      style={{ width: 25, paddingRight: 5 }}
+                    />
+                    <span>{coin.name}</span>
+                  </div>
+                );
+              },
+            },
+            {
+              title: t('amount'),
+              dataIndex: 'amount',
+            },
+            {
+              title: t('usd'),
+              dataIndex: 'usd',
+              render: usd => {
+                return <Dollar>{usd}</Dollar>;
+              },
+            },
+            {
+              title: '%',
+              dataIndex: 'percent',
+            },
+            {
+              title: t('market_cap'),
+              dataIndex: 'marketcap',
+              render: usd => {
+                return <Dollar>{usd}</Dollar>;
+              },
+            },
+            {
+              title: t('price'),
+              dataIndex: 'price',
+              render: usd => {
+                return <Dollar>{usd}</Dollar>;
+              },
+            },
+            {
+              title: t('volume'),
+              dataIndex: 'value24h',
+              render: usd => {
+                return <Dollar>{usd}</Dollar>;
+              },
+            },
+            {
+              title: t('circulating_supply'),
+              dataIndex: 'circulation',
+              render: value => {
+                return numeral(value).format('0,0.[0000]');
+              },
+            },
+            {
+              title: t('change'),
+              dataIndex: 'change24h',
+              render: usd => {
+                return `${usd}%`;
+              },
+            },
+          ]}
           dataSource={symbol}
           pagination={false}
         />
@@ -162,7 +161,7 @@ export default class HoldingsTable extends React.PureComponent {
               yAxis: [
                 {
                   title: {
-                    text: 'Market Cap',
+                    text: t('market_cap'),
                     style: {
                       color: '#FFFFFF',
                     },
@@ -179,7 +178,7 @@ export default class HoldingsTable extends React.PureComponent {
                 },
                 {
                   title: {
-                    text: 'Price (USD)',
+                    text: t('price_usd'),
                     color: '#F7931A',
                   },
                   gridLineWidth: 0,
@@ -194,7 +193,7 @@ export default class HoldingsTable extends React.PureComponent {
                 },
                 {
                   title: {
-                    text: 'Price (BTC)',
+                    text: t('price_btc'),
                   },
                   gridLineWidth: 0,
                   labels: {
@@ -208,7 +207,7 @@ export default class HoldingsTable extends React.PureComponent {
                 },
                 {
                   title: {
-                    text: '24h Vol',
+                    text: t('volume'),
                   },
                   gridLineWidth: 0,
                   labels: {
@@ -230,14 +229,14 @@ export default class HoldingsTable extends React.PureComponent {
               },
               series: [
                 {
-                  name: 'Market Cap',
+                  name: t('market_cap'),
                   data: marketcap,
                   tooltip: {
                     valueSuffix: ' USD',
                   },
                 },
                 {
-                  name: 'Price (USD)',
+                  name: t('price_usd'),
                   data: priceusd,
                   yAxis: 1,
                   tooltip: {
@@ -246,13 +245,13 @@ export default class HoldingsTable extends React.PureComponent {
                   color: '#F7931A',
                 },
                 {
-                  name: 'Price (BTC)',
+                  name: t('price_btc'),
                   data: pricebtc,
                   yAxis: 2,
                   color: '#90ED7D',
                 },
                 {
-                  name: '24h Vol',
+                  name: t('volume'),
                   data: volumeusd,
                   type: 'column',
                   tooltip: {
