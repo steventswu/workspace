@@ -1,0 +1,10 @@
+{
+  "title": "Wallet Verification",
+  "description":
+    "To link a new ethereum address, enter the address below. You can link up to 3 addresses.",
+  "wallet": {
+    "required": "Enter Wallet Address",
+    "placeholder": "Enter Wallet Address",
+    "button": "Link Address"
+  }
+}

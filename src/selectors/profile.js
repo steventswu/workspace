@@ -1,4 +1,5 @@
 import { PENDING, VERIFIED } from 'src/utils/status';
+import i18n from 'src/i18n';
 
 export const getWalletList = walletAddressMap =>
   Object.values(walletAddressMap).filter(
@@ -16,8 +17,8 @@ export const getIconType = status => {
 };
 
 export const getButtonStatus = status => {
-  if (status === PENDING) return 'Pending';
-  if (status === VERIFIED) return 'Verified';
+  if (status === PENDING) return i18n.t('common:pending');
+  if (status === VERIFIED) return i18n.t('common:verified');
 };
 
 export const isWhitelist = walletAddressMap =>

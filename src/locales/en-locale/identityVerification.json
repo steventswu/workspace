@@ -1,0 +1,35 @@
+{
+  "nationality": {
+    "label": "Nationality",
+    "required": "Must choose Nationality",
+    "placeholder": "Select Country"
+  },
+  "passport_number": {
+    "label": "Passport Number",
+    "required": "Must provide passport number",
+    "placeholder": "Enter passport number"
+  },
+  "first_name": {
+    "label": "First Name",
+    "required": "Must provide first name",
+    "placeholder": "Enter first name"
+  },
+  "last_name": {
+    "label": "Last Name",
+    "required": "Must provide last name",
+    "placeholder": "Enter last name"
+  },
+  "passport_photo": {
+    "label": "Passport Photo",
+    "description": "Supports JPEG, JPG, and PNG",
+    "required": "Must provide your passport photo",
+    "button": "Select File (25MB)"
+  },
+  "verify": "Verify",
+  "message": {
+    "submitted": "Your identity information has been submitted for verification.",
+    "pending":
+      "We have received your application. The process might take 3 - 5 working days. The confirmation mail will be sent upon the successful completion.",
+    "verified": "Your identity verification is completed."
+  }
+}

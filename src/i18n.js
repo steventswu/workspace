@@ -20,7 +20,7 @@ i18n.init({
 });
 
 supportLang.forEach(lang => {
-  import(`src/locales/${lang}`).then(locale => {
+  import(`src/locales/${lang}.js`).then(locale => {
     Object.keys(locale).forEach(ns => {
       i18n.addResourceBundle(lang, ns, locale[ns]);
     });

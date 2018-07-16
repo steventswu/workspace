@@ -1,0 +1,30 @@
+{
+  "user_profile": "User Profile",
+  "email": "Email",
+  "logout": "Logout",
+  "identity_verification": "Identity Verification",
+  "wallet_verification": "Wallet Verification",
+  "redeem": "Redeem",
+  "portfolio": {
+    "title": "Portfolio",
+    "label": "CAP Name",
+    "amount": "Amount",
+    "nav": "NAV",
+    "eth": "ETH",
+    "usd": "USD",
+    "roi": "ROI"
+  },
+  "initial_capital": "Initial Capital",
+  "total_eth": "Total Equity (ETH)",
+  "total_usd": "Total Equity (USD)",
+  "roi": "ROI",
+  "transaction_history": {
+    "title": "Transaction History",
+    "type": "Buy/Sell",
+    "label": "CAP Name",
+    "status": "Status",
+    "time": "Time",
+    "amount": "Amount"
+  },
+  "view_in_etherscan": "View in Etherscan"
+}
