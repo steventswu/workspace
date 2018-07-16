@@ -16,7 +16,7 @@
   "usd": "USD",
   "eth": "ETH",
   "unit": "unit",
-  "market_cap": "Markep CAP",
+  "market_cap": "Market CAP",
   "price": "Price",
   "price_usd": "Price (USD)",
   "price_btc": "Price (BTC)",
@@ -25,8 +25,9 @@
   "change": "Change(24h)",
   "r2": "R2",
   "beta": "Beta",
-  "Alpha": "Alpha",
+  "alpha": "Alpha",
   "sharpe_ratio": "Sharpe ratio (annualized)",
+  "bitcoin_sharpe": "Bitcoin Sharpe",
   "monthly_volatility": "Monthly Volatility",
   "bitcoin_volatility": "Bitcoin Volatility"
 }
