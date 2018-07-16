@@ -90,12 +90,14 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile/home': {
-    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/UserProfile')),
+    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/ProfileHome')),
     name: 'Profile',
     isProtected: true,
   },
   '/profile/wallet': {
-    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Wallet')),
+    component: dynamicWrapper(app, ['profile'], () =>
+      import('../routes/Profile/WalletVerification')
+    ),
     name: 'Wallet Verification',
     isProtected: true,
   },
@@ -105,7 +107,9 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile/verification': {
-    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Verification')),
+    component: dynamicWrapper(app, ['profile'], () =>
+      import('../routes/Profile/IdentityVerification')
+    ),
     name: 'Identity Verification',
     isProtected: true,
   },

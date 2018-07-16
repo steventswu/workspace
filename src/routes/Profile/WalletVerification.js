@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'dva';
 import * as profile from 'src/selectors/profile';
 
-import styles from './Wallet.less';
+import styles from './WalletVerification.less';
 
 const mapStateToProps = ({ user, loading }) => ({
   isLoading: loading.effects['user/fetchCurrent'],
@@ -13,7 +13,7 @@ const mapStateToProps = ({ user, loading }) => ({
 
 const enhancer = compose(Form.create(), connect(mapStateToProps));
 
-const Wallet = enhancer(
+const WalletVerification = enhancer(
   ({
     walletList,
     isLoading,
@@ -76,6 +76,6 @@ const Wallet = enhancer(
   )
 );
 
-Wallet.displayName = 'Wallet';
+WalletVerification.displayName = 'WalletVerification';
 
-export default Wallet;
+export default WalletVerification;

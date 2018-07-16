@@ -1,0 +1,18 @@
+{
+  "title": "Redeem Application",
+  "cap": {
+    "label": "CAP",
+    "placeholder": "Select CAP",
+    "required": "Choose CAP"
+  },
+  "address": {
+    "label": "Wallet Address",
+    "required": "Choose wallet address",
+    "placeholder": "Select wallet"
+  },
+  "amount": {
+    "label": "Amount",
+    "required": "Enter amount"
+  },
+  "submit": "Submit"
+}

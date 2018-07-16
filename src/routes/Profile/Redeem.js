@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'dva';
 import { CONTRACTS, CONTRACT } from 'src/utils/contract';
 import { getVerifiedWalletList } from 'src/selectors/profile';
+import { translate } from 'react-i18next';
 
 import styles from './Redeem.less';
 
@@ -12,18 +13,18 @@ const mapStateToProps = ({ user, loading }) => ({
   shouldLocked: loading.effects['profile/redeem'],
 });
 
-const enhancer = compose(Form.create(), connect(mapStateToProps));
+const enhancer = compose(Form.create(), connect(mapStateToProps), translate('redeem'));
 
 const Redeem = enhancer(
-  ({ walletList, shouldLocked, form: { getFieldDecorator, validateFields }, dispatch }) => (
+  ({ walletList, shouldLocked, form: { getFieldDecorator, validateFields }, dispatch, t }) => (
     <React.Fragment>
-      <h1>Redeem Application</h1>
+      <h1>{t('title')}</h1>
       <Form layout="vertical" hideRequiredMark className={styles.form}>
-        <Form.Item wrapperCol={{ span: 10 }} label="CAP">
+        <Form.Item wrapperCol={{ span: 10 }} label={t('cap.label')}>
           {getFieldDecorator('cap', {
-            rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
+            rules: [{ required: true, type: 'string', message: t('cap.required') }],
           })(
-            <Select disabled={shouldLocked} placeholder="Select CAP">
+            <Select disabled={shouldLocked} placeholder={t('cap.placeholder')}>
               {CONTRACTS.map(value => (
                 <Select.Option key={value.key} value={value.key}>
                   {CONTRACT[value.key].label}
@@ -32,17 +33,17 @@ const Redeem = enhancer(
             </Select>
           )}
         </Form.Item>
-        <Form.Item wrapperCol={{ span: 10 }} label="Wallet Address">
+        <Form.Item wrapperCol={{ span: 10 }} label={t('address.label')}>
           {getFieldDecorator('address', {
             rules: [
               {
                 required: true,
                 type: 'string',
-                message: 'Choose wallet address',
+                message: t('address.required'),
               },
             ],
           })(
-            <Select disabled={shouldLocked} placeholder="Select Wallet">
+            <Select disabled={shouldLocked} placeholder={t('address.placeholder')}>
               {walletList.map(value => (
                 <Select.Option key={value} value={value}>
                   {value}
@@ -51,12 +52,12 @@ const Redeem = enhancer(
             </Select>
           )}
         </Form.Item>
-        <Form.Item label="Amount" wrapperCol={{ span: 10 }}>
+        <Form.Item label={t('amount.label')} wrapperCol={{ span: 10 }}>
           {getFieldDecorator('amount', {
             rules: [
               {
                 required: true,
-                message: 'Enter amount',
+                message: t('amount.required'),
               },
             ],
           })(<InputNumber disabled={shouldLocked} min={0.1} step={0.1} />)}
@@ -72,7 +73,7 @@ const Redeem = enhancer(
               })
             }
           >
-            Submit
+            {t('submit')}
           </Button>
         </Form.Item>
       </Form>
