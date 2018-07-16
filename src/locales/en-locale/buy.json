@@ -1,0 +1,36 @@
+{
+  "accept_terms": "Accept Terms",
+  "accept_terms_list": [
+    "I hereby agree to the above stated Terms & Conditions",
+    "I have read and agree to Section 4 of the Terms & Conditions",
+    "I am NOT from a country in which ICO or transaction of tokens might be prohibited by laws, including but not limit to China, Japan, Korea, Hong Kong, Singapore, Taiwan, and the United States."
+  ],
+  "place_orders": "Place Orders",
+  "buy_cap": "Buy CAP",
+  "cap": {
+    "placeholder": "Select CAP",
+    "required": "Choose CAP"
+  },
+  "wallet": {
+    "label": "Your Wallet Address",
+    "placeholder": "EX:0xeccdbbcbf7e7c030f75311163ed96711e8fdbe0f",
+    "format": "Enter correct wallet address to continue"
+  },
+  "amount": {
+    "placeholder": "EX:100000000000",
+    "required": "Enter amount"
+  },
+  "continue": "Continue your purchase on DApp Browser",
+  "notice": "Note: It takes 15-20 minutes of transaction time to process your purchase.",
+  "return": "Open Profile",
+  "info": {
+    "title": "Buy Your CAP",
+    "content": [
+      "Do not send from exchange wallets.",
+      "Set gas limit to 150,000.",
+      "Send ETH to following Contract Address."
+    ],
+    "contract": "Contract Address",
+    "etherscan": "Open in Etherscan"
+  }
+}

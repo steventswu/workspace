@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import { translate } from 'react-i18next';
 import Web3 from 'src/services/Web3';
 import { CONTRACT, getEtherscanLink } from 'src/utils/contract';
 import styles from './style.less';
@@ -11,27 +12,30 @@ const stateMapper = ({ token }) => ({
 });
 
 @connect(stateMapper)
+@translate('buy')
 export default class Step3 extends React.PureComponent {
   handleReturn = () => {
     this.props.dispatch(routerRedux.replace('/profile'));
   };
 
   render() {
+    const { t } = this.props;
     const Content = ({ children }) =>
       Web3.isInstalled ? (
         <React.Fragment>
-          <h1 style={{ marginTop: 50 }}>Continue your purchase on DApp Browser</h1>
+          <h1 style={{ marginTop: 50 }}>{t('continue')}</h1>
           {children}
         </React.Fragment>
       ) : (
         <div className={styles.information}>
-          <h1>Buy Your CAP</h1>
+          <h1>{t('info.title')}</h1>
           <ul>
-            <li>Do not send from exchange wallets.</li>
-            <li>Set gas limit to 150,000.</li>
-            <li>Send ETH to following Contract Address.</li>
+            {t('info.content', { returnObjects: true }).map((content, i) => (
+              // eslint-disable-next-line
+              <li key={i}>{content}</li>
+            ))}
           </ul>
-          <h2>Contract Address</h2>
+          <h2>{t('info.contract')}</h2>
           <p className={styles.address}>{this.props.contractAddress}</p>
           <p>
             <a
@@ -39,7 +43,7 @@ export default class Step3 extends React.PureComponent {
               rel="noopener noreferrer"
               href={getEtherscanLink(this.props.contractAddress)}
             >
-              Open in Etherscan
+              {t('info.etherscan')}
             </a>
           </p>
           {children}
@@ -48,9 +52,9 @@ export default class Step3 extends React.PureComponent {
     return (
       <div className={styles.wrapper}>
         <Content>
-          <p>Note: It takes 15-20 minutes of transaction time to process your purchase.</p>
+          <p>{t('notice')}</p>
           <Button type="primary" style={{ marginTop: 50 }} onClick={this.handleReturn}>
-            Open Profile
+            {t('return')}
           </Button>
         </Content>
       </div>

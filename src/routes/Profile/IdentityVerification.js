@@ -4,9 +4,10 @@ import { COUNTRY } from 'src/utils/country';
 import { identityKey, getIdentity } from 'src/services/api';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import { translate } from 'react-i18next';
 
 import { VERIFIED, PENDING, UNVERIFIED } from 'src/utils/status';
-import styles from './Verification.less';
+import styles from './IdentityVerification.less';
 
 export const ROUTE = {
   ROOT: '/profile',
@@ -21,12 +22,14 @@ const formItemLayout = {
     span: 6,
   },
 };
+
 @Form.create()
 @connect(({ user, profile }) => ({
   currentUser: user,
   profile,
 }))
-export default class Verificatoin extends React.Component {
+@translate('identityVerification')
+export default class IdentityVerification extends React.Component {
   state = {
     fileList: [],
     locked: false,
@@ -55,7 +58,7 @@ export default class Verificatoin extends React.Component {
         this.setState({
           locked: true,
         });
-        message.info(`Your ID verifaction information has been submitted for verfication.`);
+        message.info(this.props.t('message.submitted'));
         this.props.dispatch({
           type: 'profile/validateIdentify',
           payload: { formData, formValues },
@@ -74,7 +77,7 @@ export default class Verificatoin extends React.Component {
     const unverified = isIdentityVerified === UNVERIFIED;
     const pending = isIdentityVerified === PENDING;
     const verified = isIdentityVerified === VERIFIED;
-    const { form: { getFieldDecorator } } = this.props;
+    const { form: { getFieldDecorator }, t } = this.props;
     const props = {
       accept: 'image/jpg,image/jpeg,image/png',
       onRemove: file => {
@@ -102,21 +105,21 @@ export default class Verificatoin extends React.Component {
           <React.Fragment>
             <h1>Identity Verification</h1>
             <Form layout="vertical" className={styles.form} hideRequiredMark>
-              <Form.Item {...formItemLayout} label="Nationality">
+              <Form.Item {...formItemLayout} label={t('nationality.label')}>
                 {getFieldDecorator('nationality', {
                   initialValue: nationality,
                   rules: [
                     {
                       required: true,
                       type: 'string',
-                      message: 'Choose Nationality',
+                      message: t('nationality.required'),
                       whitespace: true,
                     },
                   ],
                 })(
                   <Select
                     showSearch
-                    placeholder="Select Country"
+                    placeholder={t('nationality.placeholder')}
                     filterOption={(input, option) =>
                       option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
@@ -130,81 +133,84 @@ export default class Verificatoin extends React.Component {
                   </Select>
                 )}
               </Form.Item>
-              <Form.Item {...formItemLayout} label="Passport Number">
+              <Form.Item {...formItemLayout} label={t('passport_number.label')}>
                 {getFieldDecorator('passportNumber', {
                   initialValue: passportNumber,
                   rules: [
                     {
                       required: true,
                       type: 'string',
-                      message: 'Enter passport number',
+                      message: t('passport_number.required'),
                       whitespace: true,
                     },
                   ],
-                })(<Input placeholder="Enter passport number" disabled={this.state.locked} />)
+                })(
+                  <Input
+                    placeholder={t('passport_number.placeholder')}
+                    disabled={this.state.locked}
+                  />
+                )
                 // onKeyUp={localStorage.setItem('passportNumber', this.props.form.getFieldValue('passportNumber'))}
                 }
               </Form.Item>
-              <Form.Item {...formItemLayout} label="First Name">
+              <Form.Item {...formItemLayout} label={t('first_name.label')}>
                 {getFieldDecorator('firstName', {
                   initialValue: firstName,
                   rules: [
                     {
                       required: true,
                       type: 'string',
-                      message: 'Enter first name',
+                      message: t('first_name.required'),
                       whitespace: true,
                     },
                   ],
-                })(<Input placeholder="Enter first name" disabled={this.state.locked} />)}
+                })(
+                  <Input placeholder={t('first_name.placeholder')} disabled={this.state.locked} />
+                )}
               </Form.Item>
-              <Form.Item {...formItemLayout} label="Last Name">
+              <Form.Item {...formItemLayout} label={t('last_name.label')}>
                 {getFieldDecorator('lastName', {
                   initialValue: lastName,
                   rules: [
                     {
                       required: true,
                       type: 'string',
-                      message: 'Enter last name',
+                      message: t('last_name.required'),
                       whitespace: true,
                     },
                   ],
-                })(<Input placeholder="Enter last name" disabled={this.state.locked} />)}
+                })(<Input placeholder={t('last_name.placeholder')} disabled={this.state.locked} />)}
               </Form.Item>
               <Form.Item
                 {...formItemLayout}
-                label="Passport Photo"
-                extra="Supports JPEG, JPG, and PNG"
+                label={t('passport_photo.label')}
+                extra={t('passport_photo.description')}
               >
                 {getFieldDecorator('passportImage', {
                   initialValue: passportImage,
-                  rules: [{ required: true, message: 'Upload passport photo' }],
+                  rules: [{ required: true, message: t('passport_photo.required') }],
                 })(
                   <Upload {...props}>
                     <Button disabled={this.state.locked}>
-                      <Icon type="upload" /> Select File (25MB)
+                      <Icon type="upload" />
+                      {t('passport_photo.button')}
                     </Button>
                   </Upload>
                 )}
               </Form.Item>
               <Form.Item {...formItemLayout}>
                 <Button type="primary" onClick={this.handleFormSubmit} disabled={this.state.locked}>
-                  Verify
+                  {t('verify')}
                 </Button>
               </Form.Item>
             </Form>
           </React.Fragment>
         )}
-        {pending && (
-          <h2 className={styles.pending}>
-            We have received your application. The process might take 3 - 5 working days. The
-            confirmation mail will be sent upon the successful completion.
-          </h2>
-        )}
+        {pending && <h2 className={styles.pending}>{t('message.pending')}</h2>}
         {verified && (
           <h2 className={styles.verified}>
             <Icon type="check-circle-o" />
-            Your identity verification is completed.
+            {t('message.verified')}
           </h2>
         )}
       </div>

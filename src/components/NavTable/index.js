@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import idx from 'idx';
+import i18n from 'src/i18n';
 
 const columns = [
   {
@@ -9,17 +10,17 @@ const columns = [
     key: 'name',
   },
   {
-    title: 'R2',
+    title: i18n.t('performance:r2'),
     dataIndex: 'r2',
     key: 'r2',
   },
   {
-    title: 'Beta',
+    title: i18n.t('performance:beta'),
     dataIndex: 'beta',
     key: 'beta',
   },
   {
-    title: 'Alpha',
+    title: i18n.t('performance:aplha'),
     dataIndex: 'alpha',
     key: 'alpha',
   },
@@ -47,8 +48,8 @@ export default class NavTable extends React.PureComponent {
         r2: <span style={{ color: '#1890ff' }}>{idx(analysis[0], _ => _.r2)}</span>,
         beta: <span style={{ color: '#1890ff' }}>{idx(analysis[0], _ => _.beta)}</span>,
         alpha: <span style={{ color: '#1890ff' }}>{idx(analysis[0], _ => _.alpha)}</span>,
-        sharpe: 'Sharpe ratio (annualized)',
-        volatilty: 'Monthly Volatility',
+        sharpe: i18n.t('performance:sharpe_ratio'),
+        volatilty: i18n.t('performance:monthly_volatility'),
       },
       {
         key: '2',
@@ -67,8 +68,8 @@ export default class NavTable extends React.PureComponent {
         r2: <span style={{ color: '#1890ff' }}>{idx(analysis[2], _ => _.r2)}</span>,
         beta: <span style={{ color: '#1890ff' }}>{idx(analysis[2], _ => _.beta)}</span>,
         alpha: <span style={{ color: '#1890ff' }}>{idx(analysis[2], _ => _.alpha)}</span>,
-        sharpe: 'Bitcoin Sharpe',
-        volatilty: 'Bitcoin Volatility',
+        sharpe: i18n.t('performance:bitcoin_sharpe'),
+        volatilty: i18n.t('performance:bitcoin_volatility'),
       },
       {
         key: '4',

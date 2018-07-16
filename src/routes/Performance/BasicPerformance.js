@@ -9,11 +9,13 @@ import NumberInfo from 'components/NumberInfo';
 import Title from 'components/Title';
 import Subtitle from 'components/Subtitle';
 import NavTable from 'components/NavTable';
+import { translate } from 'react-i18next';
 import HoldingsTable from 'components/HoldingsTable';
 import { navChartOptions } from './options';
 // import idx from 'idx';
 // import moment from 'moment';
 import styles from './BasicPerformance.less';
+@translate('performance')
 @connect(({ performance }) => ({
   performance,
 }))
@@ -61,17 +63,17 @@ export default class BasicPerformance extends PureComponent {
     //     y: performance.coin[i].priceusd[1],
     //   });
     // }
-
+    const { t } = this.props;
     return (
       <Fragment>
         <section>
-          <Title title="Net Asset Value" />
+          <Title title={t('net_asset_value')} />
           <Row gutter={24}>
             <Col xl={8} style={{ marginBottom: 24 }}>
               <ChartCard
-                title="NAV"
+                title={t('nav')}
                 action={
-                  <Tooltip title="ETH">
+                  <Tooltip title={t('eth')}>
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
@@ -86,7 +88,7 @@ export default class BasicPerformance extends PureComponent {
                 >
                   <Col>
                     <NumberInfo
-                      title={<span>Historical</span>}
+                      title={<span>{t('historical')}</span>}
                       status={info['nav-historical'] < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
@@ -113,7 +115,7 @@ export default class BasicPerformance extends PureComponent {
                   </Col>
                   <Col>
                     <NumberInfo
-                      title={<span>Hour</span>}
+                      title={<span>{t('hour')}</span>}
                       status={info['nav-hour'] < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
@@ -138,7 +140,7 @@ export default class BasicPerformance extends PureComponent {
                   </Col>
                   <Col>
                     <NumberInfo
-                      title={<span>Day</span>}
+                      title={<span>{t('day')}</span>}
                       status={info['nav-day'] < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
@@ -163,7 +165,7 @@ export default class BasicPerformance extends PureComponent {
                   </Col>
                   <Col>
                     <NumberInfo
-                      title={<span>Week</span>}
+                      title={<span>{t('week')}</span>}
                       status={info['nav-week'] < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
@@ -188,7 +190,7 @@ export default class BasicPerformance extends PureComponent {
                   </Col>
                   <Col>
                     <NumberInfo
-                      title={<span>Month</span>}
+                      title={<span>{t('month')}</span>}
                       status={info['nav-month'] < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
@@ -216,9 +218,9 @@ export default class BasicPerformance extends PureComponent {
                 </Row>
               </ChartCard>
               <ChartCard
-                title="CAP Supply"
+                title={t('cap_supply')}
                 action={
-                  <Tooltip title="unit">
+                  <Tooltip title={t('unit')}>
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
@@ -231,9 +233,9 @@ export default class BasicPerformance extends PureComponent {
                 style={{ marginBottom: 24 }}
               />
               <ChartCard
-                title="Fund Size"
+                title={t('fund_size')}
                 action={
-                  <Tooltip title="ETH">
+                  <Tooltip title={t('eth')}>
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
@@ -257,8 +259,8 @@ export default class BasicPerformance extends PureComponent {
         </section>
         <section>
           <Row type="flex" justify="space-between" align="middle">
-            <Title title="Table of Holdings" />
-            <Subtitle title={`${info.ofallmarketcap} Of All Market Cap`} />
+            <Title title={t('table_of_holdings')} />
+            <Subtitle title={`${info.ofallmarketcap} ${t('of_all_market_cap')}`} />
           </Row>
           <Row gutter={24}>
             <Col style={{ marginBottom: 24 }}>
