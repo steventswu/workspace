@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Select } from 'antd';
+import { translate } from 'react-i18next';
 import Web3 from 'src/services/Web3';
 import { CONTRACTS, CONTRACT } from 'src/utils/contract';
 import styles from './style.less';
@@ -21,6 +22,7 @@ const formItemLayout = {
   data: token,
   currentUser: user,
 }))
+@translate(['buy', 'common'])
 export default class Step2 extends React.PureComponent {
   handleFormSubmit = () => {
     this.props.form.validateFields((err, values) => {
@@ -33,16 +35,16 @@ export default class Step2 extends React.PureComponent {
   };
 
   render() {
-    const { form: { getFieldDecorator }, data, currentUser } = this.props;
+    const { form: { getFieldDecorator }, data, currentUser, t } = this.props;
     return (
       <div className={styles.wrapper}>
         <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
-          <Form.Item {...formItemLayout} label="CAP">
+          <Form.Item {...formItemLayout} label={t('common:cap')}>
             {getFieldDecorator('cap', {
               initialValue: CONTRACT[data.cap].key,
-              rules: [{ required: true, type: 'string', message: 'Choose CAP' }],
+              rules: [{ required: true, type: 'string', message: t('cap.required') }],
             })(
-              <Select placeholder="Select CAP">
+              <Select placeholder={t('cap.placeholder')}>
                 {CONTRACTS.map(value => (
                   <Option key={value.key} value={value.key}>
                     {CONTRACT[value.key].label}
@@ -52,7 +54,7 @@ export default class Step2 extends React.PureComponent {
             )}
           </Form.Item>
           {Web3.isDisabled && (
-            <Form.Item {...formItemLayout} label="Your Wallet Address">
+            <Form.Item {...formItemLayout} label={t('wallet.label')}>
               {getFieldDecorator('walletAddress', {
                 initialValue: currentUser.walletAddress,
                 rules: [
@@ -60,22 +62,22 @@ export default class Step2 extends React.PureComponent {
                     required: true,
                     type: 'string',
                     pattern: /^(0x)?[0-9A-Za-z]{40}$/,
-                    message: 'Enter correct wallet address to continue',
+                    message: t('wallet.format'),
                   },
                 ],
-              })(<Input placeholder="EX:0xeccdbbcbf7e7c030f75311163ed96711e8fdbe0f" />)}
+              })(<Input placeholder={t('wallet.placeholder')} />)}
             </Form.Item>
           )}
-          <Form.Item {...formItemLayout} label="Amount">
+          <Form.Item {...formItemLayout} label={t('common:amount')}>
             {getFieldDecorator('amount', {
               initialValue: data.amount,
               rules: [
                 {
                   required: true,
-                  message: 'Enter amount',
+                  message: t('amount.required'),
                 },
               ],
-            })(<Input placeholder="EX:100000000000" />)}
+            })(<Input placeholder={t('amount.placeholder')} />)}
           </Form.Item>
           <Form.Item
             wrapperCol={{
@@ -88,7 +90,7 @@ export default class Step2 extends React.PureComponent {
             label=""
           >
             <Button type="primary" onClick={this.handleFormSubmit}>
-              Next
+              {t('common:next')}
             </Button>
           </Form.Item>
         </Form>

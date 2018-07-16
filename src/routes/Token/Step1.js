@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Form, Button, Checkbox, Row } from 'antd';
 import { routerRedux } from 'dva/router';
+import { translate } from 'react-i18next';
 import styles from './style.less';
 import Contract from './Contract';
 import { STEP } from './routes';
@@ -19,6 +20,7 @@ const formItemLayout = {
 @connect(({ token }) => ({
   checked: token.checked,
 }))
+@translate(['buy', 'common'])
 export default class Step1 extends React.PureComponent {
   onSubmit = () => {
     this.props.dispatch(routerRedux.replace(STEP[2]));
@@ -36,8 +38,9 @@ export default class Step1 extends React.PureComponent {
   };
 
   render() {
-    const { checked } = this.props;
+    const { checked, t } = this.props;
     const buttonDisabled = !checked[1] || !checked[2] || !checked[3];
+    const content = t('accept_terms_list', { returnObjects: true });
     return (
       <div className={styles.wrapper}>
         <Contract className={styles.contract} />
@@ -45,23 +48,21 @@ export default class Step1 extends React.PureComponent {
           <Form.Item {...formItemLayout}>
             <Row>
               <Checkbox id="check1" onChange={this.onClickCheck(1)} checked={checked[1]}>
-                I hereby agree to the above stated Terms & Conditions
+                {content[0]}
               </Checkbox>
             </Row>
             <Row>
               <Checkbox id="check2" onChange={this.onClickCheck(2)} checked={checked[2]}>
-                I have read and agree to Section 4 of the Terms & Conditions
+                {content[1]}
               </Checkbox>
             </Row>
             <Row>
               <Checkbox id="check3" onChange={this.onClickCheck(3)} checked={checked[3]}>
-                I am NOT from a country in which ICO or transaction of tokens might be prohibited by
-                laws, including but not limit to China, Japan, Korea, Hong Kong, Singapore, Taiwan,
-                and the United States.
+                {content[2]}
               </Checkbox>
             </Row>
             <Button type="primary" onClick={this.onSubmit} disabled={buttonDisabled}>
-              Next
+              {t('common:next')}
             </Button>
           </Form.Item>
         </Form>
