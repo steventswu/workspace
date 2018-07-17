@@ -17,13 +17,18 @@ export default function PortfolioCard({ data = {}, selected, onSelect, inactive 
         <h3>{data.description}</h3>
       </div>
       <div style={{ marginBottom: 20 }}>
-        {data.info.map(card => (
-          <PortfolioItem key={card.key} title={card.title} content={card.content} />
+        {Object.keys(data.info).map(key => (
+          <PortfolioItem key={key} title={data.info[key].title} content={data.info[key].content} />
         ))}
       </div>
       <div>
-        {data.meta.map(card => (
-          <PortfolioItem key={card.key} title={card.title} content={card.content} secondary />
+        {Object.keys(data.meta).map(key => (
+          <PortfolioItem
+            key={key}
+            title={data.meta[key].title}
+            content={data.meta[key].content}
+            secondary
+          />
         ))}
       </div>
     </Card>
