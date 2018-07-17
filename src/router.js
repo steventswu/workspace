@@ -14,9 +14,10 @@ const { ConnectedRouter } = routerRedux;
 const Loading = <Spin size="large" className={styles.globalSpin} />;
 dynamic.setDefaultLoadingComponent(() => Loading);
 
-function RouterConfig({ history, app }) {
+export default function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
   const AppLayout = routerData['/'].component;
+
   return (
     <I18nextProvider i18n={i18n}>
       <LocaleProvider locale={locale}>
@@ -34,5 +35,3 @@ function RouterConfig({ history, app }) {
     </I18nextProvider>
   );
 }
-
-export default RouterConfig;

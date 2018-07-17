@@ -5676,6 +5676,14 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
+i18next-browser-languagedetector@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-2.2.2.tgz#b2599e3e8bc8b66038010e9758c28222688df6aa"
+
+i18next-localstorage-backend@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/i18next-localstorage-backend/-/i18next-localstorage-backend-1.1.4.tgz#8305fec485a9dfccdc7f5b100b7ac8bceda65dfd"
+
 i18next@^11.3.6:
   version "11.3.6"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-11.3.6.tgz#a8e5aff413f5440b3526ebb38e1b7dc605f50faf"
