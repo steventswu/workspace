@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import qs from 'qs';
 import isWebView from 'is-webview';
-import { Alert, Icon, Spin } from 'antd';
+import { Form, Alert, Icon, Spin } from 'antd';
 import { translate } from 'react-i18next';
 import Login from 'components/Login';
 import styles from './Login.less';
@@ -70,7 +70,7 @@ export default class LoginPage extends Component {
     const { login, submitting, t } = this.props;
     const showErrorMessage = login.status && login.status !== 'ok' && !submitting;
     return (
-      <div className={styles.main}>
+      <Form.Item className={styles.main}>
         <Spin spinning={Boolean(submitting)}>
           <Login onSubmit={this.handleSubmit}>
             {showErrorMessage && login.message && this.renderMessage(login.message)}
@@ -95,11 +95,11 @@ export default class LoginPage extends Component {
                 },
               ]}
             />
-            <div>
-              <Link style={{ float: 'right' }} to="/user/forgot">
+            <Form.Item className={styles.forgot}>
+              <Link style={{ float: 'right' }} to="/user/forgot-password">
                 {t('common:forgot_password')}
               </Link>
-            </div>
+            </Form.Item>
             <Login.Submit>Submit</Login.Submit>
             <div className={styles.other}>
               <Icon
@@ -121,7 +121,7 @@ export default class LoginPage extends Component {
             </div>
           </Login>
         </Spin>
-      </div>
+      </Form.Item>
     );
   }
 }

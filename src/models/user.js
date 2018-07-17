@@ -1,6 +1,7 @@
 import { routerRedux } from 'dva/router';
 import * as api from 'src/services/api';
 import { UNVERIFIED } from 'src/utils/status';
+import { Promise } from 'core-js';
 
 export default {
   namespace: 'user',
@@ -32,6 +33,22 @@ export default {
         yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.BUY_TERMS_LOG, { walletAddress });
       } catch (e) {
         yield put({ type: 'login/logout' });
+      }
+    },
+    *forgotPassword({ payload }, { call, put }) {
+      try {
+        yield call(() => Promise.resolve(), payload.email);
+        yield put(routerRedux.replace('/user/login'));
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    *resetPassword({ payload }, { call, put }) {
+      try {
+        yield call(() => Promise.resolve(), payload.password);
+        yield put(routerRedux.replace('/user/login'));
+      } catch (error) {
+        console.error(error);
       }
     },
   },
