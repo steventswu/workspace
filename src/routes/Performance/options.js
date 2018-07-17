@@ -6,12 +6,11 @@ export const navChartOptions = performance => ({
     type: 'areaspline',
     height: '280',
     zoomType: 'x',
+    alignTicks: true,
   },
   title: null,
   xAxis: {
     type: 'datetime',
-    min: 1517414400000,
-    max: 1517419200000,
     startOnTick: false,
     endOnTick: false,
     labels: {
@@ -89,8 +88,8 @@ export const navChartOptions = performance => ({
       name: i18n.t('performance:total_fund_value'),
       data: performance.totalFundValue,
       color: {
-        linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-        stops: [[0, '#085790'], [1, '#085790']],
+        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+        stops: [[0, '#085790'], [1, 'rgba(8,87,144,0.7)']],
       },
       tooltip: {
         valuePrefix: '$',
@@ -102,8 +101,8 @@ export const navChartOptions = performance => ({
       yAxis: 1,
       data: performance.netAssetValue,
       color: {
-        linearGradient: { x1: 1, y1: 1, x2: 0, y2: 1 },
-        stops: [[0, '#AD2256'], [1, '#AD2256']],
+        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+        stops: [[0, '#AD2256'], [1, 'rgba(173,34,86,0.5)']],
       },
       tooltip: {
         valueSuffix: ' ETH',
@@ -114,6 +113,6 @@ export const navChartOptions = performance => ({
     enabled: false,
   },
   time: {
-    useUTC: false,
+    useUTC: true,
   },
 });
