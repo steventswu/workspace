@@ -23,9 +23,9 @@ function RouterConfig({ history, app }) {
         <ConnectedRouter history={history}>
           <Switch>
             <Route path="/user" component={routerData['/user'].component} />
-            <Route exact path="/exception/403" render={Exception.Unauthorized} />
-            <Route exact path="/exception/404" render={Exception.NotFound} />
-            <Route exact path="/exception/500" render={Exception.InternalError} />
+            <Route exact path="/exception/403" component={Exception.Unauthorized} />
+            <Route exact path="/exception/404" component={Exception.NotFound} />
+            <Route exact path="/exception/500" component={Exception.InternalError} />
             <Route path="/:app" render={props => <AppLayout {...props} />} />
             <Route path="/" component={routerData['/home'].component} />
           </Switch>

@@ -1,5 +1,6 @@
 import Eth from 'ethjs';
 import { CONTRACT } from 'src/utils/contract';
+import i18n from 'src/i18n';
 import tokenAbi from './abi.json';
 
 const isInstalled = !!window.web3;
@@ -10,7 +11,7 @@ let eth;
 
 const init = () => {
   if (isDisabled) {
-    throw TypeError('Not a valid DApp browser');
+    throw TypeError(i18n.t('message:web3.disabled'));
   }
   if (!eth) {
     eth = new Eth(window.web3.currentProvider);
@@ -19,12 +20,12 @@ const init = () => {
 
 const validate = async () => {
   const version = await eth.net_version();
-  if (version !== process.env.NETWORK_ID) throw TypeError('Invalid Network');
+  if (version !== process.env.NETWORK_ID) throw TypeError(i18n.t('message:web3.invalid_network'));
 };
 
 const getAccount = async () => {
   const [account] = await eth.accounts();
-  if (!account) throw TypeError('Unlock your wallet and try again');
+  if (!account) throw TypeError(i18n.t('message:web3.locked'));
   return account.toLowerCase();
 };
 

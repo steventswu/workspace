@@ -5,6 +5,7 @@ const supportLang = ['en'];
 i18n.init({
   fallbackLng: 'en',
   debug: process.env.NODE_ENV === 'development',
+  ns: ['common', 'message', 'error', 'contract'],
 
   interpolation: {
     escapeValue: false, // not needed for react!!

@@ -1,0 +1,14 @@
+{
+  "exception": {
+    "403": "Sorry, you are unauthorized to visit the page",
+    "404": "Sorry, the page you visited does not exist",
+    "500": "Oops, something went wrong with our server"
+  },
+  "code": {
+    "login": {
+      "400": "Incorrect email or password.",
+      "401": "Email is not verified. Please check your inbox.",
+      "404": "Incorrect email or password."
+    }
+  }
+}

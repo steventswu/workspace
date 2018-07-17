@@ -1,8 +1,11 @@
 {
   "next": "Next",
   "submit": "Submit",
+  "return": "Return to Home",
   "cap": "CAP",
   "amount": "Amount",
   "pending": "Pending",
-  "verified": "Verified"
+  "verified": "Verified",
+  "failure": "Failure",
+  "success": "Success"
 }

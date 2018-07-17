@@ -1,5 +1,6 @@
 import numeral from 'numeral';
 import { getEtherscanLink, LINK_TYPE, CONTRACT } from 'src/utils/contract';
+import i18n from 'src/i18n';
 
 const formatCurrency = currency => numeral(currency).format('$ 0,0.0[0000]');
 const formatAmount = amount => numeral(amount).format('0,0[.]0[0000]');
@@ -22,9 +23,9 @@ const formatTime = timestamp => {
 };
 
 const statusMapper = {
-  success: 'Success',
-  fail: 'Failure',
-  pending: 'Pending',
+  success: i18n.t('common:success'),
+  fail: i18n.t('common:failure'),
+  pending: i18n.t('common:pending'),
 };
 
 export const formatTransaction = (item, i) => ({

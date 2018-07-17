@@ -4,6 +4,7 @@ import { STEP } from 'src/routes/Token/routes';
 import Web3 from 'src/services/Web3';
 import { CAPP01, CONTRACT } from 'src/utils/contract';
 import { updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
+import i18n from 'src/i18n';
 
 const initialCheckedState = {
   1: false,
@@ -38,7 +39,7 @@ export default {
         yield put(routerRedux.replace(STEP[3]));
 
         const result = yield call(Web3.buy, { ...payload, account: walletAddress });
-        notification.success({ message: 'Transaction complete' });
+        notification.success({ message: i18n.t('message:transaction_complete') });
         yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
           contractName: CONTRACT[payload.cap].key,
           contractAddress: CONTRACT[payload.cap].address,
@@ -52,7 +53,7 @@ export default {
           return notification.error({ message: error.message });
         }
 
-        const info = { message: 'You cancel or reject the transaction' };
+        const info = { message: i18n.t('message:transaction_reject') };
 
         if (process.env.NODE_ENV !== 'production') {
           const [, description] = error.message.match(/'({.*})'/);

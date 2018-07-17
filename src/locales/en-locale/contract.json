@@ -1,0 +1,227 @@
+{
+  "capm150quant": {
+    "title": "CAPM-150Quant",
+    "type": "Managed Fund",
+    "description": "Top 150 Quant",
+    "info": {
+      "fund_size": {
+        "title": "Fund Size",
+        "content": "{{fund_size}} ETH"
+      },
+      "hard_cap": {
+        "title": "Hard Cap",
+        "content": "{{hard_cap}} ETH"
+      },
+      "soft_cap": {
+        "title": "Soft Cap",
+        "content": "{{soft_cap}} ETH"
+      },
+      "lock_up": {
+        "title": "Lock-up Period",
+        "content": "{{lock_up}} Days"
+      },
+      "price": {
+        "title": "Token Sale Price",
+        "content": "1 ETH = {{price}} CAP"
+      },
+      "fee": {
+        "title": "Platform Fee (non-refundable)",
+        "content": "{{fee}}%"
+      },
+      "bonus": {
+        "title": "Performance Bonus",
+        "content": "{{bonus}}%"
+      },
+      "comment": {
+        "content": "(only if ROI > {{roi_limit}}%)"
+      }
+    },
+    "meta": {
+      "period": {
+        "title": "Fund Raising Period",
+        "content": "{{period}} days"
+      },
+      "minimum": {
+        "title": "Minimum Investment",
+        "content": "{{minimum}} ETH"
+      },
+      "amount": {
+        "title": "Token Amount",
+        "content": "{{amount}}"
+      },
+      "comment": {
+        "title": "(Undistributed Token will be Burned)"
+      },
+      "type": {
+        "title": "Token Type",
+        "content": "ERC20"
+      },
+      "nav": {
+        "title": "Day 1 NAV",
+        "content": "{{nav}}"
+      },
+      "listed": {
+        "title": "Listed on Exchange ?",
+        "content": "in {{listed}} months"
+      },
+      "transfer": {
+        "title": "Transfer",
+        "content": "YES, after lock-up Period"
+      },
+      "currency": {
+        "title": "Buy & Redeem Currency",
+        "content": "ETH"
+      }
+    }
+  },
+  "capp13btc": {
+    "title": "CAPP-13BTC",
+    "type": "Passive Fund",
+    "description": "Top 13 index",
+    "info": {
+      "fund_size": {
+        "title": "Fund Size",
+        "content": "{{fund_size}} ETH"
+      },
+      "hard_cap": {
+        "title": "Hard Cap",
+        "content": "{{hard_cap}} ETH"
+      },
+      "soft_cap": {
+        "title": "Soft Cap",
+        "content": "{{soft_cap}} ETH"
+      },
+      "lock_up": {
+        "title": "Lock-up Period",
+        "content": "{{lock_up}} Days"
+      },
+      "price": {
+        "title": "Token Sale Price",
+        "content": "1 ETH = {{price}} CAP"
+      },
+      "fee": {
+        "title": "Platform Fee (non-refundable)",
+        "content": "{{fee}}%"
+      },
+      "bonus": {
+        "title": "Performance Bonus",
+        "content": "{{bonus}}%"
+      },
+      "comment": {
+        "content": "(only if ROI > {{roi_limit}}%)"
+      }
+    },
+    "meta": {
+      "period": {
+        "title": "Fund Raising Period",
+        "content": "{{period}} days"
+      },
+      "minimum": {
+        "title": "Minimum Investment",
+        "content": "{{minimum}} ETH"
+      },
+      "amount": {
+        "title": "Token Amount",
+        "content": "{{amount}}"
+      },
+      "comment": {
+        "title": "(Undistributed Token will be Burned)"
+      },
+      "type": {
+        "title": "Token Type",
+        "content": "ERC20"
+      },
+      "nav": {
+        "title": "Day 1 NAV",
+        "content": "{{nav}}"
+      },
+      "listed": {
+        "title": "Listed on Exchange ?",
+        "content": "in {{listed}} months"
+      },
+      "transfer": {
+        "title": "Transfer",
+        "content": "YES, after lock-up Period"
+      },
+      "currency": {
+        "title": "Buy & Redeem Currency",
+        "content": "ETH"
+      }
+    }
+  },
+  "capibtc2": {
+    "title": "CAPI-BTC2",
+    "type": "Passive Fund",
+    "description": "Inverse BTC",
+    "info": {
+      "fund_size": {
+        "title": "Fund Size",
+        "content": "{{fund_size}} ETH"
+      },
+      "hard_cap": {
+        "title": "Hard Cap",
+        "content": "{{hard_cap}} ETH"
+      },
+      "soft_cap": {
+        "title": "Soft Cap",
+        "content": "{{soft_cap}} ETH"
+      },
+      "lock_up": {
+        "title": "Lock-up Period",
+        "content": "{{lock_up}} Days"
+      },
+      "price": {
+        "title": "Token Sale Price",
+        "content": "1 ETH = {{price}} CAP"
+      },
+      "fee": {
+        "title": "Platform Fee (non-refundable)",
+        "content": "{{fee}}%"
+      },
+      "bonus": {
+        "title": "Performance Bonus",
+        "content": "{{bonus}}%"
+      },
+      "comment": {
+        "content": "(only if ROI > {{roi_limit}}%)"
+      }
+    },
+    "meta": {
+      "period": {
+        "title": "Fund Raising Period",
+        "content": "{{period}} days"
+      },
+      "minimum": {
+        "title": "Minimum Investment",
+        "content": "{{minimum}} ETH"
+      },
+      "amount": {
+        "title": "Token Amount",
+        "content": "{{amount}}"
+      },
+      "comment": {
+        "title": "(Undistributed Token will be Burned)"
+      },
+      "type": {
+        "title": "Token Type",
+        "content": "ERC20"
+      },
+      "nav": {
+        "title": "Day 1 NAV",
+        "content": "{{nav}}"
+      },
+      "listed": {
+        "title": "Listed on Exchange ?",
+        "content": "in {{listed}} months"
+      },
+      "transfer": {
+        "title": "Transfer",
+        "content": "YES, after lock-up Period"
+      },
+      "currency": {
+        "title": "Buy & Redeem Currency",
+        "content": "ETH"
+      }
+    }
+  }
+}
