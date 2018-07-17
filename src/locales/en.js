@@ -9,4 +9,5 @@ export { default as message } from './en-locale/message.json';
 export { default as performance } from './en-locale/performance.json';
 export { default as profile } from './en-locale/profile.json';
 export { default as redeem } from './en-locale/redeem.json';
+export { default as user } from './en-locale/user.json';
 export { default as walletVerification } from './en-locale/walletVerification.json';

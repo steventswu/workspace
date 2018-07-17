@@ -1,0 +1,30 @@
+{
+  "email": {
+    "placeholder": "Email",
+    "required": "Enter your email address",
+    "format": "Your email address is incorrect"
+  },
+  "password": {
+    "placeholder": "Password",
+    "required": "Enter the password",
+    "format": "Do not contain whitespace in password",
+    "tip": "Use at least 6 characters."
+  },
+  "password_strength": {
+    "strong": "Strength: Strong",
+    "medium": "Strength: Medium",
+    "weak": "Strength: Too Short"
+  },
+  "password_confirm": {
+    "placeholder": "Confirm Password",
+    "required": "Confirm your password",
+    "format": "Passwords do not match"
+  },
+  "register": {
+    "confirm": "Confirm registration",
+    "success": "Account: {{email}} is successfully registered!",
+    "success_message":
+      "You will shortly receive a confirmation email that you need to complete the activation process."
+  },
+  "go_login": "Sign in with existing account"
+}

@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Input, Button, Popover, Progress } from 'antd';
+import { translate } from 'react-i18next';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
-
-const passwordStatusMap = {
-  ok: <div className={styles.success}>Strength：Strong</div>,
-  pass: <div className={styles.warning}>Strength：Medium</div>,
-  poor: <div className={styles.error}>Strength：Too Short</div>,
-};
 
 const passwordProgressMap = {
   ok: 'success',
@@ -18,34 +13,12 @@ const passwordProgressMap = {
   poor: 'exception',
 };
 
-const emailValidator = {
-  validate: [
-    {
-      trigger: ['onChange', 'onBlur'],
-      rules: [
-        {
-          required: true,
-          message: 'Enter your email address',
-        },
-      ],
-    },
-    {
-      trigger: 'onBlur',
-      rules: [
-        {
-          type: 'email',
-          message: 'Your email address is incorrect',
-        },
-      ],
-    },
-  ],
-};
-
+@Form.create()
 @connect(({ register, loading }) => ({
   register,
   submitting: loading.effects['register/submit'],
 }))
-@Form.create()
+@translate(['user', 'common'])
 export default class Register extends Component {
   state = {
     confirmDirty: false,
@@ -83,9 +56,9 @@ export default class Register extends Component {
   };
 
   checkConfirm = (rule, value, callback) => {
-    const { form } = this.props;
+    const { form, t } = this.props;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Passwords do not match');
+      callback(t('password_confirm.format'));
     } else {
       callback();
     }
@@ -94,7 +67,7 @@ export default class Register extends Component {
   checkPassword = (rule, value, callback) => {
     if (!value) {
       this.setState({
-        passwordHelp: 'Enter the password',
+        passwordHelp: this.props.t('password.required'),
         popoverVisible: !!value,
       });
       return callback('error');
@@ -106,7 +79,7 @@ export default class Register extends Component {
     }
 
     if (value.includes(' ')) {
-      this.setState({ passwordHelp: 'Do not contain whitespace in password' });
+      this.setState({ passwordHelp: this.props.t('password.format') });
       return callback('error');
     }
 
@@ -119,6 +92,35 @@ export default class Register extends Component {
       form.validateFields(['confirm'], { force: true });
     }
     callback();
+  };
+
+  emailValidator = {
+    validate: [
+      {
+        trigger: ['onChange', 'onBlur'],
+        rules: [
+          {
+            required: true,
+            message: this.props.t('email.required'),
+          },
+        ],
+      },
+      {
+        trigger: 'onBlur',
+        rules: [
+          {
+            type: 'email',
+            message: this.props.t('email.format'),
+          },
+        ],
+      },
+    ],
+  };
+
+  passwordStatusMap = {
+    ok: <div className={styles.success}>{this.props.t('password_strength.strong')}</div>,
+    pass: <div className={styles.warning}>{this.props.t('password_strength.medium')}</div>,
+    poor: <div className={styles.error}>{this.props.t('password_strength.weak')}</div>,
   };
 
   renderPasswordProgress = () => {
@@ -139,21 +141,23 @@ export default class Register extends Component {
   };
 
   render() {
-    const { form, submitting } = this.props;
+    const { form, submitting, t } = this.props;
     const { getFieldDecorator } = form;
     return (
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
-            {getFieldDecorator('email', emailValidator)(<Input size="large" placeholder="Email" />)}
+            {getFieldDecorator('email', this.emailValidator)(
+              <Input size="large" placeholder={t('email.placeholder')} />
+            )}
           </FormItem>
           <FormItem help={this.state.passwordHelp}>
             <Popover
               content={
                 <div style={{ padding: '4px 0' }}>
-                  {passwordStatusMap[this.getPasswordStatus()]}
+                  {this.passwordStatusMap[this.getPasswordStatus()]}
                   {this.renderPasswordProgress()}
-                  <div style={{ marginTop: 10 }}>Use at least 6 characters.</div>
+                  <div style={{ marginTop: 10 }}>{t('password.tip')}</div>
                 </div>
               }
               overlayStyle={{ width: 240 }}
@@ -166,7 +170,7 @@ export default class Register extends Component {
                     validator: this.checkPassword,
                   },
                 ],
-              })(<Input size="large" type="password" placeholder="Password" />)}
+              })(<Input size="large" type="password" placeholder={t('password.placeholder')} />)}
             </Popover>
           </FormItem>
           <FormItem>
@@ -174,13 +178,15 @@ export default class Register extends Component {
               rules: [
                 {
                   required: true,
-                  message: 'Confirm your password',
+                  message: t('password_confirm.required'),
                 },
                 {
                   validator: this.checkConfirm,
                 },
               ],
-            })(<Input size="large" type="password" placeholder="Confirm Password" />)}
+            })(
+              <Input size="large" type="password" placeholder={t('password_confirm.placeholder')} />
+            )}
           </FormItem>
           <FormItem>
             <Button
@@ -190,12 +196,12 @@ export default class Register extends Component {
               type="primary"
               htmlType="submit"
             >
-              Register
+              {t('common:register')}
             </Button>
           </FormItem>
           <FormItem>
             <Link className={styles.login} to="/user/login">
-              Sign in with existing account
+              {t('go_login')}
             </Link>
           </FormItem>
         </Form>

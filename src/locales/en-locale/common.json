@@ -2,10 +2,13 @@
   "next": "Next",
   "submit": "Submit",
   "return": "Return to Home",
+  "return_to": "Return to {{route}}",
   "cap": "CAP",
   "amount": "Amount",
   "pending": "Pending",
   "verified": "Verified",
   "failure": "Failure",
-  "success": "Success"
+  "success": "Success",
+  "register": "Register",
+  "login": "Login"
 }
