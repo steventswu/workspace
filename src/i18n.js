@@ -1,8 +1,9 @@
 import i18n from 'i18next';
+import LngDetector from 'i18next-browser-languagedetector';
+import LocalStorageBackend from 'i18next-localstorage-backend';
+import * as en from 'src/locales/en';
 
-const supportLang = ['en'];
-
-i18n.init({
+const options = {
   fallbackLng: 'en',
   debug: process.env.NODE_ENV === 'development',
   ns: ['common', 'message', 'error', 'contract'],
@@ -13,19 +14,20 @@ i18n.init({
 
   // react i18next special options (optional)
   react: {
-    wait: false,
+    wait: true,
     bindI18n: 'languageChanged loaded',
     bindStore: 'added removed',
     nsMode: 'default',
   },
-});
+};
 
-supportLang.forEach(lang => {
-  import(`src/locales/${lang}.js`).then(locale => {
-    Object.keys(locale).forEach(ns => {
-      i18n.addResourceBundle(lang, ns, locale[ns]);
-    });
-  });
+i18n
+  .use(LocalStorageBackend)
+  .use(LngDetector)
+  .init(options);
+
+Object.keys(en).forEach(ns => {
+  i18n.addResourceBundle('en', ns, en[ns]);
 });
 
 export default i18n;
