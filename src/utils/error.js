@@ -1,9 +1,11 @@
+import i18n from 'src/i18n';
+
 export const formatErrorMessage = message => {
   if (message.includes('underpriced')) {
-    return 'Transaction underpriced. Try increase the gas price.';
+    return i18n.t('message:transaction_underpriced');
   }
   if (message.includes('User denied')) {
-    return 'Transaction canceled.';
+    return i18n.t('message:transaction_reject');
   }
   return 'eth-js error';
 };

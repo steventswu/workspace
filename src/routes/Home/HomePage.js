@@ -14,11 +14,11 @@ import { translate } from 'react-i18next';
 
 import styles from './HomePage.less';
 
-@translate('home')
 @connect(({ user, loading }) => ({
   currentUser: user.email,
   isLoading: loading.models.user,
 }))
+@translate('home')
 export default class HomePage extends React.Component {
   state = {
     selected: null,

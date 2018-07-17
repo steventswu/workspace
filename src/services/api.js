@@ -1,6 +1,7 @@
 import request from 'src/utils/request';
 import endpoint from 'src/utils/endpoint';
 import session from 'src/utils/session';
+import i18n from 'src/i18n';
 
 export const identityKey = 'tixguru:identity';
 
@@ -109,7 +110,7 @@ export async function validateEmailPermission(accessToken) {
   ).then(res => res.json());
   const emailPermission = data.find(i => i.permission === 'email');
   if (emailPermission.status === 'declined')
-    throw Error('You must provide email permission with Facebook login.');
+    throw Error(i18n.t('message:facebook_email_permission'));
 }
 
 export async function postWhitelist(address) {

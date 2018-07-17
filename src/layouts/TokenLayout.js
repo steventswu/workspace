@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'dva/router';
 import { Card, Steps } from 'antd';
-import NotFound from 'src/routes/Exception/404';
 import styles from './TokenLayout.less';
 
 const { Step } = Steps;
@@ -44,7 +43,7 @@ export default class TokenLayout extends React.PureComponent {
           )}
           <Switch>
             <Redirect exact from={ROUTE.ROOT} to={ROUTE.STEP1} />
-            {component ? <Route component={component} /> : <Route render={NotFound} />}
+            {component ? <Route component={component} /> : <Redirect to="/exception/404" />}
           </Switch>
         </React.Fragment>
       </Card>

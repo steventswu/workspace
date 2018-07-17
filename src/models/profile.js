@@ -13,6 +13,7 @@ import { PENDING } from 'src/utils/status';
 import { formatErrorMessage } from 'src/utils/error';
 import { getWalletList } from 'src/selectors/profile';
 import { routerRedux } from 'dva/router';
+import i18n from 'src/i18n';
 import { formatAll } from './profile.helper';
 
 export default {
@@ -49,7 +50,7 @@ export default {
         );
 
         if (walletList.includes(accountSelected)) {
-          return notification.error({ message: 'This address is already added' });
+          return notification.error({ message: i18n.t('message:message.wallet_already_exists') });
         }
 
         if (account === accountSelected) {
@@ -65,7 +66,7 @@ export default {
             },
           });
         }
-        notification.error({ message: 'Wallet address does not match' });
+        notification.error({ message: i18n.t('message:message.wallet_not_match') });
       } catch (error) {
         if (error instanceof TypeError) {
           return notification.error({ message: error.message });
@@ -90,7 +91,7 @@ export default {
         const account = yield call(Web3.getAccount);
 
         if (account.toLowerCase() !== payload.address.toLowerCase()) {
-          throw new TypeError('Wallet address does not match');
+          throw new TypeError(i18n.t('message:message.wallet_already_exists'));
         }
 
         const txHash = yield call(Web3.redeem, payload);
@@ -100,7 +101,7 @@ export default {
           transactionType: 'sell',
           transactionHash: txHash,
         });
-        notification.info({ message: 'Transaction Success', description: txHash });
+        notification.info({ message: i18n.t('message:transaction_complete'), description: txHash });
         yield put(routerRedux.replace('/profile'));
       } catch (error) {
         if (error instanceof TypeError) {

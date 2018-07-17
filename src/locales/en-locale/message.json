@@ -1,0 +1,13 @@
+{
+  "transaction_complete": "Transaction Complete",
+  "wallet_already_exists": "This address is already added",
+  "wallet_not_match": "Wallet address does not match",
+  "transaction_reject": "Transaction canceled.",
+  "transaction_underpriced": "Transaction underpriced. Try increase the gas price.",
+  "facebook_email_permission": "You must provide email permission with Facebook login.",
+  "web3": {
+    "disabled": "Not a valid DApp browser.",
+    "invalid_network": "Invalid Network.",
+    "locked": "Unlock your wallet and try again."
+  }
+}

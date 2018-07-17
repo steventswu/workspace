@@ -9,14 +9,9 @@ import Google from 'src/services/Google';
 import Twitter from 'src/services/Twitter';
 import session from 'src/utils/session';
 import redirect from 'src/utils/redirect';
+import i18n from 'src/i18n';
 
 const redirectPath = () => redirect.get() || '/';
-
-const errorMessage = {
-  400: 'Incorrect password.',
-  401: 'Email is not verified. Please check your inbox.',
-  404: 'Incorrect email account.',
-};
 
 export default {
   namespace: 'login',
@@ -47,7 +42,7 @@ export default {
           type: 'changeLoginStatus',
           payload: {
             status: 'error',
-            message: errorMessage[response.status],
+            message: i18n.t(`error:code.login.${response.status}`),
           },
         });
       }
