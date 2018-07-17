@@ -26,5 +26,6 @@
     "success_message":
       "You will shortly receive a confirmation email that you need to complete the activation process."
   },
-  "go_login": "Sign in with existing account"
+  "go_login": "Sign in with existing account",
+  "reset_password": "Reset Password"
 }
