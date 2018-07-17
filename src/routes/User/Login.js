@@ -4,6 +4,7 @@ import { Link } from 'dva/router';
 import qs from 'qs';
 import isWebView from 'is-webview';
 import { Alert, Icon, Spin } from 'antd';
+import { translate } from 'react-i18next';
 import Login from 'components/Login';
 import styles from './Login.less';
 
@@ -13,6 +14,7 @@ const facebookAppID = 2098112697085130;
   login,
   submitting: loading.models.login,
 }))
+@translate(['user', 'common'])
 export default class LoginPage extends Component {
   isBrowser = !isWebView(window.navigator.userAgent);
 
@@ -65,15 +67,34 @@ export default class LoginPage extends Component {
   };
 
   render() {
-    const { login, submitting } = this.props;
+    const { login, submitting, t } = this.props;
     const showErrorMessage = login.status && login.status !== 'ok' && !submitting;
     return (
       <div className={styles.main}>
         <Spin spinning={Boolean(submitting)}>
           <Login onSubmit={this.handleSubmit}>
-            {showErrorMessage && this.renderMessage(login.message || 'Oops! Something went wrong.')}
-            <Login.UserName name="email" placeholder="Email" />
-            <Login.Password name="password" placeholder="Password" />
+            {showErrorMessage && login.message && this.renderMessage(login.message)}
+            <Login.UserName
+              name="email"
+              placeholder={t('email.placeholder')}
+              rules={[
+                {
+                  required: true,
+                  whitespace: true,
+                  message: t('email.required'),
+                },
+              ]}
+            />
+            <Login.Password
+              name="password"
+              placeholder={t('password.placeholder')}
+              rules={[
+                {
+                  required: true,
+                  message: t('password.required'),
+                },
+              ]}
+            />
             <Login.Submit>Submit</Login.Submit>
             <div className={styles.other}>
               <Icon
@@ -90,7 +111,7 @@ export default class LoginPage extends Component {
               )}
               {/* <Icon className={styles.icon} type="twitter" onClick={this.handleTwitterLogin} /> */}
               <Link className={styles.register} to="/user/register">
-                Register
+                {t('common:register')}
               </Link>
             </div>
           </Login>
