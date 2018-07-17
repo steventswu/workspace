@@ -10,5 +10,6 @@
   "failure": "Failure",
   "success": "Success",
   "register": "Register",
-  "login": "Login"
+  "login": "Login",
+  "forgot_password": "Forgot Password"
 }

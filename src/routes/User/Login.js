@@ -95,6 +95,11 @@ export default class LoginPage extends Component {
                 },
               ]}
             />
+            <div>
+              <Link style={{ float: 'right' }} to="/user/forgot">
+                {t('common:forgot_password')}
+              </Link>
+            </div>
             <Login.Submit>Submit</Login.Submit>
             <div className={styles.other}>
               <Icon
