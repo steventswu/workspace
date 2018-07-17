@@ -48,9 +48,7 @@ export async function queryPerformance() {
 }
 
 export async function queryNavChartData() {
-  return request(`${endpoint.data}/nav-capp13btc.php`, {
-    method: 'GET',
-  });
+  return request(`${endpoint.data}/nav-cap-chart.php`, { method: 'GET' });
 }
 
 export async function queryAnalysisData() {
