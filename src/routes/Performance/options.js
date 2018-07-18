@@ -31,7 +31,7 @@ export const navChartOptions = performance => ({
       labels: {
         // eslint-disable-next-line object-shorthand, func-names
         formatter: function() {
-          return `$${this.axis.defaultLabelFormatter.call(this)}`;
+          return `${this.axis.defaultLabelFormatter.call(this)}`;
         },
       },
     },
@@ -92,8 +92,7 @@ export const navChartOptions = performance => ({
         stops: [[0, '#085790'], [1, 'rgba(8,87,144,0.7)']],
       },
       tooltip: {
-        valuePrefix: '$',
-        valueSuffix: ' USD',
+        valueSuffix: ' ETH',
       },
     },
     {
