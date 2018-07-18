@@ -72,23 +72,7 @@ export default class AppLayout extends React.PureComponent {
             />
           </Layout.Header>
           <Content className={styles.content} style={{ padding: '12px 24px', minHeight: height }}>
-            <Switch>
-              {isPublic && (
-                <Route
-                  path={this.props.match.path}
-                  render={props => <Component {...props} height={height} />}
-                />
-              )}
-              {isAuthenticated ? (
-                <Route
-                  path={this.props.match.path}
-                  render={props => <Component {...props} height={height} />}
-                />
-              ) : (
-                <Redirect to="user/login" />
-              )}
-              <Redirect to="/exception/404" />
-            </Switch>
+            {this.props.children}
           </Content>
           <Footer style={{ padding: 0 }}>
             <AppFooter />
