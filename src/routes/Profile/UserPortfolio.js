@@ -17,26 +17,9 @@ export default class ProfileHome extends React.Component {
 
   portfolioColumnMapper = col => ({ ...col, title: this.props.t(`portfolio.${col.dataIndex}`) });
 
-  transactionColumnMapper = col =>
-    col.key === 'actions'
-      ? {
-          ...col,
-          render: (_, record) => (
-            <span>
-              <a href={record.url || '#'} target="_blank">
-                {this.props.t('view_in_etherscan')}
-              </a>
-            </span>
-          ),
-        }
-      : {
-          ...col,
-          title: this.props.t(`transaction_history.${col.dataIndex}`),
-        };
-
   render() {
     const {
-      profile: { transactions, portfolio: { contracts, summary = {} } = {} },
+      profile: { portfolio: { contracts, summary = {} } = {} },
       loading,
       t,
     } = this.props;
@@ -65,12 +48,6 @@ export default class ProfileHome extends React.Component {
               </Card>
             </div>
           )}
-        />
-        <h1>{t('transaction_history.title')}</h1>
-        <Table
-          columns={column.transaction.map(this.transactionColumnMapper)}
-          dataSource={transactions}
-          loading={loading}
         />
       </React.Fragment>
     );
