@@ -13,6 +13,11 @@ const formItemLayout = {
   },
 };
 
+const sumbittedFormLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 14 },
+};
+
 @Form.create()
 @translate('identityVerification')
 export default class IdForm extends React.PureComponent {
@@ -171,10 +176,26 @@ export default class IdForm extends React.PureComponent {
         )}
         {pending && <h2 className={styles.pending}>{t('message.pending')}</h2>}
         {verified && (
-          <h2 className={styles.verified}>
-            <Icon type="check-circle-o" />
-            {t('message.verified')}
-          </h2>
+          <div>
+            <h2 className={styles.verified}>
+              <Icon type="check-circle-o" />
+              {t('message.verified')}
+            </h2>
+            <Form layout="vertical" className={styles.form} hideRequiredMark>
+              <Form.Item label={`${t('nationality.label')}:`} {...sumbittedFormLayout}>
+                <span>Taiwan</span>
+              </Form.Item>
+              <Form.Item label={`${t('passport_number.label')}:`} {...sumbittedFormLayout}>
+                <span>123456789</span>
+              </Form.Item>
+              <Form.Item label={`${t('first_name.label')}:`} {...sumbittedFormLayout}>
+                <span>{this.props.currentUser.firstName}</span>
+              </Form.Item>
+              <Form.Item label={`${t('last_name.label')}:`} {...sumbittedFormLayout}>
+                <span>{this.props.currentUser.lastName}</span>
+              </Form.Item>
+            </Form>
+          </div>
         )}
       </div>
     );
