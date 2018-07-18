@@ -71,17 +71,17 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/buy/1': {
-    component: dynamicWrapper(app, ['token'], () => import('../routes/Buy/Step1')),
+    component: dynamicWrapper(app, ['token'], () => import('src/routes/Buy/Step1')),
     name: 'Accept Terms',
     isProtected: true,
   },
   '/buy/2': {
-    component: dynamicWrapper(app, ['token'], () => import('../routes/Buy/Step2')),
+    component: dynamicWrapper(app, ['token'], () => import('src/routes/Buy/Step2')),
     name: 'Place Order',
     isProtected: true,
   },
   '/buy/3': {
-    component: dynamicWrapper(app, ['token'], () => import('../routes/Buy/Step3')),
+    component: dynamicWrapper(app, ['token'], () => import('src/routes/Buy/Step3')),
     name: 'Buy CAP',
     isProtected: true,
   },
