@@ -8,6 +8,6 @@
   "web3": {
     "disabled": "Not a valid DApp browser.",
     "invalid_network": "Invalid Network.",
-    "locked": "Unlock your wallet and try again."
+    "locked": "Unlock or login to your wallet to proceed."
   }
 }

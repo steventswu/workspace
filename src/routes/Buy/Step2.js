@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, Alert } from 'antd';
 import { translate } from 'react-i18next';
 import Web3 from 'src/services/Web3';
 import { CONTRACTS, CONTRACT } from 'src/utils/contract';
@@ -24,14 +24,33 @@ const formItemLayout = {
 }))
 @translate(['buy', 'common'])
 export default class Step2 extends React.PureComponent {
+  componentDidMount() {
+    this.loadAccount();
+  }
+
+  state = { error: false };
+
   handleFormSubmit = () => {
     this.props.form.validateFields((err, values) => {
-      if (err) return;
+      if (err || this.state.error) return;
       this.props.dispatch({
         type: Web3.isInstalled ? 'token/submitWeb3Order' : 'token/submitNormalOrder',
         payload: values,
       });
     });
+  };
+
+  loadAccount = async () => {
+    if (this.state.error) {
+      this.setState({ error: false });
+    }
+    try {
+      Web3.init();
+      const account = await Web3.getAccount();
+      this.setState({ account });
+    } catch (error) {
+      this.setState({ error: error.message || true });
+    }
   };
 
   render() {
@@ -53,9 +72,9 @@ export default class Step2 extends React.PureComponent {
               </Select>
             )}
           </Form.Item>
-          {Web3.isDisabled && (
-            <Form.Item {...formItemLayout} label={t('wallet.label')}>
-              {getFieldDecorator('walletAddress', {
+          <Form.Item {...formItemLayout} label={t('wallet.label')}>
+            {Web3.isDisabled ? (
+              getFieldDecorator('walletAddress', {
                 initialValue: currentUser.walletAddress,
                 rules: [
                   {
@@ -65,9 +84,18 @@ export default class Step2 extends React.PureComponent {
                     message: t('wallet.format'),
                   },
                 ],
-              })(<Input placeholder={t('wallet.placeholder')} />)}
-            </Form.Item>
-          )}
+              })(<Input placeholder={t('wallet.placeholder')} />)
+            ) : this.state.error ? (
+              <Alert
+                type="error"
+                message={this.state.error}
+                closeText="Reload"
+                afterClose={this.loadAccount}
+              />
+            ) : (
+              <span className="ant-form-text">{this.state.account || '...'}</span>
+            )}
+          </Form.Item>
           <Form.Item {...formItemLayout} label={t('common:amount')}>
             {getFieldDecorator('amount', {
               initialValue: data.amount,
@@ -89,7 +117,11 @@ export default class Step2 extends React.PureComponent {
             }}
             label=""
           >
-            <Button type="primary" onClick={this.handleFormSubmit}>
+            <Button
+              type="primary"
+              disabled={Boolean(this.state.error)}
+              onClick={this.handleFormSubmit}
+            >
               {t('common:next')}
             </Button>
           </Form.Item>

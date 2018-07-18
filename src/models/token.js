@@ -9,7 +9,6 @@ import i18n from 'src/i18n';
 const initialCheckedState = {
   1: false,
   2: false,
-  3: false,
 };
 
 const initialState = {
@@ -33,7 +32,6 @@ export default {
     },
     *submitWeb3Order({ payload }, { call, put }) {
       try {
-        yield call(Web3.init);
         yield call(Web3.validate);
         const walletAddress = yield call(Web3.getAccount);
         yield put(routerRedux.replace(STEP[3]));
