@@ -14,5 +14,8 @@
     "label": "Amount",
     "required": "Enter amount"
   },
-  "submit": "Submit"
+  "submit": "Submit",
+  "confirm_title": "Confirm your redeem application info:",
+  "confirm": "confirm",
+  "cancel": "Cancel"
 }

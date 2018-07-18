@@ -103,7 +103,7 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/redeem': {
-    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/Redeem')),
+    component: dynamicWrapper(app, ['user', 'profile'], () => import('src/routes/Profile/Redeem')),
     name: 'Redeem',
     isProtected: true,
   },

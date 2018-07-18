@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Select, InputNumber, Button } from 'antd';
+import { Form, Select, InputNumber, Button, Modal } from 'antd';
 import { compose } from 'redux';
 import { connect } from 'dva';
 import { CONTRACTS, CONTRACT } from 'src/utils/contract';
@@ -14,6 +14,23 @@ const mapStateToProps = ({ user, loading }) => ({
 });
 
 const enhancer = compose(Form.create(), connect(mapStateToProps), translate('redeem'));
+
+const formItemLayout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14, offset: 1 },
+  style: { marginBottom: 0 },
+};
+
+const FormData = ({ cap, amount, t }) => (
+  <Form layout="horizontal">
+    <Form.Item {...formItemLayout} label={t('cap.label')}>
+      <span className="ant-form-text">{CONTRACT[cap].label}</span>
+    </Form.Item>
+    <Form.Item {...formItemLayout} label={t('amount.label')}>
+      <span className="ant-form-text">{amount}</span>
+    </Form.Item>
+  </Form>
+);
 
 const Redeem = enhancer(
   ({ walletList, shouldLocked, form: { getFieldDecorator, validateFields }, dispatch, t }) => (
@@ -69,7 +86,15 @@ const Redeem = enhancer(
             onClick={() =>
               validateFields((err, values) => {
                 if (err) return;
-                dispatch({ type: 'profile/redeem', payload: values });
+                Modal.confirm({
+                  title: t('confirm_title'),
+                  content: <FormData {...values} t={t} />,
+                  okText: t('confirm'),
+                  cancelText: t('cancel'),
+                  onOk() {
+                    dispatch({ type: 'profile/redeem', payload: values });
+                  },
+                });
               })
             }
           >
