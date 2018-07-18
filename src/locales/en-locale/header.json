@@ -3,5 +3,10 @@
   "performance": "Performance",
   "buy_cap": "Buy CAP",
   "login": "Login",
-  "profile": "Profile"
+  "account": "My Account",
+  "profile": "Profile",
+  "portfolio": "Portfolio",
+  "transactions": "Transaction History",
+  "redeem": "Redeem",
+  "logout": "Logout"
 }

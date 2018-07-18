@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
-import { STEP } from 'src/routes/Token/routes';
+import { STEP } from 'src/routes/Buy/routes';
 import Web3 from 'src/services/Web3';
 import { CAPP01, CONTRACT } from 'src/utils/contract';
 import { updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';

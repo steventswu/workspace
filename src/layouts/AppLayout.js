@@ -47,8 +47,12 @@ export default class AppLayout extends React.PureComponent {
     return title;
   }
 
-  handleCLick = () => {
-    this.props.dispatch(routerRedux.push(this.props.currentUser ? '/profile' : '/user/login'));
+  handleLogout = () => {
+    this.props.dispatch({ type: 'login/logout' });
+  };
+
+  handleLogin = () => {
+    this.props.dispatch(routerRedux.push('/user/login'));
   };
 
   render() {
@@ -62,11 +66,12 @@ export default class AppLayout extends React.PureComponent {
           <Layout.Header>
             <GlobalHeader
               logo={logo}
-              onClick={this.handleCLick}
+              onClickLogout={this.handleLogout}
+              onClickLogin={this.handleLogin}
               currentUser={this.props.currentUser}
             />
           </Layout.Header>
-          <Content className={styles.content} style={{ padding: '0 24px', minHeight: height }}>
+          <Content className={styles.content} style={{ padding: '12px 24px', minHeight: height }}>
             <Switch>
               {isPublic && (
                 <Route
