@@ -54,78 +54,78 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => ({
   '/': {
-    component: dynamicWrapper(app, ['user'], () => import('../layouts/AppLayout')),
+    component: dynamicWrapper(app, ['user'], () => import('src/layouts/AppLayout')),
   },
   '/home': {
-    component: dynamicWrapper(app, ['user'], () => import('../routes/Home/HomePage')),
+    component: dynamicWrapper(app, ['user'], () => import('src/routes/Home/HomePage')),
   },
   '/performance': {
     component: dynamicWrapper(app, ['performance'], () =>
-      import('../routes/Performance/BasicPerformance')
+      import('src/routes/Performance/BasicPerformance')
     ),
     name: 'Performance',
     isPublic: true,
   },
   '/buy': {
-    component: dynamicWrapper(app, [], () => import('../layouts/TokenLayout')),
+    component: dynamicWrapper(app, [], () => import('src/layouts/BuyTokenLayout')),
     isProtected: true,
   },
   '/buy/1': {
-    component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step1')),
+    component: dynamicWrapper(app, ['token'], () => import('../routes/Buy/Step1')),
     name: 'Accept Terms',
     isProtected: true,
   },
   '/buy/2': {
-    component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step2')),
+    component: dynamicWrapper(app, ['token'], () => import('../routes/Buy/Step2')),
     name: 'Place Order',
     isProtected: true,
   },
   '/buy/3': {
-    component: dynamicWrapper(app, ['token'], () => import('../routes/Token/Step3')),
+    component: dynamicWrapper(app, ['token'], () => import('../routes/Buy/Step3')),
     name: 'Buy CAP',
     isProtected: true,
   },
   '/profile': {
-    component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/ProfileLayout')),
+    component: dynamicWrapper(app, ['user', 'login'], () => import('src/layouts/ProfileLayout')),
     isProtected: true,
   },
   '/profile/home': {
-    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/ProfileHome')),
+    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/ProfileHome')),
     name: 'Profile',
     isProtected: true,
   },
   '/profile/wallet': {
     component: dynamicWrapper(app, ['profile'], () =>
-      import('../routes/Profile/WalletVerification')
+      import('src/routes/Profile/WalletVerification')
     ),
     name: 'Wallet Verification',
     isProtected: true,
   },
   '/profile/redeem': {
-    component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Redeem')),
+    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/Redeem')),
     name: 'Redeem',
     isProtected: true,
   },
   '/profile/verification': {
     component: dynamicWrapper(app, ['profile'], () =>
-      import('../routes/Profile/IdentityVerification')
+      import('src/routes/Profile/IdentityVerification')
     ),
     name: 'Identity Verification',
     isProtected: true,
   },
   '/user': {
-    component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
+    component: dynamicWrapper(app, [], () => import('src/layouts/UserLayout')),
   },
   '/user/login': {
-    component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
+    component: dynamicWrapper(app, ['login'], () => import('src/routes/User/Login')),
   },
   '/user/register': {
-    component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
+    component: dynamicWrapper(app, ['register'], () => import('src/routes/User/Register')),
   },
   '/user/register-result': {
-    component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
+    component: dynamicWrapper(app, [], () => import('src/routes/User/RegisterResult')),
   },
   '/user/confirm': {
-    component: dynamicWrapper(app, ['user'], () => import('../routes/User/RegisterConfirm')),
+    component: dynamicWrapper(app, ['user'], () => import('src/routes/User/RegisterConfirm')),
   },
 });

@@ -39,7 +39,7 @@ export default class Step1 extends React.PureComponent {
 
   render() {
     const { checked, t } = this.props;
-    const buttonDisabled = !checked[1] || !checked[2] || !checked[3];
+    const buttonDisabled = checked && Object.values(checked).some(v => !v);
     const content = t('accept_terms_list', { returnObjects: true });
     return (
       <div className={styles.wrapper}>
@@ -54,11 +54,6 @@ export default class Step1 extends React.PureComponent {
             <Row>
               <Checkbox id="check2" onChange={this.onClickCheck(2)} checked={checked[2]}>
                 {content[1]}
-              </Checkbox>
-            </Row>
-            <Row>
-              <Checkbox id="check3" onChange={this.onClickCheck(3)} checked={checked[3]}>
-                {content[2]}
               </Checkbox>
             </Row>
             <Button type="primary" onClick={this.onSubmit} disabled={buttonDisabled}>

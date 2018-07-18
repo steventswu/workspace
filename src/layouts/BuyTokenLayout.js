@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'dva/router';
 import { Card, Steps } from 'antd';
-import styles from './TokenLayout.less';
+import styles from './BuyTokenLayout.less';
 
 const { Step } = Steps;
 
@@ -12,7 +12,7 @@ export const ROUTE = {
   STEP3: '/buy/3',
 };
 
-export default class TokenLayout extends React.PureComponent {
+export default class BuyTokenLayout extends React.PureComponent {
   getCurrentStep = () => {
     const { location } = this.props;
     const { pathname } = location;
