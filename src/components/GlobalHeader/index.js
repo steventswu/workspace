@@ -1,9 +1,32 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Menu, Dropdown } from 'antd';
 import { Link } from 'dva/router';
 import { translate } from 'react-i18next';
 
-export default translate('header')(({ currentUser, logo, onClick, isLoading, t }) => {
+const menuRoutes = ['profile', 'portfolio', 'transactions', 'redeem'];
+
+const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoading, t }) => {
+  const button = (
+    <Button
+      type="primary"
+      style={{ marginLeft: 8, marginRight: 15 }}
+      onClick={currentUser ? undefined : onClickLogin}
+      loading={isLoading}
+    >
+      {isLoading ? '' : t(currentUser ? 'account' : 'login')}
+    </Button>
+  );
+  const menu = (
+    <Menu onClick={e => e.key === 'logout' && onClickLogout()}>
+      {menuRoutes.map(item => (
+        <Menu.Item key={item}>
+          <Link to={`/${item}`}>{t(item)}</Link>
+        </Menu.Item>
+      ))}
+      <Menu.Divider />
+      <Menu.Item key="logout">{t('logout')}</Menu.Item>
+    </Menu>
+  );
   return (
     <React.Fragment>
       <Link to="/">
@@ -19,15 +42,16 @@ export default translate('header')(({ currentUser, logo, onClick, isLoading, t }
         <Link style={{ padding: '0 15px' }} to="/buy">
           {t('buy_cap')}
         </Link>
-        <Button
-          type="primary"
-          style={{ marginLeft: 8, marginRight: 15 }}
-          onClick={onClick}
-          loading={isLoading}
-        >
-          {isLoading ? '' : t(currentUser ? 'profile' : 'login')}
-        </Button>
+        {currentUser ? (
+          <Dropdown overlay={menu} placement="bottomCenter">
+            {button}
+          </Dropdown>
+        ) : (
+          button
+        )}
       </div>
     </React.Fragment>
   );
-});
+};
+
+export default translate('header')(GlobalHeader);

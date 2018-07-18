@@ -32,12 +32,12 @@ export default class HomePage extends React.Component {
     }
   }
 
-  handleLogin = () => {
-    this.props.dispatch(routerRedux.push('/user/login'));
+  handleLogout = () => {
+    this.props.dispatch({ type: 'login/logout' });
   };
 
-  handleHeaderClick = () => {
-    this.props.dispatch(routerRedux.push(this.props.currentUser ? '/profile' : '/user/login'));
+  handleLogin = () => {
+    this.props.dispatch(routerRedux.push('/user/login'));
   };
 
   handleSelect = selected => {
@@ -60,7 +60,8 @@ export default class HomePage extends React.Component {
                 <GlobalHeader
                   logo={logo}
                   currentUser={this.props.currentUser}
-                  onClick={this.handleHeaderClick}
+                  onClickLogout={this.handleLogout}
+                  onClickLogin={this.handleLogin}
                   isLoading={this.props.isLoading}
                 />
               </Layout.Header>

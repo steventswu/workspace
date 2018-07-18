@@ -54,10 +54,10 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => ({
   '/': {
-    component: dynamicWrapper(app, ['user'], () => import('src/layouts/AppLayout')),
+    component: dynamicWrapper(app, ['user', 'login'], () => import('src/layouts/AppLayout')),
   },
   '/home': {
-    component: dynamicWrapper(app, ['user'], () => import('src/routes/Home/HomePage')),
+    component: dynamicWrapper(app, ['user', 'login'], () => import('src/routes/Home/HomePage')),
   },
   '/performance': {
     component: dynamicWrapper(app, ['performance'], () =>
@@ -86,24 +86,32 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile': {
-    component: dynamicWrapper(app, ['user', 'login'], () => import('src/layouts/ProfileLayout')),
+    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/UserProfile')),
+    name: 'Profile',
     isProtected: true,
   },
-  '/profile/home': {
-    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/ProfileHome')),
-    name: 'Profile',
+  '/portfolio': {
+    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/UserPortfolio')),
+    name: 'Portfolio',
+    isProtected: true,
+  },
+  '/transactions': {
+    component: dynamicWrapper(app, ['profile'], () =>
+      import('src/routes/Profile/TransactionHistory')
+    ),
+    name: 'Transaction History',
+    isProtected: true,
+  },
+  '/redeem': {
+    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/Redeem')),
+    name: 'Redeem',
     isProtected: true,
   },
   '/profile/wallet': {
     component: dynamicWrapper(app, ['profile'], () =>
-      import('src/routes/Profile/WalletVerification')
+      import('../routes/Profile/WalletVerification')
     ),
     name: 'Wallet Verification',
-    isProtected: true,
-  },
-  '/profile/redeem': {
-    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/Redeem')),
-    name: 'Redeem',
     isProtected: true,
   },
   '/profile/verification': {
