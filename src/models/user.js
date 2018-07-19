@@ -43,7 +43,7 @@ export default {
         console.error(error);
       }
     },
-    *resetPassword({ payload }, { call, put }) {
+    *changePassword({ payload }, { call, put }) {
       try {
         yield call(() => Promise.resolve(), payload.password);
         yield put(routerRedux.replace('/user/login'));

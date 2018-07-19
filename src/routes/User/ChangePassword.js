@@ -12,13 +12,15 @@ const passwordProgressMap = {
   poor: 'exception',
 };
 
+const fields = ['password', 'confirm'];
+
 @Form.create()
 @connect(({ register, loading }) => ({
   register,
   submitting: loading.effects['register/submit'],
 }))
 @translate(['user', 'common'])
-export default class Register extends Component {
+export default class ChangePassword extends Component {
   state = {
     confirmDirty: false,
     popoverVisible: false,
@@ -42,7 +44,7 @@ export default class Register extends Component {
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (err) return;
       this.props.dispatch({
-        type: 'user/resetPassword',
+        type: 'user/changePassword',
         payload: values,
       });
     });
@@ -86,7 +88,7 @@ export default class Register extends Component {
     }
 
     const { form } = this.props;
-    if (value && this.state.confirmDirty) {
+    if (value) {
       form.validateFields(['confirm'], { force: true });
     }
     callback();
@@ -117,7 +119,9 @@ export default class Register extends Component {
 
   render() {
     const { form, submitting, t } = this.props;
-    const { getFieldDecorator } = form;
+    const { getFieldDecorator, getFieldsError, isFieldTouched } = form;
+    const hasError = Object.values(getFieldsError(fields)).some(Boolean);
+    const isUntouched = fields.some(f => !isFieldTouched(f));
     return (
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
@@ -134,17 +138,24 @@ export default class Register extends Component {
               placement="right"
               visible={this.state.popoverVisible}
             >
-              {getFieldDecorator('password', {
+              {getFieldDecorator(fields[0], {
                 rules: [
                   {
                     validator: this.checkPassword,
                   },
                 ],
-              })(<Input size="large" type="password" placeholder={t('password.placeholder')} />)}
+              })(
+                <Input
+                  size="large"
+                  autoComplete="new-password"
+                  type="password"
+                  placeholder={t('password.placeholder')}
+                />
+              )}
             </Popover>
           </FormItem>
           <FormItem>
-            {getFieldDecorator('confirm', {
+            {getFieldDecorator(fields[1], {
               rules: [
                 {
                   required: true,
@@ -155,7 +166,12 @@ export default class Register extends Component {
                 },
               ],
             })(
-              <Input size="large" type="password" placeholder={t('password_confirm.placeholder')} />
+              <Input
+                size="large"
+                autoComplete="new-password"
+                type="password"
+                placeholder={t('password_confirm.placeholder')}
+              />
             )}
           </FormItem>
           <FormItem>
@@ -163,10 +179,11 @@ export default class Register extends Component {
               size="large"
               loading={submitting}
               className={styles.submit}
+              disabled={hasError || isUntouched}
               type="primary"
               htmlType="submit"
             >
-              {t('reset_password')}
+              {t('common:change_password')}
             </Button>
           </FormItem>
         </Form>
