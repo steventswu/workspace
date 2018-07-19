@@ -42,9 +42,7 @@ export async function postEmailVerification(token) {
 }
 
 export async function queryPerformance() {
-  return request(`${endpoint.data}/tg-cap.php?q=13`, {
-    method: 'GET',
-  });
+  return request(`${endpoint.data}/tg-cap2.php?q=13`, { method: 'GET' });
 }
 
 export async function queryNavChartData() {

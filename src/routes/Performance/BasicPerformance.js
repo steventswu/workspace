@@ -33,6 +33,9 @@ export default class BasicPerformance extends PureComponent {
     this.props.dispatch({
       type: 'performance/fetchAnalysisData',
     });
+    setInterval(() => {
+      this.props.dispatch({ type: 'performance/fetchPerformance' });
+    }, 5 * 60 * 1000);
   }
 
   handleRowClick = record => {
