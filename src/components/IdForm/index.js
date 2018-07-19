@@ -71,7 +71,6 @@ export default class IdForm extends React.PureComponent {
       <div>
         {unverified && (
           <React.Fragment>
-            <h1>Identity Verification</h1>
             <Form layout="vertical" className={styles.form} hideRequiredMark>
               <Form.Item {...formItemLayout} label={t('nationality.label')}>
                 {getFieldDecorator('nationality', {
@@ -174,7 +173,11 @@ export default class IdForm extends React.PureComponent {
             </Form>
           </React.Fragment>
         )}
-        {pending && <h2 className={styles.pending}>{t('message.pending')}</h2>}
+        {pending && (
+          <div>
+            <h2 className={styles.pending}>{t('message.pending')}</h2>
+          </div>
+        )}
         {verified && (
           <div>
             <h2 className={styles.verified}>
@@ -183,10 +186,10 @@ export default class IdForm extends React.PureComponent {
             </h2>
             <Form layout="vertical" className={styles.form} hideRequiredMark>
               <Form.Item label={`${t('nationality.label')}:`} {...sumbittedFormLayout}>
-                <span>Taiwan</span>
+                <span>{this.props.currentUser.nationality}</span>
               </Form.Item>
               <Form.Item label={`${t('passport_number.label')}:`} {...sumbittedFormLayout}>
-                <span>123456789</span>
+                <span>{this.props.currentUser.passportNumber}</span>
               </Form.Item>
               <Form.Item label={`${t('first_name.label')}:`} {...sumbittedFormLayout}>
                 <span>{this.props.currentUser.firstName}</span>
