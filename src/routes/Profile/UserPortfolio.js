@@ -1,55 +1,85 @@
 import React from 'react';
-import { Table, Card } from 'antd';
+import { Table } from 'antd';
 import { connect } from 'dva';
 import { translate } from 'react-i18next';
 import styles from './ProfileHome.less';
 import column from './ProfileHome.json';
 
 @connect(({ profile, loading }) => ({
-  profile,
-  loading: loading.effects['profile/fetch'],
+  portfolio: profile.portfolio,
+  loading: loading.effects['profile/fetchPortfolio'],
 }))
 @translate('profile')
-export default class ProfileHome extends React.Component {
+export default class UserPortfolio extends React.Component {
   componentDidMount() {
-    this.props.dispatch({ type: 'profile/fetch' });
+    this.props.dispatch({ type: 'profile/fetchPortfolio' });
   }
 
   portfolioColumnMapper = col => ({ ...col, title: this.props.t(`portfolio.${col.dataIndex}`) });
 
   render() {
-    const {
-      profile: { portfolio: { contracts, summary = {} } = {} },
-      loading,
-      t,
-    } = this.props;
-    return (
-      <React.Fragment>
-        <h1>{t('portfolio.title')}</h1>
+    const { portfolio, loading, t } = this.props;
+
+    let tableContent = (
+      <Table
+        style={{ marginBottom: 50 }}
+        key="empty"
+        columns={column.portfolio.map(this.portfolioColumnMapper)}
+        loading={
+          portfolio.length === 0
+            ? loading || {
+                indicator: <h2 className={styles.indicator}>{t('empty_text')}</h2>,
+              }
+            : false
+        }
+        pagination={false}
+        scroll={{ x: 1000 }}
+        locale={{ emptyText: '' }}
+        title={() => <h2>{t('portfolio.wallet_address', { address: '-----' })}</h2>}
+        footer={() => (
+          <ul>
+            <li>{t('initial_capital')}: </li>
+            <li>{t('total_eth')}: </li>
+            <li>{t('roi')}: </li>
+          </ul>
+        )}
+      />
+    );
+
+    if (portfolio.length) {
+      tableContent = portfolio.map(data => (
         <Table
+          style={{ marginBottom: 50 }}
+          key={data.walletAddress}
           columns={column.portfolio.map(this.portfolioColumnMapper)}
-          dataSource={contracts}
+          dataSource={data.contracts}
           loading={loading}
           pagination={false}
           scroll={{ x: 1000 }}
+          locale={{ emptyText: t('empty_text') }}
+          title={() => <h2>{t('portfolio.wallet_address', { address: data.walletAddress })}</h2>}
           footer={() => (
-            <div className={styles.summary}>
-              <Card title={t('initial_capital')} bordered={false} style={{ width: 202 }}>
-                <span>{summary.amount}</span>
-              </Card>
-              <Card title={t('total_eth')} bordered={false} style={{ width: 200 }}>
-                <span>{summary.eth}</span>
-              </Card>
-              <Card title={t('total_usd')} bordered={false} style={{ width: 200 }}>
-                <span>{summary.usd}</span>
-              </Card>
-              <Card title={t('roi')} bordered={false} style={{ width: 100 }}>
-                <span>{summary.roi}</span>
-              </Card>
-            </div>
+            <ul>
+              <li>
+                {t('initial_capital')}: {data.summary.amount}
+              </li>
+              <li>
+                {t('total_eth')}: {data.summary.eth}
+              </li>
+              <li>
+                {t('roi')}: {data.summary.roi}
+              </li>
+            </ul>
           )}
         />
-      </React.Fragment>
+      ));
+    }
+
+    return (
+      <div className={styles.portfolio}>
+        <h1>{t('portfolio.title')}</h1>
+        {tableContent}
+      </div>
     );
   }
 }
