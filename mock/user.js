@@ -2,7 +2,7 @@ export const userData = {
   id: '1',
   firstName: 'Tix',
   lastName: 'Guru',
-  email: 'shawn@tixguru.co',
+  email: 'me@tixguru.co',
   walletAddressMap: {
     '0x44f525741cf549b26999ee6eb2f3e5e710d3bee4': {
       walletAddress: '0x44f525741cf549b26999ee6eb2f3e5e710d3bee4',
