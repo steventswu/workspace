@@ -9,6 +9,14 @@ export async function fetchPortfolio() {
   });
 }
 
+export async function fetchTransactions() {
+  const { jwt } = session.get();
+  return request('/api/v2/members/transactions', {
+    method: 'GET',
+    headers: { authorization: jwt },
+  });
+}
+
 export async function fetchProfile() {
   const { jwt } = session.get();
   return request('/api/v2/members/profile', {

@@ -1,5 +1,6 @@
 import mockjs from 'mockjs';
 import { portfolioData } from './mock/portfolio';
+import { transactionsData } from './mock/transactions';
 import { userData } from './mock/user';
 import { format, delay } from 'roadhog-api-doc';
 
@@ -15,6 +16,7 @@ const randomPick = (data, empty) => {
 const proxy = {
   'GET /api/members/:memberId': (req, res) => res.send({ ...userData, id: req.params.memberId }),
   'GET /api/v2/members/portfolio': (req, res) => res.send(randomPick(portfolioData, [])),
+  'GET /api/v2/members/transactions': (req, res) => res.send(transactionsData),
   'POST /api/v2/members/identity-verification': {},
   'POST /api/v2/members/whitelist/add': {},
 };

@@ -5,13 +5,13 @@ import { translate } from 'react-i18next';
 import column from './ProfileHome.json';
 
 @connect(({ profile, loading }) => ({
-  profile,
-  loading: loading.effects['profile/fetch'],
+  transactions: profile.transactions,
+  loading: loading.effects['profile/fetchTransactions'],
 }))
 @translate('profile')
 export default class ProfileHome extends React.Component {
   componentDidMount() {
-    this.props.dispatch({ type: 'profile/fetch' });
+    this.props.dispatch({ type: 'profile/fetchTransactions' });
   }
 
   transactionColumnMapper = col =>
@@ -32,7 +32,7 @@ export default class ProfileHome extends React.Component {
         };
 
   render() {
-    const { profile: { transactions }, loading, t } = this.props;
+    const { transactions, loading, t } = this.props;
     return (
       <React.Fragment>
         <h1>{t('transaction_history.title')}</h1>

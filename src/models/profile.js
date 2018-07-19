@@ -9,7 +9,7 @@ import { formatErrorMessage } from 'src/utils/error';
 import { getWalletList } from 'src/selectors/profile';
 import { routerRedux } from 'dva/router';
 import i18n from 'src/i18n';
-import { formatAll, formatPortfolio } from './profile.helper';
+import * as format from './profile.helper';
 
 export default {
   namespace: 'profile',
@@ -27,7 +27,7 @@ export default {
         if (response.error) return;
         yield put({
           type: 'show',
-          payload: formatAll(response),
+          payload: format.all(response),
         });
       } catch (error) {
         yield put(routerRedux.replace('/'));
@@ -39,7 +39,19 @@ export default {
         if (response.error) return;
         yield put({
           type: 'show',
-          payload: formatPortfolio(response),
+          payload: format.portfolio(response),
+        });
+      } catch (error) {
+        yield put(routerRedux.replace('/'));
+      }
+    },
+    *fetchTransactions(_, { call, put }) {
+      try {
+        const response = yield call(api.fetchTransactions);
+        if (response.error) return;
+        yield put({
+          type: 'show',
+          payload: format.transactions(response),
         });
       } catch (error) {
         yield put(routerRedux.replace('/'));

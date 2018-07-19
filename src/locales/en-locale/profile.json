@@ -22,6 +22,7 @@
   "transaction_history": {
     "title": "Transaction History",
     "type": "Buy/Sell",
+    "address": "Wallet Address",
     "label": "CAP Name",
     "status": "Status",
     "time": "Time",

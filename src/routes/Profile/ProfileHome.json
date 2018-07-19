@@ -27,6 +27,10 @@
       "dataIndex": "type"
     },
     {
+      "title": "Wallet Address",
+      "dataIndex": "address"
+    },
+    {
       "title": "CAP Name",
       "dataIndex": "label"
     },

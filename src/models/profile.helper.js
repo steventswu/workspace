@@ -31,6 +31,7 @@ const statusMapper = {
 export const formatTransaction = (item, i) => ({
   key: item.transactionHash + i,
   type: item.transactionType.toUpperCase(),
+  address: item.walletAddress,
   label: CONTRACT[item.contractName].label,
   status: statusMapper[item.transactionStatus],
   time: item.timestamp ? formatTime(item.timestamp * 1000) : '---',
@@ -38,7 +39,7 @@ export const formatTransaction = (item, i) => ({
   url: getEtherscanLink(item.transactionHash, LINK_TYPE.transaction),
 });
 
-export const formatPortfolio = response =>
+export const portfolio = response =>
   Array.isArray(response)
     ? {
         portfolio: response.map(item => ({
@@ -62,7 +63,11 @@ export const formatPortfolio = response =>
       }
     : [];
 
-export const formatAll = response => ({
+export const transactions = response => ({
+  transactions: response.sort(sortByTimestamp).map(formatTransaction),
+});
+
+export const all = response => ({
   portfolio: {
     summary: [
       {
