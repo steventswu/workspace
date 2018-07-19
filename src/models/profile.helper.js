@@ -43,14 +43,12 @@ export const formatPortfolio = response =>
     ? {
         portfolio: response.map(item => ({
           walletAddress: item.walletAddress,
-          summary: [
-            {
-              amount: formatAmount(item.summary.amount),
-              eth: formatAmount(item.summary.eth),
-              usd: formatCurrency(item.summary.usd),
-              roi: formatPercentage(item.summary.roi),
-            },
-          ],
+          summary: {
+            amount: formatAmount(item.summary.amount),
+            eth: formatAmount(item.summary.eth),
+            usd: formatCurrency(item.summary.usd),
+            roi: formatPercentage(item.summary.roi),
+          },
           contracts: item.contracts.map(contract => ({
             key: contract.name,
             label: CONTRACT[contract.name].label,

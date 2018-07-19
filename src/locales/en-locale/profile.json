@@ -12,7 +12,8 @@
     "nav": "NAV",
     "eth": "ETH",
     "usd": "USD",
-    "roi": "ROI"
+    "roi": "ROI",
+    "wallet_address": "Wallet Address: {{address}}"
   },
   "initial_capital": "Initial Capital",
   "total_eth": "Total Equity (ETH)",
@@ -26,5 +27,7 @@
     "time": "Time",
     "amount": "Amount"
   },
-  "view_in_etherscan": "View in Etherscan"
+  "view_in_etherscan": "View in Etherscan",
+  "empty_text":
+    "Please conduct the identity and wallet verification, if you want to view the contents"
 }

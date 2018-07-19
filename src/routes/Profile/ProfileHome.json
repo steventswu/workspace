@@ -10,23 +10,15 @@
     },
     {
       "title": "NAV",
-      "dataIndex": "nav",
-      "width": 202
+      "dataIndex": "nav"
     },
     {
       "title": "ETH",
-      "dataIndex": "eth",
-      "width": 200
-    },
-    {
-      "title": "USD",
-      "dataIndex": "usd",
-      "width": 200
+      "dataIndex": "eth"
     },
     {
       "title": "ROI",
-      "dataIndex": "roi",
-      "width": 100
+      "dataIndex": "roi"
     }
   ],
   "transaction": [

@@ -1,25 +1,26 @@
-@import '~antd/lib/style/themes/default.less';
-
-:global(.ant-table-footer) {
-  padding: initial;
-  background: initial;
-}
-
-.summary {
-  display: flex;
-  justify-content: flex-end;
-
-  :global(.ant-card-head) {
-    padding-left: @padding-md;
-    padding-right: @padding-md;
-    background: @background-color-light;
+.portfolio {
+  :global(.ant-table-footer) {
+    padding: initial;
+    background: initial;
+    border-radius: initial;
+    position: initial;
+    border-top: initial;
+    float: right;
+    margin-top: 20px;
+    margin-right: 5%;
   }
 
-  :global(.ant-card-head-title) {
-    font-size: @font-size-base;
+  :global(.ant-table-title) {
+    padding-left: 8px;
+    padding-bottom: 0;
   }
 
-  :global(.ant-card-body) {
-    padding: @padding-md;
+  .indicator {
+    width: 100%;
+    left: 0 !important;
+  }
+
+  :global(.ant-spin-blur) {
+    filter: blur(5px);
   }
 }
