@@ -38,14 +38,42 @@ export const formatTransaction = (item, i) => ({
   url: getEtherscanLink(item.transactionHash, LINK_TYPE.transaction),
 });
 
+export const formatPortfolio = response =>
+  Array.isArray(response)
+    ? {
+        portfolio: response.map(item => ({
+          walletAddress: item.walletAddress,
+          summary: [
+            {
+              amount: formatAmount(item.summary.amount),
+              eth: formatAmount(item.summary.eth),
+              usd: formatCurrency(item.summary.usd),
+              roi: formatPercentage(item.summary.roi),
+            },
+          ],
+          contracts: item.contracts.map(contract => ({
+            key: contract.name,
+            label: CONTRACT[contract.name].label,
+            amount: formatAmount(contract.amount),
+            nav: formatAmount(contract.nav),
+            eth: formatAmount(contract.eth),
+            usd: formatCurrency(contract.usd),
+            roi: formatPercentage(contract.roi),
+          })),
+        })),
+      }
+    : [];
+
 export const formatAll = response => ({
   portfolio: {
-    summary: {
-      amount: formatAmount(response.portfolio.summary.amount),
-      eth: formatAmount(response.portfolio.summary.eth),
-      usd: formatCurrency(response.portfolio.summary.usd),
-      roi: formatPercentage(response.portfolio.summary.roi),
-    },
+    summary: [
+      {
+        amount: formatAmount(response.portfolio.summary.amount),
+        eth: formatAmount(response.portfolio.summary.eth),
+        usd: formatCurrency(response.portfolio.summary.usd),
+        roi: formatPercentage(response.portfolio.summary.roi),
+      },
+    ],
     contracts: Object.keys(response.portfolio.contracts).map(label => ({
       key: label,
       label: CONTRACT[label].label,

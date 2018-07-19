@@ -1,38 +1,45 @@
 import { notification } from 'antd';
 
 import Web3 from 'src/services/Web3';
-import {
-  queryProfile,
-  updateIdentity,
-  updateMember,
-  UPDATE_MEMBER_TYPE,
-  postWhitelist,
-} from 'src/services/api';
+import { updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
+import * as api from 'src/services/profile';
 import { CONTRACT } from 'src/utils/contract';
 import { PENDING } from 'src/utils/status';
 import { formatErrorMessage } from 'src/utils/error';
 import { getWalletList } from 'src/selectors/profile';
 import { routerRedux } from 'dva/router';
 import i18n from 'src/i18n';
-import { formatAll } from './profile.helper';
+import { formatAll, formatPortfolio } from './profile.helper';
 
 export default {
   namespace: 'profile',
 
   state: {
     transactions: [],
-    portfolio: {},
+    portfolio: [],
     identity: {},
   },
 
   effects: {
-    *fetch(_, { call, put }) {
+    *fetchProfile(_, { call, put }) {
       try {
-        const response = yield call(queryProfile);
+        const response = yield call(api.fetchProfile);
         if (response.error) return;
         yield put({
           type: 'show',
           payload: formatAll(response),
+        });
+      } catch (error) {
+        yield put(routerRedux.replace('/'));
+      }
+    },
+    *fetchPortfolio(_, { call, put }) {
+      try {
+        const response = yield call(api.fetchPortfolio);
+        if (response.error) return;
+        yield put({
+          type: 'show',
+          payload: formatPortfolio(response),
         });
       } catch (error) {
         yield put(routerRedux.replace('/'));
@@ -74,10 +81,10 @@ export default {
       }
     },
     *submitWalletValidation({ payload }, { call }) {
-      yield call(postWhitelist, payload.account);
+      yield call(api.addWhitelist, payload.account);
     },
     *validateIdentify({ payload }, { call, put }) {
-      const identity = yield call(updateIdentity, payload.formData);
+      const identity = yield call(api.updateIdentity, payload.formData);
       if (identity.error) return;
       yield put({
         type: 'saveIdentity',

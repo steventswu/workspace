@@ -21,17 +21,6 @@ export default {
   disableDynamicImport: false,
   publicPath: '/',
   hash: true,
-  proxy: {
-    '/api': {
-      target: 'http://cap-stage.tixguru.co',
-      changeOrigin: true,
-    },
-    '/data': {
-      target: 'http://coinhub.capital/cob/api',
-      changeOrigin: true,
-      pathRewrite: { '^/data': '' },
-    },
-  },
   define: {
     'process.env.TWITTER_SECRET': process.env.TWITTER_SECRET,
     'process.env.CAPP01': process.env.CAPP01,
