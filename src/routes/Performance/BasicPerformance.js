@@ -104,14 +104,16 @@ export default class BasicPerformance extends PureComponent {
                       }
                     />
                     <NumberInfo
-                      status={info['nav-historical-pct'] < 0 ? 'down' : 'up'}
+                      status={parseFloat(info['nav-historical-pct']) < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
                           className={
-                            info['nav-historical-pct'] < 0 ? styles.subtotalDown : styles.subtotalUp
+                            parseFloat(info['nav-historical-pct']) < 0
+                              ? styles.subtotalDown
+                              : styles.subtotalUp
                           }
                         >
-                          {info['nav-historical-pct']}
+                          {info['nav-historical-pct']}%
                         </span>
                       }
                     />
@@ -129,14 +131,16 @@ export default class BasicPerformance extends PureComponent {
                       }
                     />
                     <NumberInfo
-                      status={info['nav-hour-pct'] < 0 ? 'down' : 'up'}
+                      status={parseFloat(info['nav-hour-pct']) < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
                           className={
-                            info['nav-hour-pct'] < 0 ? styles.subtotalDown : styles.subtotalUp
+                            parseFloat(info['nav-hour-pct']) < 0
+                              ? styles.subtotalDown
+                              : styles.subtotalUp
                           }
                         >
-                          {info['nav-hour-pct']}
+                          {info['nav-hour-pct']}%
                         </span>
                       }
                     />
@@ -154,14 +158,16 @@ export default class BasicPerformance extends PureComponent {
                       }
                     />
                     <NumberInfo
-                      status={info['nav-day-pct'] < 0 ? 'down' : 'up'}
+                      status={parseFloat(info['nav-day-pct']) < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
                           className={
-                            info['nav-day-pct'] < 0 ? styles.subtotalDown : styles.subtotalUp
+                            parseFloat(info['nav-day-pct']) < 0
+                              ? styles.subtotalDown
+                              : styles.subtotalUp
                           }
                         >
-                          {info['nav-day-pct']}
+                          {info['nav-day-pct']}%
                         </span>
                       }
                     />
@@ -186,7 +192,7 @@ export default class BasicPerformance extends PureComponent {
                             info['nav-week-pct'] < 0 ? styles.subtotalDown : styles.subtotalUp
                           }
                         >
-                          {info['nav-week-pct']}
+                          {info['nav-week-pct']}%
                         </span>
                       }
                     />
@@ -206,14 +212,16 @@ export default class BasicPerformance extends PureComponent {
                       }
                     />
                     <NumberInfo
-                      status={info['nav-month-pct'] < 0 ? 'down' : 'up'}
+                      status={parseFloat(info['nav-month-pct']) < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
                           className={
-                            info['nav-month-pct'] < 0 ? styles.subtotalDown : styles.subtotalUp
+                            parseFloat(info['nav-month-pct']) < 0
+                              ? styles.subtotalDown
+                              : styles.subtotalUp
                           }
                         >
-                          {info['nav-month-pct']}
+                          {info['nav-month-pct']}%
                         </span>
                       }
                     />
