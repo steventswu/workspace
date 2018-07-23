@@ -41,7 +41,7 @@ export default {
           payload: format.portfolio(response),
         });
       } catch (error) {
-        yield put(routerRedux.replace('/'));
+        console.error(error.message);
       }
     },
     *fetchTransactions(_, { call, put }) {
@@ -50,10 +50,10 @@ export default {
         if (response.error) return;
         yield put({
           type: 'show',
-          payload: format.transactions(response),
+          payload: format.transactions(response.transactions),
         });
       } catch (error) {
-        yield put(routerRedux.replace('/'));
+        console.error(error.message);
       }
     },
     *validateWallet({ payload }, { call, put, select }) {

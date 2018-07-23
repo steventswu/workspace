@@ -25,7 +25,7 @@ const proxy = {
 const mock = {
   'GET /api/members/:memberId': (req, res) => res.send({ ...userData, id: req.params.memberId }),
   'GET /api/v2/members/portfolio': (req, res) => res.send(randomPick(portfolioData, [])),
-  'GET /api/v2/members/transactions': (req, res) => res.send(transactionsData),
+  'GET /api/v2/members/transactions': (req, res) => res.send(randomPick(transactionsData, [])),
   'POST /api/v2/members/identity-verification': {},
   'POST /api/v2/members/whitelist/add': {},
   'POST /api/v2/members/forgot-password': forwardToStaging,
