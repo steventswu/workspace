@@ -28,11 +28,14 @@ export default class UserProfile extends React.Component {
   componentDidMount() {
     this.props.dispatch({ type: 'profile/fetch' });
   }
-
+  state = { activeKey: '1' };
+  handlePanelChange = activeKey => {
+    if (!activeKey.length) return;
+    this.setState({ activeKey: activeKey.filter(k => k !== this.setState.activeKey).pop() });
+  };
   handleButtonClick = () => {
     this.props.dispatch(routerRedux.push('/user/change-password'));
   };
-
   handleOnClick = values => {
     const formData = new FormData();
     const passFile = values.passportImage;
@@ -69,7 +72,11 @@ export default class UserProfile extends React.Component {
     const verified = isIdentityVerified === VERIFIED;
     return (
       <React.Fragment>
-        <Collapse accordion bordered={false} defaultActiveKey={['1']}>
+        <Collapse
+          activeKey={[this.state.activeKey]}
+          onChange={this.handlePanelChange}
+          bordered={false}
+        >
           <Collapse.Panel header={<h1>{t('user_profile')}</h1>} key="1">
             <div className={styles.email}>
               {t('email')}
