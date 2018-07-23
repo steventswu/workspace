@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { translate } from 'react-i18next';
 import Result from 'components/Result';
-import styles from './RegisterResult.less';
+import styles from './LoginResult.less';
 
 @connect(({ loading }) => ({
   loading: loading.effects['user.verifyEmail'],
