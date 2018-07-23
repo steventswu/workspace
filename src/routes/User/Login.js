@@ -39,7 +39,7 @@ export default class LoginPage extends Component {
   handleSubmit = (err, values) => {
     if (err) return;
     this.props.dispatch({
-      type: 'login/login',
+      type: 'login/email',
       payload: values,
     });
   };

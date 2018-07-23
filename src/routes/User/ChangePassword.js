@@ -17,7 +17,7 @@ const fields = ['password', 'confirm'];
 @Form.create()
 @connect(({ register, loading }) => ({
   register,
-  submitting: loading.effects['register/submit'],
+  submitting: loading.effects['user/changePassword'],
 }))
 @translate(['user', 'common'])
 export default class ChangePassword extends Component {

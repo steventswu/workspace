@@ -40,7 +40,7 @@ export default class IdentityVerification extends React.PureComponent {
     });
     setTimeout(() => {
       this.props.dispatch({
-        type: 'user/fetchCurrent',
+        type: 'auth/fetchMember',
       });
       this.props.dispatch(routerRedux.push(ROUTE.VERIFICATION));
     }, 1000);

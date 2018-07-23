@@ -7,7 +7,7 @@ import * as profile from 'src/selectors/profile';
 import styles from './WalletVerification.less';
 
 const mapStateToProps = ({ user, loading }) => ({
-  isLoading: loading.effects['user/fetchCurrent'],
+  isLoading: loading.effects['auth/fetchMember'],
   walletList: profile.getWalletList(user.walletAddressMap),
 });
 
@@ -62,7 +62,7 @@ const WalletVerification = enhancer(
               <Button
                 style={{ width: 120 }}
                 type="dashed"
-                onClick={() => dispatch({ type: 'user/fetchCurrent' })}
+                onClick={() => dispatch({ type: 'auth/fetchMember' })}
               >
                 <Icon type={profile.getIconType(item.isVerified)} style={{ marginRight: 5 }} />
                 {profile.getButtonStatus(item.isVerified)}

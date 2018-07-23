@@ -1,7 +1,6 @@
 import { routerRedux } from 'dva/router';
-import * as api from 'src/services/api';
+import * as api from 'src/services/members';
 import { UNVERIFIED } from 'src/utils/status';
-import { Promise } from 'core-js';
 
 export default {
   namespace: 'user',
@@ -9,35 +8,34 @@ export default {
   state: {},
 
   effects: {
-    *fetchCurrent(_, { call, put }) {
+    *register({ payload }, { call, put }) {
       try {
-        const response = yield call(api.queryCurrent);
-        yield put({ type: 'save', payload: response });
-      } catch (e) {
-        console.warn(e.message);
-      }
-    },
-    *verifyEmail({ payload }, { call, put }) {
-      const { error } = yield call(api.postEmailVerification, payload);
-      if (error) {
-        yield put(routerRedux.replace('/user/login'));
+        yield call(api.createMember, {
+          email: payload.email,
+          password: btoa(payload.password),
+        });
+        yield put(
+          routerRedux.push({ pathname: '/user/register-result', state: { email: payload.email } })
+        );
+      } catch (error) {
+        console.error(error);
       }
     },
     *updateInfo({ payload: { walletAddress } }, { call, put }) {
       try {
-        yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.WALLET_ADDRESS, { walletAddress });
+        yield call(api.updateMemberWallet, { walletAddress });
         yield put({
           type: 'saveWalletAddress',
           payload: { walletAddress, isVerified: UNVERIFIED },
         });
-        yield call(api.updateMember, api.UPDATE_MEMBER_TYPE.BUY_TERMS_LOG, { walletAddress });
+        yield call(api.updateMemberLog, { walletAddress });
       } catch (e) {
         yield put({ type: 'login/logout' });
       }
     },
     *forgotPassword({ payload }, { call, put }) {
       try {
-        yield call(() => Promise.resolve(), payload.email);
+        yield call(api.forgotPassword, payload);
         yield put(routerRedux.replace('/user/login'));
       } catch (error) {
         console.error(error);
@@ -45,7 +43,7 @@ export default {
     },
     *changePassword({ payload }, { call, put }) {
       try {
-        yield call(() => Promise.resolve(), payload.password);
+        yield call(api.updateMemberPassword, payload.password);
         yield put(routerRedux.replace('/user/login'));
       } catch (error) {
         console.error(error);

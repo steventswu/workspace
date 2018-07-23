@@ -1,8 +1,7 @@
 import { notification } from 'antd';
 
 import Web3 from 'src/services/Web3';
-import { updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
-import * as api from 'src/services/profile';
+import * as api from 'src/services/members';
 import { CONTRACT } from 'src/utils/contract';
 import { PENDING } from 'src/utils/status';
 import { formatErrorMessage } from 'src/utils/error';
@@ -114,7 +113,7 @@ export default {
         }
 
         const txHash = yield call(Web3.redeem, payload);
-        yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
+        yield call(api.updateMemberTransactions, {
           contractName: CONTRACT[payload.cap].key,
           contractAddress: CONTRACT[payload.cap].address,
           transactionType: 'sell',

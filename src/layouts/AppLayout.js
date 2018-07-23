@@ -21,7 +21,7 @@ const { Content, Footer } = Layout;
 export default class AppLayout extends React.PureComponent {
   componentDidMount() {
     if (!this.props.currentUser) {
-      this.props.dispatch({ type: 'user/fetchCurrent' });
+      this.props.dispatch({ type: 'auth/fetchMember' });
     }
     redirect.set(this.props.match.url);
   }

@@ -20,7 +20,7 @@ const ROUTE = {
   email: user.email,
   profile,
   loading: loading.effects['profile/fetch'],
-  isLoading: loading.effects['user/fectchCurrent'],
+  isLoading: loading.effects['auth/fetchMember'],
   walletList: userProfile.getWalletList(user.walletAddressMap),
 }))
 @translate(['profile', 'common'])
@@ -55,7 +55,7 @@ export default class UserProfile extends React.Component {
     });
     setTimeout(() => {
       this.props.dispatch({
-        type: 'user/fetchCurrent',
+        type: 'auth/fetchMember',
       });
       this.props.dispatch(routerRedux.push(ROUTE.VERIFICATION));
     }, 1000);
@@ -135,7 +135,7 @@ export default class UserProfile extends React.Component {
                     <Button
                       style={{ width: 120 }}
                       type="dashed"
-                      onClick={() => this.props.dispatch({ type: 'user/fetchCurrent' })}
+                      onClick={() => this.props.dispatch({ type: 'auth/fetchMember' })}
                     >
                       <Icon
                         type={userProfile.getIconType(item.isVerified)}

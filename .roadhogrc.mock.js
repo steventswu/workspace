@@ -12,6 +12,8 @@ const randomPick = (data, empty) => {
   return empty;
 };
 
+const forwardToStaging = 'http://cap-stage.tixguru.co/';
+
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
   'GET /api/members/:memberId': (req, res) => res.send({ ...userData, id: req.params.memberId }),
@@ -19,6 +21,8 @@ const proxy = {
   'GET /api/v2/members/transactions': (req, res) => res.send(transactionsData),
   'POST /api/v2/members/identity-verification': {},
   'POST /api/v2/members/whitelist/add': {},
+  'POST /api/v2/members/forgot-password': forwardToStaging,
+  'POST /api/v2/members/password': {},
   'POST /api/members/*': {},
   'POST /api/members': {},
   'POST /api/normal_token': (req, res) => {
