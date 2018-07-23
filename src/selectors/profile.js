@@ -2,9 +2,11 @@ import { PENDING, VERIFIED } from 'src/utils/status';
 import i18n from 'src/i18n';
 
 export const getWalletList = walletAddressMap =>
-  Object.values(walletAddressMap).filter(
-    w => w.isVerified === PENDING || w.isVerified === VERIFIED
-  );
+  walletAddressMap
+    ? Object.values(walletAddressMap).filter(
+        w => w.isVerified === PENDING || w.isVerified === VERIFIED
+      )
+    : [];
 
 export const getVerifiedWalletList = walletAddressMap =>
   Object.values(walletAddressMap)

@@ -29,7 +29,15 @@ const mock = {
   'POST /api/v2/members/identity-verification': {},
   'POST /api/v2/members/whitelist/add': {},
   'POST /api/v2/members/forgot-password': forwardToStaging,
-  'POST /api/v2/members/password': {},
+  'PATCH /api/v2/members/password': (req, res) => {
+    if (req.body.oldPassword !== 'MTIzNDU2') {
+      return res.status(400).send('輸入錯誤舊密碼');
+    }
+    if (req.body.oldPassword === req.body.newPassword) {
+      return res.status(422).send('密碼不可以和之前的一樣');
+    }
+    res.send({});
+  },
   'POST /api/members/*': {},
   'POST /api/members': {},
   'POST /api/normal_token': (req, res) => {
@@ -39,10 +47,10 @@ const mock = {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZW1iZXJJZCI6IjVhZmUzYzgxZmM4MTg3MDAwMWZiN2MxMyIsImVtYWlsIjoicHJAdGl4Z3VydS5jbyIsImV4cCI6MTUzMjU5NTc2OCwiaWF0IjoxNTMxOTkwOTY4fQ.-ByniA95v40QRMlwNC-C0R-6OtznpimGS8HDSwZzf8k',
           memberId: '5afe3c81fc81870001fb7c13',
         })
-      : res.status(404).end();
+      : res.status(404).send({});
   },
   'POST /api/google_token': {},
   'POST /api/facebook_token': {},
 };
 
-export default (noMock ? proxy : delay(mock, 3000));
+export default (noMock ? proxy : delay(mock, 1000));

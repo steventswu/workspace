@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Popover, Progress } from 'antd';
+import { Form, Input, Button, Popover, Progress, Alert } from 'antd';
 import { translate } from 'react-i18next';
 import styles from './Register.less';
 
@@ -15,8 +15,8 @@ const passwordProgressMap = {
 const fields = ['oldPassword', 'newPassword', 'confirm'];
 
 @Form.create()
-@connect(({ register, loading }) => ({
-  register,
+@connect(({ user, loading }) => ({
+  errorMessage: user.errorMessage,
   submitting: loading.effects['user/changePassword'],
 }))
 @translate(['user', 'common'])
@@ -41,6 +41,8 @@ export default class ChangePassword extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({ popoverVisible: false });
+    this.resetErrorMessage();
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (err) return;
       this.props.dispatch({
@@ -117,14 +119,30 @@ export default class ChangePassword extends Component {
     ) : null;
   };
 
+  resetErrorMessage = () => {
+    this.props.dispatch({ type: 'user/resetErrorMessage' });
+  };
+
+  renderAlertMessage = content => (
+    <Alert
+      style={{ marginBottom: 24 }}
+      message={content}
+      type="error"
+      showIcon
+      closable
+      afterClose={this.resetErrorMessage}
+    />
+  );
+
   render() {
-    const { form, submitting, t } = this.props;
+    const { form, submitting, t, errorMessage } = this.props;
     const { getFieldDecorator, getFieldsError, isFieldTouched } = form;
     const hasError = Object.values(getFieldsError(fields)).some(Boolean);
     const isUntouched = fields.some(f => !isFieldTouched(f));
     return (
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
+          {errorMessage && this.renderAlertMessage(errorMessage)}
           <FormItem>
             {getFieldDecorator(fields[0], {
               rules: [

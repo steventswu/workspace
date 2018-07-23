@@ -2,6 +2,7 @@ import { routerRedux } from 'dva/router';
 import * as api from 'src/services/members';
 import { UNVERIFIED } from 'src/utils/status';
 import i18n from 'src/i18n';
+import session from 'src/utils/session';
 
 export default {
   namespace: 'user',
@@ -39,17 +40,23 @@ export default {
     },
     *forgotPassword({ payload }, { call, put }) {
       try {
-        yield call(api.forgotPassword, payload);
-        yield put(
-          routerRedux.push({
-            pathname: '/user/result',
-            state: {
-              email: payload.email,
-              type: 'reset',
-              link: { to: '/user/login', route: i18n.t('common:login') },
-            },
-          })
-        );
+        const { error, status } = yield call(api.forgotPassword, payload);
+        if (!error) {
+          return yield put(
+            routerRedux.push({
+              pathname: '/user/result',
+              state: {
+                email: payload.email,
+                type: 'reset',
+                link: { to: '/user/login', route: i18n.t('common:login') },
+              },
+            })
+          );
+        }
+        yield put({
+          type: 'save',
+          payload: { errorMessage: i18n.t(`error:code.forgot_password.${status}`) },
+        });
       } catch (error) {
         console.error(error);
       }
@@ -60,8 +67,15 @@ export default {
           oldPassword: btoa(payload.oldPassword),
           newPassword: btoa(payload.newPassword),
         };
-        yield call(api.updateMemberPassword, params);
-        yield put(routerRedux.replace('/user/login'));
+        const { error, status } = yield call(api.updateMemberPassword, params);
+        if (!error) {
+          yield put(routerRedux.replace('/user/login'));
+          return session.destroy();
+        }
+        yield put({
+          type: 'save',
+          payload: { errorMessage: i18n.t(`error:code.change_password.${status}`) },
+        });
       } catch (error) {
         console.error(error);
       }
@@ -83,6 +97,11 @@ export default {
           [action.payload.walletAddress]: action.payload,
         },
       };
+    },
+    resetErrorMessage(state) {
+      const newState = { ...state };
+      delete newState.errorMessage;
+      return newState;
     },
     destroy() {
       return {};

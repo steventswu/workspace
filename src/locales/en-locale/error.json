@@ -9,6 +9,13 @@
       "400": "Incorrect email or password.",
       "401": "Email is not verified. Please check your inbox.",
       "404": "Incorrect email or password."
+    },
+    "forgot_password": {
+      "422": "Forgot password request quota only once a day."
+    },
+    "change_password": {
+      "400": "Incorrect password.",
+      "422": "New password cannot be the same as before."
     }
   }
 }

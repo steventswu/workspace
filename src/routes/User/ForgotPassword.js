@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Alert } from 'antd';
 import { translate } from 'react-i18next';
 import styles from './Register.less';
 
@@ -13,6 +13,7 @@ const FormItem = Form.Item;
 export default class ForgotPassword extends Component {
   handleSubmit = e => {
     e.preventDefault();
+    this.resetErrorMessage();
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (err) return;
       this.props.dispatch({
@@ -22,12 +23,28 @@ export default class ForgotPassword extends Component {
     });
   };
 
+  resetErrorMessage = () => {
+    this.props.dispatch({ type: 'user/resetErrorMessage' });
+  };
+
+  renderAlertMessage = content => (
+    <Alert
+      style={{ marginBottom: 24 }}
+      message={content}
+      type="error"
+      showIcon
+      closable
+      afterClose={this.resetErrorMessage}
+    />
+  );
+
   render() {
-    const { form, submitting, t } = this.props;
+    const { form, submitting, t, errorMessage } = this.props;
     const { getFieldDecorator } = form;
     return (
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
+          {errorMessage && this.renderAlertMessage(errorMessage)}
           <FormItem>
             {getFieldDecorator('email', this.emailValidator)(
               <Input size="large" placeholder={t('email.placeholder')} />
