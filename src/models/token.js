@@ -3,7 +3,7 @@ import { routerRedux } from 'dva/router';
 import { STEP } from 'src/routes/Buy/routes';
 import Web3 from 'src/services/Web3';
 import { CAPP01, CONTRACT } from 'src/utils/contract';
-import { updateMember, UPDATE_MEMBER_TYPE } from 'src/services/api';
+import { updateMemberTransactions } from 'src/services/members';
 import i18n from 'src/i18n';
 
 const initialCheckedState = {
@@ -38,7 +38,7 @@ export default {
 
         const result = yield call(Web3.buy, { ...payload, account: walletAddress });
         notification.success({ message: i18n.t('message:transaction_complete') });
-        yield call(updateMember, UPDATE_MEMBER_TYPE.TRANSACTION, {
+        yield call(updateMemberTransactions, {
           contractName: CONTRACT[payload.cap].key,
           contractAddress: CONTRACT[payload.cap].address,
           transactionType: 'buy',

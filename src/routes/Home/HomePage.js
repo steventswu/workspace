@@ -18,7 +18,7 @@ import styles from './HomePage.less';
 
 @connect(({ user, loading }) => ({
   currentUser: user.email,
-  isLoading: loading.models.user,
+  isLoading: loading.models.auth,
 }))
 @translate('home')
 export default class HomePage extends React.Component {
@@ -28,7 +28,7 @@ export default class HomePage extends React.Component {
 
   componentDidMount() {
     if (!this.props.currentUser) {
-      this.props.dispatch({ type: 'user/fetchCurrent' });
+      this.props.dispatch({ type: 'auth/fetchMember' });
     }
   }
 

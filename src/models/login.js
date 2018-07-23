@@ -1,10 +1,5 @@
 import { routerRedux } from 'dva/router';
-import {
-  getAuthInfo,
-  identityKey,
-  validateFacebookToken,
-  validateEmailPermission,
-} from 'src/services/api';
+import * as api from 'src/services/auth';
 import Google from 'src/services/Google';
 import Twitter from 'src/services/Twitter';
 import session from 'src/utils/session';
@@ -32,8 +27,8 @@ export default {
       }
       yield put(routerRedux.replace(path));
     },
-    *login({ payload }, { call, put }) {
-      const response = yield call(getAuthInfo, 'normal', {
+    *email({ payload }, { call, put }) {
+      const response = yield call(api.authenticate, 'normal', {
         email: payload.email,
         password: btoa(payload.password),
       });
@@ -50,8 +45,7 @@ export default {
     },
     *logout(_, { put }) {
       try {
-        session.destroy();
-        localStorage.removeItem(identityKey);
+        localStorage.clear();
       } finally {
         yield put({
           type: 'changeLoginStatus',
@@ -67,7 +61,7 @@ export default {
     *google(_, { call, put }) {
       try {
         const info = yield call(Google.getAccessToken);
-        const result = yield call(getAuthInfo, 'google', info);
+        const result = yield call(api.authenticate, 'google', info);
         yield put({ type: 'redirect', payload: result });
       } catch (error) {
         yield put({
@@ -78,9 +72,9 @@ export default {
     },
     *facebook({ payload }, { call, put }) {
       try {
-        yield call(validateEmailPermission, payload.access_token);
-        const info = yield call(validateFacebookToken, payload.access_token);
-        const result = yield call(getAuthInfo, 'facebook', info);
+        yield call(api.validateEmailPermission, payload.access_token);
+        const info = yield call(api.validateFacebookToken, payload.access_token);
+        const result = yield call(api.authenticate, 'facebook', info);
         yield put({ type: 'redirect', payload: result });
       } catch (e) {
         yield put({
@@ -96,7 +90,7 @@ export default {
     *twitter({ payload }, { call, put }) {
       try {
         const info = yield call(Twitter.getAccessToken, payload);
-        const result = yield call(getAuthInfo, 'twitter', info);
+        const result = yield call(api.authenticate, 'twitter', info);
         yield put({ type: 'redirect', payload: result, force: true });
       } catch (e) {
         yield put({

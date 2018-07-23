@@ -16,7 +16,7 @@ const passwordProgressMap = {
 @Form.create()
 @connect(({ register, loading }) => ({
   register,
-  submitting: loading.effects['register/submit'],
+  submitting: loading.effects['user/register'],
 }))
 @translate(['user', 'common'])
 export default class Register extends Component {
@@ -43,7 +43,7 @@ export default class Register extends Component {
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'register/submit',
+          type: 'user/register',
           payload: values,
         });
       }
