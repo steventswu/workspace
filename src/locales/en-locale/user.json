@@ -14,7 +14,8 @@
     "placeholder": "Old Password"
   },
   "new_password": {
-    "placeholder": "New Password"
+    "placeholder": "New Password",
+    "format": "New password cannot be the same as the old."
   },
   "password_strength": {
     "strong": "Strength: Strong",

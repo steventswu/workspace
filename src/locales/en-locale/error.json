@@ -15,7 +15,7 @@
     },
     "change_password": {
       "400": "Incorrect password.",
-      "422": "New password cannot be the same as before."
+      "422": "New password cannot be the same as the old."
     }
   }
 }

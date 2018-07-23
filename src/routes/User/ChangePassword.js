@@ -72,25 +72,31 @@ export default class ChangePassword extends Component {
         passwordHelp: this.props.t('password.required'),
         popoverVisible: !!value,
       });
-      return callback('error');
+      return callback('required');
     }
 
     this.setState({ passwordHelp: '' });
     if (!this.state.popoverVisible) {
-      this.setState({ popoverVisible: !!value });
+      this.setState({ popoverVisible: true });
     }
 
     if (value.includes(' ')) {
       this.setState({ passwordHelp: this.props.t('password.format') });
-      return callback('error');
+      return callback('password.format');
     }
 
     if (value.length < 6) {
-      return callback('error');
+      return callback('length');
     }
 
     const { form } = this.props;
-    if (value) {
+
+    if (value === form.getFieldValue(fields[0])) {
+      this.setState({ passwordHelp: this.props.t('new_password.format') });
+      return callback('new_password.format');
+    }
+
+    if (value && form.isFieldTouched(fields[2])) {
       form.validateFields([fields[2]], { force: true });
     }
     callback();
@@ -133,6 +139,8 @@ export default class ChangePassword extends Component {
       afterClose={this.resetErrorMessage}
     />
   );
+
+  hidePopover = () => this.setState({ popoverVisible: false });
 
   render() {
     const { form, submitting, t, errorMessage } = this.props;
@@ -185,6 +193,7 @@ export default class ChangePassword extends Component {
                   autoComplete="new-password"
                   type="password"
                   placeholder={t('new_password.placeholder')}
+                  onBlur={this.hidePopover}
                 />
               )}
             </Popover>
