@@ -25,22 +25,15 @@ export default class UserPortfolio extends React.Component {
         style={{ marginBottom: 50 }}
         key="empty"
         columns={column.portfolio.map(this.portfolioColumnMapper)}
-        loading={
-          portfolio.length === 0
-            ? loading || {
-                indicator: <h2 className={styles.indicator}>{t('empty_text')}</h2>,
-              }
-            : false
-        }
         pagination={false}
         scroll={{ x: 1000 }}
-        locale={{ emptyText: '' }}
+        locale={{ emptyText: t('empty_text') }}
         title={() => <h2>{t('portfolio.wallet_address', { address: '-----' })}</h2>}
         footer={() => (
           <ul>
-            <li>{t('initial_capital')}: </li>
-            <li>{t('total_eth')}: </li>
-            <li>{t('roi')}: </li>
+            <li>{t('initial_capital')}: ---</li>
+            <li>{t('total_eth')}: ---</li>
+            <li>{t('roi')}: ---</li>
           </ul>
         )}
       />
