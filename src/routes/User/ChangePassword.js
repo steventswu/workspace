@@ -12,7 +12,7 @@ const passwordProgressMap = {
   poor: 'exception',
 };
 
-const fields = ['password', 'confirm'];
+const fields = ['oldPassword', 'newPassword', 'confirm'];
 
 @Form.create()
 @connect(({ register, loading }) => ({
@@ -29,7 +29,7 @@ export default class ChangePassword extends Component {
 
   getPasswordStatus = () => {
     const { form } = this.props;
-    const value = form.getFieldValue('password');
+    const value = form.getFieldValue(fields[1]);
     if (value && value.length > 9) {
       return 'ok';
     }
@@ -57,7 +57,7 @@ export default class ChangePassword extends Component {
 
   checkConfirm = (rule, value, callback) => {
     const { form, t } = this.props;
-    if (value && value !== form.getFieldValue('password')) {
+    if (value && value !== form.getFieldValue(fields[1])) {
       callback(t('password_confirm.format'));
     } else {
       callback();
@@ -89,7 +89,7 @@ export default class ChangePassword extends Component {
 
     const { form } = this.props;
     if (value) {
-      form.validateFields(['confirm'], { force: true });
+      form.validateFields([fields[2]], { force: true });
     }
     callback();
   };
@@ -102,7 +102,7 @@ export default class ChangePassword extends Component {
 
   renderPasswordProgress = () => {
     const { form } = this.props;
-    const value = form.getFieldValue('password');
+    const value = form.getFieldValue(fields[1]);
     const passwordStatus = this.getPasswordStatus();
     return value && value.length ? (
       <div className={styles[`progress-${passwordStatus}`]}>
@@ -125,6 +125,23 @@ export default class ChangePassword extends Component {
     return (
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
+          <FormItem>
+            {getFieldDecorator(fields[0], {
+              rules: [
+                {
+                  required: true,
+                  message: t('password.required'),
+                },
+              ],
+            })(
+              <Input
+                size="large"
+                autoComplete="password"
+                type="password"
+                placeholder={t('old_password.placeholder')}
+              />
+            )}
+          </FormItem>
           <FormItem help={this.state.passwordHelp}>
             <Popover
               content={
@@ -138,7 +155,7 @@ export default class ChangePassword extends Component {
               placement="right"
               visible={this.state.popoverVisible}
             >
-              {getFieldDecorator(fields[0], {
+              {getFieldDecorator(fields[1], {
                 rules: [
                   {
                     validator: this.checkPassword,
@@ -149,13 +166,13 @@ export default class ChangePassword extends Component {
                   size="large"
                   autoComplete="new-password"
                   type="password"
-                  placeholder={t('password.placeholder')}
+                  placeholder={t('new_password.placeholder')}
                 />
               )}
             </Popover>
           </FormItem>
           <FormItem>
-            {getFieldDecorator(fields[1], {
+            {getFieldDecorator(fields[2], {
               rules: [
                 {
                   required: true,

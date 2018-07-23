@@ -1,6 +1,7 @@
 import { routerRedux } from 'dva/router';
 import * as api from 'src/services/members';
 import { UNVERIFIED } from 'src/utils/status';
+import i18n from 'src/i18n';
 
 export default {
   namespace: 'user',
@@ -15,7 +16,10 @@ export default {
           password: btoa(payload.password),
         });
         yield put(
-          routerRedux.push({ pathname: '/user/register-result', state: { email: payload.email } })
+          routerRedux.push({
+            pathname: '/user/result',
+            state: { email: payload.email, type: 'register' },
+          })
         );
       } catch (error) {
         console.error(error);
@@ -36,14 +40,27 @@ export default {
     *forgotPassword({ payload }, { call, put }) {
       try {
         yield call(api.forgotPassword, payload);
-        yield put(routerRedux.replace('/user/login'));
+        yield put(
+          routerRedux.push({
+            pathname: '/user/result',
+            state: {
+              email: payload.email,
+              type: 'reset',
+              link: { to: '/user/login', route: i18n.t('common:login') },
+            },
+          })
+        );
       } catch (error) {
         console.error(error);
       }
     },
     *changePassword({ payload }, { call, put }) {
       try {
-        yield call(api.updateMemberPassword, payload.password);
+        const params = {
+          oldPassword: btoa(payload.oldPassword),
+          newPassword: btoa(payload.newPassword),
+        };
+        yield call(api.updateMemberPassword, params);
         yield put(routerRedux.replace('/user/login'));
       } catch (error) {
         console.error(error);

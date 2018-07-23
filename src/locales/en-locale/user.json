@@ -10,6 +10,12 @@
     "format": "Do not contain whitespace in password",
     "tip": "Use at least 6 characters."
   },
+  "old_password": {
+    "placeholder": "Old Password"
+  },
+  "new_password": {
+    "placeholder": "New Password"
+  },
   "password_strength": {
     "strong": "Strength: Strong",
     "medium": "Strength: Medium",
@@ -25,6 +31,10 @@
     "success": "Account: {{email}} is successfully registered!",
     "success_message":
       "You will shortly receive a confirmation email that you need to complete the activation process."
+  },
+  "reset": {
+    "success": "The password of {{email}} is successfully reset!",
+    "success_message": "Please check the new password in your email box"
   },
   "go_login": "Sign in with existing account"
 }
