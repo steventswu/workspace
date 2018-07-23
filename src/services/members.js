@@ -44,7 +44,7 @@ export async function addWhitelist(address) {
 }
 
 export async function createMember(params) {
-  return request(`api/members`, {
+  return request(`/api/members`, {
     method: 'POST',
     body: params,
   });
