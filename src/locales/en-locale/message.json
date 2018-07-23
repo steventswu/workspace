@@ -9,5 +9,6 @@
     "disabled": "Not a valid DApp browser.",
     "invalid_network": "Invalid Network.",
     "locked": "Unlock or login to your wallet to proceed."
-  }
+  },
+  "login_redirect": "Redirect to login after {{sec}} seconds..."
 }

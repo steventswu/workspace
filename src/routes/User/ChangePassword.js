@@ -17,7 +17,7 @@ const fields = ['oldPassword', 'newPassword', 'confirm'];
 @Form.create()
 @connect(({ user, loading }) => ({
   errorMessage: user.errorMessage,
-  submitting: loading.effects['user/changePassword'],
+  submitting: loading.models.user,
 }))
 @translate(['user', 'common'])
 export default class ChangePassword extends Component {
@@ -76,9 +76,6 @@ export default class ChangePassword extends Component {
     }
 
     this.setState({ passwordHelp: '' });
-    if (!this.state.popoverVisible) {
-      this.setState({ popoverVisible: true });
-    }
 
     if (value.includes(' ')) {
       this.setState({ passwordHelp: this.props.t('password.format') });
@@ -140,7 +137,8 @@ export default class ChangePassword extends Component {
     />
   );
 
-  hidePopover = () => this.setState({ popoverVisible: false });
+  showPopover = () => !this.state.popoverVisible && this.setState({ popoverVisible: true });
+  hidePopover = () => this.state.popoverVisible && this.setState({ popoverVisible: false });
 
   render() {
     const { form, submitting, t, errorMessage } = this.props;
@@ -193,6 +191,7 @@ export default class ChangePassword extends Component {
                   autoComplete="new-password"
                   type="password"
                   placeholder={t('new_password.placeholder')}
+                  onChange={this.showPopover}
                   onBlur={this.hidePopover}
                 />
               )}

@@ -3,6 +3,7 @@ import * as api from 'src/services/members';
 import { UNVERIFIED } from 'src/utils/status';
 import i18n from 'src/i18n';
 import session from 'src/utils/session';
+import { redirect } from 'src/services/redirect';
 
 export default {
   namespace: 'user',
@@ -69,8 +70,7 @@ export default {
         };
         const { error, status } = yield call(api.updateMemberPassword, params);
         if (!error) {
-          yield put(routerRedux.replace('/user/login'));
-          return session.destroy();
+          return yield put({ type: 'redirect', payload: { location: '/user/login' } });
         }
         yield put({
           type: 'save',
@@ -79,6 +79,11 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    *redirect({ payload }, { call, put }) {
+      yield call(redirect, 5);
+      yield put(routerRedux.replace(payload.location));
+      session.destroy();
     },
   },
 
