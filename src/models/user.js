@@ -56,7 +56,11 @@ export default {
     },
     *changePassword({ payload }, { call, put }) {
       try {
-        yield call(api.updateMemberPassword, payload.password);
+        const params = {
+          oldPassword: btoa(payload.oldPassword),
+          newPassword: btoa(payload.newPassword),
+        };
+        yield call(api.updateMemberPassword, params);
         yield put(routerRedux.replace('/user/login'));
       } catch (error) {
         console.error(error);

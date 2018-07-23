@@ -10,6 +10,12 @@
     "format": "Do not contain whitespace in password",
     "tip": "Use at least 6 characters."
   },
+  "old_password": {
+    "placeholder": "Old Password"
+  },
+  "new_password": {
+    "placeholder": "New Password"
+  },
   "password_strength": {
     "strong": "Strength: Strong",
     "medium": "Strength: Medium",
