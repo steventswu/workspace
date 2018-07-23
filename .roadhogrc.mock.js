@@ -5,7 +5,7 @@ import { userData } from './mock/user';
 import { format, delay } from 'roadhog-api-doc';
 
 // 是否禁用代理
-const noProxy = process.env.NO_PROXY === 'true';
+const noMock = process.env.MOCK === 'false';
 
 const randomPick = (data, empty) => {
   if (Math.random() > 0.5) return data;
@@ -14,8 +14,15 @@ const randomPick = (data, empty) => {
 
 const forwardToStaging = 'http://cap-stage.tixguru.co/';
 
-// 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
+  'GET /api/*': forwardToStaging,
+  'POST /api/*': forwardToStaging,
+  'PATCH /api/*': forwardToStaging,
+  'PUT /api/*': forwardToStaging,
+};
+
+// 代码中会兼容本地 service mock 以及部署站点的静态数据
+const mock = {
   'GET /api/members/:memberId': (req, res) => res.send({ ...userData, id: req.params.memberId }),
   'GET /api/v2/members/portfolio': (req, res) => res.send(randomPick(portfolioData, [])),
   'GET /api/v2/members/transactions': (req, res) => res.send(transactionsData),
@@ -38,4 +45,4 @@ const proxy = {
   'POST /api/facebook_token': {},
 };
 
-export default (noProxy ? {} : delay(proxy, 3000));
+export default (noMock ? proxy : delay(mock, 3000));
