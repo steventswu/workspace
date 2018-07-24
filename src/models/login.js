@@ -45,7 +45,7 @@ export default {
     },
     *logout(_, { put }) {
       try {
-        localStorage.clear();
+        session.destroy();
       } finally {
         yield put({
           type: 'changeLoginStatus',

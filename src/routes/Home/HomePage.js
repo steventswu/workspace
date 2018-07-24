@@ -13,6 +13,7 @@ import logo from 'src/assets/logo.svg';
 import layoutStyles from 'src/layouts/common.less';
 import { DATA, CAPP01, CAPM01, CAPI01 } from 'src/utils/contract';
 import { translate } from 'react-i18next';
+import session from 'src/utils/session';
 
 import styles from './HomePage.less';
 
@@ -27,7 +28,7 @@ export default class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser && session.exist()) {
       this.props.dispatch({ type: 'auth/fetchMember' });
     }
   }

@@ -20,7 +20,7 @@ const { Content, Footer } = Layout;
 }))
 export default class AppLayout extends React.PureComponent {
   componentDidMount() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser && session.exist()) {
       this.props.dispatch({ type: 'auth/fetchMember' });
     }
     redirect.set(this.props.match.url);

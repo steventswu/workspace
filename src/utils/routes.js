@@ -54,14 +54,10 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => ({
   '/': {
-    component: dynamicWrapper(app, ['auth', 'user', 'login'], () =>
-      import('src/layouts/AppLayout')
-    ),
+    component: dynamicWrapper(app, ['auth', 'login'], () => import('src/layouts/AppLayout')),
   },
   '/home': {
-    component: dynamicWrapper(app, ['auth', 'user', 'login'], () =>
-      import('src/routes/Home/HomePage')
-    ),
+    component: dynamicWrapper(app, ['auth', 'login'], () => import('src/routes/Home/HomePage')),
   },
   '/performance': {
     component: dynamicWrapper(app, ['performance'], () =>
@@ -90,7 +86,7 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/profile': {
-    component: dynamicWrapper(app, ['auth', 'user', 'profile'], () =>
+    component: dynamicWrapper(app, ['auth', 'profile'], () =>
       import('src/routes/Profile/UserProfile')
     ),
     name: 'Profile',
@@ -109,7 +105,7 @@ export const getRouterData = app => ({
     isProtected: true,
   },
   '/redeem': {
-    component: dynamicWrapper(app, ['user', 'profile'], () => import('src/routes/Profile/Redeem')),
+    component: dynamicWrapper(app, ['profile'], () => import('src/routes/Profile/Redeem')),
     name: 'Redeem',
     isProtected: true,
   },
@@ -134,18 +130,18 @@ export const getRouterData = app => ({
     component: dynamicWrapper(app, ['login'], () => import('src/routes/User/Login')),
   },
   '/user/register': {
-    component: dynamicWrapper(app, ['user'], () => import('src/routes/User/Register')),
+    component: dynamicWrapper(app, [], () => import('src/routes/User/Register')),
   },
   '/user/forgot-password': {
-    component: dynamicWrapper(app, ['user'], () => import('../routes/User/ForgotPassword')),
+    component: dynamicWrapper(app, [], () => import('../routes/User/ForgotPassword')),
   },
   '/user/change-password': {
-    component: dynamicWrapper(app, ['user'], () => import('../routes/User/ChangePassword')),
+    component: dynamicWrapper(app, [], () => import('../routes/User/ChangePassword')),
   },
   '/user/result': {
     component: dynamicWrapper(app, [], () => import('src/routes/User/LoginResult')),
   },
   '/user/confirm': {
-    component: dynamicWrapper(app, ['user'], () => import('src/routes/User/RegisterConfirm')),
+    component: dynamicWrapper(app, [], () => import('src/routes/User/RegisterConfirm')),
   },
 });
