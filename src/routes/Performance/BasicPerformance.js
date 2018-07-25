@@ -99,7 +99,7 @@ export default class BasicPerformance extends PureComponent {
                             info['nav-historical'] < 0 ? styles.subtotalDown : styles.subtotalUp
                           }
                         >
-                          {info['nav-historical']}
+                          {numeral(info['nav-historical']).format('0,0.[0000]')}
                         </span>
                       }
                     />
@@ -113,7 +113,7 @@ export default class BasicPerformance extends PureComponent {
                               : styles.subtotalUp
                           }
                         >
-                          {info['nav-historical-pct']}%
+                          {numeral(info['nav-historical-pct']).format('0,0.[0000]')}%
                         </span>
                       }
                     />
@@ -126,7 +126,7 @@ export default class BasicPerformance extends PureComponent {
                         <span
                           className={info['nav-hour'] < 0 ? styles.subtotalDown : styles.subtotalUp}
                         >
-                          {info['nav-hour']}
+                          {numeral(info['nav-hour']).format('0,0.[0000]')}
                         </span>
                       }
                     />
@@ -140,7 +140,7 @@ export default class BasicPerformance extends PureComponent {
                               : styles.subtotalUp
                           }
                         >
-                          {info['nav-hour-pct']}%
+                          {numeral(info['nav-hour-pct']).format('0,0.[0000]')}%
                         </span>
                       }
                     />
@@ -153,7 +153,7 @@ export default class BasicPerformance extends PureComponent {
                         <span
                           className={info['nav-day'] < 0 ? styles.subtotalDown : styles.subtotalUp}
                         >
-                          {info['nav-day']}
+                          {numeral(info['nav-day']).format('0,0.[0000]')}
                         </span>
                       }
                     />
@@ -167,7 +167,7 @@ export default class BasicPerformance extends PureComponent {
                               : styles.subtotalUp
                           }
                         >
-                          {info['nav-day-pct']}%
+                          {numeral(info['nav-day-pct']).format('0,0.[0000]')}%
                         </span>
                       }
                     />
@@ -180,7 +180,7 @@ export default class BasicPerformance extends PureComponent {
                         <span
                           className={info['nav-week'] < 0 ? styles.subtotalDown : styles.subtotalUp}
                         >
-                          {info['nav-week']}
+                          {numeral(info['nav-week']).format('0,0.[0000]')}
                         </span>
                       }
                     />
@@ -192,7 +192,7 @@ export default class BasicPerformance extends PureComponent {
                             info['nav-week-pct'] < 0 ? styles.subtotalDown : styles.subtotalUp
                           }
                         >
-                          {info['nav-week-pct']}%
+                          {numeral(info['nav-week-pct']).format('0,0.[0000]')}%
                         </span>
                       }
                     />
@@ -207,7 +207,7 @@ export default class BasicPerformance extends PureComponent {
                             info['nav-month'] < 0 ? styles.subtotalDown : styles.subtotalUp
                           }
                         >
-                          {info['nav-month']}
+                          {numeral(info['nav-month']).format('0,0.[0000]')}
                         </span>
                       }
                     />
@@ -221,7 +221,7 @@ export default class BasicPerformance extends PureComponent {
                               : styles.subtotalUp
                           }
                         >
-                          {info['nav-month-pct']}%
+                          {numeral(info['nav-month-pct']).format('0,0.[0000]')}%
                         </span>
                       }
                     />

@@ -70,6 +70,7 @@ export default class UserProfile extends React.Component {
     const unverified = isIdentityVerified === UNVERIFIED;
     const pending = isIdentityVerified === PENDING;
     const verified = isIdentityVerified === VERIFIED;
+    const shouldVerified = isIdentityVerified !== VERIFIED;
     return (
       <React.Fragment>
         <Collapse
@@ -97,7 +98,11 @@ export default class UserProfile extends React.Component {
               />
             </div>
           </Collapse.Panel>
-          <Collapse.Panel header={<h1>{t('wallet_verification')}</h1>} key="3">
+          <Collapse.Panel
+            disabled={shouldVerified}
+            header={<h1>{t('wallet_verification')}</h1>}
+            key="3"
+          >
             <p>
               To link a new ethereum address, enter the address below. You can link up to 3
               addresses.
