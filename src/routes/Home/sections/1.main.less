@@ -1,17 +1,33 @@
 @import '~antd/lib/style/themes/default.less';
+@import './shared.less';
 
 .main {
   position: relative;
+
+  @media (max-width: @screen-xs-max) {
+    padding-top: @padding-lg;
+  }
+}
+
+.main,
+.intro,
+.start {
+  width: 100%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .title_container {
   max-width: 330px;
+  margin: 0 auto;
 
   h1 {
     font-size: 7rem;
-    line-height: 7rem;
+    line-height: 8rem;
     letter-spacing: 10px;
     margin-bottom: 0;
+    margin-left: -5px; // for alignment
+    color: @primary-color;
   }
 
   p {
@@ -35,9 +51,15 @@
     margin-bottom: 10px;
   }
 
-  small {
-    font-size: 0.5rem;
-    line-height: 0.5rem;
+  @media (max-width: @screen-xs-max) {
+    h1 {
+      font-size: 3rem;
+      line-height: 3.5rem;
+      letter-spacing: 5px;
+    }
+    p {
+      text-align: left;
+    }
   }
 }
 
@@ -48,6 +70,7 @@
 
   h2 {
     margin-top: @padding-md;
+    color: @primary-color;
   }
 
   p:not(:last-of-type) {
@@ -84,7 +107,7 @@
   }
 
   .intro {
-    padding-top: 10vh;
+    padding-top: 15vh;
     flex: 1;
   }
 

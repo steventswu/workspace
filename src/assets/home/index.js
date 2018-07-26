@@ -26,3 +26,37 @@ export const darren = {
 export const barrierGif = require('./micro-animation-barrier.gif');
 export const performingGif = require('./micro-animation-performing.gif');
 export const withdrawGif = require('./micro-animation-withdraw.gif');
+
+export const barrier = {
+  '1x': require('./zero_entry_barrier.png'),
+  '2x': require('./zero_entry_barrier@2x.png'),
+  '3x': require('./zero_entry_barrier@3x.png'),
+};
+export const performing = {
+  '1x': require('./better_performing.png'),
+  '2x': require('./better_performing@2x.png'),
+  '3x': require('./better_performing@3x.png'),
+};
+export const withdraw = {
+  '1x': require('./withdraw_anytime.png'),
+  '2x': require('./withdraw_anytime@2x.png'),
+  '3x': require('./withdraw_anytime@3x.png'),
+};
+
+export const colon = {
+  x1: require('./icon_colon.png'),
+  x2: require('./icon_colon@2x.png'),
+  x3: require('./icon_colon@3x.png'),
+};
+
+export const news = {
+  x1: require('./logo_the_edge_markets.png'),
+  x2: require('./logo_the_edge_markets@2x.png'),
+  x3: require('./logo_the_edge_markets@3x.png'),
+};
+
+export const eth = {
+  x1: require('./icon_eth.png'),
+  x2: require('./icon_eth@2x.png'),
+  x3: require('./icon_eth@3x.png'),
+};

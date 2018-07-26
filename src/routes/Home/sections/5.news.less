@@ -1,16 +1,23 @@
 @import './shared.less';
 
 .news {
-  height: 200px;
+  height: 340px;
   display: flex !important;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: @padding-lg;
 
+  font-size: 16px;
+
   p {
-    margin-bottom: 48px;
     text-align: center;
+    font-size: @font-size-lg;
+    line-height: normal;
+  }
+
+  img:last-of-type {
+    margin-bottom: 20px;
   }
 }
 

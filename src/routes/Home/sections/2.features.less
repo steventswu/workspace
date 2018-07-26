@@ -2,12 +2,10 @@
 @import './shared.less';
 
 .odd {
-  display: flex;
   align-items: center;
 }
 
 .even {
-  display: flex;
   flex-direction: row-reverse;
   align-items: center;
 }
@@ -19,9 +17,34 @@
 
   h3 {
     font-size: 3rem;
+    line-height: 3rem;
+    color: @primary-color;
+    margin-bottom: @padding-md;
   }
 
   p {
     max-width: 340px;
+    font-size: @font-size-lg;
+  }
+}
+
+.carousel {
+  img {
+    width: 250px;
+    margin: 0 auto 20px;
+  }
+
+  :global(.slick-dots) {
+    top: 300px;
+  }
+
+  h3 {
+    font-size: 2rem;
+    line-height: 2rem;
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
   }
 }

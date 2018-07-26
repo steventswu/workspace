@@ -54,7 +54,7 @@ const Team = {
 export default () => (
   <Row
     type="flex"
-    className={[styles.centered, styles.row].join(' ')}
+    className={[styles.centered, styles.row, styles.darkWrapper].join(' ')}
     style={{ marginBottom: 24, paddingTop: 48, paddingBottom: 48 }}
   >
     <h2 className={styles.title}>Team</h2>
