@@ -1,0 +1,22 @@
+@import './shared.less';
+
+.news {
+  height: 200px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: @padding-lg;
+
+  p {
+    margin-bottom: 48px;
+    text-align: center;
+  }
+}
+
+@media (min-width: @screen-lg) {
+  .newsContainer {
+    width: 60%;
+    margin: 0 auto;
+  }
+}

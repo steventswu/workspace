@@ -1,0 +1,95 @@
+@import '~antd/lib/style/themes/default.less';
+
+.main {
+  position: relative;
+}
+
+.title_container {
+  max-width: 330px;
+
+  h1 {
+    font-size: 7rem;
+    line-height: 7rem;
+    letter-spacing: 10px;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    margin-bottom: 0;
+    text-align: justify;
+  }
+
+  p:first-of-type {
+    line-height: 1rem;
+  }
+
+  p:first-of-type:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+  }
+
+  p:last-of-type {
+    margin-bottom: 10px;
+  }
+
+  small {
+    font-size: 0.5rem;
+    line-height: 0.5rem;
+  }
+}
+
+.investment_container {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin-top: @padding-md;
+  }
+
+  p:not(:last-of-type) {
+    margin-bottom: 0;
+  }
+}
+
+.return_container {
+  font-size: 3rem;
+  line-height: 3.5rem;
+
+  .label {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    // padding-left: 5px;
+  }
+}
+
+.start {
+  width: 100%;
+
+  :global(.ant-btn) {
+    width: 100%;
+    height: 80px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .main {
+    min-height: calc(~'100vh - 64px');
+    display: flex;
+    flex-direction: column;
+  }
+
+  .intro {
+    padding-top: 10vh;
+    flex: 1;
+  }
+
+  .start {
+    flex: 0.8;
+    align-self: center;
+  }
+}

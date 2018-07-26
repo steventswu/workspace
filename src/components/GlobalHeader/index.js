@@ -30,7 +30,7 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
   return (
     <React.Fragment>
       <Link to="/">
-        <img src={logo} style={{ marginLeft: 15 }} alt="logo" />
+        <img src={logo} alt="logo" />
       </Link>
       <div style={{ float: 'right' }}>
         <Link style={{ padding: '0 15px' }} to="/">
