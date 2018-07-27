@@ -54,10 +54,11 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => ({
   '/': {
-    component: dynamicWrapper(app, ['auth', 'login'], () => import('src/layouts/AppLayout')),
+    component: dynamicWrapper(app, ['auth', 'login'], () => import('src/layouts/GlobalLayout')),
   },
   '/home': {
     component: dynamicWrapper(app, ['auth', 'login'], () => import('src/routes/Home/HomePage')),
+    isPublic: true,
   },
   '/performance': {
     component: dynamicWrapper(app, ['performance'], () =>

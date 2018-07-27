@@ -3,6 +3,7 @@ import { Button, Menu, Dropdown } from 'antd';
 import { Link } from 'dva/router';
 import { translate } from 'react-i18next';
 
+import Container from '../Container';
 import styles from './index.less';
 
 const menuRoutes = ['profile', 'portfolio', 'transactions', 'redeem'];
@@ -58,34 +59,36 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
     </Dropdown>
   );
   return (
-    <div className={styles.container}>
-      <Link to="/">
-        <img className={styles.logo} src={logo} alt="logo" />
-      </Link>
-      <div className={styles.linkContainer}>
-        <div className={styles.links}>
-          <Link style={{ padding: '0 15px' }} to="/performance">
-            {t('performance')}
-          </Link>
-          <Link style={{ padding: '0 15px' }} to="/buy">
-            {t('buy_cap')}
-          </Link>
-          <Link style={{ padding: '0 15px' }} to="/faq">
-            {t('faq')}
-          </Link>
-        </div>
-        <div className={styles.btn}>
-          {menuButton}
-          {currentUser ? (
-            <Dropdown overlay={menu} placement="bottomCenter">
-              {button}
-            </Dropdown>
-          ) : (
-            button
-          )}
+    <Container>
+      <div className={styles.container}>
+        <Link to="/">
+          <img className={styles.logo} src={logo} alt="logo" />
+        </Link>
+        <div className={styles.linkContainer}>
+          <div className={styles.links}>
+            <Link style={{ padding: '0 15px' }} to="/performance">
+              {t('performance')}
+            </Link>
+            <Link style={{ padding: '0 15px' }} to="/buy">
+              {t('buy_cap')}
+            </Link>
+            <Link style={{ padding: '0 15px' }} to="/faq">
+              {t('faq')}
+            </Link>
+          </div>
+          <div className={styles.btn}>
+            {menuButton}
+            {currentUser ? (
+              <Dropdown overlay={menu} placement="bottomCenter">
+                {button}
+              </Dropdown>
+            ) : (
+              button
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
