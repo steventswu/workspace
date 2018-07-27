@@ -12,16 +12,21 @@ export const ROUTE = {
   STEP3: '/buy/3',
 };
 
-export default function BuyTokenLayout({ step, children }) {
+export default function BuyTokenLayout({ children, location }) {
+  if (location.pathname === ROUTE.ROOT) {
+    return <Redirect from={ROUTE.ROOT} to={ROUTE.STEP1} />;
+  }
+  const [, step] = location.pathname.match(/\/.*\/(.*)/);
+  const current = step - 1;
   return (
     <Card className={styles.container} bordered={false}>
       <React.Fragment>
-        <Steps current={step} className={styles.steps}>
+        <Steps current={current} className={styles.steps}>
           <Step title="Accept Terms" />
           <Step title="Place Orders" />
           <Step title="Buy CAP" />
         </Steps>
-        {children || <Redirect from={ROUTE.ROOT} to={ROUTE.STEP1} />}
+        {children}
       </React.Fragment>
     </Card>
   );

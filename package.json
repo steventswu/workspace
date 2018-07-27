@@ -8,7 +8,6 @@
     "postversion": "npm run staging",
     "staging": "sh -ac '. .env.staging; npm run build; ./deploy.sh'",
     "production": "sh -ac '. .env.production; npm run build; ./deploy.sh'",
-    "precommit": "npm run lint-staged",
     "prestart": "yarn install",
     "start:mock": "sh -ac '. .env.development; cross-env ESLINT=none roadhog dev'",
     "start": "sh -ac '. .env.development; cross-env MOCK=false ESLINT=none roadhog dev'",
@@ -24,7 +23,7 @@
     "test:component": "roadhog test ./src/components",
     "test:all": "node ./tests/run-tests.js",
     "prettier": "prettier --write ./src/**/**/**/*",
-    "dev": "npx umi dev"
+    "dev": "sh -ac '. .env.development; npx umi dev'"
   },
   "dependencies": {
     "@antv/data-set": "^0.8.0",

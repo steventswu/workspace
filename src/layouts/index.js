@@ -1,3 +1,1 @@
-import GlobalLayout from './GlobalLayout';
-
-export default GlobalLayout;
+export { default } from './GlobalLayout';

@@ -5,6 +5,7 @@ import tixguruLogo from 'src/assets/logo-text.svg';
 import Container from './Container';
 import styles from './styles/AppFooter.less';
 
+/* eslint-disable jsx-a11y/href-no-hash */
 export default () => (
   <Container className={styles.footerContainer}>
     <Row className={[styles.row, styles.footer].join(' ')}>
