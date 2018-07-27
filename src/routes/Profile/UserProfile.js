@@ -145,7 +145,7 @@ export default class UserProfile extends React.Component {
                   <List.Item className={styles.listItem}>
                     {item.walletAddress}
                     <Button
-                      style={{ width: 120 }}
+                      style={{ width: 120, paddingLeft: 15, paddingRight: 15 }}
                       type="dashed"
                       onClick={() => this.props.dispatch({ type: 'auth/fetchMember' })}
                     >

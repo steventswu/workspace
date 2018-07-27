@@ -13,11 +13,16 @@ module.exports = {
   'btn-primary-bg': '#1890ff',
   'background-color-base': 'rgba(127, 196, 253, 0.2)',
   'component-background': '#11142d',
+  'background-color-light': '#11142d',
+  'input-bg': '#11142d',
+  'btn-default-bg': 'transparent',
   'slider-rail-background-color-hover': 'rgba(127, 196, 253, 0.2)',
   'card-actions-background': '#f5f8fa',
   'link-color': '#fff',
   'link-hover-color': '#66ccff',
   'link-active-color': '#66ccff',
+  'disabled-color': 'fade(#fff, 35%)',
+  'disabled-color-dark': 'fade(#000, 25%)',
   'font-family':
     'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
