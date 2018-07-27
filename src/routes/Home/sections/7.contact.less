@@ -9,7 +9,7 @@
   .social {
     display: flex;
 
-    @media (min-width: @screen-md) {
+    @media (min-width: @screen-lg) {
       justify-content: flex-end;
     }
 
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
 
-    @media (min-width: @screen-md) {
+    @media (min-width: @screen-lg) {
       flex-direction: row;
     }
 
@@ -54,13 +54,18 @@
     margin-bottom: 0;
   }
 
+  .dim {
+    color: #fff;
+    opacity: 0.6;
+  }
+
   .links {
     a {
       display: block;
       color: @primary-color;
       margin: 5px 0;
 
-      @media (min-width: @screen-md) {
+      @media (min-width: @screen-lg) {
         display: inline;
       }
     }
@@ -78,7 +83,7 @@
       margin-top: 30px;
     }
 
-    @media (min-width: @screen-md) {
+    @media (min-width: @screen-lg) {
       flex-direction: row;
       justify-content: space-between;
       margin-top: 95px;

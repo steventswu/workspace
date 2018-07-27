@@ -18,7 +18,7 @@ const Container = props => (
 export default ({ isLoading, currentUser, onClickLogout, onClickLogin }) => (
   <DocumentTitle title="CAP, Cryptocurrency Assets Portfolio - The first Crypto index fund | Tixguru">
     <Layout>
-      <Layout.Header style={{ overflow: 'hidden', paddingLeft: 0, paddingRight: 0 }}>
+      <Layout.Header style={{ paddingLeft: 0, paddingRight: 0 }}>
         <Container>
           <GlobalHeader
             logo={logo}

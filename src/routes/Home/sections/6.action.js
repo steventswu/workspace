@@ -7,7 +7,7 @@ import styles from './6.action.less';
 
 export default () => (
   <Row type="flex" className={styles.darkWrapper}>
-    <Column xs={24} lg={12} className={styles.container}>
+    <Column xs={24} lg={{ span: 8, push: 4 }} className={styles.container}>
       <div className={styles.action}>
         <h3>Join to the crypto finance future</h3>
         <Button style={{ height: 62 }} type="primary">
@@ -15,7 +15,7 @@ export default () => (
         </Button>
       </div>
     </Column>
-    <Column xs={0} lg={12}>
+    <Column xs={0} lg={{ span: 12, push: 4 }}>
       <img src={Image} alt="" className={styles.photo} />
     </Column>
   </Row>

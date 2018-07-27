@@ -4,7 +4,7 @@
 .main {
   position: relative;
 
-  @media (max-width: @screen-xs-max) {
+  @media (max-width: @screen-md-max) {
     padding-top: @padding-lg;
   }
 }
@@ -19,7 +19,6 @@
 
 .title_container {
   max-width: 330px;
-  margin: 0 auto;
 
   h1 {
     font-size: 7rem;
@@ -38,7 +37,7 @@
   }
 
   p:first-of-type {
-    line-height: 1rem;
+    line-height: 1.5rem;
   }
 
   p:first-of-type:after {
@@ -51,7 +50,7 @@
     margin-bottom: 10px;
   }
 
-  @media (max-width: @screen-xs-max) {
+  @media (max-width: @screen-md-max) {
     h1 {
       font-size: 3rem;
       line-height: 3.5rem;
@@ -100,7 +99,7 @@
   }
 }
 
-@media (min-width: @screen-md-min) {
+@media (min-width: @screen-lg) {
   .main {
     min-height: calc(~'100vh - 64px');
     display: flex;

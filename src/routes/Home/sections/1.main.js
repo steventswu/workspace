@@ -19,7 +19,7 @@ const content = {
 export default () => (
   <main className={styles.main}>
     <Row className={styles.intro} gutter={48}>
-      <Column xs={24} md={{ span: 10, push: 1 }} style={{ marginBottom: 24 }}>
+      <Column xs={24} lg={{ span: 10 }} style={{ marginBottom: 24 }}>
         <div className={styles.title_container}>
           <h1>{content.title}</h1>
           <p>{content.subtitle}</p>
@@ -27,7 +27,7 @@ export default () => (
           {content.footer}
         </div>
       </Column>
-      <Column xs={24} md={{ span: 14, push: 1 }} style={{ marginBottom: 24 }}>
+      <Column xs={24} lg={{ span: 13, push: 1 }} style={{ marginBottom: 24 }}>
         <div className={styles.investment_container}>
           <h2>Investing Amount</h2>
           <Slider tipFormatter={null} />
@@ -43,14 +43,14 @@ export default () => (
           />
           <p>Month</p>
           <Row gutter={8} className={styles.return_container}>
-            <Column xs={{ span: 7, push: 1 }} md={{ span: 7, push: 3 }}>
+            <Column xs={{ span: 7, push: 1 }} lg={{ span: 7, push: 3 }}>
               <div>20%</div>
               <div className={styles.label}>Return</div>
             </Column>
-            <Column xs={{ span: 3, push: 2 }} md={{ span: 2, push: 3 }}>
+            <Column xs={{ span: 3, push: 2 }} lg={{ span: 2, push: 3 }}>
               =
             </Column>
-            <Column xs={{ span: 10, push: 2 }} md={{ span: 10, push: 3 }}>
+            <Column xs={{ span: 10, push: 2 }} lg={{ span: 10, push: 3 }}>
               <div>
                 200 <ImageSet {...eth} alt="ETH" />
               </div>
@@ -61,7 +61,7 @@ export default () => (
       </Column>
     </Row>
     <Row className={styles.start}>
-      <Column xs={{ span: 20, push: 2, pull: 2 }} md={{ span: 9, push: 7, pull: 7 }}>
+      <Column xs={{ span: 20, push: 2, pull: 2 }} lg={{ span: 9, push: 7, pull: 7 }}>
         <Button style={{ height: 62 }} type="primary">
           Get Started
         </Button>

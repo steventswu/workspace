@@ -83,8 +83,8 @@ export default () => (
             srcSet={`${homeAssets.withdraw['2x']} 2x, ${homeAssets.withdraw['3x']} 3x`}
             alt=""
           />
-          <h3>{content.better_performing.title}</h3>
-          <p>{content.better_performing.content}</p>
+          <h3>{content.withdraw_anytime.title}</h3>
+          <p>{content.withdraw_anytime.content}</p>
         </div>
         <div className={styles.desc}>
           <img
@@ -92,8 +92,8 @@ export default () => (
             srcSet={`${homeAssets.barrier['2x']} 2x, ${homeAssets.barrier['3x']} 3x`}
             alt=""
           />
-          <h3>{content.better_performing.title}</h3>
-          <p>{content.better_performing.content}</p>
+          <h3>{content.zero_entry_barrier.title}</h3>
+          <p>{content.zero_entry_barrier.content}</p>
         </div>
         <div className={styles.desc}>
           <img

@@ -6,10 +6,10 @@ import styles from './7.contact.less';
 
 export default () => (
   <Row className={[styles.row, styles.footer].join(' ')}>
-    <Column xs={24} md={12}>
+    <Column xs={24} lg={12}>
       <img className={styles.logo} src={tixguruLogo} alt="Tixguru" />
       <p className={styles.desc}>We'd love to hear from you</p>
-      <p className={styles.intro}>
+      <p className={[styles.intro, styles.dim].join(' ')}>
         The first autonomous "tokenized crypto fund".<br /> An easy way for anyone to get exposure
         to crypto returns with a broad, diversified risk. If you'd like to learn more, contact
         anytime at
@@ -19,7 +19,7 @@ export default () => (
         <span>+886 2 85021138</span>
       </p>
     </Column>
-    <Column xs={24} md={12} className={styles.social}>
+    <Column xs={24} lg={12} className={styles.social}>
       <a href="#" target="_blank">
         <i className="fab fa-facebook-f" />
       </a>
