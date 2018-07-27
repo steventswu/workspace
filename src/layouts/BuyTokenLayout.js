@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'dva/router';
+import { Redirect } from 'dva/router';
 import { Card, Steps } from 'antd';
 import styles from './BuyTokenLayout.less';
 
@@ -12,41 +12,17 @@ export const ROUTE = {
   STEP3: '/buy/3',
 };
 
-export default class BuyTokenLayout extends React.PureComponent {
-  getCurrentStep = () => {
-    const { location } = this.props;
-    const { pathname } = location;
-    const pathList = pathname.split('/');
-    switch (pathList[pathList.length - 1]) {
-      case '1':
-        return 0;
-      case '2':
-        return 1;
-      case '3':
-        return 2;
-      default:
-        return 0;
-    }
-  };
-
-  render() {
-    const { component } = this.props.routerData[this.props.location.pathname] || {};
-    return (
-      <Card className={styles.container} bordered={false}>
-        <React.Fragment>
-          {component && (
-            <Steps current={this.getCurrentStep()} className={styles.steps}>
-              <Step title="Accept Terms" />
-              <Step title="Place Orders" />
-              <Step title="Buy CAP" />
-            </Steps>
-          )}
-          <Switch>
-            <Redirect exact from={ROUTE.ROOT} to={ROUTE.STEP1} />
-            {component ? <Route component={component} /> : <Redirect to="/exception/404" />}
-          </Switch>
-        </React.Fragment>
-      </Card>
-    );
-  }
+export default function BuyTokenLayout({ step, children }) {
+  return (
+    <Card className={styles.container} bordered={false}>
+      <React.Fragment>
+        <Steps current={step} className={styles.steps}>
+          <Step title="Accept Terms" />
+          <Step title="Place Orders" />
+          <Step title="Buy CAP" />
+        </Steps>
+        {children || <Redirect from={ROUTE.ROOT} to={ROUTE.STEP1} />}
+      </React.Fragment>
+    </Card>
+  );
 }

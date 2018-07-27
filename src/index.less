@@ -1,3 +1,5 @@
+@import '~antd/lib/style/themes/default.less';
+
 html,
 body,
 :global(#root) {
@@ -39,5 +41,18 @@ body {
 
   .ant-layout-footer {
     padding: 0;
+  }
+
+  .ant-alert,
+  .ant-alert-close-icon {
+    color: @text-color-dark !important;
+  }
+
+  .ant-btn {
+    border-radius: 31px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: @font-size-lg;
   }
 }

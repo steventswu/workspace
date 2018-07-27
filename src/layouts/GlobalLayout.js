@@ -6,9 +6,12 @@ import { Route, Switch, Redirect, routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import GlobalHeader from 'src/components/GlobalHeader';
 import AppFooter from 'src/components/AppFooter';
+import Container from 'src/components/Container';
 import redirect from 'src/utils/redirect';
 import session from 'src/utils/session';
 import logo from 'src/assets/logo.svg';
+
+import styles from './GlobalLayout.less';
 
 @connect(({ user, loading }) => ({ currentUser: user.email, isLoading: loading.global }))
 export default class GlobalLayout extends React.PureComponent {
@@ -36,12 +39,14 @@ export default class GlobalLayout extends React.PureComponent {
       this.props.routerData[this.props.location.pathname] || {};
 
     if (isPublic) {
-      return <Route path={this.props.match.path} render={props => <Component {...props} />} />;
+      return (
+        <Route path={this.props.location.pathname} render={props => <Component {...props} />} />
+      );
     }
 
     if (isProtected) {
       return session.exist() ? (
-        <Route path={this.props.match.path} render={props => <Component {...props} />} />
+        <Route path={this.props.location.pathname} render={props => <Component {...props} />} />
       ) : (
         <Redirect to="user/login" />
       );
@@ -68,7 +73,7 @@ export default class GlobalLayout extends React.PureComponent {
           <Layout.Content>
             <Switch>
               <Route exact path="/" component={this.props.routerData['/home'].component} />
-              {this.renderRoute()}
+              <Container className={styles.container}>{this.renderRoute()}</Container>
             </Switch>
           </Layout.Content>
           <Layout.Footer>
