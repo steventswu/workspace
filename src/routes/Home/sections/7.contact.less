@@ -1,1 +1,91 @@
 @import './shared.less';
+
+.row {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.footer {
+  .social {
+    display: flex;
+
+    @media (min-width: @screen-md) {
+      justify-content: flex-end;
+    }
+
+    i {
+      font-size: 1.5rem;
+      padding: 10px;
+    }
+
+    margin: 20px 0;
+  }
+
+  .logo {
+    // width: 200px;
+    height: 64px;
+    margin-left: -20px;
+  }
+
+  .desc {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 32px;
+  }
+
+  .intro {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: @screen-md) {
+      flex-direction: row;
+    }
+
+    span {
+      margin: 5px 0;
+    }
+
+    .support {
+      color: @primary-color;
+      margin-right: 40px;
+    }
+
+    margin-bottom: 0;
+  }
+
+  .links {
+    a {
+      display: block;
+      color: @primary-color;
+      margin: 5px 0;
+
+      @media (min-width: @screen-md) {
+        display: inline;
+      }
+    }
+
+    a:not(:last-of-type) {
+      padding-right: 32px;
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column-reverse;
+
+    span:first-of-type {
+      margin-top: 30px;
+    }
+
+    @media (min-width: @screen-md) {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 95px;
+
+      span:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+}

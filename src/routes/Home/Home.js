@@ -45,7 +45,11 @@ export default ({ isLoading, currentUser, onClickLogout, onClickLogin }) => (
         </Container>
         <Section.Action />
       </Layout.Content>
-      <Layout.Footer>{/* <Section.Contact /> */}</Layout.Footer>
+      <Layout.Footer>
+        <Container className={styles.footer}>
+          <Section.Contact />
+        </Container>
+      </Layout.Footer>
     </Layout>
   </DocumentTitle>
 );
