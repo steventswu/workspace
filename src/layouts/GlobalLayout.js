@@ -70,12 +70,7 @@ export default class GlobalLayout extends React.PureComponent {
               isLoading={isLoading}
             />
           </Layout.Header>
-          <Layout.Content>
-            <Switch>
-              <Route exact path="/" component={this.props.routerData['/home'].component} />
-              <Container className={styles.container}>{this.renderRoute()}</Container>
-            </Switch>
-          </Layout.Content>
+          <Layout.Content>{this.props.children}</Layout.Content>
           <Layout.Footer>
             <AppFooter />
           </Layout.Footer>

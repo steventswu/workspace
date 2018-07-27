@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import LngDetector from 'i18next-browser-languagedetector';
 import LocalStorageBackend from 'i18next-localstorage-backend';
+import { reactI18nextModule } from 'react-i18next';
 import * as en from 'src/locales/en';
 
 const options = {
@@ -24,6 +25,7 @@ const options = {
 i18n
   .use(LocalStorageBackend)
   .use(LngDetector)
+  .use(reactI18nextModule)
   .init(options);
 
 Object.keys(en).forEach(ns => {

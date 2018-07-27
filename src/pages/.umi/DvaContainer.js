@@ -10,6 +10,10 @@ window.g_app = app;
 app.use(createLoading());
 
 app.model({
+  namespace: 'auth',
+  ...require('/Users/Shawn/tixguru/cap-performance/src/models/auth.js').default,
+});
+app.model({
   namespace: 'login',
   ...require('/Users/Shawn/tixguru/cap-performance/src/models/login.js').default,
 });
@@ -20,10 +24,6 @@ app.model({
 app.model({
   namespace: 'profile',
   ...require('/Users/Shawn/tixguru/cap-performance/src/models/profile.js').default,
-});
-app.model({
-  namespace: 'register',
-  ...require('/Users/Shawn/tixguru/cap-performance/src/models/register.js').default,
 });
 app.model({
   namespace: 'token',
