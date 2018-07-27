@@ -1,7 +1,23 @@
 // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 module.exports = {
-  // 'primary-color': '#10e99b',
+  'primary-color': '#66ccff',
+  'primary-1': 'rgba(255, 255, 255, 0.2)',
+  'primary-3': '#91d5ff',
+  'primary-4': '#91d5ff',
+  'text-color': 'fade(#fff, 85%)',
+  'text-color-secondary': 'fade(#fff, 65%)',
+  'text-color-dark': 'fade(#000, 65%)',
+  'text-color-secondary-dark': 'fade(#000, 45%)',
+  'heading-color': 'fade(#fff, 100%)',
+  'heading-color-dark': 'fade(#000, 85%)',
+  'btn-primary-bg': '#1890ff',
+  'background-color-base': 'rgba(127, 196, 253, 0.2)',
+  'component-background': '#11142d',
+  'slider-rail-background-color-hover': 'rgba(127, 196, 253, 0.2)',
   'card-actions-background': '#f5f8fa',
+  'link-color': '#fff',
+  'link-hover-color': '#66ccff',
+  'link-active-color': '#66ccff',
   'font-family':
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+    'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };

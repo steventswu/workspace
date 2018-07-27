@@ -1,0 +1,29 @@
+@import '../../../components/styles/shared.less';
+
+.news {
+  height: 400px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: @padding-lg;
+
+  font-size: 16px;
+
+  p {
+    text-align: center;
+    font-size: @font-size-lg;
+    line-height: normal;
+  }
+
+  img:last-of-type {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: @screen-lg) {
+  .newsContainer {
+    width: 60%;
+    margin: 0 auto;
+  }
+}

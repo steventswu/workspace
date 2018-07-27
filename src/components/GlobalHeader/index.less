@@ -1,37 +1,39 @@
 @import '~antd/lib/style/themes/default.less';
 
-:global {
-  .ant-layout-header {
-    background-color: transparent;
-  }
-  .ant-menu-horizontal {
-    border-bottom: 0;
-  }
-  .ant-menu-item-selected {
-    border-bottom: 0 !important;
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  padding-left: @padding-lg;
+
+  @media (min-width: @screen-md) {
+    padding-left: 0;
   }
 }
 
-.name {
-  display: inline-block;
-  padding: 0 15px;
+.linkContainer {
+  display: flex;
+}
 
-  &:hover {
-    color: @primary-color;
+.links {
+  display: none;
+
+  @media (min-width: @screen-md) {
+    display: unset;
   }
 }
 
-.nav {
-  line-height: 64px;
-  float: right;
-  background-color: transparent;
+.linksMenu {
+  @media (min-width: @screen-md) {
+    display: none;
+  }
 }
 
-.menu {
-  :global(.anticon) {
-    margin-right: 8px;
-  }
-  :global(.ant-dropdown-menu-item) {
-    width: 160px;
+.btn {
+  :global(.ant-btn) {
+    padding-left: @padding-md - 1px;
+    padding-right: @padding-md - 1px;
   }
 }

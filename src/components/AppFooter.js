@@ -1,65 +1,57 @@
 import React from 'react';
-import { Icon } from 'antd';
-import GlobalFooter from './GlobalFooter';
+import { Row, Col as Column } from 'antd';
 
-const style = { margin: 15 };
+import tixguruLogo from 'src/assets/logo-text.svg';
+import Container from './Container';
+import styles from './styles/AppFooter.less';
 
-const iconLinkStyle = { color: 'rgba(0, 0, 0, 0.45)' };
-
-const iconStyle = { margin: '20px 10px', fontSize: 25 };
-
-export default function AppFooter() {
-  return (
-    <GlobalFooter
-      copyright={
-        <React.Fragment>
-          <div style={style}>
-            <a
-              style={style}
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://storage.googleapis.com/tixguru/terms.pdf"
-            >
-              Legal / Terms / Privacy
-            </a>
-            <a
-              style={style}
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://medium.com/tixguru/cap-faq-7f5a5439a72f"
-            >
-              FAQ
-            </a>
-          </div>
-          Copyright <Icon type="copyright" /> 2018 TIXGURU
-          <div>
-            <a
-              style={iconLinkStyle}
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://twitter.com/tixguru"
-            >
-              <Icon type="twitter" style={iconStyle} />
-            </a>
-            <a
-              style={iconLinkStyle}
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://medium.com/tixguru/cap/home"
-            >
-              <Icon type="medium" style={iconStyle} />
-            </a>
-            <a
-              style={iconLinkStyle}
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.youtube.com/channel/UCw-PfsMFAN02gxw0D6D7ovA"
-            >
-              <Icon type="youtube" style={iconStyle} />
-            </a>
-          </div>
-        </React.Fragment>
-      }
-    />
-  );
-}
+export default () => (
+  <Container className={styles.footerContainer}>
+    <Row className={[styles.row, styles.footer].join(' ')}>
+      <Column xs={24} lg={12}>
+        <img className={styles.logo} src={tixguruLogo} alt="Tixguru" />
+        <p className={styles.desc}>We'd love to hear from you</p>
+        <p className={[styles.intro, styles.dim].join(' ')}>
+          The first autonomous "tokenized crypto fund".<br /> An easy way for anyone to get exposure
+          to crypto returns with a broad, diversified risk. If you'd like to learn more, contact
+          anytime at
+        </p>
+        <p className={styles.intro}>
+          <span className={styles.support}>support@tixguru.co</span>
+          <span>+886 2 85021138</span>
+        </p>
+      </Column>
+      <Column xs={24} lg={12} className={styles.social}>
+        <a href="#" target="_blank">
+          <i className="fab fa-facebook-f" />
+        </a>
+        <a href="#" target="_blank">
+          <i className="fab fa-twitter" />
+        </a>
+        <a href="#" target="_blank">
+          <i className="fab fa-linkedin-in" />
+        </a>
+        <a href="#" target="_blank">
+          <i className="fab fa-instagram" />
+        </a>
+      </Column>
+      <Column span={24} className={styles.footer}>
+        <span>© 2018 Tixguru Pte. Ltd.</span>
+        <span className={styles.links}>
+          <a href="#" target="_blank">
+            Privacy
+          </a>
+          <a href="#" target="_blank">
+            Terms and Conditions
+          </a>
+          <a href="#" target="_blank">
+            Cookie Policy
+          </a>
+          <a href="#" target="_blank">
+            FAQ
+          </a>
+        </span>
+      </Column>
+    </Row>
+  </Container>
+);
