@@ -1,7 +1,8 @@
 {
   "home": "Home",
-  "performance": "Performance",
-  "buy_cap": "Buy CAP",
+  "performance": "CAP",
+  "buy_cap": "BUY",
+  "faq": "FAQ",
   "login": "Login",
   "account": "My Account",
   "profile": "Profile",
