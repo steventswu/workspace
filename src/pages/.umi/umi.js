@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import createHistory from 'umi/_createHistory';
 import FastClick from 'umi-fastclick';
 
+
 document.addEventListener(
   'DOMContentLoaded',
   () => {
     FastClick.attach(document.body);
   },
-  false
+  false,
 );
 
 // create history
@@ -16,13 +17,15 @@ window.g_history = createHistory({
   basename: window.routerBase,
 });
 
+
 // render
 function render() {
   const DvaContainer = require('./DvaContainer').default;
-  ReactDOM.render(
-    React.createElement(DvaContainer, null, React.createElement(require('./router').default)),
-    document.getElementById('root')
-  );
+ReactDOM.render(React.createElement(
+  DvaContainer,
+  null,
+  React.createElement(require('./router').default)
+), document.getElementById('root'));
 }
 render();
 
@@ -37,3 +40,4 @@ if (module.hot) {
 if (process.env.NODE_ENV === 'production') {
   require('./registerServiceWorker');
 }
+      
