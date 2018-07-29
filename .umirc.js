@@ -1,7 +1,15 @@
 const path = require('path');
 
 export default {
-  plugins: ['umi-plugin-dva'],
+  plugins: [
+    'umi-plugin-dva',
+    [
+      'umi-plugin-routes',
+      {
+        exclude: [/sections/],
+      },
+    ],
+  ],
   proxy: {
     '/api': {
       target: 'http://cap-stage.tixguru.co',

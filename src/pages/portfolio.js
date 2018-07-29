@@ -2,8 +2,30 @@ import React from 'react';
 import { Table } from 'antd';
 import { connect } from 'dva';
 import { translate } from 'react-i18next';
-import styles from './ProfileHome.less';
-import column from './ProfileHome.json';
+import styles from './portfolio.less';
+
+const column = [
+  {
+    title: 'CAP Name',
+    dataIndex: 'label',
+  },
+  {
+    title: 'Amount',
+    dataIndex: 'amount',
+  },
+  {
+    title: 'NAV',
+    dataIndex: 'nav',
+  },
+  {
+    title: 'ETH',
+    dataIndex: 'eth',
+  },
+  {
+    title: 'ROI',
+    dataIndex: 'roi',
+  },
+];
 
 @connect(({ profile, loading }) => ({
   portfolio: profile.portfolio,
@@ -24,7 +46,7 @@ export default class UserPortfolio extends React.Component {
       <Table
         style={{ marginBottom: 50 }}
         key="empty"
-        columns={column.portfolio.map(this.portfolioColumnMapper)}
+        columns={column.map(this.portfolioColumnMapper)}
         pagination={false}
         scroll={{ x: 1000 }}
         locale={{ emptyText: t('empty_text') }}
@@ -44,7 +66,7 @@ export default class UserPortfolio extends React.Component {
         <Table
           style={{ marginBottom: 50 }}
           key={data.walletAddress}
-          columns={column.portfolio.map(this.portfolioColumnMapper)}
+          columns={column.map(this.portfolioColumnMapper)}
           dataSource={data.contracts}
           loading={loading}
           pagination={false}

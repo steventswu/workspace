@@ -3,7 +3,7 @@ import { Row, Col as Column } from 'antd';
 
 import tixguruLogo from 'src/assets/logo-text.svg';
 import Container from './Container';
-import styles from './styles/AppFooter.less';
+import styles from './AppFooter.less';
 
 /* eslint-disable jsx-a11y/href-no-hash */
 export default () => (

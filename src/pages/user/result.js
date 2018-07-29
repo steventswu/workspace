@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { Link } from 'dva/router';
 import { translate } from 'react-i18next';
 import Result from 'components/Result';
-import styles from './LoginResult.less';
+import styles from './styles.less';
 
 const LoginResult = ({
   location: { state: { email = 'you@example.com', type = 'reset', link = { to: '/' } } = {} },

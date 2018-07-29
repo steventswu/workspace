@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Popover, Progress, Alert } from 'antd';
+import { Link } from 'dva/router';
+import { Form, Input, Button, Popover, Progress } from 'antd';
 import { translate } from 'react-i18next';
-import styles from './Register.less';
+import styles from './styles.less';
 
 const FormItem = Form.Item;
 
@@ -12,15 +13,13 @@ const passwordProgressMap = {
   poor: 'exception',
 };
 
-const fields = ['oldPassword', 'newPassword', 'confirm'];
-
 @Form.create()
-@connect(({ user, loading }) => ({
-  errorMessage: user.errorMessage,
-  submitting: loading.models.user,
+@connect(({ register, loading }) => ({
+  register,
+  submitting: loading.effects['user/register'],
 }))
 @translate(['user', 'common'])
-export default class ChangePassword extends Component {
+export default class Register extends Component {
   state = {
     confirmDirty: false,
     popoverVisible: false,
@@ -29,7 +28,7 @@ export default class ChangePassword extends Component {
 
   getPasswordStatus = () => {
     const { form } = this.props;
-    const value = form.getFieldValue(fields[1]);
+    const value = form.getFieldValue('password');
     if (value && value.length > 9) {
       return 'ok';
     }
@@ -41,14 +40,13 @@ export default class ChangePassword extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({ popoverVisible: false });
-    this.resetErrorMessage();
     this.props.form.validateFields({ force: true }, (err, values) => {
-      if (err) return;
-      this.props.dispatch({
-        type: 'user/changePassword',
-        payload: values,
-      });
+      if (!err) {
+        this.props.dispatch({
+          type: 'user/register',
+          payload: values,
+        });
+      }
     });
   };
 
@@ -59,7 +57,7 @@ export default class ChangePassword extends Component {
 
   checkConfirm = (rule, value, callback) => {
     const { form, t } = this.props;
-    if (value && value !== form.getFieldValue(fields[1])) {
+    if (value && value !== form.getFieldValue('password')) {
       callback(t('password_confirm.format'));
     } else {
       callback();
@@ -72,31 +70,51 @@ export default class ChangePassword extends Component {
         passwordHelp: this.props.t('password.required'),
         popoverVisible: !!value,
       });
-      return callback('required');
+      return callback('error');
     }
 
     this.setState({ passwordHelp: '' });
+    if (!this.state.popoverVisible) {
+      this.setState({ popoverVisible: !!value });
+    }
 
     if (value.includes(' ')) {
       this.setState({ passwordHelp: this.props.t('password.format') });
-      return callback('password.format');
+      return callback('error');
     }
 
     if (value.length < 6) {
-      return callback('length');
+      return callback('error');
     }
 
     const { form } = this.props;
-
-    if (value === form.getFieldValue(fields[0])) {
-      this.setState({ passwordHelp: this.props.t('new_password.format') });
-      return callback('new_password.format');
-    }
-
-    if (value && form.isFieldTouched(fields[2])) {
-      form.validateFields([fields[2]], { force: true });
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
     }
     callback();
+  };
+
+  emailValidator = {
+    validate: [
+      {
+        trigger: ['onChange', 'onBlur'],
+        rules: [
+          {
+            required: true,
+            message: this.props.t('email.required'),
+          },
+        ],
+      },
+      {
+        trigger: 'onBlur',
+        rules: [
+          {
+            type: 'email',
+            message: this.props.t('email.format'),
+          },
+        ],
+      },
+    ],
   };
 
   passwordStatusMap = {
@@ -107,7 +125,7 @@ export default class ChangePassword extends Component {
 
   renderPasswordProgress = () => {
     const { form } = this.props;
-    const value = form.getFieldValue(fields[1]);
+    const value = form.getFieldValue('password');
     const passwordStatus = this.getPasswordStatus();
     return value && value.length ? (
       <div className={styles[`progress-${passwordStatus}`]}>
@@ -122,48 +140,15 @@ export default class ChangePassword extends Component {
     ) : null;
   };
 
-  resetErrorMessage = () => {
-    this.props.dispatch({ type: 'user/resetErrorMessage' });
-  };
-
-  renderAlertMessage = content => (
-    <Alert
-      style={{ marginBottom: 24 }}
-      message={content}
-      type="error"
-      showIcon
-      closable
-      afterClose={this.resetErrorMessage}
-    />
-  );
-
-  showPopover = () => !this.state.popoverVisible && this.setState({ popoverVisible: true });
-  hidePopover = () => this.state.popoverVisible && this.setState({ popoverVisible: false });
-
   render() {
-    const { form, submitting, t, errorMessage } = this.props;
-    const { getFieldDecorator, getFieldsError, isFieldTouched } = form;
-    const hasError = Object.values(getFieldsError(fields)).some(Boolean);
-    const isUntouched = fields.some(f => !isFieldTouched(f));
+    const { form, submitting, t } = this.props;
+    const { getFieldDecorator } = form;
     return (
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
-          {errorMessage && this.renderAlertMessage(errorMessage)}
           <FormItem>
-            {getFieldDecorator(fields[0], {
-              rules: [
-                {
-                  required: true,
-                  message: t('password.required'),
-                },
-              ],
-            })(
-              <Input
-                size="large"
-                autoComplete="password"
-                type="password"
-                placeholder={t('old_password.placeholder')}
-              />
+            {getFieldDecorator('email', this.emailValidator)(
+              <Input size="large" placeholder={t('email.placeholder')} />
             )}
           </FormItem>
           <FormItem help={this.state.passwordHelp}>
@@ -179,26 +164,17 @@ export default class ChangePassword extends Component {
               placement="right"
               visible={this.state.popoverVisible}
             >
-              {getFieldDecorator(fields[1], {
+              {getFieldDecorator('password', {
                 rules: [
                   {
                     validator: this.checkPassword,
                   },
                 ],
-              })(
-                <Input
-                  size="large"
-                  autoComplete="new-password"
-                  type="password"
-                  placeholder={t('new_password.placeholder')}
-                  onChange={this.showPopover}
-                  onBlur={this.hidePopover}
-                />
-              )}
+              })(<Input size="large" type="password" placeholder={t('password.placeholder')} />)}
             </Popover>
           </FormItem>
           <FormItem>
-            {getFieldDecorator(fields[2], {
+            {getFieldDecorator('confirm', {
               rules: [
                 {
                   required: true,
@@ -209,12 +185,7 @@ export default class ChangePassword extends Component {
                 },
               ],
             })(
-              <Input
-                size="large"
-                autoComplete="new-password"
-                type="password"
-                placeholder={t('password_confirm.placeholder')}
-              />
+              <Input size="large" type="password" placeholder={t('password_confirm.placeholder')} />
             )}
           </FormItem>
           <FormItem>
@@ -222,12 +193,16 @@ export default class ChangePassword extends Component {
               size="large"
               loading={submitting}
               className={styles.submit}
-              disabled={hasError || isUntouched}
               type="primary"
               htmlType="submit"
             >
-              {t('common:change_password')}
+              {t('common:register')}
             </Button>
+          </FormItem>
+          <FormItem>
+            <Link className={styles.login} to="/user/login">
+              {t('go_login')}
+            </Link>
           </FormItem>
         </Form>
       </div>

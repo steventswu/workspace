@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Input, Button, Alert } from 'antd';
 import { translate } from 'react-i18next';
-import styles from './Register.less';
+import styles from './styles.less';
 
 const FormItem = Form.Item;
 

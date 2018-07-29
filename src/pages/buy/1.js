@@ -3,8 +3,8 @@ import { connect } from 'dva';
 import { Form, Button, Checkbox, Row } from 'antd';
 import { routerRedux } from 'dva/router';
 import { translate } from 'react-i18next';
+import Contract from 'src/components/Contract';
 import styles from './style.less';
-import Contract from './Contract';
 
 const formItemLayout = {
   labelCol: {

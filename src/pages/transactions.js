@@ -2,7 +2,37 @@ import React from 'react';
 import { Table } from 'antd';
 import { connect } from 'dva';
 import { translate } from 'react-i18next';
-import column from './ProfileHome.json';
+
+const column = [
+  {
+    title: 'Buy/Sell',
+    dataIndex: 'type',
+  },
+  {
+    title: 'Wallet Address',
+    dataIndex: 'address',
+  },
+  {
+    title: 'CAP Name',
+    dataIndex: 'label',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+  },
+  {
+    title: 'Time',
+    dataIndex: 'time',
+  },
+  {
+    title: 'Amount',
+    dataIndex: 'amount',
+  },
+  {
+    title: '',
+    key: 'actions',
+  },
+];
 
 @connect(({ profile, loading }) => ({
   transactions: profile.transactions,
@@ -37,7 +67,7 @@ export default class ProfileHome extends React.Component {
       <React.Fragment>
         <h1>{t('transaction_history.title')}</h1>
         <Table
-          columns={column.transaction.map(this.transactionColumnMapper)}
+          columns={column.map(this.transactionColumnMapper)}
           dataSource={transactions}
           loading={loading}
         />

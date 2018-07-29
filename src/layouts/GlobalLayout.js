@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import GlobalHeader from 'src/components/GlobalHeader';
+import Container from 'src/components/Container';
 import AppFooter from 'src/components/AppFooter';
 import redirect from 'src/utils/redirect';
 import session from 'src/utils/session';
@@ -36,7 +37,7 @@ export default class GlobalLayout extends React.PureComponent {
   };
 
   render() {
-    const { isLoading, currentUser } = this.props;
+    const { isLoading, currentUser, location: { pathname } } = this.props;
 
     return (
       <DocumentTitle title="CAP, Cryptocurrency Assets Portfolio - The first Crypto index fund | Tixguru">
@@ -50,7 +51,9 @@ export default class GlobalLayout extends React.PureComponent {
               isLoading={isLoading}
             />
           </Layout.Header>
-          <Layout.Content className={styles.container}>{this.props.children}</Layout.Content>
+          <Layout.Content className={styles.container}>
+            {pathname === '/' ? this.props.children : <Container>{this.props.children}</Container>}
+          </Layout.Content>
           <Layout.Footer>
             <AppFooter />
           </Layout.Footer>

@@ -6,7 +6,7 @@ import { CONTRACTS, CONTRACT } from 'src/utils/contract';
 import { getVerifiedWalletList } from 'src/selectors/profile';
 import { translate } from 'react-i18next';
 
-import styles from './Redeem.less';
+import styles from './redeem.less';
 
 const mapStateToProps = ({ user, loading }) => ({
   walletList: getVerifiedWalletList(user.walletAddressMap),

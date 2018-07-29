@@ -8,7 +8,7 @@ import { VERIFIED, PENDING, UNVERIFIED } from 'src/utils/status';
 import * as userProfile from 'src/selectors/profile';
 import IdForm from 'components/IdForm';
 
-import styles from './UserProfile.less';
+import styles from './profile.less';
 
 const ROUTE = {
   WALLET_VERIFICATION: '/profile/wallet',
