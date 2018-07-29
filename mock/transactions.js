@@ -1,4 +1,4 @@
-export const transactionsData = [
+export default [
   {
     transactionType: 'buy',
     transactionHash: '0x94e8c0b459eca4ef3e848e831cabb3f7c08704a879918c0ab148a63c2592c873',

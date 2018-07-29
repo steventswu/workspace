@@ -1,4 +1,4 @@
-export const userData = {
+export default {
   id: '1',
   firstName: 'Tix',
   lastName: 'Guru',
