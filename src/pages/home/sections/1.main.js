@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col as Column, Slider, Button } from 'antd';
+import router from 'umi/router';
 import ImageSet from 'src/components/ImageSet';
 import { eth } from 'src/assets/home';
 import styles from './1.main.less';
@@ -15,6 +16,8 @@ const content = {
     source: 'by Charlene Hong, former Yahoo Taiwan Managing Director',
   },
 };
+
+const toLogin = () => router.push('/user/login');
 
 export default () => (
   <main className={styles.main}>
@@ -62,7 +65,7 @@ export default () => (
     </Row>
     <Row className={styles.start}>
       <Column xs={{ span: 20, push: 2, pull: 2 }} lg={{ span: 9, push: 7, pull: 7 }}>
-        <Button style={{ height: 62 }} type="primary">
+        <Button style={{ height: 62 }} type="primary" onClick={toLogin}>
           Get Started
         </Button>
       </Column>
