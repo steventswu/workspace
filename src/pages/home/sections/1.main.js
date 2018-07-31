@@ -29,36 +29,32 @@ export default ({ onAction }) => (
         </div>
       </Column>
       <Column xs={24} lg={{ span: 13, push: 1 }} style={{ marginBottom: 24 }}>
-        <div className={styles.investment_container}>
+        <span className={styles.investment_container}>
           <h2>Investing Amount</h2>
           <Slider tipFormatter={null} />
           <p>1,000 CAP</p>
-          <p>CAP 1:1 ETH</p>
           <h2>Tenor</h2>
-          <Slider
-            tipFormatter={null}
-            range
-            marks={{ 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7 }}
-            min={1}
-            max={7}
-          />
-          <p>Month</p>
+          <Slider tipFormatter={null} range />
+          <p>2017/6/15 ~ 2018/5/1</p>
           <Row gutter={8} className={styles.return_container}>
-            <Column xs={{ span: 7, push: 1 }} lg={{ span: 7, push: 3 }}>
-              <div>20%</div>
-              <div className={styles.label}>Return</div>
-            </Column>
-            <Column xs={{ span: 3, push: 2 }} lg={{ span: 2, push: 3 }}>
+            <Column xs={{ span: 3 }} xl={{ span: 2 }}>
               =
             </Column>
-            <Column xs={{ span: 10, push: 2 }} lg={{ span: 10, push: 3 }}>
+            <Column xs={{ span: 21 }} xl={{ span: 6 }}>
               <div>
-                200 <ImageSet {...eth} alt="ETH" />
+                20%
+                <span className={styles.label}>Return</span>
               </div>
-              <div className={styles.label}>Earn</div>
+            </Column>
+            <Column xs={{ span: 21, push: 3 }} xl={{ span: 14 }}>
+              <div>
+                200
+                <ImageSet {...eth} alt="ETH" style={{ margin: 5 }} />
+                <span className={styles.label}>Earn</span>
+              </div>
             </Column>
           </Row>
-        </div>
+        </span>
       </Column>
     </Row>
     <Row className={styles.start}>
