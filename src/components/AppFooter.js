@@ -18,7 +18,9 @@ export default () => (
         </p>
         <p className={styles.intro}>
           <span className={styles.support}>support@tixguru.co</span>
-          <span>+886 2 85021138</span>
+          <span>
+            <a href="tel:+886 2 85021138">+886 2 85021138</a>
+          </span>
         </p>
       </Column>
       <Column xs={24} lg={12} className={styles.social}>

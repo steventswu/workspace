@@ -256,7 +256,7 @@ export default class BasicPerformance extends PureComponent {
                 contentHeight={150}
               />
             </Col>
-            <Col xl={16} style={{ marginBottom: 24 }}>
+            <Col xs={0} xl={16} style={{ marginBottom: 24 }}>
               <ChartCard style={{ width: '100%' }}>
                 <HighchartsReact
                   performance={performance}
