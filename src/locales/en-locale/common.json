@@ -17,5 +17,8 @@
   "facebook": "Continue With Facebook",
   "forgot_password": "Forgot Password",
   "change_password": "Change Password",
-  "welcome_back": "Welcome Back !"
+  "welcome_back": "Welcome Back !",
+  "cap_value": "{{value}} CAP",
+  "start_end": "{{start}} ~ {{end}}",
+  "percentage": "{{value}}%"
 }

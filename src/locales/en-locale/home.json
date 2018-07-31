@@ -1,7 +1,18 @@
 {
-  "title": "CAP",
-  "subtitle": "The First Crypto Index Fund",
-  "about": "About CAP Service",
+  "main": {
+    "title": "CAP",
+    "description": [
+      "Crypto Asset Platform (\"CAP\")",
+      "Trade with confidence on the world's leading crypto asset platform",
+      "Join with fund managers on managing investment portfolios of cryptocurrencies"
+    ],
+    "investment_simulator": {
+      "amount_title": "Investing Amount",
+      "tenor_title": "Tenor",
+      "return": "Return",
+      "earn": "Earn"
+    }
+  },
   "about_content": [
     "Suitable for user who are first time getting to know Digital Asset. Buying CAP can effectively avoid the risk with wide fluctuations.",
     "Selecting the cryptocurrencies which perform excellent in the market every two weeks to find the most optimal risk-reward ratio.",
