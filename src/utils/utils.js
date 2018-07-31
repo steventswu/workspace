@@ -125,7 +125,7 @@ function getRenderArr(routes) {
   }
   return renderArr;
 }
-
+w
 /**
  * Get router routing configuration
  * { path:{name,...param}}=>Array<{name,path ...param}>

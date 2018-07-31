@@ -1,5 +1,4 @@
 import fetch from 'dva/fetch';
-import store from '../index';
 
 const codeMessage = {
   200: 'OK',
@@ -73,10 +72,9 @@ export default function request(url, options) {
       return response.json();
     })
     .catch(e => {
-      const { dispatch } = store;
       const status = e.name;
       if (status === 403) {
-        dispatch({
+        window.g_app._store.dispatch({
           type: 'login/logout',
         });
       }

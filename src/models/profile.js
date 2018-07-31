@@ -8,7 +8,7 @@ import { formatErrorMessage } from 'src/utils/error';
 import { getWalletList } from 'src/selectors/profile';
 import { routerRedux } from 'dva/router';
 import i18n from 'src/i18n';
-import * as format from './profile.helper';
+import * as format from 'src/utils/helper';
 
 export default {
   namespace: 'profile',
