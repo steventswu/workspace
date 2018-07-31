@@ -48,7 +48,7 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
             </Link>
           </Menu.Item>
           <Menu.Item>
-            <Link style={{ padding: 15 }} to="/faq">
+            <Link style={{ padding: 15 }} target="_blank" to="/faq">
               {t('faq')}
             </Link>
           </Menu.Item>
