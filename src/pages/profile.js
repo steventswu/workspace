@@ -8,6 +8,7 @@ import { VERIFIED, PENDING, UNVERIFIED } from 'src/utils/status';
 import * as userProfile from 'src/selectors/profile';
 import IdForm from 'components/IdForm';
 
+import { CHANGE_PASSWORD } from 'src/routes';
 import styles from './profile.less';
 
 const ROUTE = {
@@ -34,7 +35,7 @@ export default class UserProfile extends React.Component {
     this.setState({ activeKey: activeKey.filter(k => k !== this.setState.activeKey).pop() });
   };
   handleButtonClick = () => {
-    this.props.dispatch(routerRedux.push('/user/change-password'));
+    this.props.dispatch(routerRedux.push(CHANGE_PASSWORD));
   };
   handleOnClick = values => {
     const formData = new FormData();

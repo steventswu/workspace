@@ -5,6 +5,7 @@ import { routerRedux } from 'dva/router';
 import { translate } from 'react-i18next';
 import Contract from 'src/components/Contract';
 import styles from './style.less';
+import { ROUTE } from 'src/layouts/BuyTokenLayout';
 
 const formItemLayout = {
   labelCol: {
@@ -22,7 +23,7 @@ const formItemLayout = {
 @translate(['buy', 'common'])
 export default class Step1 extends React.PureComponent {
   onSubmit = () => {
-    this.props.dispatch(routerRedux.replace('/buy/2'));
+    this.props.dispatch(routerRedux.replace(ROUTE.STEP2));
     this.props.dispatch({ type: 'token/resetBuyTerm' });
   };
 

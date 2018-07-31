@@ -3,10 +3,11 @@ import { Row, Col as Column, Button } from 'antd';
 import router from 'umi/router';
 
 import Image from 'src/assets/home/bg_photo_crypto.png';
+import { LOGIN } from 'src/routes';
 
 import styles from './6.action.less';
 
-const toLogin = () => router.push('/user/login');
+const toLogin = () => router.push(LOGIN);
 
 export default () => (
   <Row type="flex" className={styles.darkWrapper}>

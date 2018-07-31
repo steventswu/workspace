@@ -9,6 +9,7 @@ import { getWalletList } from 'src/selectors/profile';
 import { routerRedux } from 'dva/router';
 import i18n from 'src/i18n';
 import * as format from 'src/utils/helper';
+import { PROFILE } from 'src/routes';
 
 export default {
   namespace: 'profile',
@@ -120,7 +121,7 @@ export default {
           transactionHash: txHash,
         });
         notification.info({ message: i18n.t('message:transaction_complete'), description: txHash });
-        yield put(routerRedux.replace('/profile'));
+        yield put(routerRedux.replace(PROFILE));
       } catch (error) {
         if (error instanceof TypeError) {
           return notification.error({ message: error.message });

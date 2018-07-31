@@ -3,6 +3,7 @@ import { routerRedux } from 'dva/router';
 import Web3 from 'src/services/Web3';
 import { CAPP01, CONTRACT } from 'src/utils/contract';
 import { updateMemberTransactions } from 'src/services/members';
+import { ROUTE } from 'src/layouts/BuyTokenLayout';
 import i18n from 'src/i18n';
 
 const initialCheckedState = {
@@ -24,7 +25,7 @@ export default {
 
   effects: {
     *submitNormalOrder({ payload }, { put }) {
-      yield put(routerRedux.replace('/buy/3'));
+      yield put(routerRedux.replace(ROUTE.STEP3));
 
       yield put({ type: 'saveFormData', payload });
       yield put({ type: 'user/updateInfo', payload });
@@ -33,7 +34,7 @@ export default {
       try {
         yield call(Web3.validate);
         const walletAddress = yield call(Web3.getAccount);
-        yield put(routerRedux.replace('/buy/3'));
+        yield put(routerRedux.replace(ROUTE.STEP3));
 
         const result = yield call(Web3.buy, { ...payload, account: walletAddress });
         notification.success({ message: i18n.t('message:transaction_complete') });

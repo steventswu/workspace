@@ -5,8 +5,9 @@ import Twitter from 'src/services/Twitter';
 import session from 'src/utils/session';
 import redirect from 'src/utils/redirect';
 import i18n from 'src/i18n';
+import { HOME } from 'src/routes';
 
-const redirectPath = () => redirect.get() || '/';
+const redirectPath = () => redirect.get() || HOME;
 
 export default {
   namespace: 'login',
@@ -52,7 +53,7 @@ export default {
           payload: { status: false },
         });
         yield put({ type: 'user/destroy' });
-        yield put(routerRedux.replace('/'));
+        yield put(routerRedux.replace(HOME));
       }
     },
     *googleRedirect(_, { call }) {

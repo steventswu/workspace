@@ -4,9 +4,10 @@ import router from 'umi/router';
 import { Button } from 'antd';
 import Exception from 'src/components/Exception';
 import i18n from 'src/i18n';
+import { HOME, EXCEPTION_404 } from 'src/routes';
 
 const Action = (
-  <Link to="/" replace>
+  <Link to={HOME} replace>
     <Button type="primary">{i18n.t('common:return')}</Button>
   </Link>
 );
@@ -16,7 +17,7 @@ const exceptionType = ['403', '404', '500'];
 export default function ExceptionLayout({ location: { pathname = '' } = {} }) {
   let [, type] = pathname.match(/\/exception\/(\d{3})/);
   if (!exceptionType.includes(type)) {
-    router.replace('/exception/404');
+    router.replace(EXCEPTION_404);
   }
   return (
     <Exception

@@ -5,8 +5,9 @@ import { translate } from 'react-i18next';
 
 import Container from '../Container';
 import styles from './index.less';
+import { PROFILE, PORTFOLIO, TRANSACTIONS, REDEEM, PERFORMANCE, BUY, HOME } from 'src/routes';
 
-const menuRoutes = ['profile', 'portfolio', 'transactions', 'redeem'];
+const menuRoutes = [PROFILE, PORTFOLIO, TRANSACTIONS, REDEEM];
 
 const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoading, t }) => {
   const button = (
@@ -23,7 +24,7 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
     <Menu onClick={e => e.key === 'logout' && onClickLogout()}>
       {menuRoutes.map(item => (
         <Menu.Item key={item}>
-          <Link to={`/${item}`}>{t(item)}</Link>
+          <Link to={item}>{t(item.substring(1))}</Link>
         </Menu.Item>
       ))}
       <Menu.Divider />
@@ -37,12 +38,12 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
       overlay={
         <Menu>
           <Menu.Item>
-            <Link style={{ padding: 15 }} to="/performance">
+            <Link style={{ padding: 15 }} to={PERFORMANCE}>
               {t('performance')}
             </Link>
           </Menu.Item>
           <Menu.Item>
-            <Link style={{ padding: 15 }} to="/buy">
+            <Link style={{ padding: 15 }} to={BUY}>
               {t('buy_cap')}
             </Link>
           </Menu.Item>
@@ -61,15 +62,15 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
   return (
     <Container>
       <div className={styles.container}>
-        <Link to="/">
+        <Link to={HOME}>
           <img className={styles.logo} src={logo} alt="logo" />
         </Link>
         <div className={styles.linkContainer}>
           <div className={styles.links}>
-            <Link style={{ padding: '0 15px' }} to="/performance">
+            <Link style={{ padding: '0 15px' }} to={PERFORMANCE}>
               {t('performance')}
             </Link>
-            <Link style={{ padding: '0 15px' }} to="/buy">
+            <Link style={{ padding: '0 15px' }} to={BUY}>
               {t('buy_cap')}
             </Link>
             <Link style={{ padding: '0 15px' }} to="/faq">

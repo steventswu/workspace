@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Input, Button, Alert } from 'antd';
 import { translate } from 'react-i18next';
+import { LOGIN } from 'src/routes';
 import styles from './styles.less';
 
 const FormItem = Form.Item;
@@ -62,7 +63,7 @@ export default class ForgotPassword extends Component {
             </Button>
           </FormItem>
           <FormItem>
-            <Link className={styles.login} to="/user/login">
+            <Link className={styles.login} to={LOGIN}>
               {t('common:return_to', { route: t('common:login') })}
             </Link>
           </FormItem>

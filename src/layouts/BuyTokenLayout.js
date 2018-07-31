@@ -2,14 +2,15 @@ import React from 'react';
 import { Redirect } from 'dva/router';
 import { Card, Steps } from 'antd';
 import styles from './BuyTokenLayout.less';
+import { BUY } from '../routes';
 
 const { Step } = Steps;
 
 export const ROUTE = {
-  ROOT: '/buy',
-  STEP1: '/buy/1',
-  STEP2: '/buy/2',
-  STEP3: '/buy/3',
+  ROOT: BUY,
+  STEP1: `${BUY}/1`,
+  STEP2: `${BUY}/2`,
+  STEP3: `${BUY}/3`,
 };
 
 export default function BuyTokenLayout({ children, location }) {

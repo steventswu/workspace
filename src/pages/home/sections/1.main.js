@@ -3,6 +3,7 @@ import { Row, Col as Column, Slider, Button } from 'antd';
 import router from 'umi/router';
 import ImageSet from 'src/components/ImageSet';
 import { eth } from 'src/assets/home';
+import { LOGIN } from 'src/routes';
 import styles from './1.main.less';
 
 // prettier-ignore
@@ -17,7 +18,7 @@ const content = {
   },
 };
 
-const toLogin = () => router.push('/user/login');
+const toLogin = () => router.push(LOGIN);
 
 export default () => (
   <main className={styles.main}>

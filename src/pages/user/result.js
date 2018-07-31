@@ -3,10 +3,11 @@ import { Button } from 'antd';
 import { Link } from 'dva/router';
 import { translate } from 'react-i18next';
 import Result from 'components/Result';
+import { HOME } from 'src/routes';
 import styles from './styles.less';
 
 const LoginResult = ({
-  location: { state: { email = 'you@example.com', type = 'reset', link = { to: '/' } } = {} },
+  location: { state: { email = 'you@example.com', type = 'reset', link = { to: HOME } } = {} },
   t,
 }) => (
   <Result

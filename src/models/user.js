@@ -4,6 +4,7 @@ import { UNVERIFIED } from 'src/utils/status';
 import i18n from 'src/i18n';
 import session from 'src/utils/session';
 import { redirect } from 'src/services/redirect';
+import { REGISTER_RESULT, LOGIN } from 'src/routes';
 
 export default {
   namespace: 'user',
@@ -19,7 +20,7 @@ export default {
         });
         yield put(
           routerRedux.push({
-            pathname: '/user/result',
+            pathname: REGISTER_RESULT,
             state: { email: payload.email, type: 'register' },
           })
         );
@@ -45,11 +46,11 @@ export default {
         if (!error) {
           return yield put(
             routerRedux.push({
-              pathname: '/user/result',
+              pathname: REGISTER_RESULT,
               state: {
                 email: payload.email,
                 type: 'reset',
-                link: { to: '/user/login', route: i18n.t('common:login') },
+                link: { to: LOGIN, route: i18n.t('common:login') },
               },
             })
           );
@@ -70,7 +71,7 @@ export default {
         };
         const { error, status } = yield call(api.updateMemberPassword, params);
         if (!error) {
-          return yield put({ type: 'redirect', payload: { location: '/user/login' } });
+          return yield put({ type: 'redirect', payload: { location: LOGIN } });
         }
         yield put({
           type: 'save',

@@ -1,5 +1,6 @@
 import { routerRedux } from 'dva/router';
 import * as api from 'src/services/auth';
+import { LOGIN } from 'src/routes';
 
 export default {
   namespace: 'auth',
@@ -18,7 +19,7 @@ export default {
     *verifyEmail({ payload }, { call, put }) {
       const { error } = yield call(api.verifyEmail, payload);
       if (error) {
-        yield put(routerRedux.replace('/user/login'));
+        yield put(routerRedux.replace(LOGIN));
       }
     },
   },

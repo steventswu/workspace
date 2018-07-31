@@ -1,10 +1,11 @@
 import React from 'react';
 import { Row, Button, Card } from 'antd';
 import router from 'umi/router';
+import { LOGIN } from 'src/routes';
 
 import styles from './3.product.less';
 
-const toLogin = () => router.push('/user/login');
+const toLogin = () => router.push(LOGIN);
 
 export default () => (
   <Row type="flex" className={[styles.centered, styles.row, styles.darkWrapper].join(' ')}>

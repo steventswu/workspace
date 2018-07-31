@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { translate } from 'react-i18next';
 import Result from 'components/Result';
+import { LOGIN } from 'src/routes';
 import styles from './styles.less';
 
 @connect(({ loading }) => ({
@@ -24,7 +25,7 @@ export default class RegisterConfirm extends React.Component {
         title={<div className={styles.title}>{t('register.confirm')}</div>}
         actions={
           <div className={styles.actions}>
-            <Link to="/user/login">
+            <Link to={LOGIN}>
               <Button size="large" type="primary">
                 {t('common:login')}
               </Button>

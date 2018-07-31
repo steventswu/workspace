@@ -7,6 +7,7 @@ import { Row, Col as Column, Divider, Button, Form, Alert, Spin } from 'antd';
 import { translate } from 'react-i18next';
 import Login from 'components/Login';
 import * as loginAssets from 'src/assets/login';
+import { REGISTER, FORGOT_PASSWORD } from 'src/routes';
 
 import styles from './login.less';
 
@@ -47,7 +48,7 @@ export default class LoginPage extends Component {
   };
 
   handleRegister = () => {
-    this.props.dispatch(routerRedux.push('/user/register'));
+    this.props.dispatch(routerRedux.push(REGISTER));
   };
 
   handleGoogleLogin = () => {
@@ -97,7 +98,7 @@ export default class LoginPage extends Component {
                   rules={[{ required: true, message: t('password.required') }]}
                 />
                 <Form.Item className={styles.forgot}>
-                  <Link style={{ float: 'right' }} to="/user/forgot-password">
+                  <Link style={{ float: 'right' }} to={FORGOT_PASSWORD}>
                     {t('common:forgot_password')}
                   </Link>
                 </Form.Item>
