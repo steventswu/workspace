@@ -18,9 +18,11 @@ export default () => (
           anytime at
         </p>
         <p className={styles.intro}>
-          <span className={styles.support}>support@tixguru.co</span>
+          <span className={styles.support}>
+            <a href="mailto:support@tixguru.co">support@tixguru.co</a>
+          </span>
           <span>
-            <a href="tel:+886 2 85021138">+886 2 85021138</a>
+            <a href="tel:+886285021138">+886 2 85021138</a>
           </span>
         </p>
       </Column>
