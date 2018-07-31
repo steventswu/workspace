@@ -10,7 +10,7 @@ import redirect from 'src/utils/redirect';
 import session from 'src/utils/session';
 import logo from 'src/assets/logo.svg';
 import styles from './GlobalLayout.less';
-import { HOME, LOGIN } from '../routes';
+import { HOME, LOGIN, REGISTER } from '../routes';
 
 @connect(({ user, loading }) => ({ currentUser: user.email, isLoading: loading.global }))
 export default class GlobalLayout extends React.PureComponent {
@@ -49,7 +49,7 @@ export default class GlobalLayout extends React.PureComponent {
   render() {
     const { isLoading, currentUser, location: { pathname } } = this.props;
 
-    const noContainer = [HOME].includes(pathname);
+    const noContainer = [HOME, LOGIN, REGISTER].includes(pathname);
 
     return (
       <DocumentTitle title="CAP, Cryptocurrency Assets Portfolio - The first Crypto index fund | Tixguru">
