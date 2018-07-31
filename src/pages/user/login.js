@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { Link, routerRedux } from 'dva/router';
 import qs from 'qs';
 import isWebView from 'is-webview';
-import { Form, Alert, Icon, Spin } from 'antd';
+import { Row, Col as Column, Divider, Button, Form, Alert, Spin } from 'antd';
 import { translate } from 'react-i18next';
 import Login from 'components/Login';
+import * as loginAssets from 'src/assets/login';
+
 import styles from './login.less';
 
 const facebookAppID = 2098112697085130;
@@ -44,6 +46,10 @@ export default class LoginPage extends Component {
     });
   };
 
+  handleRegister = () => {
+    this.props.dispatch(routerRedux.push('/user/register'));
+  };
+
   handleGoogleLogin = () => {
     this.props.dispatch({ type: 'login/googleRedirect' });
   };
@@ -70,58 +76,68 @@ export default class LoginPage extends Component {
     const { login, submitting, t } = this.props;
     const showErrorMessage = login.status && login.status !== 'ok' && !submitting;
     return (
-      <Form.Item className={styles.main}>
-        <Spin spinning={Boolean(submitting)}>
-          <Login onSubmit={this.handleSubmit}>
-            {showErrorMessage && login.message && this.renderMessage(login.message)}
-            <Login.UserName
-              name="email"
-              placeholder={t('email.placeholder')}
-              rules={[
-                {
-                  required: true,
-                  whitespace: true,
-                  message: t('email.required'),
-                },
-              ]}
-            />
-            <Login.Password
-              name="password"
-              placeholder={t('password.placeholder')}
-              rules={[
-                {
-                  required: true,
-                  message: t('password.required'),
-                },
-              ]}
-            />
-            <Form.Item className={styles.forgot}>
-              <Link style={{ float: 'right' }} to="/user/forgot-password">
-                {t('common:forgot_password')}
-              </Link>
-            </Form.Item>
-            <Login.Submit>Submit</Login.Submit>
-            <div className={styles.other}>
-              <Icon
-                className={styles.icon}
-                type="facebook"
-                onClick={
-                  login.status === 'fbError'
-                    ? this.handleFacebookEmailRequest
-                    : this.handleFacebookLogin
-                }
-              />
-              {this.isBrowser && (
-                <Icon className={styles.icon} type="google" onClick={this.handleGoogleLogin} />
-              )}
-              {/* <Icon className={styles.icon} type="twitter" onClick={this.handleTwitterLogin} /> */}
-              <Link className={styles.register} to="/user/register">
-                {t('common:register')}
-              </Link>
-            </div>
-          </Login>
-        </Spin>
-      </Form.Item>
+      <Row gutter={16}>
+        <Column
+          xs={24}
+          lg={{ span: 11, push: 13 }}
+          style={{ marginTop: '15%', marginBottom: '10%' }}
+        >
+          <Form.Item className={styles.main}>
+            <Spin spinning={Boolean(submitting)}>
+              <Login onSubmit={this.handleSubmit}>
+                {showErrorMessage && login.message && this.renderMessage(login.message)}
+                <Login.UserName
+                  name="email"
+                  placeholder={t('email.placeholder')}
+                  rules={[{ required: true, whitespace: true, message: t('email.required') }]}
+                />
+                <Login.Password
+                  name="password"
+                  placeholder={t('password.placeholder')}
+                  rules={[{ required: true, message: t('password.required') }]}
+                />
+                <Form.Item className={styles.forgot}>
+                  <Link style={{ float: 'right' }} to="/user/forgot-password">
+                    {t('common:forgot_password')}
+                  </Link>
+                </Form.Item>
+                <Login.Submit style={{ borderRadius: 20 }}>{t('common:login')}</Login.Submit>
+                <Divider className={styles.divider}>{t('common:or')}</Divider>
+                <Button size="large" className={styles.join} onClick={this.handleRegister}>
+                  {t('common:join_now')}
+                </Button>
+                {this.isBrowser && (
+                  <Button
+                    size="large"
+                    className={styles.googleBtn}
+                    onClick={this.handleGoogleLogin}
+                  >
+                    <img alt="Google" src={loginAssets.googleIcon} style={{ float: 'left' }} />
+                    <span>{t('common:google')}</span>
+                  </Button>
+                )}
+                <Button
+                  size="large"
+                  className={styles.facebookBtn}
+                  onClick={
+                    login.status === 'fbError'
+                      ? this.handleFacebookEmailRequest
+                      : this.handleFacebookLogin
+                  }
+                >
+                  <img alt="Facebook" src={loginAssets.facebookIcon} style={{ float: 'left' }} />
+                  <span>{t('common:facebook')}</span>
+                </Button>
+              </Login>
+            </Spin>
+          </Form.Item>
+        </Column>
+        <Column xs={0} lg={{ span: 13, pull: 11 }} style={{ marginTop: '16%' }}>
+          <Column span={14} offset={3}>
+            <div className={styles.welcome}>{t('common:welcome_back')}</div>
+          </Column>
+        </Column>
+      </Row>
     );
   }
 }

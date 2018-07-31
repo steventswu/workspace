@@ -1,6 +1,7 @@
 {
   "next": "Next",
   "submit": "Submit",
+  "or": "or",
   "return": "Return to Home",
   "return_to": "Return to {{route}}",
   "cap": "CAP",
@@ -11,6 +12,10 @@
   "success": "Success",
   "register": "Register",
   "login": "Login",
+  "join_now": "Join Now",
+  "google": "Continue With Google",
+  "facebook": "Continue With Facebook",
   "forgot_password": "Forgot Password",
-  "change_password": "Change Password"
+  "change_password": "Change Password",
+  "welcome_back": "Welcome Back !"
 }

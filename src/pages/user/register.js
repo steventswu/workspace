@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Form, Input, Button, Popover, Progress } from 'antd';
+import { Row, Col as Column, Form, Input, Icon, Button, Popover, Progress } from 'antd';
 import { translate } from 'react-i18next';
 import styles from './styles.less';
 
@@ -144,68 +144,88 @@ export default class Register extends Component {
     const { form, submitting, t } = this.props;
     const { getFieldDecorator } = form;
     return (
-      <div className={styles.main}>
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem>
-            {getFieldDecorator('email', this.emailValidator)(
-              <Input size="large" placeholder={t('email.placeholder')} />
-            )}
-          </FormItem>
-          <FormItem help={this.state.passwordHelp}>
-            <Popover
-              content={
-                <div style={{ padding: '4px 0' }}>
-                  {this.passwordStatusMap[this.getPasswordStatus()]}
-                  {this.renderPasswordProgress()}
-                  <div style={{ marginTop: 10 }}>{t('password.tip')}</div>
-                </div>
-              }
-              overlayStyle={{ width: 240 }}
-              placement="right"
-              visible={this.state.popoverVisible}
-            >
-              {getFieldDecorator('password', {
+      <Row gutter={16}>
+        <Column
+          xs={24}
+          lg={{ span: 11, push: 13 }}
+          style={{ marginTop: '15%', marginBottom: '20%' }}
+        >
+          <Form className={styles.main} onSubmit={this.handleSubmit}>
+            <FormItem>
+              {getFieldDecorator('email', this.emailValidator)(
+                <Input
+                  size="large"
+                  placeholder={t('email.placeholder')}
+                  prefix={<Icon type="user" style={{ color: 'rgba(255, 255, 255, 0.35)' }} />}
+                />
+              )}
+            </FormItem>
+            <FormItem help={this.state.passwordHelp}>
+              <Popover
+                content={
+                  <div style={{ padding: '4px 0' }}>
+                    {this.passwordStatusMap[this.getPasswordStatus()]}
+                    {this.renderPasswordProgress()}
+                    <div style={{ marginTop: 10 }}>{t('password.tip')}</div>
+                  </div>
+                }
+                overlayStyle={{ width: 240 }}
+                placement="right"
+                visible={this.state.popoverVisible}
+              >
+                {getFieldDecorator('password', {
+                  rules: [
+                    {
+                      validator: this.checkPassword,
+                    },
+                  ],
+                })(<Input size="large" type="password" placeholder={t('password.placeholder')} />)}
+              </Popover>
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator('confirm', {
                 rules: [
                   {
-                    validator: this.checkPassword,
+                    required: true,
+                    message: t('password_confirm.required'),
+                  },
+                  {
+                    validator: this.checkConfirm,
                   },
                 ],
-              })(<Input size="large" type="password" placeholder={t('password.placeholder')} />)}
-            </Popover>
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('confirm', {
-              rules: [
-                {
-                  required: true,
-                  message: t('password_confirm.required'),
-                },
-                {
-                  validator: this.checkConfirm,
-                },
-              ],
-            })(
-              <Input size="large" type="password" placeholder={t('password_confirm.placeholder')} />
-            )}
-          </FormItem>
-          <FormItem>
-            <Button
-              size="large"
-              loading={submitting}
-              className={styles.submit}
-              type="primary"
-              htmlType="submit"
-            >
-              {t('common:register')}
-            </Button>
-          </FormItem>
-          <FormItem>
-            <Link className={styles.login} to="/user/login">
-              {t('go_login')}
-            </Link>
-          </FormItem>
-        </Form>
-      </div>
+              })(
+                <Input
+                  size="large"
+                  type="password"
+                  placeholder={t('password_confirm.placeholder')}
+                />
+              )}
+            </FormItem>
+            <FormItem>
+              <Button
+                size="large"
+                loading={submitting}
+                className={styles.submit}
+                type="primary"
+                htmlType="submit"
+              >
+                {t('common:register')}
+              </Button>
+            </FormItem>
+            <FormItem>
+              <Link className={styles.login} to="/user/login">
+                {t('go_login')}
+              </Link>
+            </FormItem>
+          </Form>
+        </Column>
+        <Column xs={0} lg={{ span: 13, pull: 11 }} style={{ marginTop: '16%' }}>
+          <Column span={14} offset={3}>
+            <div className={styles.join}>{t('common:join_now')}</div>
+            <div>to experience the most efficient Crypto investment ETF</div>
+          </Column>
+        </Column>
+      </Row>
     );
   }
 }
