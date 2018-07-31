@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col as Column, Form, Input, Icon, Button, Checkbox, Popover, Progress } from 'antd';
+import { Row, Col as Column, Form, Input, Icon, Button, Popover, Progress } from 'antd';
 import { translate } from 'react-i18next';
 import Container from 'src/components/Container';
 import styles from './styles.less';
