@@ -31,27 +31,37 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
       <Menu.Item key="logout">{t('logout')}</Menu.Item>
     </Menu>
   );
+  const Links = {
+    performance: (
+      <Link style={{ padding: 15 }} to={PERFORMANCE}>
+        {t('performance')}
+      </Link>
+    ),
+    buy: (
+      <Link style={{ padding: 15 }} to={BUY}>
+        {t('buy_cap')}
+      </Link>
+    ),
+    faq: (
+      <a
+        style={{ padding: 15 }}
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://medium.com/tixguru/cap-faq-7f5a5439a72f"
+      >
+        {t('faq')}
+      </a>
+    ),
+  };
   const menuButton = (
     <Dropdown
       className={styles.linksMenu}
       trigger={['click']}
       overlay={
         <Menu>
-          <Menu.Item>
-            <Link style={{ padding: 15 }} to={PERFORMANCE}>
-              {t('performance')}
-            </Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link style={{ padding: 15 }} to={BUY}>
-              {t('buy_cap')}
-            </Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link style={{ padding: 15 }} target="_blank" to="/faq">
-              {t('faq')}
-            </Link>
-          </Menu.Item>
+          <Menu.Item>{Links.performance}</Menu.Item>
+          <Menu.Item>{Links.buy}</Menu.Item>
+          <Menu.Item>{Links.faq}</Menu.Item>
         </Menu>
       }
       placement="bottomCenter"
@@ -67,15 +77,9 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
         </Link>
         <div className={styles.linkContainer}>
           <div className={styles.links}>
-            <Link style={{ padding: '0 15px' }} to={PERFORMANCE}>
-              {t('performance')}
-            </Link>
-            <Link style={{ padding: '0 15px' }} to={BUY}>
-              {t('buy_cap')}
-            </Link>
-            <Link style={{ padding: '0 15px' }} to="/faq">
-              {t('faq')}
-            </Link>
+            {Links.performance}
+            {Links.buy}
+            {Links.faq}
           </div>
           <div className={styles.btn}>
             {menuButton}

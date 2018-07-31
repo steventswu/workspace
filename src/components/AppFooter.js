@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col as Column } from 'antd';
-
+import Link from 'umi/link';
 import tixguruLogo from 'src/assets/logo-text.svg';
 import Container from './Container';
 import styles from './AppFooter.less';
@@ -43,16 +43,14 @@ export default () => (
       <Column span={24} className={styles.footer}>
         <span>© 2018 Tixguru Pte. Ltd.</span>
         <span className={styles.links}>
-          <a href="#" target="_blank">
-            Privacy
-          </a>
-          <a href="#" target="_blank">
-            Terms and Conditions
-          </a>
-          <a href="#" target="_blank">
-            Cookie Policy
-          </a>
-          <a href="#" target="_blank">
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/terms">Terms and Conditions</Link>
+          <Link to="/policy">Cookie Policy</Link>
+          <a
+            href="https://medium.com/tixguru/cap-faq-7f5a5439a72f"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             FAQ
           </a>
         </span>

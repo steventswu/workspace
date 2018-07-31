@@ -11,10 +11,10 @@ import Subtitle from 'components/Subtitle';
 import NavTable from 'components/NavTable';
 import { translate } from 'react-i18next';
 import HoldingsTable from 'components/HoldingsTable';
-import { navChartOptions } from './options';
+import { navChartOptions } from 'src/utils/options';
 // import idx from 'idx';
 // import moment from 'moment';
-import styles from './BasicPerformance.less';
+import styles from './performance.less';
 @translate('performance')
 @connect(({ performance }) => ({
   performance,
