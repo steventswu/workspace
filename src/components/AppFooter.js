@@ -46,7 +46,11 @@ export default () => (
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms and Conditions</Link>
           <Link to="/policy">Cookie Policy</Link>
-          <a href="https://medium.com/tixguru/cap-faq-7f5a5439a72f" target="_blank">
+          <a
+            href="https://medium.com/tixguru/cap-faq-7f5a5439a72f"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             FAQ
           </a>
         </span>

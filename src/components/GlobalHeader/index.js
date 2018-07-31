@@ -46,6 +46,7 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
       <a
         style={{ padding: 15 }}
         target="_blank"
+        rel="noopener noreferrer"
         href="https://medium.com/tixguru/cap-faq-7f5a5439a72f"
       >
         {t('faq')}
