@@ -10,12 +10,12 @@ let app = dva({
 window.g_app = app;
 app.use(createLoading());
 
-app.model({ namespace: 'auth', ...(require('/Users/stevenwu/workspace/cap-performance/src/models/auth.js').default) });
-app.model({ namespace: 'login', ...(require('/Users/stevenwu/workspace/cap-performance/src/models/login.js').default) });
-app.model({ namespace: 'performance', ...(require('/Users/stevenwu/workspace/cap-performance/src/models/performance.js').default) });
-app.model({ namespace: 'profile', ...(require('/Users/stevenwu/workspace/cap-performance/src/models/profile.js').default) });
-app.model({ namespace: 'token', ...(require('/Users/stevenwu/workspace/cap-performance/src/models/token.js').default) });
-app.model({ namespace: 'user', ...(require('/Users/stevenwu/workspace/cap-performance/src/models/user.js').default) });
+app.model({ namespace: 'auth', ...(require('/Users/Shawn/tixguru/cap-performance/src/models/auth.js').default) });
+app.model({ namespace: 'login', ...(require('/Users/Shawn/tixguru/cap-performance/src/models/login.js').default) });
+app.model({ namespace: 'performance', ...(require('/Users/Shawn/tixguru/cap-performance/src/models/performance.js').default) });
+app.model({ namespace: 'profile', ...(require('/Users/Shawn/tixguru/cap-performance/src/models/profile.js').default) });
+app.model({ namespace: 'token', ...(require('/Users/Shawn/tixguru/cap-performance/src/models/token.js').default) });
+app.model({ namespace: 'user', ...(require('/Users/Shawn/tixguru/cap-performance/src/models/user.js').default) });
 
 class DvaContainer extends Component {
   render() {

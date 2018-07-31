@@ -36,8 +36,19 @@ export default class GlobalLayout extends React.PureComponent {
     this.props.dispatch(routerRedux.push('/user/login'));
   };
 
+  getContainerStyle = pathname => {
+    switch (pathname) {
+      case '/user':
+        return styles.user;
+      default:
+        return;
+    }
+  };
+
   render() {
     const { isLoading, currentUser, location: { pathname } } = this.props;
+
+    const noContainer = ['/'].includes(pathname);
 
     return (
       <DocumentTitle title="CAP, Cryptocurrency Assets Portfolio - The first Crypto index fund | Tixguru">
@@ -52,7 +63,13 @@ export default class GlobalLayout extends React.PureComponent {
             />
           </Layout.Header>
           <Layout.Content className={styles.container}>
-            {pathname === '/' ? this.props.children : <Container>{this.props.children}</Container>}
+            {noContainer ? (
+              this.props.children
+            ) : (
+              <Container className={this.getContainerStyle(pathname)}>
+                {this.props.children}
+              </Container>
+            )}
           </Layout.Content>
           <Layout.Footer>
             <AppFooter />
