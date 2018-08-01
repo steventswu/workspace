@@ -41,10 +41,8 @@ export default class GlobalLayout extends React.PureComponent {
 
   getContainerStyle = pathname => {
     switch (pathname) {
-      case '/user':
-        return styles.user;
       default:
-        return;
+        return styles.container;
     }
   };
 
@@ -65,7 +63,7 @@ export default class GlobalLayout extends React.PureComponent {
               isLoading={isLoading}
             />
           </Layout.Header>
-          <Layout.Content className={styles.container}>
+          <Layout.Content className={styles.content}>
             {noContainer ? (
               this.props.children
             ) : (

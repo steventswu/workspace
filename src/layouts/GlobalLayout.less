@@ -1,6 +1,16 @@
-.container {
+@import '~antd/lib/style/themes/default.less';
+
+.content {
   background-color: #001e46;
   flex: auto;
+}
+
+.container {
+  margin-top: @padding-md;
+  margin-bottom: @padding-md;
+  padding-left: @padding-md; 
+  padding-right: @padding-md;
+  flex: 1;
 }
 
 :global(.ant-layout-content) {
