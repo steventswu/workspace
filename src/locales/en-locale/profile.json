@@ -13,7 +13,7 @@
     "eth": "ETH",
     "usd": "USD",
     "roi": "ROI",
-    "wallet_address": "Wallet Address: {{address}}"
+    "wallet_address": "Wallet Address"
   },
   "initial_capital": "Initial Capital",
   "total_eth": "Total Equity (ETH)",

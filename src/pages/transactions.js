@@ -7,6 +7,7 @@ const column = [
   {
     title: 'Buy/Sell',
     dataIndex: 'type',
+    fixed: 'left',
   },
   {
     title: 'Wallet Address',
@@ -70,6 +71,7 @@ export default class ProfileHome extends React.Component {
           columns={column.map(this.transactionColumnMapper)}
           dataSource={transactions}
           loading={loading}
+          scroll={{ x: true }}
         />
       </React.Fragment>
     );

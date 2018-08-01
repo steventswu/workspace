@@ -1,5 +1,5 @@
 export default {
-  'get /users': {
+  'get /api/users': {
     id: '1',
     firstName: 'Tix',
     lastName: 'Guru',

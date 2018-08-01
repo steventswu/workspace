@@ -1,26 +1,54 @@
+@import '~antd/lib/style/themes/default.less';
+
 .portfolio {
-  :global(.ant-table-footer) {
-    padding: initial;
-    background: initial;
-    border-radius: initial;
-    position: initial;
-    border-top: initial;
-    float: right;
-    margin-top: 20px;
-    margin-right: 5%;
-  }
-
-  :global(.ant-table-title) {
-    padding-left: 8px;
-    padding-bottom: 0;
-  }
-
   .indicator {
     width: 100%;
     left: 0 !important;
   }
 
-  :global(.ant-spin-blur) {
-    filter: blur(5px);
+  :global {
+    .ant-table-title {
+      padding-left: 8px;
+      padding-bottom: 0;
+    }
+
+    .ant-spin-blur {
+      filter: blur(5px);
+    }
+
+    .ant-table-wrapper {
+      margin: 0 25px 50px;
+    }
+
+    .ant-table-thead > tr > th {
+      background: transparent;
+      font-weight: 700;
+    }
+    
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+      border-bottom: 0 !important;
+    }
+
+    .ant-collapse-header {
+      h2 {
+        margin: 0;
+        padding-top: @padding-sm; 
+        padding-bottom: @padding-sm; 
+      }
+      small {
+        font-size: 1rem;
+        line-height: 1rem;
+      }
+    }
+
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow {
+      top: 11px;
+    }
+
+    .ant-collapse-item-active {
+      h2 {
+        color: @primary-color;
+      }
+    }
   }
 }

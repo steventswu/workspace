@@ -1,5 +1,5 @@
 export default {
-  'get /portfolio': [
+  'get /api/portfolio': [
     {
       walletAddress: '0x44f525741cf549b26999ee6eb2f3e5e710d3bee4',
       contracts: [{ name: 'capp13btc', amount: '0', eth: '0', usd: '0', roi: '173', nav: '2.73' }],
