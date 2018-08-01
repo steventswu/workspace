@@ -23,3 +23,6 @@ REDEEM,
 TRANSACTIONS,
 BUY,
 ];
+export const PRIVACY = '/privacy';
+export const TERMS_AND_CONDITIONS = '/terms-and-conditions';
+export const COOKIE_POLICY = '/cookie-policy'
