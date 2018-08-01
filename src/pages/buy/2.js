@@ -9,15 +9,6 @@ import styles from './style.less';
 
 const { Option } = Select;
 
-const formItemLayout = {
-  labelCol: {
-    span: 6,
-  },
-  wrapperCol: {
-    span: 12,
-  },
-};
-
 @Form.create()
 @connect(({ user, token }) => ({
   data: token,
@@ -59,22 +50,13 @@ export default class Step2 extends React.PureComponent {
     const { form: { getFieldDecorator }, data, currentUser, t } = this.props;
     return (
       <div className={styles.wrapper}>
-        <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
-          <Form.Item {...formItemLayout} label={t('common:cap')}>
-            {getFieldDecorator('cap', {
-              initialValue: CONTRACT[data.cap].key,
-              rules: [{ required: true, type: 'string', message: t('cap.required') }],
-            })(
-              <Select placeholder={t('cap.placeholder')}>
-                {CONTRACTS.map(value => (
-                  <Option key={value.key} value={value.key}>
-                    {CONTRACT[value.key].label}
-                  </Option>
-                ))}
-              </Select>
-            )}
-          </Form.Item>
-          <Form.Item {...formItemLayout} label={t('wallet.label')}>
+        <Form
+          layout="vertical"
+          style={{ maxWidth: 600 }}
+          className={styles.stepForm}
+          hideRequiredMark
+        >
+          <Form.Item label={t('wallet.label')}>
             {Web3.isDisabled ? (
               getFieldDecorator('walletAddress', {
                 initialValue: currentUser.walletAddress,
@@ -98,7 +80,21 @@ export default class Step2 extends React.PureComponent {
               <span className="ant-form-text">{this.state.account || '...'}</span>
             )}
           </Form.Item>
-          <Form.Item {...formItemLayout} label={t('common:amount')}>
+          <Form.Item label={t('common:cap')}>
+            {getFieldDecorator('cap', {
+              initialValue: CONTRACT[data.cap].key,
+              rules: [{ required: true, type: 'string', message: t('cap.required') }],
+            })(
+              <Select placeholder={t('cap.placeholder')}>
+                {CONTRACTS.map(value => (
+                  <Option key={value.key} value={value.key}>
+                    {CONTRACT[value.key].label}
+                  </Option>
+                ))}
+              </Select>
+            )}
+          </Form.Item>
+          <Form.Item label={t('common:amount')}>
             {getFieldDecorator('amount', {
               initialValue: data.amount,
               rules: [
@@ -109,16 +105,7 @@ export default class Step2 extends React.PureComponent {
               ],
             })(<Input placeholder={t('amount.placeholder')} />)}
           </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              xs: { span: 24, offset: 0 },
-              sm: {
-                span: formItemLayout.wrapperCol.span,
-                offset: formItemLayout.labelCol.span,
-              },
-            }}
-            label=""
-          >
+          <Form.Item>
             <Button
               type="primary"
               disabled={Boolean(this.state.error)}

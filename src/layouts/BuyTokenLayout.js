@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'dva/router';
-import { Card, Steps } from 'antd';
+import { Steps } from 'antd';
 import styles from './BuyTokenLayout.less';
 import { BUY } from '../routes';
 
@@ -20,15 +20,13 @@ export default function BuyTokenLayout({ children, location }) {
   const [, step] = location.pathname.match(/\/.*\/(.*)/);
   const current = step - 1;
   return (
-    <Card className={styles.container} bordered={false}>
-      <React.Fragment>
-        <Steps current={current} className={styles.steps}>
-          <Step title="Accept Terms" />
-          <Step title="Place Orders" />
-          <Step title="Buy CAP" />
-        </Steps>
-        {children}
-      </React.Fragment>
-    </Card>
+    <div className={styles.container}>
+      <Steps current={current} className={styles.steps}>
+        <Step title="Accept Terms" />
+        <Step title="Place Orders" />
+        <Step title="Buy CAP" />
+      </Steps>
+      {children}
+    </div>
   );
 }

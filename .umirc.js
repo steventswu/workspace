@@ -34,7 +34,7 @@ export default {
     assets: path.resolve(__dirname, 'src/assets/'),
   },
   theme: {
-    '@primary-color': '#66ccff',
+    '@primary-color': '#1890ff',
     '@primary-1': 'rgba(255, 255, 255, 0.2)',
     '@primary-3': '#91d5ff',
     '@primary-4': '#91d5ff',

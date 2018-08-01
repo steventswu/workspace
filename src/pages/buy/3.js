@@ -53,7 +53,7 @@ export default class Step3 extends React.PureComponent {
       <div className={styles.wrapper}>
         <Content>
           <p>{t('notice')}</p>
-          <Button type="primary" style={{ marginTop: 50 }} onClick={this.handleReturn}>
+          <Button type="primary" style={{ marginTop: 50, marginBottom: 50 }} onClick={this.handleReturn}>
             {t('return')}
           </Button>
         </Content>
