@@ -1,9 +1,7 @@
 import React from 'react';
 import { Row, Col as Column, Slider, Button } from 'antd';
-import router from 'umi/router';
 import ImageSet from 'src/components/ImageSet';
 import { eth } from 'src/assets/home';
-import { LOGIN } from 'src/routes';
 import styles from './1.main.less';
 
 // prettier-ignore
@@ -18,9 +16,8 @@ const content = {
   },
 };
 
-const toLogin = () => router.push(LOGIN);
 
-export default () => (
+export default ({ onAction }) => (
   <main className={styles.main}>
     <Row className={styles.intro} gutter={48}>
       <Column xs={24} lg={{ span: 10 }} style={{ marginBottom: 24 }}>
@@ -66,7 +63,7 @@ export default () => (
     </Row>
     <Row className={styles.start}>
       <Column xs={{ span: 20, push: 2, pull: 2 }} lg={{ span: 9, push: 7, pull: 7 }}>
-        <Button style={{ height: 62 }} type="primary" onClick={toLogin}>
+        <Button style={{ height: 62 }} type="primary" onClick={onAction}>
           Get Started
         </Button>
       </Column>

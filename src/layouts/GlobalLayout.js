@@ -10,7 +10,7 @@ import redirect from 'src/utils/redirect';
 import session from 'src/utils/session';
 import logo from 'src/assets/logo.svg';
 import styles from './GlobalLayout.less';
-import { HOME, LOGIN, REGISTER } from '../routes';
+import { HOME, LOGIN, REGISTER, REDIRECT_WHITELIST } from '../routes';
 
 @connect(({ user, loading }) => ({ currentUser: user.email, isLoading: loading.global }))
 export default class GlobalLayout extends React.PureComponent {
@@ -26,7 +26,9 @@ export default class GlobalLayout extends React.PureComponent {
     if (!this.props.currentUser && session.exist()) {
       this.props.dispatch({ type: 'auth/fetchMember' });
     }
-    redirect.set(this.props.match.url);
+    if (REDIRECT_WHITELIST.includes(this.props.location.pathname)) {
+      redirect.set(this.props.location.pathname);
+    }
   };
 
   handleLogout = () => {

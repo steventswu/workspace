@@ -15,3 +15,11 @@ export const PROFILE = '/profile';
 export const REDEEM = '/redeem';
 export const TRANSACTIONS = '/transactions';
 export const BUY = '/buy';
+export const REDIRECT_WHITELIST = [
+  PERFORMANCE,
+  PORTFOLIO,
+PROFILE,
+REDEEM,
+TRANSACTIONS,
+BUY,
+];

@@ -63,5 +63,9 @@ export default {
   pages: {
     '/buy': { Route: './src/routes/PrivateRoute.js' },
     '/buy/:id': { Route: './src/routes/PrivateRoute.js' },
+    '/portfolio': { Route: './src/routes/PrivateRoute.js' },
+    '/profile': { Route: './src/routes/PrivateRoute.js' },
+    '/redeem': { Route: './src/routes/PrivateRoute.js' },
+    '/transactions': { Route: './src/routes/PrivateRoute.js' },
   },
 };
