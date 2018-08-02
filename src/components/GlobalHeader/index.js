@@ -84,7 +84,7 @@ const GlobalHeader = ({ currentUser, logo, onClickLogout, onClickLogin, isLoadin
           <div className={styles.btn}>
             {menuButton}
             {currentUser ? (
-              <Dropdown overlay={menu} placement="bottomCenter">
+              <Dropdown trigger={['click']} overlay={menu} placement="bottomCenter">
                 {button}
               </Dropdown>
             ) : (
