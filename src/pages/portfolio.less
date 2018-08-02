@@ -19,14 +19,10 @@
     .ant-table-wrapper {
       margin: 0 25px 50px;
     }
-
-    .ant-table-thead > tr > th {
-      background: transparent;
-      font-weight: 700;
-    }
     
     .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
       border-bottom: 0 !important;
+      padding-left: 0;
     }
 
     .ant-collapse-header {
@@ -45,10 +41,15 @@
       top: 11px;
     }
 
-    .ant-collapse-item-active {
-      h2 {
-        color: @primary-color;
-      }
+    .ant-table-footer {
+      padding: initial;
+      background: initial;
+      border-radius: initial;
+      position: initial;
+      border-top: initial;
+      float: right;
+      margin-top: 20px;
+      margin-right: 5%;
     }
   }
 }

@@ -67,8 +67,21 @@ export default class UserPortfolio extends React.Component {
                 dataSource={data.contracts}
                 loading={loading}
                 pagination={false}
-                scroll={{ x: 1000 }}
+                scroll={{ x: true }}
                 locale={{ emptyText: t('empty_text') }}
+                footer={() => (
+                  <ul>
+                    <li>
+                      {t('initial_capital')}: {data.summary.amount}
+                    </li>
+                    <li>
+                      {t('total_eth')}: {data.summary.eth}
+                    </li>
+                    <li>
+                      {t('roi')}: {data.summary.roi}
+                    </li>
+                  </ul>
+                )}
               />
             </Collapse.Panel>
           ))}
