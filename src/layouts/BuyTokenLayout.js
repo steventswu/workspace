@@ -3,6 +3,7 @@ import { Redirect } from 'dva/router';
 import { Steps } from 'antd';
 import styles from './BuyTokenLayout.less';
 import { BUY } from '../routes';
+import { I18n } from 'react-i18next';
 
 const { Step } = Steps;
 
@@ -21,11 +22,15 @@ export default function BuyTokenLayout({ children, location }) {
   const current = step - 1;
   return (
     <div className={styles.container}>
-      <Steps current={current} className={styles.steps}>
-        <Step title="Accept Terms" />
-        <Step title="Place Orders" />
-        <Step title="Buy CAP" />
-      </Steps>
+      <I18n ns={['buy']}>
+        {t => (
+          <Steps current={current} className={styles.steps}>
+            <Step title={t('accept_terms')} />
+            <Step title={t('place_orders')} />
+            <Step title={t('complete_purchase')} />
+          </Steps>
+        )}
+      </I18n>
       {children}
     </div>
   );

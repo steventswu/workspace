@@ -6,6 +6,8 @@ import etherscanLogo from 'src/assets/etherscan-logo.svg';
 import { CONTRACTS } from 'src/utils/contract';
 import { statusMapper } from 'src/utils/helper';
 
+const truncate = s => [s.substring(0, 5), '......', s.substring(35)].join('');
+
 const column = [
   {
     title: 'Buy/Sell',
@@ -20,6 +22,7 @@ const column = [
   {
     title: 'Wallet Address',
     dataIndex: 'address',
+    onFilter: (value, record) => record.address === value,
   },
   {
     title: 'CAP Name',
@@ -83,6 +86,7 @@ export default class ProfileHome extends React.Component {
 
   render() {
     const { transactions, loading, t } = this.props;
+    column[1].filters = [...new Set(transactions.map(t => t.address))].map(value => ({ text: truncate(value), value }))
     return (
       <React.Fragment>
         <h1>{t('transaction_history.title')}</h1>
