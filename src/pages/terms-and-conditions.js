@@ -4,7 +4,7 @@ import styles from './tc-shared.less';
 export default function TermsAndConditionPage() {
   return (
     <React.Fragment>
-      <h1 className={styles.h1}>TERMS AND CONDITIONS OF USE</h1>
+      <h1 className={styles.h1}>Terms and Conditions of Use</h1>
       <p dangerouslySetInnerHTML={{ __html: content }} className={styles.p} />
     </React.Fragment>
   );
