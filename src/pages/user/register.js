@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import { Row, Col as Column, Form, Input, Icon, Button, Popover, Progress } from 'antd';
+import { Row, Col as Column, Form, Input, Icon, Button, Checkbox, Popover, Progress } from 'antd';
+import Link from 'umi/link';
 import { translate } from 'react-i18next';
 import Container from 'src/components/Container';
 import styles from './styles.less';
@@ -212,6 +212,17 @@ export default class Register extends Component {
                 )}
               </FormItem>
               <FormItem>
+                <Row>
+                  <Checkbox id="accept">
+                    <span className={styles.links}>
+                      <span>I accept&nbsp;</span>
+                      <Link to="/privacy">privacy policy&nbsp;&amp;</Link>
+                      <Link to="/terms">&nbsp;terms of conditions</Link>
+                    </span>
+                  </Checkbox>
+                </Row>
+              </FormItem>
+              <FormItem>
                 <Button
                   size="large"
                   loading={submitting}
@@ -230,7 +241,7 @@ export default class Register extends Component {
             </Form>
           </Column>
           <Column xs={0} lg={{ span: 13, pull: 11 }} style={{ marginTop: '12%' }}>
-            <Column span={14} offset={3}>
+            <Column offset={2}>
               <div className={styles.join}>{t('common:join_now')}</div>
               <div className={styles.title_container}>
                 <p>to experience the most efficient Crypto investment ETF</p>

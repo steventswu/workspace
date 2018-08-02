@@ -5,6 +5,8 @@ import numeral from 'numeral';
 import HighchartsReact from 'react-highcharts/ReactHighstock';
 import { translate } from 'react-i18next';
 
+import styles from './index.less';
+
 const Dollar = ({ children }) => (
   <span
     // eslint-disable-next-line react/no-danger
@@ -60,6 +62,7 @@ export default class HoldingsTable extends React.PureComponent {
     return (
       <div>
         <Table
+          className={styles.tableHead}
           rowKey={record => record.coin.name}
           onRow={record => ({
             // 点击行
@@ -67,6 +70,7 @@ export default class HoldingsTable extends React.PureComponent {
           })}
           columns={[
             {
+              width: 130,
               title: t('coin'),
               dataIndex: 'coin',
               render: coin => {
@@ -81,6 +85,7 @@ export default class HoldingsTable extends React.PureComponent {
                   </div>
                 );
               },
+              fixed: 'left',
             },
             {
               title: t('amount'),
@@ -135,6 +140,7 @@ export default class HoldingsTable extends React.PureComponent {
           ]}
           dataSource={symbol}
           pagination={false}
+          scroll={{ x: 1100 }}
         />
         <Modal
           title={null}

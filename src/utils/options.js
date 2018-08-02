@@ -3,6 +3,7 @@ import i18n from 'src/i18n';
 // Create HighchartsReact
 export const navChartOptions = performance => ({
   chart: {
+    backgroundColor: 'transparent',
     type: 'areaspline',
     height: '280',
     zoomType: 'x',
@@ -15,7 +16,7 @@ export const navChartOptions = performance => ({
     endOnTick: false,
     labels: {
       style: {
-        color: '#000',
+        color: '#fff',
       },
     },
   },
@@ -24,7 +25,7 @@ export const navChartOptions = performance => ({
       title: {
         text: i18n.t('performance:total_fund_value'),
         style: {
-          color: '#000',
+          color: '#fff',
         },
       },
       gridLineWidth: 0,
@@ -32,6 +33,9 @@ export const navChartOptions = performance => ({
         // eslint-disable-next-line object-shorthand, func-names
         formatter: function() {
           return `${this.axis.defaultLabelFormatter.call(this)}`;
+        },
+        style: {
+          color: '#fff',
         },
       },
     },
@@ -39,7 +43,7 @@ export const navChartOptions = performance => ({
       title: {
         text: i18n.t('performance:net_asset_value'),
         style: {
-          color: '#000',
+          color: '#fff',
         },
       },
       gridLineWidth: 0,
@@ -47,6 +51,9 @@ export const navChartOptions = performance => ({
         // eslint-disable-next-line object-shorthand, func-names
         formatter: function() {
           return `${this.axis.defaultLabelFormatter.call(this)}`;
+        },
+        style: {
+          color: '#fff',
         },
       },
       opposite: true,
@@ -75,7 +82,7 @@ export const navChartOptions = performance => ({
     y: -10,
     floating: true,
     itemStyle: {
-      color: '#000',
+      color: '#fff',
     },
   },
   tooltip: {
@@ -87,10 +94,7 @@ export const navChartOptions = performance => ({
     {
       name: i18n.t('performance:total_fund_value'),
       data: performance.totalFundValue,
-      color: {
-        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-        stops: [[0, '#085790'], [1, 'rgba(8,87,144,0.7)']],
-      },
+      color: 'rgba(33, 150, 243, 0.8)',
       tooltip: {
         valueSuffix: ' ETH',
       },
@@ -99,10 +103,7 @@ export const navChartOptions = performance => ({
       name: i18n.t('performance:net_asset_value'),
       yAxis: 1,
       data: performance.netAssetValue,
-      color: {
-        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-        stops: [[0, '#AD2256'], [1, 'rgba(173,34,86,0.5)']],
-      },
+      color: 'rgba(221, 102, 102, 0.8)',
       tooltip: {
         valueSuffix: ' ETH',
       },

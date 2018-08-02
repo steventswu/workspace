@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import numeral from 'numeral';
 import { connect } from 'dva';
-import { Row, Col, Tooltip, Icon } from 'antd';
+import { Row, Col, Tooltip, Icon, Divider } from 'antd';
 import HighchartsReact from 'react-highcharts/';
 import { ChartCard } from 'components/Charts';
 // import Trend from 'components/Trend';
@@ -70,26 +70,24 @@ export default class BasicPerformance extends PureComponent {
     return (
       <Fragment>
         <section>
-          <Title title={t('net_asset_value')} />
-          <Row gutter={24}>
-            <Col xl={8} style={{ marginBottom: 24 }}>
+          <Row gutter={{ xs: 24 }}>
+            <Col lg={8} style={{ marginTop: '10%', marginBottom: 24 }}>
+              <span className={styles.title}>{t('performance')}</span>
               <ChartCard
-                title={t('nav')}
+                bodyStyle={{ paddingLeft: '0', paddingRight: '0', paddingBottom: '0' }}
+                bordered={false}
+                title={<span className={styles.title_nav}>{t('nav')}</span>}
                 action={
                   <Tooltip title={t('eth')}>
                     <Icon type="info-circle-o" />
                   </Tooltip>
                 }
                 total={<span className={styles.nav}>{numeral(info.nav).format('0,0.[0000]')}</span>}
-                contentHeight={168}
+                contentHeight={245}
                 style={{ marginBottom: 24 }}
               >
-                <Row
-                  type="flex"
-                  justify="space-between"
-                  style={{ flexWrap: 'nowrap', overflow: 'scroll' }}
-                >
-                  <Col>
+                <Row type="flex">
+                  <Col style={{ paddingRight: '10%' }}>
                     <NumberInfo
                       title={<span>{t('historical')}</span>}
                       status={info['nav-historical'] < 0 ? 'down' : 'up'}
@@ -99,7 +97,7 @@ export default class BasicPerformance extends PureComponent {
                             info['nav-historical'] < 0 ? styles.subtotalDown : styles.subtotalUp
                           }
                         >
-                          {numeral(info['nav-historical']).format('0,0.[0000]')}
+                          {numeral(info['nav-historical']).format('0,0.[00]')}
                         </span>
                       }
                     />
@@ -113,34 +111,7 @@ export default class BasicPerformance extends PureComponent {
                               : styles.subtotalUp
                           }
                         >
-                          {numeral(info['nav-historical-pct']).format('0,0.[0000]')}%
-                        </span>
-                      }
-                    />
-                  </Col>
-                  <Col>
-                    <NumberInfo
-                      title={<span>{t('hour')}</span>}
-                      status={info['nav-hour'] < 0 ? 'down' : 'up'}
-                      subTotal={
-                        <span
-                          className={info['nav-hour'] < 0 ? styles.subtotalDown : styles.subtotalUp}
-                        >
-                          {numeral(info['nav-hour']).format('0,0.[0000]')}
-                        </span>
-                      }
-                    />
-                    <NumberInfo
-                      status={parseFloat(info['nav-hour-pct']) < 0 ? 'down' : 'up'}
-                      subTotal={
-                        <span
-                          className={
-                            parseFloat(info['nav-hour-pct']) < 0
-                              ? styles.subtotalDown
-                              : styles.subtotalUp
-                          }
-                        >
-                          {numeral(info['nav-hour-pct']).format('0,0.[0000]')}%
+                          {numeral(info['nav-historical-pct']).format('0,0.[00]')}%
                         </span>
                       }
                     />
@@ -153,7 +124,7 @@ export default class BasicPerformance extends PureComponent {
                         <span
                           className={info['nav-day'] < 0 ? styles.subtotalDown : styles.subtotalUp}
                         >
-                          {numeral(info['nav-day']).format('0,0.[0000]')}
+                          {numeral(info['nav-day']).format('0,0.[00]')}
                         </span>
                       }
                     />
@@ -167,12 +138,14 @@ export default class BasicPerformance extends PureComponent {
                               : styles.subtotalUp
                           }
                         >
-                          {numeral(info['nav-day-pct']).format('0,0.[0000]')}%
+                          {numeral(info['nav-day-pct']).format('0,0.[00]')}%
                         </span>
                       }
                     />
                   </Col>
-                  <Col>
+                </Row>
+                <Row type="flex" style={{ paddingTop: '5%' }}>
+                  <Col style={{ paddingRight: '10%' }}>
                     <NumberInfo
                       title={<span>{t('week')}</span>}
                       status={info['nav-week'] < 0 ? 'down' : 'up'}
@@ -180,19 +153,21 @@ export default class BasicPerformance extends PureComponent {
                         <span
                           className={info['nav-week'] < 0 ? styles.subtotalDown : styles.subtotalUp}
                         >
-                          {numeral(info['nav-week']).format('0,0.[0000]')}
+                          {numeral(info['nav-week']).format('0,0.[00]')}
                         </span>
                       }
                     />
                     <NumberInfo
-                      status={info['nav-week-pct'] < 0 ? 'down' : 'up'}
+                      status={parseFloat(info['nav-week-pct']) < 0 ? 'down' : 'up'}
                       subTotal={
                         <span
                           className={
-                            info['nav-week-pct'] < 0 ? styles.subtotalDown : styles.subtotalUp
+                            parseFloat(info['nav-week-pct']) < 0
+                              ? styles.subtotalDown
+                              : styles.subtotalUp
                           }
                         >
-                          {numeral(info['nav-week-pct']).format('0,0.[0000]')}%
+                          {numeral(info['nav-week-pct']).format('0,0.[00]')}%
                         </span>
                       }
                     />
@@ -207,7 +182,7 @@ export default class BasicPerformance extends PureComponent {
                             info['nav-month'] < 0 ? styles.subtotalDown : styles.subtotalUp
                           }
                         >
-                          {numeral(info['nav-month']).format('0,0.[0000]')}
+                          {numeral(info['nav-month']).format('0,0.[00]')}
                         </span>
                       }
                     />
@@ -221,7 +196,7 @@ export default class BasicPerformance extends PureComponent {
                               : styles.subtotalUp
                           }
                         >
-                          {numeral(info['nav-month-pct']).format('0,0.[0000]')}%
+                          {numeral(info['nav-month-pct']).format('0,0.[00]')}%
                         </span>
                       }
                     />
@@ -229,21 +204,8 @@ export default class BasicPerformance extends PureComponent {
                 </Row>
               </ChartCard>
               <ChartCard
-                title={t('cap_supply')}
-                action={
-                  <Tooltip title={t('unit')}>
-                    <Icon type="info-circle-o" />
-                  </Tooltip>
-                }
-                total={
-                  <span className={styles.nav}>
-                    {numeral(info['cap-supply']).format('0,0.[0000]')}
-                  </span>
-                }
-                contentHeight={150}
-                style={{ marginBottom: 24 }}
-              />
-              <ChartCard
+                bodyStyle={{ padding: '0' }}
+                bordered={false}
                 title={t('fund_size')}
                 action={
                   <Tooltip title={t('eth')}>
@@ -251,26 +213,30 @@ export default class BasicPerformance extends PureComponent {
                   </Tooltip>
                 }
                 total={
-                  <span className={styles.nav}>{numeral(info.fundsize).format('0,0.[0000]')}</span>
+                  <span className={styles.nav}>{numeral(info.fundsize).format('0,0.[00]')}</span>
                 }
                 contentHeight={150}
               />
             </Col>
-            <Col xs={0} xl={16} style={{ marginBottom: 24 }}>
-              <ChartCard style={{ width: '100%' }}>
+            <Col xs={0} lg={16} style={{ marginTop: '10%', marginBottom: 24 }}>
+              <ChartCard
+                bodyStyle={{ paddingLeft: '0', paddingRight: '0' }}
+                bordered={false}
+                // style={{ width: '100%' }}
+              >
                 <HighchartsReact
                   performance={performance}
                   config={navChartOptions(performance)}
                   isPureConfig
                 />
-                <NavTable performance={performance} />
               </ChartCard>
             </Col>
+            <Divider />
           </Row>
         </section>
         <section>
           <Row type="flex" justify="space-between" align="middle">
-            <Title title={t('table_of_holdings')} />
+            <span className={styles.title}>{t('table_of_holdings')}</span>
             <Subtitle title={`${info.ofallmarketcap} ${t('of_all_market_cap')}`} />
           </Row>
           <Row gutter={24}>
