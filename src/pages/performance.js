@@ -69,9 +69,9 @@ export default class BasicPerformance extends PureComponent {
     const { t } = this.props;
     return (
       <Fragment>
-        <section>
+        <div>
           <Row gutter={{ xs: 24 }}>
-            <Col lg={8} style={{ marginTop: '10%', marginBottom: 24 }}>
+            <Col lg={8} style={{ marginTop: '10%', marginBottom: 16 }}>
               <span className={styles.title}>{t('performance')}</span>
               <ChartCard
                 bodyStyle={{ paddingLeft: '0', paddingRight: '0', paddingBottom: '0' }}
@@ -219,11 +219,7 @@ export default class BasicPerformance extends PureComponent {
               />
             </Col>
             <Col xs={0} lg={16} style={{ marginTop: '10%', marginBottom: 24 }}>
-              <ChartCard
-                bodyStyle={{ paddingLeft: '0', paddingRight: '0' }}
-                bordered={false}
-                // style={{ width: '100%' }}
-              >
+              <ChartCard bodyStyle={{ paddingLeft: '0', paddingRight: '0' }} bordered={false}>
                 <HighchartsReact
                   performance={performance}
                   config={navChartOptions(performance)}
@@ -231,20 +227,22 @@ export default class BasicPerformance extends PureComponent {
                 />
               </ChartCard>
             </Col>
-            <Divider />
           </Row>
-        </section>
-        <section>
+          <Divider style={{ marginTop: '0' }} />
+        </div>
+        <div>
           <Row type="flex" justify="space-between" align="middle">
             <span className={styles.title}>{t('table_of_holdings')}</span>
-            <Subtitle title={`${info.ofallmarketcap} ${t('of_all_market_cap')}`} />
+            <div className={styles.of_all_marketcap}>
+              <Subtitle title={`${info.ofallmarketcap} ${t('of_all_market_cap')}`} />
+            </div>
           </Row>
           <Row gutter={24}>
             <Col style={{ marginBottom: 24 }}>
               <HoldingsTable performance={performance} onRowClick={this.handleRowClick} />
             </Col>
           </Row>
-        </section>
+        </div>
       </Fragment>
     );
   }
