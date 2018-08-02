@@ -22,7 +22,7 @@ const formatTime = timestamp => {
   return `${d.toLocaleString('en', { hour12: false })} UTC${offset}00`;
 };
 
-const statusMapper = {
+export const statusMapper = {
   success: i18n.t('common:success'),
   fail: i18n.t('common:failure'),
   pending: i18n.t('common:pending'),

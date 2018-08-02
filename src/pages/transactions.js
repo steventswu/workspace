@@ -2,12 +2,20 @@ import React from 'react';
 import { Table } from 'antd';
 import { connect } from 'dva';
 import { translate } from 'react-i18next';
+import etherscanLogo from 'src/assets/etherscan-logo.svg';
+import { CONTRACTS } from 'src/utils/contract';
+import { statusMapper } from 'src/utils/helper';
 
 const column = [
   {
     title: 'Buy/Sell',
     dataIndex: 'type',
     fixed: 'left',
+    filters: [
+      { text: 'Buy', value: 'BUY' },
+      { text: 'Sell', value: 'SELL' },
+    ],
+    onFilter: (value, record) => record.type === value,
   },
   {
     title: 'Wallet Address',
@@ -16,10 +24,21 @@ const column = [
   {
     title: 'CAP Name',
     dataIndex: 'label',
+    filters: CONTRACTS.map(c => ({
+      text: c.label,
+      value: c.label
+    })),
+    onFilter: (value, record) => record.label === value
   },
   {
     title: 'Status',
     dataIndex: 'status',
+    filters: [
+      { text: statusMapper.pending, value: statusMapper.pending },
+      { text: statusMapper.success, value: statusMapper.success },
+      { text: statusMapper.fail, value: statusMapper.fail },
+    ],
+    onFilter: (value, record) => record.status === value
   },
   {
     title: 'Time',
@@ -51,8 +70,8 @@ export default class ProfileHome extends React.Component {
           ...col,
           render: (_, record) => (
             <span>
-              <a href={record.url || '#'} target="_blank">
-                {this.props.t('view_in_etherscan')}
+              <a title={this.props.t('view_in_etherscan')} href={record.url || '#'} rel="noopener noreferrer" target="_blank">
+                <img style={{ height: 22, width: 22 }} src={etherscanLogo} alt={this.props.t('view_in_etherscan')} />
               </a>
             </span>
           ),
