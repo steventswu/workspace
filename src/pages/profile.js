@@ -99,11 +99,7 @@ export default class UserProfile extends React.Component {
               />
             </div>
           </Collapse.Panel>
-          <Collapse.Panel
-            disabled={shouldVerified}
-            header={<h1>{t('wallet_verification')}</h1>}
-            key="3"
-          >
+          <Collapse.Panel header={<h1>{t('wallet_verification')}</h1>} key="3">
             <p>
               To link a new ethereum address, enter the address below. You can link up to 3
               addresses.
@@ -117,7 +113,7 @@ export default class UserProfile extends React.Component {
                     <Input
                       type="text"
                       placeholder="Enter Wallet Address"
-                      disabled={walletList.length >= 3}
+                      disabled={walletList.length >= 3 || shouldVerified}
                     />
                   )}
                 </Form.Item>

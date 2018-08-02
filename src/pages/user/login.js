@@ -77,15 +77,28 @@ export default class LoginPage extends Component {
   render() {
     const { login, submitting, t } = this.props;
     const showErrorMessage = login.status && login.status !== 'ok' && !submitting;
-    return <Container className={styles.loginBackground}>
+    return (
+      <Container className={styles.loginBackground}>
         <Row gutter={16}>
-          <Column xs={24} lg={{ span: 11, push: 13 }} style={{ marginTop: '10%', marginBottom: '10%' }}>
+          <Column
+            xs={24}
+            lg={{ span: 11, push: 13 }}
+            style={{ marginTop: '10%', marginBottom: '10%' }}
+          >
             <Form.Item className={styles.main}>
               <Spin spinning={Boolean(submitting)}>
                 <Login onSubmit={this.handleSubmit}>
                   {showErrorMessage && login.message && this.renderMessage(login.message)}
-                  <Login.UserName name="email" placeholder={t('email.placeholder')} rules={[{ required: true, whitespace: true, message: t('email.required') }]} />
-                  <Login.Password name="password" placeholder={t('password.placeholder')} rules={[{ required: true, message: t('password.required') }]} />
+                  <Login.UserName
+                    name="email"
+                    placeholder={t('email.placeholder')}
+                    rules={[{ required: true, whitespace: true, message: t('email.required') }]}
+                  />
+                  <Login.Password
+                    name="password"
+                    placeholder={t('password.placeholder')}
+                    rules={[{ required: true, message: t('password.required') }]}
+                  />
                   <Form.Item className={styles.forgot}>
                     <Link style={{ float: 'right' }} to={FORGOT_PASSWORD}>
                       {t('common:forgot_password')}
@@ -96,11 +109,25 @@ export default class LoginPage extends Component {
                   <Button size="large" className={styles.join} onClick={this.handleRegister}>
                     {t('common:join_now')}
                   </Button>
-                  {this.isBrowser && <Button size="large" className={styles.googleBtn} onClick={this.handleGoogleLogin}>
+                  {this.isBrowser && (
+                    <Button
+                      size="large"
+                      className={styles.googleBtn}
+                      onClick={this.handleGoogleLogin}
+                    >
                       <img alt="Google" src={loginAssets.googleIcon} style={{ float: 'left' }} />
                       <span>{t('common:google')}</span>
-                    </Button>}
-                  <Button size="large" className={styles.facebookBtn} onClick={login.status === 'fbError' ? this.handleFacebookEmailRequest : this.handleFacebookLogin}>
+                    </Button>
+                  )}
+                  <Button
+                    size="large"
+                    className={styles.facebookBtn}
+                    onClick={
+                      login.status === 'fbError'
+                        ? this.handleFacebookEmailRequest
+                        : this.handleFacebookLogin
+                    }
+                  >
                     <img alt="Facebook" src={loginAssets.facebookIcon} style={{ float: 'left' }} />
                     <span>{t('common:facebook')}</span>
                   </Button>
@@ -114,6 +141,7 @@ export default class LoginPage extends Component {
             </Column>
           </Column>
         </Row>
-      </Container>;
+      </Container>
+    );
   }
 }
