@@ -36,7 +36,7 @@ export async function updateIdentity(formData) {
 
 export async function addWhitelist(address) {
   const { jwt } = session.get();
-  return request('/api/v2/members/whitelist/add', {
+  return request('/api/v2/members/whitelist', {
     method: 'POST',
     body: { address },
     headers: { authorization: jwt },
