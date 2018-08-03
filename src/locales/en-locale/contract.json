@@ -1,4 +1,10 @@
 {
+  "capp13btc-funding": {
+    "title": "CAPP_13BTC_FUNDING"
+  },
+  "capp13btc-operation": {
+    "title": "CAPP_13BTC_OPERATION"
+  },
   "capm150quant": {
     "title": "CAPM-150Quant",
     "type": "Managed Fund",

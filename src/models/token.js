@@ -1,7 +1,7 @@
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import Web3 from 'src/services/Web3';
-import { CAPP01, CONTRACT } from 'src/utils/contract';
+import { CAPP_13BTC, CONTRACT } from 'src/utils/contract';
 import { updateMemberTransactions } from 'src/services/members';
 import { ROUTE } from 'src/layouts/BuyTokenLayout';
 import i18n from 'src/i18n';
@@ -12,7 +12,7 @@ const initialCheckedState = {
 };
 
 const initialState = {
-  cap: CONTRACT[CAPP01].key,
+  cap: CONTRACT[CAPP_13BTC].key,
   walletAddress: '',
   amount: 1,
   checked: initialCheckedState,

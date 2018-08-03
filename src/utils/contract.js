@@ -1,24 +1,24 @@
 import i18n from 'src/i18n';
 
-export const CAPP01 = 'capp13btc';
-export const CAPM01 = 'capm150quant';
-export const CAPI01 = 'capibtc2';
+export const CAPP_13BTC = 'capp13btc';
+export const CAPP_13BTC_FUNDING = 'capp13btc-funding';
+export const CAPP_13BTC_OPERATION = 'capp13btc-operation';
 
 export const CONTRACT = {
-  [CAPP01]: {
-    address: process.env.CAPP01,
-    label: i18n.t(`contract:${CAPP01}.title`),
-    key: CAPP01,
+  [CAPP_13BTC]: {
+    address: process.env.CAPP_13BTC,
+    label: i18n.t(`contract:${CAPP_13BTC}.title`),
+    key: CAPP_13BTC,
   },
-  [CAPM01]: {
-    address: process.env.CAPM01,
-    label: i18n.t(`contract:${CAPM01}.title`),
-    key: CAPM01,
+  [CAPP_13BTC_FUNDING]: {
+    address: process.env.CAPP_13BTC_FUNDING,
+    label: i18n.t(`contract:${CAPP_13BTC_FUNDING}.title`),
+    key: CAPP_13BTC_FUNDING,
   },
-  [CAPI01]: {
-    address: process.env.CAPI01,
-    label: i18n.t(`contract:${CAPI01}.title`),
-    key: CAPI01,
+  [CAPP_13BTC_OPERATION]: {
+    address: process.env.CAPP_13BTC_OPERATION,
+    label: i18n.t(`contract:${CAPP_13BTC_OPERATION}.title`),
+    key: CAPP_13BTC_OPERATION,
   },
 };
 
@@ -48,7 +48,7 @@ const contractInfo = {
   listed: 3,
 };
 
-export const DATA = [CAPP01, CAPM01, CAPI01].reduce(
+export const DATA = [CAPP_13BTC, CAPM01, CAPI01].reduce(
   (acc, key) => ({
     ...acc,
     [key]: {

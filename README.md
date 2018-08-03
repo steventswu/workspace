@@ -105,6 +105,14 @@ export const CONTRACT = {
   }
 }
 ```
+6. Add CAP display name in `src/locales/en-locale/contract.json`:
+```js
+{
+  "capp15eth": {
+    "title": "CAPP-15ETH"
+  }
+}
+```
 
 ### Apply different abi data for CAP
 
