@@ -58,6 +58,7 @@ export default class HoldingsTable extends React.PureComponent {
         thousandsSep: ',',
       },
     });
+
     const { t } = this.props;
     return (
       <div>
@@ -78,7 +79,7 @@ export default class HoldingsTable extends React.PureComponent {
                   <div>
                     <img
                       alt="Coin"
-                      src={`/color/${coin.label.toLowerCase()}.svg`}
+                      src={`${window.publicPath}color/${coin.label.toLowerCase()}.svg`}
                       style={{ width: 25, paddingRight: 5 }}
                     />
                     <span>{coin.name}</span>
