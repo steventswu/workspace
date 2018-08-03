@@ -6,6 +6,11 @@
     left: 0 !important;
   }
 
+  table {
+    border: 0;
+    // padding-left: 5px;
+  }
+
   :global {
     .ant-table-title {
       padding-left: 8px;
@@ -19,17 +24,26 @@
     .ant-table-wrapper {
       margin: 0 25px 50px;
     }
-    
-    .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
       border-bottom: 0 !important;
       padding-left: 0;
+    }
+
+    .ant-table-tbody > tr > td {
+      filter: blur(3px);
+    }
+
+    .ant-table-tbody > tr > td:first-of-type {
+      padding-left: 5px;
     }
 
     .ant-collapse-header {
       h2 {
         margin: 0;
-        padding-top: @padding-sm; 
-        padding-bottom: @padding-sm; 
+        padding-top: @padding-sm;
+        padding-bottom: @padding-sm;
       }
       small {
         font-size: 1rem;

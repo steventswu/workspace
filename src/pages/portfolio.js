@@ -47,45 +47,75 @@ export default class UserPortfolio extends React.Component {
   render() {
     const { portfolio, loading, t } = this.props;
 
+    const content = portfolio.length ? (
+      portfolio.map(data => (
+        <Collapse.Panel
+          key={data.walletAddress}
+          header={
+            <h2>
+              {t('portfolio.wallet_address')}
+              <br />
+              <small>{truncate(data.walletAddress)}</small>
+            </h2>
+          }
+        >
+          <Table
+            columns={column.map(this.portfolioColumnMapper)}
+            dataSource={data.contracts}
+            loading={loading}
+            pagination={false}
+            scroll={{ x: true }}
+            locale={{ emptyText: t('empty_text') }}
+            footer={() => (
+              <ul>
+                <li>
+                  {t('initial_capital')}: {data.summary.amount}
+                </li>
+                <li>
+                  {t('total_eth')}: {data.summary.eth}
+                </li>
+                <li>
+                  {t('roi')}: {data.summary.roi}
+                </li>
+              </ul>
+            )}
+          />
+        </Collapse.Panel>
+      ))
+    ) : (
+      <Collapse.Panel
+        key="-----"
+        header={
+          <h2>
+            {t('portfolio.wallet_address')}
+            <br />
+            <small style={{ color: 'rgba(255, 255, 255, 0.7)' }}>{t('empty_text')}</small>
+          </h2>
+        }
+      >
+        <Table
+          columns={column.map(this.portfolioColumnMapper)}
+          dataSource={[
+            { label: 'CAP-OOXX', amount: '0', eth: '0', usd: '0', roi: '173', nav: '2.73' },
+          ]}
+          loading={loading}
+          pagination={false}
+          scroll={{ x: true }}
+          footer={() => (
+            <ul>
+              <li>{t('initial_capital')}: 0</li>
+              <li>{t('total_eth')}: 0</li>
+              <li>{t('roi')}: 0%</li>
+            </ul>
+          )}
+        />
+      </Collapse.Panel>
+    );
+
     return (
       <div className={styles.portfolio}>
         <h1>{t('portfolio.title')}</h1>
-        <Collapse bordered={false}>
-          {portfolio.map(data => (
-            <Collapse.Panel
-              key={data.walletAddress}
-              header={
-                <h2>
-                  {t('portfolio.wallet_address')}
-                  <br />
-                  <small>{truncate(data.walletAddress)}</small>
-                </h2>
-              }
-            >
-              <Table
-                columns={column.map(this.portfolioColumnMapper)}
-                dataSource={data.contracts}
-                loading={loading}
-                pagination={false}
-                scroll={{ x: true }}
-                locale={{ emptyText: t('empty_text') }}
-                footer={() => (
-                  <ul>
-                    <li>
-                      {t('initial_capital')}: {data.summary.amount}
-                    </li>
-                    <li>
-                      {t('total_eth')}: {data.summary.eth}
-                    </li>
-                    <li>
-                      {t('roi')}: {data.summary.roi}
-                    </li>
-                  </ul>
-                )}
-              />
-            </Collapse.Panel>
-          ))}
-        </Collapse>
+        <Collapse bordered={false}>{content}</Collapse>
       </div>
     );
   }
