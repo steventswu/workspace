@@ -3,7 +3,6 @@ import { Row, Col as Column, Carousel } from 'antd';
 import * as homeAssets from 'src/assets/home';
 
 import styles from './2.features.less';
-import './index.less';
 
 const content = {
   withdraw_anytime: {
@@ -21,7 +20,7 @@ const content = {
 };
 
 export default () => (
-  <Row className={styles.row}>
+  <Row className={[styles.row, styles.container].join(' ')}>
     <Column xs={0} md={24}>
       <Row type="flex" className={styles.odd}>
         <Column span={6}>

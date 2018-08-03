@@ -58,6 +58,7 @@ export default {
     '@link-active-color': '#66ccff',
     '@disabled-color': 'fade(#fff, 35%)',
     '@disabled-color-dark': 'fade(#000, 25%)',
+    '@disabled-bg': 'rgba(155, 155, 155, 0.5)',
     '@font-family':
       'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
   },

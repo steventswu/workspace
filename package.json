@@ -4,7 +4,6 @@
   "description": "Portfolio Performance of TIXGURU CAP fund market",
   "private": true,
   "scripts": {
-    "preversion": "yarn install",
     "postversion": "npm run staging",
     "staging": "sh -ac '. .env.staging; npm run build && ./deploy.sh'",
     "production": "sh -ac '. .env.production; npm run build && ./deploy.sh'",

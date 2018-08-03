@@ -12,11 +12,9 @@ const column = [
   {
     title: 'Buy/Sell',
     dataIndex: 'type',
+    width: 120,
     fixed: 'left',
-    filters: [
-      { text: 'Buy', value: 'BUY' },
-      { text: 'Sell', value: 'SELL' },
-    ],
+    filters: [{ text: 'Buy', value: 'BUY' }, { text: 'Sell', value: 'SELL' }],
     onFilter: (value, record) => record.type === value,
   },
   {
@@ -27,21 +25,23 @@ const column = [
   {
     title: 'CAP Name',
     dataIndex: 'label',
+    width: 150,
     filters: CONTRACTS.map(c => ({
       text: c.label,
-      value: c.label
+      value: c.label,
     })),
-    onFilter: (value, record) => record.label === value
+    onFilter: (value, record) => record.label === value,
   },
   {
     title: 'Status',
     dataIndex: 'status',
+    width: 120,
     filters: [
       { text: statusMapper.pending, value: statusMapper.pending },
       { text: statusMapper.success, value: statusMapper.success },
       { text: statusMapper.fail, value: statusMapper.fail },
     ],
-    onFilter: (value, record) => record.status === value
+    onFilter: (value, record) => record.status === value,
   },
   {
     title: 'Time',
@@ -73,8 +73,17 @@ export default class ProfileHome extends React.Component {
           ...col,
           render: (_, record) => (
             <span>
-              <a title={this.props.t('view_in_etherscan')} href={record.url || '#'} rel="noopener noreferrer" target="_blank">
-                <img style={{ height: 22, width: 22 }} src={etherscanLogo} alt={this.props.t('view_in_etherscan')} />
+              <a
+                title={this.props.t('view_in_etherscan')}
+                href={record.url || '#'}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  style={{ height: 22, width: 22 }}
+                  src={etherscanLogo}
+                  alt={this.props.t('view_in_etherscan')}
+                />
               </a>
             </span>
           ),
@@ -86,7 +95,10 @@ export default class ProfileHome extends React.Component {
 
   render() {
     const { transactions, loading, t } = this.props;
-    column[1].filters = [...new Set(transactions.map(t => t.address))].map(value => ({ text: truncate(value), value }))
+    column[1].filters = [...new Set(transactions.map(t => t.address))].map(value => ({
+      text: truncate(value),
+      value,
+    }));
     return (
       <React.Fragment>
         <h1>{t('transaction_history.title')}</h1>
@@ -94,7 +106,7 @@ export default class ProfileHome extends React.Component {
           columns={column.map(this.transactionColumnMapper)}
           dataSource={transactions}
           loading={loading}
-          scroll={{ x: true }}
+          scroll={{ x: 1100 }}
         />
       </React.Fragment>
     );

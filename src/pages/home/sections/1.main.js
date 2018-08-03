@@ -7,7 +7,6 @@ import { I18n } from 'react-i18next';
 import throttle from 'lodash/throttle';
 import { queryIndexOverall } from 'src/services/data';
 import styles from './1.main.less';
-import './index.less';
 
 const initStart = new Date('2017-01-01 0:00').valueOf();
 const initEnd = new Date('2018-06-30 23:59:59').valueOf();

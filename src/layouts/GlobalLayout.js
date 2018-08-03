@@ -12,7 +12,10 @@ import logo from 'src/assets/logo.svg';
 import styles from './GlobalLayout.less';
 import { HOME, LOGIN, REGISTER, REDIRECT_WHITELIST } from '../routes';
 
-@connect(({ user, loading }) => ({ currentUser: user.email, isLoading: loading.global }))
+@connect(({ user, loading }) => ({
+  currentUser: user.email,
+  isLoading: loading.models.auth,
+}))
 export default class GlobalLayout extends React.PureComponent {
   componentDidMount() {
     this.refresh();
