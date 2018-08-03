@@ -7,6 +7,7 @@ import { I18n } from 'react-i18next';
 import throttle from 'lodash/throttle';
 import { queryIndexOverall } from 'src/services/data';
 import styles from './1.main.less';
+import './index.less';
 
 const initStart = new Date('2017-01-01 0:00').valueOf();
 const initEnd = new Date('2018-06-30 23:59:59').valueOf();
@@ -47,9 +48,7 @@ class InvestmentSimulator extends React.PureComponent {
           )}
         </I18n>
         <Row gutter={8} className={styles.return_container}>
-          <Column span={2}>
-            =
-          </Column>
+          <Column span={2}>=</Column>
           <Column span={21}>
             <div>
               {percentage ? numeral(percentage).format('0%') : 0}

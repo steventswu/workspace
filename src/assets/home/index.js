@@ -49,10 +49,22 @@ export const colon = {
   x3: require('./icon_colon@3x.png'),
 };
 
-export const news = {
-  x1: require('./logo_the_edge_markets.png'),
-  x2: require('./logo_the_edge_markets@2x.png'),
-  x3: require('./logo_the_edge_markets@3x.png'),
+export const logo = {
+  edgeMarket: {
+    x1: require('./logo_the_edge_markets.png'),
+    x2: require('./logo_the_edge_markets@2x.png'),
+    x3: require('./logo_the_edge_markets@3x.png'),
+  },
+  finTechHK: {
+    x1: require('./fintech-hongkong.png'),
+    x2: require('./fintech-hongkong@2x.png'),
+    x3: require('./fintech-hongkong@3x.png'),
+  },
+  theBridge: {
+    x1: require('./the-bridge-jp-logo.png'),
+    x2: require('./the-bridge-jp-logo@2x.png'),
+    x3: require('./the-bridge-jp-logo@3x.png'),
+  },
 };
 
 export const eth = {

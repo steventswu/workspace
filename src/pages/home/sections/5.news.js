@@ -13,7 +13,7 @@ export default () => (
         <ImageSet {...homeAssets.colon} alt="" />
         <p style={{ paddingTop: 30 }}>"7 hottest Fintech Startups in Taiwan"</p>
         by Fintech New Hong Kong
-        <ImageSet {...homeAssets.news} alt="" />
+        <ImageSet {...homeAssets.logo.finTechHK} alt="" />
       </div>
       <div className={styles.news}>
         <ImageSet {...homeAssets.colon} alt="" />
@@ -23,7 +23,7 @@ export default () => (
           founder and CEO Chris Liu siad.
         </p>
         by The EDGE MARKETS
-        <ImageSet {...homeAssets.news} alt="" />
+        <ImageSet {...homeAssets.logo.edgeMarket} alt="" />
       </div>
       <div className={styles.news}>
         <ImageSet {...homeAssets.colon} alt="" />
@@ -32,8 +32,8 @@ export default () => (
           は、金融機関向けのクオンツトレーディング推奨機能に特化している。COO の James Ong
           氏によれば、同社のロボットアドバイザーは、この業界での十年以上の経験に基づいて生まれたものだそうだ。”
         </p>
-        by THE BRIDG
-        <ImageSet {...homeAssets.news} alt="" />
+        by THE BRIDGE
+        <ImageSet {...homeAssets.logo.theBridge} alt="" />
       </div>
     </Carousel>
   </Row>

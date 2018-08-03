@@ -36,6 +36,7 @@ export default {
   theme: {
     '@primary-color': '#1890ff',
     '@primary-1': 'rgba(255, 255, 255, 0.2)',
+    '@primary-2': '#66ccff',
     '@primary-3': '#91d5ff',
     '@primary-4': '#91d5ff',
     '@text-color': '#fff',

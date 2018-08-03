@@ -3,6 +3,7 @@ import { Row, Col as Column, Carousel } from 'antd';
 import * as homeAssets from 'src/assets/home';
 
 import styles from './2.features.less';
+import './index.less';
 
 const content = {
   withdraw_anytime: {
