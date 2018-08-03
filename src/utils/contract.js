@@ -47,14 +47,3 @@ const contractInfo = {
   nav: 0.97,
   listed: 3,
 };
-
-export const DATA = [CAPP_13BTC, CAPM01, CAPI01].reduce(
-  (acc, key) => ({
-    ...acc,
-    [key]: {
-      key,
-      ...i18n.t(`contract:${CAPM01}`, { returnObjects: true, ...contractInfo }),
-    },
-  }),
-  {}
-);
