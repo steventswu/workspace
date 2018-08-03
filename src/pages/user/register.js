@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Row, Col as Column, Form, Input, Icon, Button, Checkbox, Popover, Progress } from 'antd';
 import Link from 'umi/link';
+import { PRIVACY, TERMS_AND_CONDITIONS } from 'src/routes';
 import { translate } from 'react-i18next';
 import Container from 'src/components/Container';
 import styles from './styles.less';
@@ -22,6 +23,7 @@ const passwordProgressMap = {
 @translate(['user', 'common'])
 export default class Register extends Component {
   state = {
+    unchecked: true,
     confirmDirty: false,
     popoverVisible: false,
     passwordHelp: '',
@@ -54,6 +56,14 @@ export default class Register extends Component {
   handleConfirmBlur = e => {
     const { value } = e.target;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  };
+
+  handbleCheckbox = e => {
+    const value = !e.target.checked;
+    console.log(value);
+    this.setState({
+      unchecked: value,
+    });
   };
 
   checkConfirm = (rule, value, callback) => {
@@ -144,6 +154,7 @@ export default class Register extends Component {
   render() {
     const { form, submitting, t } = this.props;
     const { getFieldDecorator } = form;
+    const buttonDisabled = this.state.unchecked;
     return (
       <Container className={styles.registerBackground}>
         <Row gutter={16}>
@@ -213,17 +224,18 @@ export default class Register extends Component {
               </FormItem>
               <FormItem>
                 <Row>
-                  <Checkbox id="accept">
+                  <Checkbox onChange={this.handbleCheckbox} id="accept">
                     <span className={styles.links}>
                       <span>I accept&nbsp;</span>
-                      <Link to="/privacy">privacy policy&nbsp;&amp;</Link>
-                      <Link to="/terms">&nbsp;terms of conditions</Link>
+                      <Link to={PRIVACY}>privacy policy&nbsp;</Link>&amp;
+                      <Link to={TERMS_AND_CONDITIONS}>&nbsp;terms of conditions</Link>
                     </span>
                   </Checkbox>
                 </Row>
               </FormItem>
               <FormItem>
                 <Button
+                  disabled={buttonDisabled}
                   size="large"
                   loading={submitting}
                   className={styles.submit}
