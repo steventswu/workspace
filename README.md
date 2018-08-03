@@ -79,3 +79,34 @@ $ npm version major|minor|patch
 ```
 3. If individual antd component need to be updated, check `node_modules/antd/es` to find variable in use
 
+### Add new CAP
+
+1. Open `src/utils/contract.js`
+2. Add new CAP name, e.g. `export const CAPP02 = 'capp15eth';`
+3. Add new CAP data in `CONTRACT`:
+```js
+export const CONTRACT = {
+  ...
+  [CAPP02]: {
+    ...
+    address: process.env.CAPP02,
+    key: CAPP02,
+  }
+};
+```
+4. Add new CAP's contract address to `.env.<development|production|staging>`
+5. Define e.g. `process.env.CAPP02` in `umi.js`:
+```js
+{
+  ...
+  define: {
+    ...
+    'process.env.CAPP02': process.env.CAPP02,
+  }
+}
+```
+
+### Apply different abi data for CAP
+
+1. Add different `abi.json` to `src/services`
+2. Update `src/services/Web3.js` to apply for different CAP
