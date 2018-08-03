@@ -8,14 +8,15 @@ import throttle from 'lodash/throttle';
 import { queryIndexOverall } from 'src/services/data';
 import styles from './1.main.less';
 
-const initStart = new Date('2017-01-01 0:00').valueOf();
-const initEnd = new Date('2018-06-30 23:59:59').valueOf();
+const initStart = new Date('2017/01/01 0:00').valueOf();
+const initEnd = new Date('2018/06/30 23:59:59').valueOf();
 const calculateTimestamp = percentage => initStart + (initEnd - initStart) * (percentage / 100);
 
 class InvestmentSimulator extends React.PureComponent {
   state = { amount: 100, start: initStart, end: initStart, earn: {} };
 
   query = throttle(() => {
+    console.log(this.state);
     queryIndexOverall(this.state).then(data => this.setState({ earn: data }));
   }, 500);
 
