@@ -1,7 +1,6 @@
 const path = require('path');
 
 export default {
-  exportStatic: true,
   plugins: [
     'umi-plugin-dva',
     [
@@ -34,14 +33,6 @@ export default {
     components: path.resolve(__dirname, 'src/components/'),
     assets: path.resolve(__dirname, 'src/assets/'),
   },
-  pages: {
-    '/buy': { Route: './src/routes/PrivateRoute.js' },
-    '/buy/:id': { Route: './src/routes/PrivateRoute.js' },
-    '/portfolio': { Route: './src/routes/PrivateRoute.js' },
-    '/profile': { Route: './src/routes/PrivateRoute.js' },
-    '/redeem': { Route: './src/routes/PrivateRoute.js' },
-    '/transactions': { Route: './src/routes/PrivateRoute.js' },
-  },
   theme: {
     '@primary-color': '#1890ff',
     '@primary-1': 'rgba(255, 255, 255, 0.2)',
@@ -70,5 +61,13 @@ export default {
     '@disabled-bg': 'rgba(155, 155, 155, 0.5)',
     '@font-family':
       'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+  },
+  pages: {
+    '/buy': { Route: './src/routes/PrivateRoute.js' },
+    '/buy/:id': { Route: './src/routes/PrivateRoute.js' },
+    '/portfolio': { Route: './src/routes/PrivateRoute.js' },
+    '/profile': { Route: './src/routes/PrivateRoute.js' },
+    '/redeem': { Route: './src/routes/PrivateRoute.js' },
+    '/transactions': { Route: './src/routes/PrivateRoute.js' },
   },
 };
