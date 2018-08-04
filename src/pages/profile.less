@@ -1,26 +1,37 @@
 @import '~antd/lib/style/themes/default.less';
 
+.profile {
+  padding-left: @padding-lg;
+
+  @media (max-width: @screen-md) {
+    padding-left: 0px;
+  }
+}
+.title a:focus {
+  color: black;
+}
 .email {
-  padding-left: 24px;
+  padding-left: @padding-lg;
   p {
     font-weight: 400;
     font-size: 1.25rem;
+  }
+  @media (max-width: @screen-md) {
+    padding-left: 0px;
   }
 }
 
 .form {
   display: flex;
   justify-content: space-between;
-}
 
-.input {
-  flex: 1;
-  margin-right: @padding-md;
+  @media (max-width: @screen-md) {
+    flex-direction: column;
+  }
 }
 
 .listItem {
   :global(.ant-list-item-content) {
-    justify-content: space-between;
-    align-items: center;
+    flex: 0;
   }
 }

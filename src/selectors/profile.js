@@ -19,7 +19,7 @@ export const getIconType = status => {
 };
 
 export const getButtonStatus = status => {
-  if (status === PENDING) return i18n.t('common:pending');
+  if (status === PENDING) return i18n.t('common:verifying');
   if (status === VERIFIED) return i18n.t('common:verified');
 };
 

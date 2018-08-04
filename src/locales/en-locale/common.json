@@ -6,7 +6,7 @@
   "return_to": "Return to {{route}}",
   "cap": "CAP",
   "amount": "Amount",
-  "pending": "Pending",
+  "verifying": "Verifying",
   "verified": "Verified",
   "failure": "Failure",
   "success": "Success",

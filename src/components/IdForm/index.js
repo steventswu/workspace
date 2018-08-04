@@ -9,13 +9,12 @@ import styles from './index.less';
 
 const formItemLayout = {
   wrapperCol: {
-    span: 6,
+    span: 10,
   },
 };
 
 const sumbittedFormLayout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 14 },
+  wrapperCol: { span: 10 },
 };
 
 @Form.create()
@@ -45,7 +44,7 @@ export default class IdForm extends React.PureComponent {
     const unverified = isIdentityVerified === UNVERIFIED;
     const pending = isIdentityVerified === PENDING;
     const verified = isIdentityVerified === VERIFIED;
-    const { form: { getFieldDecorator }, t } = this.props;
+    const { form: { getFieldDecorator, isFieldTouched }, t } = this.props;
     const props = {
       accept: 'image/jpg,image/jpeg,image/png',
       onRemove: file => {
@@ -67,13 +66,21 @@ export default class IdForm extends React.PureComponent {
       },
       fileList: this.state.fileList,
     };
+    const field = {
+      nationality: 'nationality',
+      passportNumber: 'passportNumber',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      passportImage: 'passportImage',
+    };
+    const fields = Object.values(field);
     return (
       <div>
         {unverified && (
           <React.Fragment>
             <Form layout="vertical" className={styles.form} hideRequiredMark>
               <Form.Item {...formItemLayout} label={t('nationality.label')}>
-                {getFieldDecorator('nationality', {
+                {getFieldDecorator(field.nationality, {
                   initialValue: nationality,
                   rules: [
                     {
@@ -86,6 +93,7 @@ export default class IdForm extends React.PureComponent {
                 })(
                   <Select
                     showSearch
+                    size="large"
                     placeholder={t('nationality.placeholder')}
                     filterOption={(input, option) =>
                       option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -101,7 +109,7 @@ export default class IdForm extends React.PureComponent {
                 )}
               </Form.Item>
               <Form.Item {...formItemLayout} label={t('passport_number.label')}>
-                {getFieldDecorator('passportNumber', {
+                {getFieldDecorator(field.passportNumber, {
                   initialValue: passportNumber,
                   rules: [
                     {
@@ -113,6 +121,7 @@ export default class IdForm extends React.PureComponent {
                   ],
                 })(
                   <Input
+                    size="large"
                     placeholder={t('passport_number.placeholder')}
                     disabled={this.state.locked}
                   />
@@ -121,7 +130,7 @@ export default class IdForm extends React.PureComponent {
                 }
               </Form.Item>
               <Form.Item {...formItemLayout} label={t('first_name.label')}>
-                {getFieldDecorator('firstName', {
+                {getFieldDecorator(field.firstName, {
                   initialValue: firstName,
                   rules: [
                     {
@@ -132,11 +141,11 @@ export default class IdForm extends React.PureComponent {
                     },
                   ],
                 })(
-                  <Input placeholder={t('first_name.placeholder')} disabled={this.state.locked} />
+                  <Input size="large" placeholder={t('first_name.placeholder')} disabled={this.state.locked} />
                 )}
               </Form.Item>
               <Form.Item {...formItemLayout} label={t('last_name.label')}>
-                {getFieldDecorator('lastName', {
+                {getFieldDecorator(field.lastName, {
                   initialValue: lastName,
                   rules: [
                     {
@@ -146,19 +155,19 @@ export default class IdForm extends React.PureComponent {
                       whitespace: true,
                     },
                   ],
-                })(<Input placeholder={t('last_name.placeholder')} disabled={this.state.locked} />)}
+                })(<Input size="large" placeholder={t('last_name.placeholder')} disabled={this.state.locked} />)}
               </Form.Item>
               <Form.Item
                 {...formItemLayout}
                 label={t('passport_photo.label')}
                 extra={t('passport_photo.description')}
               >
-                {getFieldDecorator('passportImage', {
+                {getFieldDecorator(field.passportImage, {
                   initialValue: passportImage,
                   rules: [{ required: true, message: t('passport_photo.required') }],
                 })(
                   <Upload {...props}>
-                    <Button disabled={this.state.locked}>
+                    <Button size="large" style={{ borderRadius: '4px' }} disabled={this.state.locked}>
                       <Icon type="upload" />
                       {t('passport_photo.button')}
                     </Button>
@@ -166,7 +175,12 @@ export default class IdForm extends React.PureComponent {
                 )}
               </Form.Item>
               <Form.Item {...formItemLayout}>
-                <Button type="primary" onClick={this.handleFormSubmit} disabled={this.state.locked}>
+                <Button
+                  size="large"
+                  type="primary"
+                  onClick={this.handleFormSubmit}
+                  disabled={fields.some(f => !isFieldTouched(f))}
+                >
                   {t('verify')}
                 </Button>
               </Form.Item>
@@ -175,26 +189,22 @@ export default class IdForm extends React.PureComponent {
         )}
         {pending && (
           <div>
-            <h2 className={styles.pending}>{t('message.pending')}</h2>
+            <h3 className={styles.pending}>{t('message.pending')}</h3>
           </div>
         )}
         {verified && (
           <div>
-            <h2 className={styles.verified}>
-              <Icon type="check-circle-o" />
-              {t('message.verified')}
-            </h2>
             <Form layout="vertical" className={styles.form} hideRequiredMark>
-              <Form.Item label={`${t('nationality.label')}:`} {...sumbittedFormLayout}>
+              <Form.Item label={`${t('nationality.label')}`} {...sumbittedFormLayout}>
                 <span>{this.props.currentUser.nationality}</span>
               </Form.Item>
-              <Form.Item label={`${t('passport_number.label')}:`} {...sumbittedFormLayout}>
+              <Form.Item label={`${t('passport_number.label')}`} {...sumbittedFormLayout}>
                 <span>{this.props.currentUser.passportNumber}</span>
               </Form.Item>
-              <Form.Item label={`${t('first_name.label')}:`} {...sumbittedFormLayout}>
+              <Form.Item label={`${t('first_name.label')}`} {...sumbittedFormLayout}>
                 <span>{this.props.currentUser.firstName}</span>
               </Form.Item>
-              <Form.Item label={`${t('last_name.label')}:`} {...sumbittedFormLayout}>
+              <Form.Item label={`${t('last_name.label')}`} {...sumbittedFormLayout}>
                 <span>{this.props.currentUser.lastName}</span>
               </Form.Item>
             </Form>

@@ -11,6 +11,7 @@
       "404": "Incorrect email or password."
     },
     "forgot_password": {
+      "400": "Member not exists.",
       "422": "Forgot password request quota only once a day."
     },
     "change_password": {

@@ -11,10 +11,10 @@ import IdForm from 'components/IdForm';
 import { CHANGE_PASSWORD } from 'src/routes';
 import styles from './profile.less';
 
-const ROUTE = {
-  WALLET_VERIFICATION: '/profile/wallet',
-  VERIFICATION: '/profile/verification',
+const formItemLayout = {
+  wrapperCol: { span: 16 },
 };
+
 @Form.create()
 @connect(({ user, profile, loading }) => ({
   currentUser: user,
@@ -24,7 +24,7 @@ const ROUTE = {
   isLoading: loading.effects['auth/fetchMember'],
   walletList: userProfile.getWalletList(user.walletAddressMap),
 }))
-@translate(['profile', 'common'])
+@translate(['profile', 'common', 'walletVerification'])
 export default class UserProfile extends React.Component {
   componentDidMount() {
     this.props.dispatch({ type: 'profile/fetch' });
@@ -32,7 +32,9 @@ export default class UserProfile extends React.Component {
   state = { activeKey: '1' };
   handlePanelChange = activeKey => {
     if (!activeKey.length) return;
-    this.setState({ activeKey: activeKey.filter(k => k !== this.setState.activeKey).pop() });
+    this.setState({
+      activeKey: activeKey.filter(k => k !== this.setState.activeKey).pop(),
+    });
   };
   handleButtonClick = () => {
     this.props.dispatch(routerRedux.push(CHANGE_PASSWORD));
@@ -61,7 +63,6 @@ export default class UserProfile extends React.Component {
       this.props.dispatch({
         type: 'auth/fetchMember',
       });
-      this.props.dispatch(routerRedux.push(ROUTE.VERIFICATION));
     }, 1000);
   };
   render() {
@@ -74,91 +75,99 @@ export default class UserProfile extends React.Component {
     const shouldVerified = isIdentityVerified !== VERIFIED;
     return (
       <React.Fragment>
-        <Collapse
-          activeKey={[this.state.activeKey]}
-          onChange={this.handlePanelChange}
-          bordered={false}
-        >
-          <Collapse.Panel header={<h1>{t('user_profile')}</h1>} key="1">
-            <div className={styles.email}>
-              {t('email')}
-              <p>{email}</p>
-              <Button onClick={this.handleButtonClick}>{t('common:change_password')}</Button>
-            </div>
-          </Collapse.Panel>
-          <Collapse.Panel header={<h1>{t('identity_verification')}</h1>} key="2">
-            <div style={{ paddingLeft: 24 }}>
-              <IdForm
-                profile={profile}
-                currentUser={currentUser}
-                isIdentityVerified={isIdentityVerified}
-                unverified={unverified}
-                pending={pending}
-                verified={verified}
-                onClickVerify={this.handleOnClick}
-              />
-            </div>
-          </Collapse.Panel>
-          <Collapse.Panel header={<h1>{t('wallet_verification')}</h1>} key="3">
-            <p>
-              To link a new ethereum address, enter the address below. You can link up to 3
-              addresses.
-            </p>
-            <div style={{ width: 800 }}>
-              <Form layout="horizontal" hideRequiredMark className={styles.form}>
-                <Form.Item style={{ flex: 1, marginRight: 10 }}>
-                  {getFieldDecorator('walletAddress', {
-                    rules: [{ required: true, type: 'string', message: 'Enter Wallet Address' }],
-                  })(
-                    <Input
-                      type="text"
-                      placeholder="Enter Wallet Address"
-                      disabled={walletList.length >= 3 || shouldVerified}
-                    />
-                  )}
-                </Form.Item>
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    disabled={walletList.length >= 3}
-                    onClick={() =>
-                      validateFields((err, values) => {
-                        if (err) return;
-                        this.props.dispatch({
-                          type: 'profile/validateWallet',
-                          payload: values,
-                        });
-                        resetFields();
-                      })
-                    }
-                  >
-                    Link Address
-                  </Button>
-                </Form.Item>
-              </Form>
-              <List
-                dataSource={walletList}
-                renderItem={item => (
-                  <List.Item className={styles.listItem}>
-                    {item.walletAddress}
-                    <Button
-                      style={{ width: 120, paddingLeft: 15, paddingRight: 15 }}
-                      type="dashed"
-                      onClick={() => this.props.dispatch({ type: 'auth/fetchMember' })}
-                    >
-                      <Icon
-                        type={userProfile.getIconType(item.isVerified)}
-                        style={{ marginRight: 5 }}
+        <div>
+          <h1>{t('user_profile')}</h1>
+          <Collapse
+            activeKey={[this.state.activeKey]}
+            onChange={this.handlePanelChange}
+            bordered={false}
+          >
+            <Collapse.Panel header={<h2>{t('personal_details')}</h2>} key="1">
+              <div className={styles.email}>
+                {t('email')}
+                <p>{email}</p>
+                <Button onClick={this.handleButtonClick}>{t('common:change_password')}</Button>
+              </div>
+            </Collapse.Panel>
+            <Collapse.Panel header={<h2>{t('identity_verification')}</h2>} key="2">
+              <div className={styles.profile}>
+                <IdForm
+                  profile={profile}
+                  currentUser={currentUser}
+                  isIdentityVerified={isIdentityVerified}
+                  unverified={unverified}
+                  pending={pending}
+                  verified={verified}
+                  onClickVerify={this.handleOnClick}
+                />
+              </div>
+            </Collapse.Panel>
+            <Collapse.Panel header={<h2>{t('wallet_verification')}</h2>} key="3">
+              <div className={styles.profile}>
+                <p>{t('walletVerification:description')}</p>
+                <Form layout="horizontal" hideRequiredMark className={styles.form}>
+                  <Form.Item style={{ flex: 1, marginRight: 10 }}>
+                    {getFieldDecorator('walletAddress', {
+                      rules: [
+                        {
+                          required: true,
+                          type: 'string',
+                          message: `{t('walletVerification:wallet.required')}`,
+                        },
+                      ],
+                    })(
+                      <Input
+                        type="text"
+                        size="large"
+                        placeholder={t('walletVerification:wallet.placeholder')}
+                        disabled={walletList.length >= 3 || shouldVerified}
                       />
-                      {userProfile.getButtonStatus(item.isVerified)}
+                    )}
+                  </Form.Item>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      size="large"
+                      disabled={walletList.length >= 3}
+                      onClick={() =>
+                        validateFields((err, values) => {
+                          if (err) return;
+                          this.props.dispatch({
+                            type: 'profile/validateWallet',
+                            payload: values,
+                          });
+                          resetFields();
+                        })
+                      }
+                    >
+                      {t('walletVerification:wallet.button')}
                     </Button>
-                  </List.Item>
-                )}
-                loading={isLoading}
-              />
-            </div>
-          </Collapse.Panel>
-        </Collapse>
+                  </Form.Item>
+                </Form>
+                <List
+                  dataSource={walletList}
+                  itemLayout="horizontal"
+                  renderItem={item => (
+                    <List.Item className={styles.listItem}>
+                      <List.Item.Meta title={item.walletAddress} />
+                      <Button
+                        style={{ paddingLeft: 15, paddingRight: 15 }}
+                        onClick={() => this.props.dispatch({ type: 'auth/fetchMember' })}
+                      >
+                        <Icon
+                          type={userProfile.getIconType(item.isVerified)}
+                          style={{ marginRight: 5 }}
+                        />
+                        {userProfile.getButtonStatus(item.isVerified)}
+                      </Button>
+                    </List.Item>
+                  )}
+                  loading={isLoading}
+                />
+              </div>
+            </Collapse.Panel>
+          </Collapse>
+        </div>
       </React.Fragment>
     );
   }
