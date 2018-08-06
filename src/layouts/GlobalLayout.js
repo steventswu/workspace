@@ -61,7 +61,15 @@ export default class GlobalLayout extends React.PureComponent {
   render() {
     const { isLoading, currentUser, location: { pathname } } = this.props;
 
-    const noContainer = [HOME, LOGIN, REGISTER, CHANGE_PASSWORD].includes(pathname);
+    const noContainer = [
+      HOME,
+      LOGIN,
+      REGISTER,
+      FORGOT_PASSWORD,
+      CHANGE_PASSWORD,
+      REGISTER_RESULT,
+      USER_CONFIRM,
+    ].includes(pathname);
 
     return (
       <DocumentTitle title="CAP, Cryptocurrency Assets Portfolio - The first Crypto index fund | Tixguru">

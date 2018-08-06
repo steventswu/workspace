@@ -1,8 +1,9 @@
 {
   "next": "Next",
-  "submit": "Submit",
+  "submit": "Reset Password",
   "or": "or",
-  "return": "Return to Home",
+  "return": "Return to Login",
+  "return_home": "Return to Home",
   "return_to": "Return to {{route}}",
   "cap": "CAP",
   "amount": "Amount",
@@ -20,5 +21,7 @@
   "welcome_back": "Welcome Back !",
   "cap_value": "{{value}} CAP",
   "start_end": "{{start}} ~ {{end}}",
-  "percentage": "{{value}}%"
+  "percentage": "{{value}}%",
+  "help": "Help is on the way",
+  "mail_sent": "Mail Sent"
 }

@@ -1,5 +1,5 @@
 @import '~antd/lib/style/themes/default.less';
-.registerBackground {
+.confirmBackground {
   background-color: #001e46;
   background-image: url('src/assets/register/register_bg.png');
   background-size: cover;
@@ -7,22 +7,13 @@
 
 .title_container {
   max-width: 336px;
+  margin-top: 20px;
 
   p {
     font-size: 1.5rem;
+    line-height: 1.5rem;
     margin-bottom: 0;
     text-align: justify;
-  }
-}
-
-.join {
-  font-size: 4.5rem;
-  font-weight: 400;
-}
-
-.links {
-  a {
-    color: @primary-color;
   }
 }
 
@@ -36,9 +27,20 @@
     }
   }
 
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: @screen-md) {
+      display: flex;
+    }
+  }
+
   h3 {
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 14px;
+    margin-top: @padding-lg;
+    margin-bottom: @padding-lg;
   }
 
   .getCaptcha {
@@ -55,7 +57,6 @@
     line-height: @btn-height-lg;
   }
 }
-
 .success,
 .warning,
 .error {
@@ -82,21 +83,8 @@
   }
 }
 
-.registerResult {
-  :global {
-    .anticon {
-      font-size: 64px;
-    }
-  }
-  .title {
-    margin-top: 32px;
-    font-size: 20px;
-    line-height: 28px;
-  }
-  .actions {
-    margin-top: 40px;
-    a + a {
-      margin-left: 8px;
-    }
-  }
+.help {
+  font-size: 4.5rem;
+  font-weight: 400;
+  line-height: 1.15;
 }
