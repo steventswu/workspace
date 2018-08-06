@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Popover, Progress, Alert } from 'antd';
+import { Row, Col as Column, Form, Input, Button, Popover, Progress, Alert } from 'antd';
 import { translate } from 'react-i18next';
-import styles from './styles.less';
+import Container from 'src/components/Container';
+import styles from './reset.less';
 
 const FormItem = Form.Item;
 
@@ -146,91 +147,108 @@ export default class ChangePassword extends Component {
     const hasError = Object.values(getFieldsError(fields)).some(Boolean);
     const isUntouched = fields.some(f => !isFieldTouched(f));
     return (
-      <div className={styles.main}>
-        <Form onSubmit={this.handleSubmit}>
-          {errorMessage && this.renderAlertMessage(errorMessage)}
-          <FormItem>
-            {getFieldDecorator(fields[0], {
-              rules: [
-                {
-                  required: true,
-                  message: t('password.required'),
-                },
-              ],
-            })(
-              <Input
-                size="large"
-                autoComplete="password"
-                type="password"
-                placeholder={t('old_password.placeholder')}
-              />
-            )}
-          </FormItem>
-          <FormItem help={this.state.passwordHelp}>
-            <Popover
-              content={
-                <div style={{ padding: '4px 0' }}>
-                  {this.passwordStatusMap[this.getPasswordStatus()]}
-                  {this.renderPasswordProgress()}
-                  <div style={{ marginTop: 10 }}>{t('password.tip')}</div>
-                </div>
-              }
-              overlayStyle={{ width: 240 }}
-              placement="right"
-              visible={this.state.popoverVisible}
-            >
-              {getFieldDecorator(fields[1], {
-                rules: [
-                  {
-                    validator: this.checkPassword,
-                  },
-                ],
-              })(
-                <Input
+      <Container className={styles.forgetPassBackground}>
+        <Row gutter={16}>
+          <Column
+            xs={24}
+            lg={{ span: 11, push: 13 }}
+            style={{ marginTop: '10%', marginBottom: '20%' }}
+          >
+            <Form className={styles.main} onSubmit={this.handleSubmit}>
+              {errorMessage && this.renderAlertMessage(errorMessage)}
+              <FormItem>
+                {getFieldDecorator(fields[0], {
+                  rules: [
+                    {
+                      required: true,
+                      message: t('password.required'),
+                    },
+                  ],
+                })(
+                  <Input
+                    size="large"
+                    autoComplete="password"
+                    type="password"
+                    placeholder={t('old_password.placeholder')}
+                  />
+                )}
+              </FormItem>
+              <FormItem help={this.state.passwordHelp}>
+                <Popover
+                  content={
+                    <div style={{ padding: '4px 0' }}>
+                      {this.passwordStatusMap[this.getPasswordStatus()]}
+                      {this.renderPasswordProgress()}
+                      <div style={{ marginTop: 10 }}>{t('password.tip')}</div>
+                    </div>
+                  }
+                  overlayStyle={{ width: 240 }}
+                  placement="right"
+                  visible={this.state.popoverVisible}
+                >
+                  {getFieldDecorator(fields[1], {
+                    rules: [
+                      {
+                        validator: this.checkPassword,
+                      },
+                    ],
+                  })(
+                    <Input
+                      size="large"
+                      autoComplete="new-password"
+                      type="password"
+                      placeholder={t('new_password.placeholder')}
+                      onChange={this.showPopover}
+                      onBlur={this.hidePopover}
+                    />
+                  )}
+                </Popover>
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator(fields[2], {
+                  rules: [
+                    {
+                      required: true,
+                      message: t('password_confirm.required'),
+                    },
+                    {
+                      validator: this.checkConfirm,
+                    },
+                  ],
+                })(
+                  <Input
+                    size="large"
+                    autoComplete="new-password"
+                    type="password"
+                    placeholder={t('password_confirm.placeholder')}
+                  />
+                )}
+              </FormItem>
+              <FormItem>
+                <Button
                   size="large"
-                  autoComplete="new-password"
-                  type="password"
-                  placeholder={t('new_password.placeholder')}
-                  onChange={this.showPopover}
-                  onBlur={this.hidePopover}
-                />
-              )}
-            </Popover>
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator(fields[2], {
-              rules: [
-                {
-                  required: true,
-                  message: t('password_confirm.required'),
-                },
-                {
-                  validator: this.checkConfirm,
-                },
-              ],
-            })(
-              <Input
-                size="large"
-                autoComplete="new-password"
-                type="password"
-                placeholder={t('password_confirm.placeholder')}
-              />
-            )}
-          </FormItem>
-          <FormItem>
-            <Button
-              size="large"
-              loading={submitting}
-              className={styles.submit}
-              disabled={hasError || isUntouched}
-              type="primary"
-              htmlType="submit"
-            >
-              {t('common:change_password')}
-            </Button>
-          </FormItem>
-        </Form>
-      </div>
+                  loading={submitting}
+                  className={styles.submit}
+                  disabled={hasError || isUntouched}
+                  type="primary"
+                  htmlType="submit"
+                >
+                  {t('common:change_password')}
+                </Button>
+              </FormItem>
+            </Form>
+          </Column>
+          <Column
+            xs={0}
+            lg={{ span: 13, pull: 11 }}
+            style={{ marginTop: '12%', marginBottom: '30%' }}
+          >
+            <Column offset={2}>
+              <div className={styles.changepass}>{t('common:change_password')}</div>
+            </Column>
+          </Column>
+        </Row>
+      </Container>
     );
   }
 }
