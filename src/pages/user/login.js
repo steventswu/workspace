@@ -83,7 +83,7 @@ export default class LoginPage extends Component {
           <Column
             xs={24}
             lg={{ span: 11, push: 13 }}
-            style={{ marginTop: '10%', marginBottom: '10%' }}
+            style={{ marginTop: '20%', marginBottom: '10%' }}
           >
             <Form.Item className={styles.main}>
               <Spin spinning={Boolean(submitting)}>
@@ -135,7 +135,7 @@ export default class LoginPage extends Component {
               </Spin>
             </Form.Item>
           </Column>
-          <Column xs={0} lg={{ span: 13, pull: 11 }} style={{ marginTop: '12%' }}>
+          <Column xs={0} lg={{ span: 13, pull: 11 }} style={{ marginTop: '23%' }}>
             <Column span={14} offset={3}>
               <div className={styles.welcome}>{t('common:welcome_back')}</div>
             </Column>

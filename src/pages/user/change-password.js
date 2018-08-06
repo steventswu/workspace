@@ -152,7 +152,7 @@ export default class ChangePassword extends Component {
           <Column
             xs={24}
             lg={{ span: 11, push: 13 }}
-            style={{ marginTop: '10%', marginBottom: '20%' }}
+            style={{ marginTop: '20%', marginBottom: '20%' }}
           >
             <Form className={styles.main} onSubmit={this.handleSubmit}>
               {errorMessage && this.renderAlertMessage(errorMessage)}
@@ -238,11 +238,7 @@ export default class ChangePassword extends Component {
               </FormItem>
             </Form>
           </Column>
-          <Column
-            xs={0}
-            lg={{ span: 13, pull: 11 }}
-            style={{ marginTop: '12%', marginBottom: '30%' }}
-          >
+          <Column xs={0} lg={{ span: 13, pull: 11 }} style={{ marginTop: '23%' }}>
             <Column offset={2}>
               <div className={styles.changepass}>{t('common:change_password')}</div>
             </Column>
