@@ -5,7 +5,7 @@ import Link from 'umi/link';
 import { PRIVACY, TERMS_AND_CONDITIONS } from 'src/routes';
 import { translate } from 'react-i18next';
 import Container from 'src/components/Container';
-import styles from './styles.less';
+import styles from './register.less';
 
 const FormItem = Form.Item;
 
