@@ -20,7 +20,7 @@ export default {
         });
         yield put(
           routerRedux.push({
-            pathname: USER_CONFIRM,
+            pathname: REGISTER_RESULT,
             state: { email: payload.email, type: 'register' },
           })
         );
