@@ -17,7 +17,7 @@ const FormItem = Form.Item;
 @translate(['user', 'common'])
 export default class RegisterConfirm extends Component {
   componentDidMount() {
-    this.props.dispatch({ type: 'user/verifyEmail', payload: window.location.search.slice(7) });
+    this.props.dispatch({ type: 'auth/verifyEmail', payload: window.location.search.slice(7) });
   }
 
   render() {

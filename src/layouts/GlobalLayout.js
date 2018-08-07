@@ -18,6 +18,7 @@ import {
   FORGOT_PASSWORD,
   REGISTER_RESULT,
   USER_CONFIRM,
+  // USER_CONFIRM_TOKEN,
   REDIRECT_WHITELIST,
 } from '../routes';
 
@@ -69,6 +70,7 @@ export default class GlobalLayout extends React.PureComponent {
       CHANGE_PASSWORD,
       REGISTER_RESULT,
       USER_CONFIRM,
+      // USER_CONFIRM_TOKEN,
     ].includes(pathname);
 
     return (
