@@ -11,39 +11,17 @@ import styles from './confirm.less';
 const FormItem = Form.Item;
 
 @Form.create()
-@connect(({ loading }) => ({ submitting: loading.effects['user/forgotPassword'] }))
+@connect(({ loading }) => ({
+  loading: loading.effects['user.verifyEmail'],
+}))
 @translate(['user', 'common'])
-export default class ForgotPassword extends Component {
-  handleSubmit = e => {
-    e.preventDefault();
-    this.resetErrorMessage();
-    this.props.form.validateFields({ force: true }, (err, values) => {
-      if (err) return;
-      this.props.dispatch({
-        type: 'user/forgotPassword',
-        payload: values,
-      });
-    });
-  };
-
-  resetErrorMessage = () => {
-    this.props.dispatch({ type: 'user/resetErrorMessage' });
-  };
-
-  renderAlertMessage = content => (
-    <Alert
-      style={{ marginBottom: 24 }}
-      message={content}
-      type="error"
-      showIcon
-      closable
-      afterClose={this.resetErrorMessage}
-    />
-  );
+export default class RegisterConfirm extends Component {
+  componentDidMount() {
+    this.props.dispatch({ type: 'user/verifyEmail', payload: window.location.search.slice(7) });
+  }
 
   render() {
-    const { form, submitting, t, errorMessage } = this.props;
-    const { getFieldDecorator } = form;
+    const { t } = this.props;
     return (
       <Container className={styles.confirmBackground}>
         <Row gutter={16}>
@@ -52,8 +30,7 @@ export default class ForgotPassword extends Component {
             lg={{ span: 11, push: 13 }}
             style={{ marginTop: '20%', marginBottom: '20%' }}
           >
-            <Form className={styles.main} onSubmit={this.handleSubmit}>
-              {errorMessage && this.renderAlertMessage(errorMessage)}
+            <Form className={styles.main}>
               <Row className={styles.title}>
                 <Column>
                   <img style={{ width: '160' }} src={resetAssets.success} alt="" />

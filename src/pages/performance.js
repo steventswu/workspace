@@ -71,7 +71,7 @@ export default class BasicPerformance extends PureComponent {
       <Fragment>
         <div>
           <Row gutter={{ xs: 24 }}>
-            <Col lg={8} style={{ marginTop: '10%', marginBottom: 16 }}>
+            <Col lg={6} style={{ marginTop: '10%', marginBottom: 16 }}>
               <span className={styles.title}>{t('performance')}</span>
               <ChartCard
                 bodyStyle={{ paddingLeft: '0', paddingRight: '0', paddingBottom: '0' }}
@@ -218,7 +218,7 @@ export default class BasicPerformance extends PureComponent {
                 contentHeight={150}
               />
             </Col>
-            <Col xs={0} lg={16} style={{ marginTop: '10%', marginBottom: 24 }}>
+            <Col xs={0} lg={18} style={{ marginTop: '10%', marginBottom: 24 }}>
               <ChartCard bodyStyle={{ paddingLeft: '0', paddingRight: '0' }} bordered={false}>
                 <HighchartsReact
                   performance={performance}

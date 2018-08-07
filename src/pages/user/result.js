@@ -11,39 +11,10 @@ import styles from './result.less';
 const FormItem = Form.Item;
 
 @Form.create()
-@connect(({ loading }) => ({ submitting: loading.effects['user/forgotPassword'] }))
 @translate(['user', 'common'])
-export default class ForgotPassword extends Component {
-  handleSubmit = e => {
-    e.preventDefault();
-    this.resetErrorMessage();
-    this.props.form.validateFields({ force: true }, (err, values) => {
-      if (err) return;
-      this.props.dispatch({
-        type: 'user/forgotPassword',
-        payload: values,
-      });
-    });
-  };
-
-  resetErrorMessage = () => {
-    this.props.dispatch({ type: 'user/resetErrorMessage' });
-  };
-
-  renderAlertMessage = content => (
-    <Alert
-      style={{ marginBottom: 24 }}
-      message={content}
-      type="error"
-      showIcon
-      closable
-      afterClose={this.resetErrorMessage}
-    />
-  );
-
+export default class LoginResult extends Component {
   render() {
-    const { form, submitting, t, errorMessage } = this.props;
-    const { getFieldDecorator } = form;
+    const { t } = this.props;
     return (
       <Container className={styles.forgetPassBackground}>
         <Row gutter={16}>
@@ -53,7 +24,6 @@ export default class ForgotPassword extends Component {
             style={{ marginTop: '20%', marginBottom: '20%' }}
           >
             <Form className={styles.main} onSubmit={this.handleSubmit}>
-              {errorMessage && this.renderAlertMessage(errorMessage)}
               <Row className={styles.title}>
                 <Column>
                   <img style={{ width: '160' }} src={resetAssets.success} alt="" />

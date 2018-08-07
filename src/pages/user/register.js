@@ -227,8 +227,12 @@ export default class Register extends Component {
                   <Checkbox onChange={this.handbleCheckbox} id="accept">
                     <span className={styles.links}>
                       <span>I accept&nbsp;</span>
-                      <Link to={PRIVACY}>privacy policy&nbsp;</Link>&amp;
-                      <Link to={TERMS_AND_CONDITIONS}>&nbsp;terms of conditions</Link>
+                      <Link to={PRIVACY} target="_blank">
+                        privacy policy&nbsp;
+                      </Link>&amp;
+                      <Link to={TERMS_AND_CONDITIONS} target="_blank">
+                        &nbsp;terms of conditions
+                      </Link>
                     </span>
                   </Checkbox>
                 </Row>
