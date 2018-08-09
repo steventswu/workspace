@@ -13,7 +13,12 @@ export default () => (
         <ImageSet {...homeAssets.colon} alt="" />
         <p style={{ paddingTop: 30 }}>"7 hottest Fintech Startups in Taiwan"</p>
         by Fintech New Hong Kong
-        <ImageSet {...homeAssets.logo.finTechHK} alt="" />
+        <a
+          href="http://fintechnews.hk/5259/taiwan/hottest-fintech-startups-in-taiwan/"
+          target="_blank"
+        >
+          <ImageSet {...homeAssets.logo.finTechHK} alt="" />
+        </a>
       </div>
       <div className={styles.news}>
         <ImageSet {...homeAssets.colon} alt="" />
@@ -23,7 +28,12 @@ export default () => (
           founder and CEO Chris Liu siad.
         </p>
         by The EDGE MARKETS
-        <ImageSet {...homeAssets.logo.edgeMarket} alt="" />
+        <a
+          href="http://www.theedgemarkets.com/article/fintech-liberalising-quant-trading-retail-investors"
+          target="_blank"
+        >
+          <ImageSet {...homeAssets.logo.edgeMarket} alt="" />
+        </a>
       </div>
       <div className={styles.news}>
         <ImageSet {...homeAssets.colon} alt="" />
@@ -33,7 +43,12 @@ export default () => (
           氏によれば、同社のロボットアドバイザーは、この業界での十年以上の経験に基づいて生まれたものだそうだ。”
         </p>
         by THE BRIDGE
-        <ImageSet {...homeAssets.logo.theBridge} alt="" />
+        <a
+          href="http://thebridge.jp/2017/08/startupbootcamp-fintech-2017-demoday-in-tokyo"
+          target="_blank"
+        >
+          <ImageSet {...homeAssets.logo.theBridge} alt="" />
+        </a>
       </div>
     </Carousel>
   </Row>

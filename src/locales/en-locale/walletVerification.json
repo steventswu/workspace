@@ -2,6 +2,8 @@
   "title": "Wallet Verification",
   "description":
     "To link a new ethereum address, enter the address below. You can link up to 3 addresses.",
+  "empty_text":
+    "Please conduct the identity and wallet verification, if you want to view the contents",
   "wallet": {
     "required": "Enter Wallet Address",
     "placeholder": "Enter Wallet Address",

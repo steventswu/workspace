@@ -13,17 +13,40 @@ export default {
 
   effects: {
     *register({ payload }, { call, put }) {
+      // try {
+      //   yield call(api.createMember, {
+      //     email: payload.email,
+      //     password: btoa(payload.password),
+      //   });
+      //   yield put(
+      //     routerRedux.push({
+      //       pathname: REGISTER_RESULT,
+      //       state: { email: payload.email, type: 'register' },
+      //     })
+      //   );
+      // } catch (error) {
+      //   console.error(error);
+      // }
       try {
-        yield call(api.createMember, {
+        const { error, status } = yield call(api.createMember, {
           email: payload.email,
           password: btoa(payload.password),
         });
-        yield put(
-          routerRedux.push({
-            pathname: REGISTER_RESULT,
-            state: { email: payload.email, type: 'register' },
-          })
-        );
+        if (!error) {
+          return yield put(
+            routerRedux.push({
+              pathname: REGISTER_RESULT,
+              state: {
+                email: payload.email,
+                type: 'register',
+              },
+            })
+          );
+        }
+        yield put({
+          type: 'save',
+          payload: { errorMessage: i18n.t(`error:code.register.${status}`) },
+        });
       } catch (error) {
         console.error(error);
       }

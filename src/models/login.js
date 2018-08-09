@@ -7,7 +7,7 @@ import redirect from 'src/utils/redirect';
 import i18n from 'src/i18n';
 import { HOME } from 'src/routes';
 
-const redirectPath = () => redirect.get() || HOME;
+const redirectPath = () => HOME;
 
 export default {
   namespace: 'login',

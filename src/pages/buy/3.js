@@ -6,7 +6,7 @@ import { translate } from 'react-i18next';
 import Web3 from 'src/services/Web3';
 import { CONTRACT, getEtherscanLink } from 'src/utils/contract';
 
-import { PROFILE } from 'src/routes';
+import { TRANSACTIONS } from 'src/routes';
 import styles from './style.less';
 
 @connect(({ token }) => ({
@@ -15,7 +15,7 @@ import styles from './style.less';
 @translate('buy')
 export default class Step3 extends React.PureComponent {
   handleReturn = () => {
-    this.props.dispatch(routerRedux.replace(PROFILE));
+    this.props.dispatch(routerRedux.replace(TRANSACTIONS));
   };
 
   render() {
@@ -53,7 +53,11 @@ export default class Step3 extends React.PureComponent {
       <div className={styles.wrapper}>
         <Content>
           <p>{t('notice')}</p>
-          <Button type="primary" style={{ marginTop: 50, marginBottom: 50 }} onClick={this.handleReturn}>
+          <Button
+            type="primary"
+            style={{ marginTop: 50, marginBottom: 50 }}
+            onClick={this.handleReturn}
+          >
             {t('return')}
           </Button>
         </Content>

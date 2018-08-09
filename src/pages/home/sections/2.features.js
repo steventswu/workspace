@@ -6,11 +6,11 @@ import styles from './2.features.less';
 
 const content = {
   withdraw_anytime: {
-    title: 'Withdraw anytime',
+    title: 'Withdraw Anytime',
     content: 'No broker fee, no exit fee and full control over your investment on CAP',
   },
   zero_entry_barrier: {
-    title: '0 Entry barrier',
+    title: '0 Entry Barrier',
     content: 'Hold a CAP token instead of 10+ coins, CAP token represents 85% of the market',
   },
   better_performing: {
