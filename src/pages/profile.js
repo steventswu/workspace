@@ -10,11 +10,6 @@ import IdForm from 'components/IdForm';
 
 import { CHANGE_PASSWORD } from 'src/routes';
 import styles from './profile.less';
-
-const formItemLayout = {
-  wrapperCol: { span: 16 },
-};
-
 @Form.create()
 @connect(({ user, profile, loading }) => ({
   currentUser: user,

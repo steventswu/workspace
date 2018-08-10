@@ -4,7 +4,7 @@ import { UNVERIFIED } from 'src/utils/status';
 import i18n from 'src/i18n';
 import session from 'src/utils/session';
 import { redirect } from 'src/services/redirect';
-import { REGISTER_RESULT, USER_CONFIRM, LOGIN } from 'src/routes';
+import { REGISTER_RESULT, LOGIN } from 'src/routes';
 
 export default {
   namespace: 'user',

@@ -87,7 +87,7 @@ export default {
     },
     *submitWalletValidation({ payload }, { call, put }) {
       try {
-        const { error, status } = yield call(api.addWhitelist, payload.account);
+        const { error } = yield call(api.addWhitelist, payload.account);
         if (!error) {
           return yield put({
             type: 'user/saveWalletAddress',
