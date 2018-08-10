@@ -2,7 +2,7 @@
   "transaction_complete": "Transaction Complete",
   "wallet_already_exists": "This address is already added",
   "wallet_not_match": "Wallet address does not match",
-  "wallet_already_used": "Wallet address is already used by another account",
+  "wallet_already_used": "The wallet has already verified",
   "transaction_reject": "Transaction canceled.",
   "transaction_underpriced": "Transaction underpriced. Try increase the gas price.",
   "facebook_email_permission": "You must provide email permission with Facebook login.",
