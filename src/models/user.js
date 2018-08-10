@@ -36,15 +36,11 @@ export default {
         });
         console.log(`Error : ${error}`);
         console.log(`Status : ${status}`);
-        if (!error) {
+        if (status === 'SyntaxError') {
           return yield put(
             routerRedux.push({
               pathname: REGISTER_RESULT,
-              state: {
-                email: payload.email,
-                type: 'register',
-                link: { to: LOGIN, route: i18n.t('common:login') },
-              },
+              state: { email: payload.email, type: 'register' },
             })
           );
         }

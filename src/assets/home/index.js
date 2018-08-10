@@ -43,6 +43,8 @@ export const withdraw = {
   '3x': require('./withdraw_anytime@3x.png'),
 };
 
+export const sectionCard = require('./section-3-card.png');
+
 export const colon = {
   x1: require('./icon_colon.png'),
   x2: require('./icon_colon@2x.png'),
