@@ -27,15 +27,15 @@ export default {
       //     })
       //   );
       // } catch (error) {
-      //   if (error instanceof TypeError) {
-      //     return notification.error({ message: error.message });
-      //   }
+      //   console.error(error);
       // }
       try {
         const { error, status } = yield call(api.createMember, {
           email: payload.email,
           password: btoa(payload.password),
         });
+        console.log(`Error : ${error}`);
+        console.log(`Status : ${status}`);
         if (!error) {
           return yield put(
             routerRedux.push({
@@ -43,11 +43,16 @@ export default {
               state: {
                 email: payload.email,
                 type: 'register',
+                link: { to: LOGIN, route: i18n.t('common:login') },
               },
             })
           );
         }
         notification.error({ message: i18n.t(`error:code.register.${status}`) });
+        // yield put({
+        //   type: 'save',
+        //   payload: { errorMessage: i18n.t(`error:code.register.${status}`) },
+        // });
       } catch (error) {
         console.error(error);
       }
