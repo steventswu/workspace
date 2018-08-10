@@ -7,7 +7,7 @@
       "Join with fund managers on managing investment portfolios of cryptocurrencies"
     ],
     "investment_simulator": {
-      "amount_title": "Investing Amount",
+      "amount_title": "Investment Amount",
       "tenor_title": "Tenor",
       "return": "Return",
       "earn": "Earn"

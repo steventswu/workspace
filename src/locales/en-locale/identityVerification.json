@@ -1,8 +1,8 @@
 {
   "nationality": {
-    "label": "Nationality",
-    "required": "Must choose Nationality",
-    "placeholder": "Select Country"
+    "label": "Country/Area",
+    "required": "Must choose Country/Area",
+    "placeholder": "Select Country/Area"
   },
   "passport_number": {
     "label": "Passport Number",

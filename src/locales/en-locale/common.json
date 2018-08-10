@@ -11,6 +11,7 @@
   "verified": "Verified",
   "failure": "Failure",
   "pending": "Pending",
+  "processing": "Processing",
   "success": "Success",
   "register": "Register",
   "login": "Login",

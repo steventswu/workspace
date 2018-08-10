@@ -5,8 +5,8 @@
   "faq": "FAQ",
   "login": "Login",
   "account": "My Account",
-  "profile": "Profile",
-  "portfolio": "Portfolio",
+  "profile": "User Profile",
+  "portfolio": "Portfolio Overview",
   "transactions": "Transaction History",
   "redeem": "Redeem",
   "logout": "Logout"

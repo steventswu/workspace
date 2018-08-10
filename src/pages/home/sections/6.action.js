@@ -8,7 +8,12 @@ export default ({ onAction }) => (
   <Row type="flex" className={styles.darkWrapper}>
     <Column xs={24} lg={{ span: 8, push: 4 }} className={styles.container}>
       <div className={styles.action}>
-        <h3>Join to the crypto finance future</h3>
+        <h2>
+          CAP breaks the entry barrier for crypto investors, helping them to hold market in just one
+          click
+        </h2>
+        <h3>by Charlene Hong,</h3>
+        <h3 style={{ lineHeight: 0, marginBottom: 20 }}>former Yahoo Taiwan Managing Director</h3>
         <Button style={{ height: 62 }} type="primary" onClick={onAction}>
           Get Started
         </Button>

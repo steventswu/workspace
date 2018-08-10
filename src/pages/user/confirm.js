@@ -35,7 +35,7 @@ export default class RegisterConfirm extends Component {
                 <Column>
                   <img style={{ width: '160' }} src={resetAssets.success} alt="" />
                 </Column>
-                <h3>{t('result.title')}</h3>
+                <h3>{t('confirm.title')}</h3>
               </Row>
               <FormItem>
                 <Link to={LOGIN}>

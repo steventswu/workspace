@@ -8,7 +8,7 @@
     "placeholder": "Password",
     "required": "Enter the password",
     "format": "Do not contain whitespace in password",
-    "tip": "Use at least 6 characters."
+    "tip": "At least 6 characters."
   },
   "old_password": {
     "placeholder": "Old Password"
@@ -38,8 +38,12 @@
     "success": "The password of {{email}} is successfully reset!",
     "success_message": "Please check the new password in your email box"
   },
+  "confirm": {
+    "title":
+      "Please check your mailbox and activate your account. If you do not find the email in your inbox,  please check your spam or junk mail folders."
+  },
   "result": {
-    "title": "Please check the reset link in your email"
+    "title": "A temporary password has been sent to the email address you provided."
   },
   "go_login": "Sign in with existing account"
 }

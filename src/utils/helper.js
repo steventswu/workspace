@@ -25,7 +25,7 @@ const formatTime = timestamp => {
 export const statusMapper = {
   success: i18n.t('common:success'),
   fail: i18n.t('common:failure'),
-  pending: i18n.t('common:pending'),
+  pending: i18n.t('common:processing'),
 };
 
 export const formatTransaction = (item, i) => ({

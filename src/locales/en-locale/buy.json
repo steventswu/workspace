@@ -3,8 +3,8 @@
   "place_orders": "Place Orders",
   "complete_purchase": "Complete Purchase",
   "accept_terms_list": [
-    "I hereby agree to the above stated Terms & Conditions",
-    "I have read and agree to Section 4 of the Terms & Conditions",
+    "I hereby agree to accept the above Terms",
+    "I have read and agree to Section 4 of the Terms",
     "I am NOT from a country in which ICO or transaction of tokens might be prohibited by laws, including but not limit to China, Japan, Korea, Hong Kong, Singapore, Taiwan, and the United States."
   ],
   "buy_cap": "Buy CAP",
@@ -22,7 +22,7 @@
     "required": "Enter amount"
   },
   "continue": "Continue your purchase on DApp Browser",
-  "notice": "Note: It takes 15-20 minutes of transaction time to process your purchase.",
+  "notice": "It takes 15-20 minutes to process your purchase.",
   "return": "Transcation History",
   "info": {
     "title": "Buy Your CAP",

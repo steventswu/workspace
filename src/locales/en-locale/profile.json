@@ -1,6 +1,6 @@
 {
   "user_profile": "User Profile",
-  "personal_details": "Personal Details",
+  "personal_details": "Account Name",
   "email": "Email",
   "logout": "Logout",
   "identity_verification": "Identity Verification",
@@ -29,7 +29,7 @@
     "time": "Time",
     "amount": "Amount"
   },
-  "view_in_etherscan": "View in Etherscan",
+  "view_in_etherscan": "View on Etherscan",
   "empty_text":
     "Please conduct the identity and wallet verification, if you want to view the contents"
 }

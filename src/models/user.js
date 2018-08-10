@@ -1,3 +1,5 @@
+import { notification } from 'antd';
+
 import { routerRedux } from 'dva/router';
 import * as api from 'src/services/members';
 import { UNVERIFIED } from 'src/utils/status';
@@ -25,7 +27,9 @@ export default {
       //     })
       //   );
       // } catch (error) {
-      //   console.error(error);
+      //   if (error instanceof TypeError) {
+      //     return notification.error({ message: error.message });
+      //   }
       // }
       try {
         const { error, status } = yield call(api.createMember, {
@@ -43,10 +47,7 @@ export default {
             })
           );
         }
-        yield put({
-          type: 'save',
-          payload: { errorMessage: i18n.t(`error:code.register.${status}`) },
-        });
+        notification.error({ message: i18n.t(`error:code.register.${status}`) });
       } catch (error) {
         console.error(error);
       }

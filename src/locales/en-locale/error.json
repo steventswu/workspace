@@ -15,7 +15,7 @@
       "422": "Member is not verified."
     },
     "forgot_password": {
-      "400": "Member does not exists.",
+      "400": "Your Email is incorrect!",
       "422": "Forgot password request quota only once a day."
     },
     "change_password": {

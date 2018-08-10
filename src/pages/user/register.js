@@ -258,10 +258,10 @@ export default class Register extends Component {
                     <span className={styles.links}>
                       <span>I accept&nbsp;</span>
                       <Link to={PRIVACY} target="_blank">
-                        privacy policy&nbsp;
+                        Privacy Policy&nbsp;
                       </Link>&amp;
                       <Link to={TERMS_AND_CONDITIONS} target="_blank">
-                        &nbsp;terms of conditions
+                        &nbsp;Terms and Conditions
                       </Link>
                     </span>
                   </Checkbox>
@@ -276,7 +276,7 @@ export default class Register extends Component {
                   type="primary"
                   htmlType="submit"
                 >
-                  {t('common:register')}
+                  {t('common:join_now')}
                 </Button>
               </FormItem>
               <FormItem>
@@ -290,7 +290,7 @@ export default class Register extends Component {
             <Column offset={2}>
               <div className={styles.join}>{t('common:join_now')}</div>
               <div className={styles.title_container}>
-                <p>to experience the most efficient Crypto investment ETF</p>
+                <p>Experience the future of crypto</p>
               </div>
             </Column>
           </Column>
