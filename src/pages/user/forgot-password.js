@@ -11,7 +11,10 @@ import styles from './forgot-pass.less';
 const FormItem = Form.Item;
 
 @Form.create()
-@connect(({ loading }) => ({ submitting: loading.effects['user/forgotPassword'] }))
+@connect(({ user, loading }) => ({
+  errorMessage: user.errorMessage,
+  submitting: loading.effects['user/forgotPassword'],
+}))
 @translate(['user', 'common'])
 export default class ForgotPassword extends Component {
   handleSubmit = e => {

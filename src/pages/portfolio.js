@@ -66,19 +66,6 @@ export default class UserPortfolio extends React.Component {
             pagination={false}
             scroll={{ x: true }}
             locale={{ emptyText: t('empty_text') }}
-            footer={() => (
-              <ul>
-                <li>
-                  {t('initial_capital')}: {data.summary.amount}
-                </li>
-                <li>
-                  {t('total_eth')}: {data.summary.eth}
-                </li>
-                <li>
-                  {t('roi')}: {data.summary.roi}
-                </li>
-              </ul>
-            )}
           />
         </Collapse.Panel>
       ))
@@ -101,13 +88,6 @@ export default class UserPortfolio extends React.Component {
           loading={loading}
           pagination={false}
           scroll={{ x: true }}
-          footer={() => (
-            <ul>
-              <li>{t('initial_capital')}: 0</li>
-              <li>{t('total_eth')}: 0</li>
-              <li>{t('roi')}: 0%</li>
-            </ul>
-          )}
         />
       </Collapse.Panel>
     );

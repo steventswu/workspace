@@ -28,17 +28,17 @@ export default () => (
         </p>
       </Column>
       <Column xs={24} lg={12} className={styles.social}>
-        <a href="#" target="_blank">
+        <a href="https://www.facebook.com/Tixguru/" target="_blank">
           <i className="fab fa-facebook-f" />
         </a>
-        <a href="#" target="_blank">
+        <a href="https://twitter.com/tixguru" target="_blank">
           <i className="fab fa-twitter" />
         </a>
-        <a href="#" target="_blank">
-          <i className="fab fa-linkedin-in" />
+        <a href="https://medium.com/tixguru" target="_blank">
+          <i className="fab fa-medium-m" />
         </a>
-        <a href="#" target="_blank">
-          <i className="fab fa-instagram" />
+        <a href="https://www.youtube.com/channel/UCw-PfsMFAN02gxw0D6D7ovA/featured" target="_blank">
+          <i className="fab fa-youtube" />
         </a>
       </Column>
       <Column span={24} className={styles.footer}>

@@ -10,6 +10,7 @@
   "verifying": "Verifying",
   "verified": "Verified",
   "failure": "Failure",
+  "pending": "Pending",
   "success": "Success",
   "register": "Register",
   "login": "Login",

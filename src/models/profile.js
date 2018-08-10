@@ -69,31 +69,39 @@ export default {
         );
 
         if (walletList.includes(accountSelected)) {
-          return notification.error({ message: i18n.t('message:message.wallet_already_exists') });
+          return notification.error({ message: i18n.t('message:wallet_already_exists') });
         }
 
         if (account === accountSelected) {
-          yield put({
-            type: 'submitWalletValidation',
-            payload: { account },
-          });
           return yield put({
-            type: 'user/saveWalletAddress',
-            payload: {
-              walletAddress: accountSelected,
-              isVerified: PENDING,
-            },
+            type: 'submitWalletValidation',
+            payload: { account, accountSelected },
           });
         }
-        notification.error({ message: i18n.t('message:message.wallet_not_match') });
+        notification.error({ message: i18n.t('message:wallet_not_match') });
       } catch (error) {
         if (error instanceof TypeError) {
           return notification.error({ message: error.message });
         }
       }
     },
-    *submitWalletValidation({ payload }, { call }) {
-      yield call(api.addWhitelist, payload.account);
+    *submitWalletValidation({ payload }, { call, put }) {
+      try {
+        const { error } = yield call(api.addWhitelist, payload.account);
+        if (!error) {
+          return yield put({
+            type: 'user/saveWalletAddress',
+            payload: {
+              walletAddress: payload.accountSelected,
+              isVerified: PENDING,
+            },
+          });
+        }
+        notification.error({ message: i18n.t('message:wallet_already_used') });
+      } catch (error) {
+        console.error(error);
+      }
+      // yield call(api.addWhitelist, payload.account);
     },
     *validateIdentify({ payload }, { call, put }) {
       const identity = yield call(api.updateIdentity, payload.formData);
@@ -110,7 +118,7 @@ export default {
         const account = yield call(Web3.getAccount);
 
         if (account.toLowerCase() !== payload.address.toLowerCase()) {
-          throw new TypeError(i18n.t('message:message.wallet_already_exists'));
+          throw new TypeError(i18n.t('message:wallet_already_exists'));
         }
 
         const txHash = yield call(Web3.redeem, payload);

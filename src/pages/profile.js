@@ -10,11 +10,6 @@ import IdForm from 'components/IdForm';
 
 import { CHANGE_PASSWORD } from 'src/routes';
 import styles from './profile.less';
-
-const formItemLayout = {
-  wrapperCol: { span: 16 },
-};
-
 @Form.create()
 @connect(({ user, profile, loading }) => ({
   currentUser: user,
@@ -104,7 +99,11 @@ export default class UserProfile extends React.Component {
             </Collapse.Panel>
             <Collapse.Panel header={<h2>{t('wallet_verification')}</h2>} key="3">
               <div className={styles.profile}>
-                <p>{t('walletVerification:description')}</p>
+                <p>
+                  {shouldVerified
+                    ? t('walletVerification:empty_text')
+                    : t('walletVerification:description')}
+                </p>
                 <Form layout="horizontal" hideRequiredMark className={styles.form}>
                   <Form.Item style={{ flex: 1, marginRight: 10 }}>
                     {getFieldDecorator('walletAddress', {
@@ -112,7 +111,7 @@ export default class UserProfile extends React.Component {
                         {
                           required: true,
                           type: 'string',
-                          message: `{t('walletVerification:wallet.required')}`,
+                          message: t('walletVerification:wallet.required'),
                         },
                       ],
                     })(
@@ -150,16 +149,13 @@ export default class UserProfile extends React.Component {
                   renderItem={item => (
                     <List.Item className={styles.listItem}>
                       <List.Item.Meta title={item.walletAddress} />
-                      <Button
-                        style={{ paddingLeft: 15, paddingRight: 15 }}
-                        onClick={() => this.props.dispatch({ type: 'auth/fetchMember' })}
-                      >
+                      <span className={styles.status}>
                         <Icon
                           type={userProfile.getIconType(item.isVerified)}
                           style={{ marginRight: 5 }}
                         />
                         {userProfile.getButtonStatus(item.isVerified)}
-                      </Button>
+                      </span>
                     </List.Item>
                   )}
                   loading={isLoading}

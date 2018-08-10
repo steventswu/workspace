@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Row, Col as Column, Form, Input, Icon, Button, Checkbox, Popover, Progress } from 'antd';
+import {
+  Row,
+  Col as Column,
+  Form,
+  Input,
+  Icon,
+  Button,
+  Checkbox,
+  Popover,
+  Progress,
+  Alert,
+} from 'antd';
 import Link from 'umi/link';
 import { PRIVACY, TERMS_AND_CONDITIONS } from 'src/routes';
 import { translate } from 'react-i18next';
@@ -16,8 +27,9 @@ const passwordProgressMap = {
 };
 
 @Form.create()
-@connect(({ register, loading }) => ({
+@connect(({ register, user, loading }) => ({
   register,
+  errorMessage: user.errorMessage,
   submitting: loading.effects['user/register'],
 }))
 @translate(['user', 'common'])
@@ -43,6 +55,8 @@ export default class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({ popoverVisible: false });
+    this.resetErrorMessage();
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (!err) {
         this.props.dispatch({
@@ -151,8 +165,23 @@ export default class Register extends Component {
     ) : null;
   };
 
+  resetErrorMessage = () => {
+    this.props.dispatch({ type: 'user/resetErrorMessage' });
+  };
+
+  renderAlertMessage = content => (
+    <Alert
+      style={{ marginBottom: 24 }}
+      message={content}
+      type="error"
+      showIcon
+      closable
+      afterClose={this.resetErrorMessage}
+    />
+  );
+
   render() {
-    const { form, submitting, t } = this.props;
+    const { form, submitting, t, errorMessage } = this.props;
     const { getFieldDecorator } = form;
     const buttonDisabled = this.state.unchecked;
     return (
@@ -164,6 +193,7 @@ export default class Register extends Component {
             style={{ marginTop: '20%', marginBottom: '10%' }}
           >
             <Form className={styles.main} onSubmit={this.handleSubmit}>
+              {errorMessage && this.renderAlertMessage(errorMessage)}
               <FormItem>
                 {getFieldDecorator('email', this.emailValidator)(
                   <Input

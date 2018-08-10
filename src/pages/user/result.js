@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col as Column, Form, Icon, Input, Button, Alert } from 'antd';
+import { Row, Col as Column, Form, Button } from 'antd';
 import { translate } from 'react-i18next';
-import { HOME } from 'src/routes';
+import { LOGIN } from 'src/routes';
 import Container from 'src/components/Container';
 import * as resetAssets from 'src/assets/reset';
 import styles from './result.less';
@@ -31,9 +30,9 @@ export default class LoginResult extends Component {
                 <h3>{t('result.title')}</h3>
               </Row>
               <FormItem>
-                <Link to={HOME}>
+                <Link to={LOGIN}>
                   <Button className={styles.submit} size="large" type="primary">
-                    {t('common:return_home')}
+                    {t('common:return')}
                   </Button>
                 </Link>
               </FormItem>

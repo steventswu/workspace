@@ -10,8 +10,12 @@
       "401": "Email is not verified. Please check your inbox.",
       "404": "Incorrect email or password."
     },
+    "register": {
+      "409": "Email already registered.",
+      "422": "Member is not verified."
+    },
     "forgot_password": {
-      "400": "Member not exists.",
+      "400": "Member does not exists.",
       "422": "Forgot password request quota only once a day."
     },
     "change_password": {
