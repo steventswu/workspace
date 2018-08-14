@@ -23,9 +23,9 @@ export const darren = {
   '3x': require('./darren@3x.png'),
 };
 
-export const barrierGif = require('./micro-animation-barrier.gif');
-export const performingGif = require('./micro-animation-performing.gif');
-export const withdrawGif = require('./micro-animation-withdraw.gif');
+export const barrierGif = require('./cap_fund_shop.gif');
+export const performingGif = require('./cap_performing.gif');
+export const withdrawGif = require('./cap_withdraw.gif');
 
 export const barrier = {
   '1x': require('./zero_entry_barrier.png'),

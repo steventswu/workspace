@@ -83,7 +83,14 @@ export default class UserPortfolio extends React.Component {
         <Table
           columns={column.map(this.portfolioColumnMapper)}
           dataSource={[
-            { label: 'CAP-OOXX', amount: '0', eth: '0', usd: '0', roi: '173', nav: '2.73' },
+            {
+              label: 'CAP-OOXX',
+              amount: '0',
+              eth: '-----',
+              usd: '-----',
+              roi: '-----',
+              nav: '-----',
+            },
           ]}
           loading={loading}
           pagination={false}

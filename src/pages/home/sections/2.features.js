@@ -25,9 +25,9 @@ export default () => (
       <Row type="flex" className={styles.odd}>
         <Column span={6}>
           <img
-            style={{ width: '100%' }}
-            src={homeAssets.withdraw['1x']}
-            srcSet={`${homeAssets.withdraw['2x']} 2x, ${homeAssets.withdraw['3x']} 3x`}
+            className={styles.gifShadow}
+            src={homeAssets.withdrawGif}
+            // srcSet={`${homeAssets.withdraw['2x']} 2x, ${homeAssets.withdraw['3x']} 3x`}
             alt=""
           />
         </Column>
@@ -43,9 +43,9 @@ export default () => (
       <Row type="flex" className={styles.even}>
         <Column span={6}>
           <img
-            style={{ width: '100%' }}
-            src={homeAssets.barrier['1x']}
-            srcSet={`${homeAssets.barrier['2x']} 2x, ${homeAssets.barrier['3x']} 3x`}
+            className={styles.gifShadow}
+            src={homeAssets.barrierGif}
+            // srcSet={`${homeAssets.barrier['2x']} 2x, ${homeAssets.barrier['3x']} 3x`}
             alt=""
           />
         </Column>
@@ -61,9 +61,9 @@ export default () => (
       <Row type="flex" className={styles.odd}>
         <Column span={6}>
           <img
-            style={{ width: '100%' }}
-            src={homeAssets.performing['1x']}
-            srcSet={`${homeAssets.performing['2x']} 2x, ${homeAssets.performing['3x']} 3x`}
+            className={styles.gifShadow}
+            src={homeAssets.performingGif}
+            // srcSet={`${homeAssets.performing['2x']} 2x, ${homeAssets.performing['3x']} 3x`}
             alt=""
           />
         </Column>
@@ -79,8 +79,9 @@ export default () => (
       <Carousel className={styles.carousel}>
         <div className={styles.desc}>
           <img
-            src={homeAssets.withdraw['1x']}
-            srcSet={`${homeAssets.withdraw['2x']} 2x, ${homeAssets.withdraw['3x']} 3x`}
+            className={styles.carouselMobile}
+            src={homeAssets.withdrawGif}
+            // srcSet={`${homeAssets.withdraw['2x']} 2x, ${homeAssets.withdraw['3x']} 3x`}
             alt=""
           />
           <h3>{content.withdraw_anytime.title}</h3>
@@ -88,8 +89,9 @@ export default () => (
         </div>
         <div className={styles.desc}>
           <img
-            src={homeAssets.barrier['1x']}
-            srcSet={`${homeAssets.barrier['2x']} 2x, ${homeAssets.barrier['3x']} 3x`}
+            className={styles.carouselMobile}
+            src={homeAssets.barrierGif}
+            // srcSet={`${homeAssets.barrier['2x']} 2x, ${homeAssets.barrier['3x']} 3x`}
             alt=""
           />
           <h3>{content.zero_entry_barrier.title}</h3>
@@ -97,8 +99,9 @@ export default () => (
         </div>
         <div className={styles.desc}>
           <img
-            src={homeAssets.performing['1x']}
-            srcSet={`${homeAssets.performing['2x']} 2x, ${homeAssets.performing['3x']} 3x`}
+            className={styles.carouselMobile}
+            src={homeAssets.performingGif}
+            // srcSet={`${homeAssets.performing['2x']} 2x, ${homeAssets.performing['3x']} 3x`}
             alt=""
           />
           <h3>{content.better_performing.title}</h3>
