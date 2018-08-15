@@ -28,7 +28,7 @@
     "title": "Buy Your CAP",
     "content": [
       "Do not send from exchange wallets.",
-      "Set gas limit to 150,000.",
+      "Set gas limit to 300,000.",
       "Send ETH to following Contract Address."
     ],
     "contract": "Contract Address",

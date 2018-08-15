@@ -13,14 +13,14 @@ const initEnd = new Date('2018/06/30 23:59:59').valueOf();
 const calculateTimestamp = percentage => initStart + (initEnd - initStart) * (percentage / 100);
 
 class InvestmentSimulator extends React.PureComponent {
-  state = { amount: 100, start: initStart, end: initStart, earn: {} };
+  state = { amount: 1, start: initStart, end: initStart, earn: {} };
 
   query = throttle(() => {
     console.log(this.state);
     queryIndexOverall(this.state).then(data => this.setState({ earn: data }));
   }, 500);
 
-  changeAmount = value => this.setState({ amount: 100 + value / 100 * (10000 - 100) }, this.query);
+  changeAmount = value => this.setState({ amount: 1 + value / 100 * (10000 - 1) }, this.query);
 
   changeTenor = ([start, end]) =>
     this.setState({ start: calculateTimestamp(start), end: calculateTimestamp(end) }, this.query);
@@ -57,7 +57,7 @@ class InvestmentSimulator extends React.PureComponent {
           </Column>
           <Column span={21} push={2}>
             <div>
-              {amount ? numeral(amount).format('0') : 0}
+              {amount ? numeral(amount).format('0,0.[00]') : 0}
               <ImageSet {...eth} alt="ETH" style={{ marginLeft: 8 }} />
               <span className={styles.label}>{content.earn}</span>
             </div>

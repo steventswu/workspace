@@ -1,36 +1,28 @@
 import React, { Component } from 'react';
-import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Row, Col as Column, Form, Button } from 'antd';
 import { translate } from 'react-i18next';
 import { LOGIN } from 'src/routes';
 import Container from 'src/components/Container';
 import * as resetAssets from 'src/assets/reset';
-import styles from './confirm.less';
+import styles from './result.less';
 
 const FormItem = Form.Item;
 
 @Form.create()
-@connect(({ loading }) => ({
-  loading: loading.effects['auth.verifyEmail'],
-}))
 @translate(['user', 'common'])
-export default class RegisterConfirm extends Component {
-  componentDidMount() {
-    this.props.dispatch({ type: 'auth/verifyEmail', payload: window.location.search.slice(7) });
-  }
-
+export default class RegisterResult extends Component {
   render() {
     const { t } = this.props;
     return (
-      <Container className={styles.confirmBackground}>
+      <Container className={styles.forgetPassBackground}>
         <Row gutter={16}>
           <Column
             xs={24}
             lg={{ span: 11, push: 13 }}
             style={{ marginTop: '20%', marginBottom: '20%' }}
           >
-            <Form className={styles.main}>
+            <Form className={styles.main} onSubmit={this.handleSubmit}>
               <Row className={styles.title}>
                 <Column>
                   <img style={{ width: '160' }} src={resetAssets.success} alt="" />
@@ -52,7 +44,7 @@ export default class RegisterConfirm extends Component {
             style={{ marginTop: '20%', marginBottom: '30%' }}
           >
             <Column span={16} offset={2}>
-              <div className={styles.help}>{t('common:mail_sent')}</div>
+              <div className={styles.help}>{t('common:help')}</div>
             </Column>
           </Column>
         </Row>
