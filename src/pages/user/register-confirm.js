@@ -44,7 +44,7 @@ export default class RegisterResult extends Component {
             style={{ marginTop: '20%', marginBottom: '30%' }}
           >
             <Column span={16} offset={2}>
-              <div className={styles.help}>{t('common:help')}</div>
+              <div className={styles.help}>{t('common:mail_sent')}</div>
             </Column>
           </Column>
         </Row>
