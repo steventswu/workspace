@@ -34,13 +34,13 @@ const buy = ({ cap, amount, account }) =>
     from: account,
     to: CONTRACT[cap].address,
     value: Eth.toWei(amount, 'ether'),
-    gas: 150000,
+    gas: 300000,
     data: '0x',
   });
 
 const redeem = ({ cap, amount, address }) => {
   const token = eth.contract(tokenAbi).at(CONTRACT[cap].address);
-  return token.requestRedeem(Eth.toWei(amount, 'ether'), { from: address, gas: 4606350 });
+  return token.requestRedeem(Eth.toWei(amount, 'ether'), { from: address, gas: 300000 });
 };
 
 export default { init, validate, buy, redeem, isInstalled, isDisabled, getAccount };
