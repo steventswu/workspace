@@ -8,7 +8,7 @@ import Container from 'src/components/Container';
 import AppFooter from 'src/components/AppFooter';
 import redirect from 'src/utils/redirect';
 import session from 'src/utils/session';
-import logo from 'src/assets/logo.svg';
+import logo from 'src/assets/logo-cap-mica.svg';
 import styles from './GlobalLayout.less';
 import {
   HOME,

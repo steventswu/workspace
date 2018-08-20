@@ -25,6 +25,13 @@ class InvestmentSimulator extends React.PureComponent {
   changeTenor = ([start, end]) =>
     this.setState({ start: calculateTimestamp(start), end: calculateTimestamp(end) }, this.query);
 
+  // end
+  //   :
+  //   1492634879800
+  // start
+  //   :
+  //   1483200000000
+
   render() {
     const { content } = this.props;
     const { percentage, amount } = this.state.earn;

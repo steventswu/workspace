@@ -1,8 +1,17 @@
 @import '../../../utils/shared.less';
 
-.card {
-  width: 300px;
-  height: 480px;
+.cardContainer {
+  width: 100%;
+  justify-content: space-evenly;
+}
+.blockcastIndexFund {
+  border-radius: 4px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  @media (max-width: @screen-md) {
+    margin-bottom: 60px;
+  }
+}
+.micaIndexFund {
   border-radius: 4px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
 }

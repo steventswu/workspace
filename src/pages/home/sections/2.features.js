@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { Row, Col as Column, Carousel } from 'antd';
 import * as homeAssets from 'src/assets/home';
 

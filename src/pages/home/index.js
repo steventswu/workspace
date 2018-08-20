@@ -21,7 +21,6 @@ export default () => (
         </Container>
         <Container className={styles.product}>
           <Section.Product onAction={handleAction} t={t} />
-          <Section.Team t={t} />
         </Container>
         <Container className={styles.news}>
           <Section.News t={t} />

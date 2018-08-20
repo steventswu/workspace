@@ -43,7 +43,8 @@ export const withdraw = {
   '3x': require('./withdraw_anytime@3x.png'),
 };
 
-export const sectionCard = require('./section-3-card.png');
+export const blockcastIndexFund = require('./section-3-blockcast-index-fund-card.svg');
+export const micaIndexFund = require('./section-3-mica-index-fund-card.svg');
 
 export const colon = {
   x1: require('./icon_colon.png'),
