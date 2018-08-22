@@ -10,10 +10,11 @@ import styles from './1.main.less';
 
 const initStart = new Date('2017/01/01 0:00').valueOf();
 const initEnd = new Date('2018/06/30 23:59:59').valueOf();
+const initTime = new Date('2017/02/08 23:59:59').valueOf();
 const calculateTimestamp = percentage => initStart + (initEnd - initStart) * (percentage / 100);
 
 class InvestmentSimulator extends React.PureComponent {
-  state = { amount: 1, start: initStart, end: initStart, earn: {} };
+  state = { amount: 1, start: initStart, end: initTime, earn: {} };
 
   query = throttle(() => {
     console.log(this.state);
@@ -25,12 +26,9 @@ class InvestmentSimulator extends React.PureComponent {
   changeTenor = ([start, end]) =>
     this.setState({ start: calculateTimestamp(start), end: calculateTimestamp(end) }, this.query);
 
-  // end
-  //   :
-  //   1492634879800
-  // start
-  //   :
-  //   1483200000000
+  componentDidMount() {
+    this.setState(this.query);
+  }
 
   render() {
     const { content } = this.props;
@@ -43,7 +41,7 @@ class InvestmentSimulator extends React.PureComponent {
           {t => <p>{t('cap_value', { value: numeral(this.state.amount).format('0,0') })}</p>}
         </I18n>
         <h2>{content.tenor_title}</h2>
-        <Slider tipFormatter={null} range onChange={this.changeTenor} />
+        <Slider tipFormatter={null} range defaultValue={[0, 7]} onChange={this.changeTenor} />
         <I18n ns={['common']}>
           {t => (
             <p style={{ letterSpacing: 2 }}>
