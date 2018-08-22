@@ -25,6 +25,8 @@ export default {
     'process.env.CAPP_13BTC': process.env.CAPP_13BTC,
     'process.env.CAPP_13BTC_FUNDING': process.env.CAPP_13BTC_FUNDING,
     'process.env.CAPP_13BTC_OPERATION': process.env.CAPP_13BTC_OPERATION,
+    'process.env.MICA': process.env.MICA,
+    'process.env.BLOCKCAST': process.env.BLOCKCAST,
     'process.env.ETHERSCAN_HOST': process.env.ETHERSCAN_HOST,
     'process.env.NETWORK_ID': process.env.NETWORK_ID,
     'process.env.GA': process.env.GA,

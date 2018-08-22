@@ -3,6 +3,8 @@ import i18n from 'src/i18n';
 export const CAPP_13BTC = 'capp13btc';
 export const CAPP_13BTC_FUNDING = 'capp13btc-funding';
 export const CAPP_13BTC_OPERATION = 'capp13btc-operation';
+export const MICA = 'CAP-MICA Index Fund - Hybrid Passive 1';
+export const BLOCKCAST = 'CAP-Blockcast Index Fund - Passive 1';
 
 export const CONTRACT = {
   [CAPP_13BTC]: {
@@ -19,6 +21,16 @@ export const CONTRACT = {
     address: process.env.CAPP_13BTC_OPERATION,
     label: i18n.t(`contract:${CAPP_13BTC_OPERATION}.title`),
     key: CAPP_13BTC_OPERATION,
+  },
+  [MICA]: {
+    address: process.env.MICA,
+    label: i18n.t(`contract:${MICA}.title`),
+    key: MICA,
+  },
+  [BLOCKCAST]: {
+    address: process.env.BLOCKCAST,
+    label: i18n.t(`contract:${BLOCKCAST}.title`),
+    key: BLOCKCAST,
   },
 };
 
