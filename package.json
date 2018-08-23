@@ -1,6 +1,6 @@
 {
   "name": "cap-performance",
-  "version": "2.1.21",
+  "version": "2.1.22",
   "description": "Portfolio Performance of TIXGURU CAP fund market",
   "private": true,
   "scripts": {
