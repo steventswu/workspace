@@ -1,0 +1,113 @@
+@import '~antd/lib/style/themes/default.less';
+.welcomeBackground {
+  background-image: url('src/assets/welcome/w-bg-photo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 120vh;
+
+  @media (max-width: @screen-md) {
+    height: 100vh;
+  }
+}
+
+.blur_block {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  background-color: rgba(244, 244, 244, 0.3);
+  padding-top: 40px;
+  padding-left: 50px;
+
+  @media (max-width: @screen-md) {
+    padding-top: 39px;
+    padding-left: 23px;
+  }
+}
+
+.logo {
+  padding-left: 48px;
+
+  @media (max-width: @screen-md) {
+    padding-left: 0px;
+  }
+}
+
+.titleContainer {
+  margin-top: 121px;
+  border-left: 10px solid #000;
+
+  @media (max-width: @screen-md) {
+    margin-top: 41px;
+  }
+}
+
+.welcome {
+  padding-left: 36px;
+  font-family: 'Montserrat';
+  font-size: 4rem;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+
+  @media (max-width: @screen-md) {
+    padding-left: 8px;
+    font-family: 'Montserrat';
+    font-size: 1.5rem;
+  }
+}
+
+.subtitleWrapper {
+  padding-left: 36px;
+  width: 540px;
+  height: 58px;
+  font-family: 'Montserrat';
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+
+  @media (max-width: @screen-md) {
+    width: 320px;
+    height: 36px;
+    padding-left: 8px;
+    font-family: 'Montserrat';
+    font-size: 0.875rem;
+  }
+}
+
+.dateContainer {
+  padding-left: 48px;
+  margin-top: 45px;
+  display: flex;
+  font-family: 'Montserrat';
+  color: #000;
+
+  .year {
+    align-self: flex-start;
+    font-size: 2.375rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+  .month {
+    align-self: flex-end;
+    font-size: 7rem;
+    font-weight: normal;
+    font-style: italic;
+    margin-right: 16px;
+  }
+  .day {
+    align-self: flex-end;
+    font-size: 7rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  @media (max-width: @screen-md) {
+    padding-left: 0px;
+  }
+}

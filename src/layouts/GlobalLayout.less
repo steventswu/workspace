@@ -5,10 +5,18 @@
   flex: auto;
 }
 
+.header {
+  :global {
+    .ant-layout-header {
+      display: none;
+    }
+  }
+}
+
 .container {
   margin-top: @padding-md;
   margin-bottom: @padding-md;
-  padding-left: @padding-md; 
+  padding-left: @padding-md;
   padding-right: @padding-md;
   flex: 1;
 }

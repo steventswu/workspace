@@ -12,6 +12,7 @@ import logo from 'src/assets/logo-cap-mica.svg';
 import styles from './GlobalLayout.less';
 import {
   HOME,
+  WELCOME,
   LOGIN,
   REGISTER,
   CHANGE_PASSWORD,
@@ -62,8 +63,11 @@ export default class GlobalLayout extends React.PureComponent {
   render() {
     const { isLoading, currentUser, location: { pathname } } = this.props;
 
+    const noHeader = [WELCOME].includes(pathname);
+
     const noContainer = [
       HOME,
+      WELCOME,
       LOGIN,
       REGISTER,
       FORGOT_PASSWORD,
@@ -76,15 +80,19 @@ export default class GlobalLayout extends React.PureComponent {
     return (
       <DocumentTitle title="CAP, Cryptocurrency Assets Portfolio - The first Crypto index fund | Tixguru">
         <Layout>
-          <Layout.Header style={{ paddingLeft: 0, paddingRight: 0 }}>
-            <GlobalHeader
-              logo={logo}
-              currentUser={currentUser}
-              onClickLogout={this.handleLogout}
-              onClickLogin={this.handleLogin}
-              isLoading={isLoading}
-            />
-          </Layout.Header>
+          {noHeader ? (
+            <Layout.Header style={{ display: 'none' }} />
+          ) : (
+            <Layout.Header style={{ paddingLeft: 0, paddingRight: 0 }}>
+              <GlobalHeader
+                logo={logo}
+                currentUser={currentUser}
+                onClickLogout={this.handleLogout}
+                onClickLogin={this.handleLogin}
+                isLoading={isLoading}
+              />
+            </Layout.Header>
+          )}
           <Layout.Content className={styles.content}>
             {noContainer ? (
               this.props.children

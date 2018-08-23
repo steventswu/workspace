@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="192" height="60" viewBox="0 0 192 60">
+    <defs>
+        <path id="b" d="M0 0h192v60H0z"/>
+        <filter id="a" width="121.4%" height="168.3%" x="-10.7%" y="-25.8%" filterUnits="objectBoundingBox">
+            <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="shadowSpreadOuter1"/>
+            <feOffset dy="5" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g fill-rule="nonzero">
+            <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+            <use fill="#11142D" xlink:href="#b"/>
+        </g>
+        <g fill="#FFF" fill-rule="nonzero">
+            <path d="M153 16h2.6v2.6H153zM158.2 19.9h2.6v2.6h-2.6zM163.4 23.8h2.6v2.6h-2.6zM168.6 27.7h2.6v2.6h-2.6zM163.4 31.6h2.6v2.6h-2.6zM158.2 35.5h2.6v2.6h-2.6zM153 39.4h2.6V42H153z"/>
+        </g>
+        <text fill="#FFF" font-family="Montserrat-Regular, Montserrat" font-size="20">
+            <tspan x="20" y="36">Get Started</tspan>
+        </text>
+    </g>
+</svg>

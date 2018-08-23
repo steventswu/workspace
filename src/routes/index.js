@@ -1,5 +1,6 @@
 export const HOME = '/';
 export const HOME_ALIAS = '/home';
+export const WELCOME = '/welcome';
 export const PERFORMANCE = '/performance';
 export const LOGIN = '/user/login';
 export const REGISTER = '/user/register';
