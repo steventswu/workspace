@@ -5,6 +5,7 @@ import { translate } from 'react-i18next';
 import etherscanLogo from 'src/assets/etherscan-logo.svg';
 import { CONTRACTS } from 'src/utils/contract';
 import { statusMapper } from 'src/utils/helper';
+import styles from './transactions.less';
 
 const truncate = s => [s.substring(0, 5), '......', s.substring(35)].join('');
 
@@ -103,6 +104,7 @@ export default class ProfileHome extends React.Component {
       <React.Fragment>
         <h1>{t('transaction_history.title')}</h1>
         <Table
+          className={styles.transacation}
           columns={column.map(this.transactionColumnMapper)}
           dataSource={transactions}
           loading={loading}
