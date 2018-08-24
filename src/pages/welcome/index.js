@@ -31,6 +31,7 @@ export default class Welcome extends Component {
               </div>
             </div>
           </Column>
+          {/* <Column xs={{ span: 9, push: 7, pull: 7 }} lg={{ push: 10, span: 24 }}> */}
           <Column xs={{ span: 12, push: 6, pull: 6 }} lg={{ span: 5, push: 19, pull: 0 }}>
             <Link to={HOME}>
               <img style={{ marginTop: 24 }} src={welcomeAssets.getstarted} alt="Get Started" />
