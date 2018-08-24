@@ -27,7 +27,8 @@ export default class Welcome extends Component {
               <div className={styles.dateContainer}>
                 <div className={styles.year}>2018</div>
                 <div className={styles.month}>08</div>
-                <div className={styles.day}>20</div>
+                <div className={styles.day}>29</div>
+		<div className={styles.release}>Release</div>
               </div>
             </div>
           </Column>
