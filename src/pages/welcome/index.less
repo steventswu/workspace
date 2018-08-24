@@ -91,6 +91,13 @@
     font-size: 2.375rem;
     font-weight: normal;
     font-style: italic;
+
+    @media (max-width: 375px) {
+      font-size: 2rem;
+    }
+    @media (max-width: 320px) {
+      font-size: 1.735rem;
+    }
   }
   .month {
     align-self: flex-end;
@@ -98,12 +105,26 @@
     font-weight: normal;
     font-style: italic;
     margin-right: 16px;
+
+    @media (max-width: 375px) {
+      font-size: 6.375rem;
+    }
+    @media (max-width: 320px) {
+      font-size: 5.375rem;
+    }
   }
   .day {
     align-self: flex-end;
     font-size: 7rem;
     font-weight: normal;
     font-style: italic;
+
+    @media (max-width: 375px) {
+      font-size: 6.375rem;
+    }
+    @media (max-width: 320px) {
+      font-size: 5.375rem;
+    }
   }
 
   @media (max-width: @screen-md) {
