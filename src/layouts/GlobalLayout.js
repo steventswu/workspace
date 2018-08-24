@@ -13,6 +13,7 @@ import styles from './GlobalLayout.less';
 import {
   HOME,
   WELCOME,
+  WHYUS,
   LOGIN,
   REGISTER,
   CHANGE_PASSWORD,
@@ -68,6 +69,7 @@ export default class GlobalLayout extends React.PureComponent {
     const noContainer = [
       HOME,
       WELCOME,
+      WHYUS,
       LOGIN,
       REGISTER,
       FORGOT_PASSWORD,
