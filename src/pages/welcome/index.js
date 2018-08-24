@@ -19,7 +19,7 @@ export default class Welcome extends Component {
         <Row>
           <Column xs={24} lg={24}>
             <div className={styles.blur_block}>
-              <img className={styles.logo} src={welcomeAssets.logo['1x']} alt="CAPxMICA" />
+              <img className={styles.logo} src={welcomeAssets.logo} alt="CAPxMICA" />
               <div className={styles.titleContainer}>
                 <div className={styles.welcome}>{t('common:future_of')}</div>
                 <div className={styles.subtitleWrapper}>{t('common:tixguru_unveiled')}</div>
@@ -28,7 +28,7 @@ export default class Welcome extends Component {
                 <div className={styles.year}>2018</div>
                 <div className={styles.month}>08</div>
                 <div className={styles.day}>29</div>
-		<div className={styles.release}>Release</div>
+                <div className={styles.release}>Release</div>
               </div>
             </div>
           </Column>
