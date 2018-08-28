@@ -10,7 +10,7 @@ class TitlePage extends React.PureComponent {
     return (
       <main className={styles.main}>
         <Row className={styles.intro}>
-          <Column xs={24} lg={{ span: 9 }}>
+          <Column xs={24} lg={{ span: 9 }} style={{ marginTop: 36 }}>
             <div className={styles.title_container}>
               <h1>{t('whyus:title')}</h1>
             </div>
