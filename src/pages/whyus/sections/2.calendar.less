@@ -16,10 +16,28 @@
 
 .calendar_container {
   padding-top: 40px;
+
+  :global {
+    .ant-calendar {
+      width: 420px;
+    }
+    .ant-calendar-picker-container {
+      top: 0 !important;
+    }
+  }
+
+  .calendar_start {
+    width: 420px;
+  }
+
+  .calendar_end {
+    width: 420px;
+    margin-left: 110px;
+  }
 }
 
 .start {
-  margin-top: 80px;
+  margin-top: 400px;
   border-radius: 20px;
   font-size: 1rem;
 }

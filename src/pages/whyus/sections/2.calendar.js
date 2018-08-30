@@ -76,7 +76,7 @@ export default class InvestingTenor extends Component {
           </Column>
         </Row>
         <Row type="flex" justify="center" className={styles.calendar_container}>
-          <Column>
+          <Column lg={24} style={{ width: '100%' }}>
             <div id={'rangePicker'}>
               {/* <RangePicker
                 open={true}
@@ -90,9 +90,9 @@ export default class InvestingTenor extends Component {
                 showToday
                 value={startValue}
                 placeholder="Start"
+                open={true}
                 onChange={this.onStartChange}
-                onOpenChange={this.handleStartOpenChange}
-                // style={{ marginRight: 230 }}
+                className={styles.calendar_start}
               />
               <DatePicker
                 getCalendarContainer={this.getCalendarContainer}
@@ -101,8 +101,8 @@ export default class InvestingTenor extends Component {
                 value={endValue}
                 placeholder="End"
                 onChange={this.onEndChange}
-                open={endOpen}
-                onOpenChange={this.handleEndOpenChange}
+                open={true}
+                className={styles.calendar_end}
               />
             </div>
           </Column>
