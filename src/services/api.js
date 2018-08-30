@@ -28,3 +28,29 @@ export async function queryCoinData({ startDate, symbol }) {
     method: 'GET',
   });
 }
+
+// export async function whyusCrixData({ startDate, endDate }) {
+//   return request(
+//     `${endpoint.data}/whyus/santai_roiBlackest.php?date1=${startDate}&date2=${endDate}&symbol=CRIX`,
+//     {
+//       method: 'GET',
+//     }
+//   );
+// }
+
+// export async function whyusBtcData({ startDate, endDate }) {
+//   return request(
+//     `${endpoint.data}/whyus/santai_roiBlackest.php?date1=${startDate}&date2=${endDate}&symbol=BTC`,
+//     {
+//       method: 'GET',
+//     }
+//   );
+// }
+// export async function whyusEthData({ startDate, endDate }) {
+//   return request(
+//     `${endpoint.data}/whyus/santai_roiBlackest.php?date1=${startDate}&date2=${endDate}&symbol=ETH`,
+//     {
+//       method: 'GET',
+//     }
+//   );
+// }

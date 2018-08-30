@@ -17,6 +17,7 @@ export default class InvestingTenor extends Component {
     startValue: null,
     endValue: null,
     endOpen: false,
+    showContent: false,
   };
 
   disabledStartDate = startValue => {
@@ -43,20 +44,12 @@ export default class InvestingTenor extends Component {
 
   onStartChange = value => {
     this.onChange('startValue', value);
+    console.log(`Start Date: ${value}`);
   };
 
   onEndChange = value => {
     this.onChange('endValue', value);
-  };
-
-  handleStartOpenChange = open => {
-    if (!open) {
-      this.setState({ endOpen: true });
-    }
-  };
-
-  handleEndOpenChange = open => {
-    this.setState({ endOpen: open });
+    console.log(`End Date: ${value}`);
   };
 
   getCalendarContainer = () => {
@@ -76,7 +69,7 @@ export default class InvestingTenor extends Component {
           </Column>
         </Row>
         <Row type="flex" justify="center" className={styles.calendar_container}>
-          <Column lg={24} style={{ width: '100%' }}>
+          <Column xs={24} style={{ width: '100%' }}>
             <div id={'rangePicker'}>
               {/* <RangePicker
                 open={true}
